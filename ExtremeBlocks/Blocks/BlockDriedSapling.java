@@ -1,49 +1,59 @@
 package ExtremeBlocks.Blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import ExtremeBlocks.ExtremeBlocksMain;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDriedSapling extends Block {
-	public BlockDriedSapling(int par1, Material par2) {
+public class BlockDriedSapling extends Block 
+{
+	public BlockDriedSapling(int par1, Material par2) 
+	{
 		super(par1, par2);
 		this.setUnlocalizedName("DriedSapling");
 		this.setCreativeTab(ExtremeBlocksMain.EBMiscTab);
 		this.setStepSound(soundGrassFootstep);
 	}
 
-	public int idDropped(int par1, Random par2Random, int par3) {
+	public int idDropped(int par1, Random par2Random, int par3) 
+	{
 		return this.blockID;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid
-				+ ":" + (this.getUnlocalizedName().substring(5)));
+	public void registerIcons(IconRegister par1IconRegister) 
+	{
+		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
 
-	public int getRenderType() {
+	public int getRenderType() 
+	{
 		return 2;
 	}
 
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube() 
+	{
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() {
+	public boolean renderAsNormalBlock() 
+	{
 		return false;
 	}
 
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) 
+	{
 		if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().itemID == new ItemStack(Item.dyePowder, 1, 16).itemID) 
 		{
 			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.EmptiedLog.blockID);
@@ -64,5 +74,18 @@ public class BlockDriedSapling extends Block {
 			return true;
 		}
 		return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
+	}
+	
+	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+	{
+		
+	}
+	
+	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
+	{
+		if(par1World.getBlockId(par2, par3 - 1, par4) != Block.grass.blockID || par1World.getBlockId(par2, par3 - 1, par4) != Block.dirt.blockID)
+		{
+			par1World.destroyBlock(par2, par3, par4, true);
+		}
 	}
 }

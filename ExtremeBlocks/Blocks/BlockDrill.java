@@ -52,6 +52,10 @@ public class BlockDrill extends Block
 		{
 			par1World.setBlock(par2, par3 - 1, par4, ExtremeBlocksMain.DrillPole.blockID);
 		}
+		if(par1World.getBlockId(par2, par3 - 1, par4) == ExtremeBlocksMain.DrillPole.blockID)
+		{
+			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.DrillPole.blockID);
+		}
 	}
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
 	{

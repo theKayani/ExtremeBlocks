@@ -20,6 +20,7 @@ import ExtremeBlocks.Blocks.BlockEmptiedLog;
 import ExtremeBlocks.Blocks.BlockExtaOrdinaryStone;
 import ExtremeBlocks.Blocks.BlockFakeGravel;
 import ExtremeBlocks.Blocks.BlockFakeSand;
+import ExtremeBlocks.Blocks.BlockFakedPlanks;
 import ExtremeBlocks.Blocks.BlockFences;
 import ExtremeBlocks.Blocks.BlockFireHydrant;
 import ExtremeBlocks.Blocks.BlockGlesterOre;
@@ -161,7 +162,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
-@Mod(modid = ExtremeBlocksMain.modid, name = "Extreme Blocks", version = "2.9")
+@Mod(modid = ExtremeBlocksMain.modid, name = "Extreme Blocks", version = "3.1")
 
 public class ExtremeBlocksMain 
 { 
@@ -247,7 +248,7 @@ public class ExtremeBlocksMain
 	public static final Block SilverOre = new BlockSilverOre(4001, Material.rock);
 	public static final Block TrinquantiumOre = new BlockTrinquantiumOre(4002, Material.rock);
 	public static final Block DelvlishOre = new BlockDelvlishOre(4003, Material.rock);
-	public static final Block ExtaOrdinaryStone = new BlockExtaOrdinaryStone(4004, Material.rock);
+	public static final Block ExtraOrdinaryStone = new BlockExtaOrdinaryStone(4004, Material.rock);
 	public static final Block TrinquantiumBlock = new BlockTrinquantiumBlock(4005, Material.iron);
 	public static final Block CopperOre = new BlockCopperOre(4006, Material.rock);
 	public static final Block TinOre = new BlockTinOre(4007, Material.rock);
@@ -331,6 +332,7 @@ public class ExtremeBlocksMain
 	public static final Block DrillPole = new BlockDrillPole(4085, Material.iron);
 	public static final Block Aesthetic = new BlockAesthetic(4086, Material.ground);
 	public static final Block Fences = new BlockFences(4087, Material.wood);
+	public static final Block FakedPlanks = new BlockFakedPlanks(4088, Material.wood);
 
 	@EventHandler
 	public void load(FMLInitializationEvent event)
@@ -354,23 +356,27 @@ public class ExtremeBlocksMain
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 13), "Netherrack Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 14), "Obsidian Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 15), "Stone Fence");
-		
+				
 		Block.commandBlock.setCreativeTab(EBMiscTab);
-		
+			
 		gameRegistry();
-
-		fenceRecipeRegistry();
 		
 		recipeRegistry();
 	}
 	private static void gameRegistry() 
 	{
+
+
+		fenceRecipeRegistry();
+		
+		oreRecipeRegistry();
+		
 		//Block Registry
 		Registry.RegisterBlock(GlesterOre, "GlesterOre", "Glester Ore");
 		Registry.RegisterBlock(SilverOre, "SilverOre", "Silver Ore");
 		Registry.RegisterBlock(TrinquantiumOre, "TrinquantiumOre", "Trinquantium Ore");
 		Registry.RegisterBlock(DelvlishOre, "DelvlishOre", "Delvlish Ore");
-		Registry.RegisterBlock(ExtaOrdinaryStone, "ExtaOrdinaryStone", "Extraordinary Stone");
+		Registry.RegisterBlock(ExtraOrdinaryStone, "ExtraOrdinaryStone", "Extraordinary Stone");
 		Registry.RegisterBlock(TrinquantiumBlock, "TrinquantiumBlock", "Trinquantium Block");
 		Registry.RegisterBlock(SilverBlock, "SilverBlock", "Silver Block");
 		Registry.RegisterBlock(BronzeBlock, "BronzeBlock", "Bronze Block");
@@ -452,6 +458,7 @@ public class ExtremeBlocksMain
 		Registry.RegisterBlock(Aesthetic,"Aesthetic", "Aesthetic");
 		Registry.RegisterBlock(FakeGravel,"FakeGravel", "Fake Gravel");
 		Registry.RegisterBlock(FakeSand,"FakeSand", "Fake Sand");
+		Registry.RegisterBlock(FakedPlanks,"FakedPlanks", "Fake Floor - Planks");
 
 		//Item Registry
 		Registry.RegisterItem(GoldCoin, "GoldCoin", "Gold Coin");
@@ -686,7 +693,7 @@ public class ExtremeBlocksMain
 					"#  #", "###"," # ", '#', Item.ingotIron
 						});
 		GameRegistry.addRecipe(
-				new ItemStack(ExtremeBlocksMain.ExtaOrdinaryStone), new Object[] 
+				new ItemStack(ExtremeBlocksMain.ExtraOrdinaryStone), new Object[] 
 						{
 					"###", "###","###", '#', Block.stone
 						});
@@ -980,7 +987,7 @@ public class ExtremeBlocksMain
 		GameRegistry.addSmelting(ExtremeBlocksMain.WeakCementWall.blockID, new ItemStack(CementWall), 3.0F);
 		GameRegistry.addSmelting(ExtremeBlocksMain.LimestoneRock.blockID, new ItemStack(Marble), 3.0F);
 	}
-	private void fenceRecipeRegistry()
+	private static void fenceRecipeRegistry()
 	{	
 		GameRegistry.addRecipe(
 				new ItemStack(ExtremeBlocksMain.Fences, 4, 0), new Object[] 
@@ -1063,5 +1070,57 @@ public class ExtremeBlocksMain
 					"XBX", "XBX", 'X', Item.stick, 'B', Block.stone
 						});
 	}
+	
+	public static void oreRecipeRegistry()
+	{
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreDiamond), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.diamond
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreCoal), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.coal
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreEmerald), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.emerald
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreGold), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.ingotGold
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreIron), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.ingotIron
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreRedstone), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', Item.redstone
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreLapis), new Object[] 
+						{
+					"#", "X",'X', Block.stone, '#', new ItemStack(Item.dyePowder, 1)
+						});
+		
+		GameRegistry.addRecipe(
+				new ItemStack(Block.oreNetherQuartz), new Object[] 
+						{
+					"#", "X",'X', Block.netherrack, '#', Item.netherQuartz
+						});
+	}
+			
 }
 
