@@ -2,6 +2,7 @@ package ExtremeBlocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -18,7 +19,7 @@ public class EBLightedBlocks extends CreativeTabs
 	 */
 	public int getTabIconItemIndex() 
 	{
-		return ExtremeBlocksMain.LightedGlass.blockID;
+		return Block.blockGold.blockID;
 	}
 
 	public String getTranslatedTabLabel() 

@@ -3,14 +3,14 @@ package ExtremeBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.EnumHelper;
 import ExtremeBlocks.Blocks.BlockAesthetic;
+import ExtremeBlocks.Blocks.BlockBlueGameFloor;
 import ExtremeBlocks.Blocks.BlockBoneDirt;
 import ExtremeBlocks.Blocks.BlockBronzeBlock;
 import ExtremeBlocks.Blocks.BlockCementWall;
+import ExtremeBlocks.Blocks.BlockClone;
 import ExtremeBlocks.Blocks.BlockCopperOre;
 import ExtremeBlocks.Blocks.BlockDelvlishOre;
 import ExtremeBlocks.Blocks.BlockDriedSapling;
@@ -20,10 +20,12 @@ import ExtremeBlocks.Blocks.BlockEmptiedLog;
 import ExtremeBlocks.Blocks.BlockExtaOrdinaryStone;
 import ExtremeBlocks.Blocks.BlockFakeGravel;
 import ExtremeBlocks.Blocks.BlockFakeSand;
+import ExtremeBlocks.Blocks.BlockFakeSands;
 import ExtremeBlocks.Blocks.BlockFakedPlanks;
 import ExtremeBlocks.Blocks.BlockFences;
 import ExtremeBlocks.Blocks.BlockFireHydrant;
 import ExtremeBlocks.Blocks.BlockGlesterOre;
+import ExtremeBlocks.Blocks.BlockGreenGameFloor;
 import ExtremeBlocks.Blocks.BlockLantern;
 import ExtremeBlocks.Blocks.BlockLightedBedrock;
 import ExtremeBlocks.Blocks.BlockLightedBlackWool;
@@ -84,8 +86,11 @@ import ExtremeBlocks.Blocks.BlockOffStone;
 import ExtremeBlocks.Blocks.BlockOffWhiteWool;
 import ExtremeBlocks.Blocks.BlockPS3;
 import ExtremeBlocks.Blocks.BlockPlasterWall;
+import ExtremeBlocks.Blocks.BlockRedGameFloor;
+import ExtremeBlocks.Blocks.BlockSandLauncher;
 import ExtremeBlocks.Blocks.BlockSilverBlock;
 import ExtremeBlocks.Blocks.BlockSilverOre;
+import ExtremeBlocks.Blocks.BlockSpreadGameBlock;
 import ExtremeBlocks.Blocks.BlockStonePillar;
 import ExtremeBlocks.Blocks.BlockTinOre;
 import ExtremeBlocks.Blocks.BlockTrinquantiumBlock;
@@ -96,250 +101,226 @@ import ExtremeBlocks.Blocks.BlockWeakCementWall;
 import ExtremeBlocks.Blocks.BlockXBox360;
 import ExtremeBlocks.Blocks.BlockXRayBlock;
 import ExtremeBlocks.Blocks.BlockXRayBlockUn;
+import ExtremeBlocks.Blocks.BlockYellowGameFloor;
 import ExtremeBlocks.Blocks.ItemFencesBlock;
-import ExtremeBlocks.Items.ItemBackPack;
-import ExtremeBlocks.Items.ItemBoneShard;
-import ExtremeBlocks.Items.ItemBoneSword;
-import ExtremeBlocks.Items.ItemBronzeAxe;
-import ExtremeBlocks.Items.ItemBronzeBar;
-import ExtremeBlocks.Items.ItemBronzeHoe;
-import ExtremeBlocks.Items.ItemBronzeMedal;
-import ExtremeBlocks.Items.ItemBronzePickaxe;
-import ExtremeBlocks.Items.ItemBronzeSpade;
-import ExtremeBlocks.Items.ItemBronzeSword;
-import ExtremeBlocks.Items.ItemCellphone;
-import ExtremeBlocks.Items.ItemChip;
-import ExtremeBlocks.Items.ItemCopper;
-import ExtremeBlocks.Items.ItemCopperAndTinLump;
-import ExtremeBlocks.Items.ItemCoreChip;
-import ExtremeBlocks.Items.ItemCrushedStone;
-import ExtremeBlocks.Items.ItemDelvlishAxe;
-import ExtremeBlocks.Items.ItemDelvlishCrystal;
-import ExtremeBlocks.Items.ItemDelvlishHoe;
-import ExtremeBlocks.Items.ItemDelvlishPickaxe;
-import ExtremeBlocks.Items.ItemDelvlishSpade;
-import ExtremeBlocks.Items.ItemDelvlishSword;
-import ExtremeBlocks.Items.ItemExtractor;
-import ExtremeBlocks.Items.ItemExtremeBlocks;
-import ExtremeBlocks.Items.ItemGameRemote;
-import ExtremeBlocks.Items.ItemGlesterAxe;
-import ExtremeBlocks.Items.ItemGlesterHoe;
-import ExtremeBlocks.Items.ItemGlesterPickaxe;
-import ExtremeBlocks.Items.ItemGlesterRock;
-import ExtremeBlocks.Items.ItemGlesterSpade;
-import ExtremeBlocks.Items.ItemGlesterSword;
-import ExtremeBlocks.Items.ItemGoldCoin;
-import ExtremeBlocks.Items.ItemGoldMedal;
-import ExtremeBlocks.Items.ItemLight;
-import ExtremeBlocks.Items.ItemLimeStone;
-import ExtremeBlocks.Items.ItemPipe;
-import ExtremeBlocks.Items.ItemPipes;
-import ExtremeBlocks.Items.ItemPlastic;
-import ExtremeBlocks.Items.ItemSap;
-import ExtremeBlocks.Items.ItemSilverAxe;
-import ExtremeBlocks.Items.ItemSilverBar;
-import ExtremeBlocks.Items.ItemSilverHoe;
-import ExtremeBlocks.Items.ItemSilverMedal;
-import ExtremeBlocks.Items.ItemSilverPickaxe;
-import ExtremeBlocks.Items.ItemSilverSpade;
-import ExtremeBlocks.Items.ItemSilverSword;
-import ExtremeBlocks.Items.ItemTin;
-import ExtremeBlocks.Items.ItemTrinquantiumAxe;
-import ExtremeBlocks.Items.ItemTrinquantiumBar;
-import ExtremeBlocks.Items.ItemTrinquantiumHoe;
-import ExtremeBlocks.Items.ItemTrinquantiumMedal;
-import ExtremeBlocks.Items.ItemTrinquantiumPickaxe;
-import ExtremeBlocks.Items.ItemTrinquantiumSpade;
-import ExtremeBlocks.Items.ItemTrinquantiumSword;
-import ExtremeBlocks.Items.ItemWeakenedDelvlishCrystal;
-import ExtremeBlocks.Items.ItemWeakenedGlesterRock;
-import ExtremeBlocks.Items.ItemWrench;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
-@Mod(modid = ExtremeBlocksMain.modid, name = "Extreme Blocks", version = "3.1")
+@Mod(modid = ExtremeBlocksMain.modid, name = "Extreme Blocks", version = "3.5")
 
 public class ExtremeBlocksMain 
 { 
 	public static final String modid = "EB_ExtremeBlocks";
-	public static EnumToolMaterial TRINQUANTIUM = EnumHelper.addToolMaterial("Trinquantium", 4, 2368, 10.0F, 4.0F, 15);
-	public static EnumToolMaterial BRONZE = EnumHelper.addToolMaterial("Bronze", 2, 328, 5.0F, 3.0F, 12);
-	public static EnumToolMaterial SILVER = EnumHelper.addToolMaterial("Silver", 0, 13, 6.0F, 12.0F, 7);
-	public static EnumToolMaterial GLESTER = EnumHelper.addToolMaterial("Glester", 0, 71, 9.0F, 0.0F, 7);
-	public static EnumToolMaterial DELVLISH = EnumHelper.addToolMaterial("Delvlish", 0, 71, 0.0F, 9.0F, 7);
-	
-    public static CreativeTabs EBBasicBlocksTab = new EBBlocks(CreativeTabs.getNextID(), "EBBlocks");
+
+	public static CreativeTabs EBBasicBlocksTab = new EBBlocks(CreativeTabs.getNextID(), "EBBlocks");
 	public static CreativeTabs EBBasicItemsTab = new EBItems(CreativeTabs.getNextID(), "EBItems");
-	public static CreativeTabs EBMiscTab = new EBMisc(CreativeTabs.getNextID(),"EBMisc");
-	public static CreativeTabs EBOresTab = new EBOres(CreativeTabs.getNextID(),"EBOres");
-	public static CreativeTabs EBToolsTab = new EBTools(CreativeTabs.getNextID(),"EBTools");
-	public static CreativeTabs EBLightedBlocksTab = new EBLightedBlocks(CreativeTabs.getNextID(),"EBLightedBlocks");
-	public static CreativeTabs EBFencesTab = new EBFences(CreativeTabs.getNextID(),"EBFences");
+	public static CreativeTabs EBToolsTab = new EBTools(CreativeTabs.getNextID(), "EBBlocks");
+	public static CreativeTabs EBMiscTab = new EBMisc(CreativeTabs.getNextID(), "EBItems");
+	public static CreativeTabs EBLightedBlocksTab = new EBLightedBlocks(CreativeTabs.getNextID(), "EBBlocks");
+	public static CreativeTabs EBFencesTab = new EBFences(CreativeTabs.getNextID(), "EBItems");
+	public static CreativeTabs EBOresTab = new EBOres(CreativeTabs.getNextID(), "EBItems");
 
 	EventManager eventmanager = new EventManager();
-	public static ExtremeBlocksRegistry Registry;
 
 	//Items
-	public static final Item ExtremeBlocks = new ItemExtremeBlocks(3000);
-	public static final Item GoldCoin = new ItemGoldCoin(3001); 
-	public static final Item GlesterRock = new ItemGlesterRock(3002);
-	public static final Item DelvlishCrystal = new ItemDelvlishCrystal(3003);
-	public static final Item SilverBar = new ItemSilverBar(3004);
-	public static final Item TrinquantiumBar = new ItemTrinquantiumBar(3005);
-	public static final Item CrushedStone = new ItemCrushedStone(3006);
-	public static final Item BronzeMedal = new ItemBronzeMedal(3007);
-	public static final Item SilverMedal = new ItemSilverMedal(3008);
-	public static final Item GoldMedal = new ItemGoldMedal(3009);
-	public static final Item TrinquantiumMedal = new ItemTrinquantiumMedal(3010);
-	public static final Item Copper = new ItemCopper(3011);
-	public static final Item Tin = new ItemTin(3012);
-	public static final Item CopperAndTinLump = new ItemCopperAndTinLump(3013);
-	public static final Item BronzeBar = new ItemBronzeBar(3014);
-	public static final Item TrinquantiumPickaxe = new ItemTrinquantiumPickaxe(3015, TRINQUANTIUM);
-	public static final Item TrinquantiumAxe = new ItemTrinquantiumAxe(3016, TRINQUANTIUM);
-	public static final Item TrinquantiumSpade = new ItemTrinquantiumSpade(3017, TRINQUANTIUM);
-	public static final Item TrinquantiumHoe = new ItemTrinquantiumHoe(3018, TRINQUANTIUM);
-	public static final Item TrinquantiumSword = new ItemTrinquantiumSword(3019, TRINQUANTIUM);
-	public static final Item SilverPickaxe = new ItemSilverPickaxe(3020, SILVER);
-	public static final Item SilverAxe = new ItemSilverAxe(3021, SILVER);
-	public static final Item SilverSpade = new ItemSilverSpade(3022, SILVER);
-	public static final Item SilverHoe = new ItemSilverHoe(3023, SILVER);
-	public static final Item SilverSword = new ItemSilverSword(3024, SILVER);
-	public static final Item BronzePickaxe = new ItemBronzePickaxe(3025, BRONZE);
-	public static final Item BronzeAxe = new ItemBronzeAxe(3026, BRONZE);
-	public static final Item BronzeSpade = new ItemBronzeSpade(3027, BRONZE);
-	public static final Item BronzeHoe = new ItemBronzeHoe(3028, BRONZE);
-	public static final Item BronzeSword = new ItemBronzeSword(3029, BRONZE);
-	public static final Item Sap = new ItemSap(3030);
-	public static final Item Extractor = new ItemExtractor(3031);
-	public static final Item Cellphone = new ItemCellphone(3032);
-	public static final Item Plastic = new ItemPlastic(3033);
-	public static final Item Chip = new ItemChip(3034);
-	public static final Item BoneShard = new ItemBoneShard(3035);
-	public static final Item BoneSword = new ItemBoneSword(3036, TRINQUANTIUM);
-	public static final Item Wrench = new ItemWrench(3037);
-	public static final Item Pipes = new ItemPipes(3038);
-	public static final Item Pipe = new ItemPipe(3039);
-	public static final Item Backpack = new ItemBackPack(3040);
-	public static final Item Light = new ItemLight(3041);
-	public static final Item CoreChip = new ItemCoreChip(3042);
-	public static final Item GameRemote = new ItemGameRemote(3043);
-	public static final Item WeakenedGlesterRock = new ItemWeakenedGlesterRock(3044);
-	public static final Item WeakenedDelvlishCrystal = new ItemWeakenedDelvlishCrystal(3045);
-	public static final Item DelvlishPickaxe = new ItemDelvlishPickaxe(3046, DELVLISH);
-	public static final Item DelvlishAxe = new ItemDelvlishAxe(3047, DELVLISH);
-	public static final Item DelvlishSpade = new ItemDelvlishSpade(3048, DELVLISH);
-	public static final Item DelvlishHoe = new ItemDelvlishHoe(3049, DELVLISH);
-	public static final Item DelvlishSword = new ItemDelvlishSword(3050, DELVLISH);
-	public static final Item GlesterPickaxe = new ItemGlesterPickaxe(3051, GLESTER);
-	public static final Item GlesterAxe = new ItemGlesterAxe(3052, GLESTER);
-	public static final Item GlesterSpade = new ItemGlesterSpade(3053, GLESTER);
-	public static final Item GlesterHoe = new ItemGlesterHoe(3054, GLESTER);
-	public static final Item GlesterSword = new ItemGlesterSword(3055, GLESTER);
-	public static final Item Limestone = new ItemLimeStone(3056);
+	public static Item ExtremeBlocks;
+	public static Item GoldCoin; 
+	public static Item GlesterRock;
+	public static Item DelvlishCrystal;
+	public static Item SilverBar;
+	public static Item TrinquantiumBar;
+	public static Item CrushedStone;
+	public static Item BronzeMedal;
+	public static Item SilverMedal;
+	public static Item GoldMedal;
+	public static Item TrinquantiumMedal;
+	public static Item Copper;
+	public static Item Tin;
+	public static Item CopperAndTinLump;
+	public static Item BronzeBar;
+	public static Item TrinquantiumPickaxe;
+	public static Item TrinquantiumAxe;
+	public static Item TrinquantiumSpade;
+	public static Item TrinquantiumHoe;
+	public static Item TrinquantiumSword;	
+	public static Item SilverPickaxe;
+	public static Item SilverAxe;
+	public static Item SilverSpade;
+	public static Item SilverHoe;
+	public static Item SilverSword;	
+	public static Item BronzePickaxe;
+	public static Item BronzeAxe;
+	public static Item BronzeSpade;
+	public static Item BronzeHoe;
+	public static Item BronzeSword;
+	public static Item Sap;
+	public static Item Extractor;
+	public static Item Cellphone;
+	public static Item Plastic;
+	public static Item Chip;
+	public static Item BoneShard;
+	public static Item BoneSword;
+	public static Item Wrench;
+	public static Item Pipes;
+	public static Item Pipe;
+	public static Item Backpack;
+	public static Item Light;
+	public static Item CoreChip;
+	public static Item GameRemote;
+	public static Item WeakenedGlesterRock;
+	public static Item WeakenedDelvlishCrystal;
+	public static Item DelvlishPickaxe;
+	public static Item DelvlishAxe;
+	public static Item DelvlishSpade;
+	public static Item DelvlishHoe;
+	public static Item DelvlishSword;	
+	public static Item GlesterPickaxe;
+	public static Item GlesterAxe;
+	public static Item GlesterSpade;
+	public static Item GlesterHoe;
+	public static Item GlesterSword;
+	public static Item Limestone;
+
+	//New Console Stuff!!!
+	public static Item Returner;
+	public static Item ReturnerPS3;
+
+	//Programming Purposes... look at the class...
+	public static Item Tester;
 
 	//Blocks
-	public static final Block GlesterOre = new BlockGlesterOre(4000, Material.rock);
-	public static final Block SilverOre = new BlockSilverOre(4001, Material.rock);
-	public static final Block TrinquantiumOre = new BlockTrinquantiumOre(4002, Material.rock);
-	public static final Block DelvlishOre = new BlockDelvlishOre(4003, Material.rock);
-	public static final Block ExtraOrdinaryStone = new BlockExtaOrdinaryStone(4004, Material.rock);
-	public static final Block TrinquantiumBlock = new BlockTrinquantiumBlock(4005, Material.iron);
-	public static final Block CopperOre = new BlockCopperOre(4006, Material.rock);
-	public static final Block TinOre = new BlockTinOre(4007, Material.rock);
-	public static final Block SilverBlock = new BlockSilverBlock(4008, Material.iron);
-	public static final Block BronzeBlock = new BlockBronzeBlock(4009, Material.iron);
-	public static final Block LightedStone = new BlockLightedStone(4010, Material.rock);
-	public static final Block LightedPlank = new BlockLightedPlank(4011, Material.wood);
-	public static final Block LightedBrick = new BlockLightedBrick(4012, Material.rock);
-	public static final Block XRayBlock = new BlockXRayBlock(4013, Material.glass);
-	public static final Block XRayBlockUn = new BlockXRayBlockUn(4014, Material.glass);
-	public static final Block NetherSilver = new BlockNetherSilver(4015, Material.rock);
-	public static final Block NetherCopper = new BlockNetherCopper(4016, Material.rock);
-	public static final Block NetherTin = new BlockNetherTin(4017, Material.rock);
-	public static final Block NetherDelvlish = new BlockNetherDelvlish(4018, Material.rock);
-	public static final Block NetherGlester = new BlockNetherGlester(4019, Material.rock);
-	public static final Block NetherDiamond = new BlockNetherDiamond(4020, Material.rock);
-	public static final Block NetherCoal = new BlockNetherCoal(4021, Material.rock);
-	public static final Block NetherGold = new BlockNetherGold(4022, Material.rock);
-	public static final Block NetherEmerald = new BlockNetherEmerald(4023, Material.rock);
-	public static final Block NetherIron = new BlockNetherIron(4024, Material.rock);
-	public static final Block NetherTrinquantium = new BlockNetherTrinquantium(4025, Material.rock);
-	public static final Block CementWall = new BlockCementWall(4026, Material.rock);
-	public static final Block PlasterWall = new BlockPlasterWall(4027, Material.rock);
-	public static final Block WeakCementWall = new BlockWeakCementWall(4028, Material.rock);
-	public static final Block EmptiedLog = new BlockEmptiedLog(4029, Material.wood);
-	public static final Block BoneDirt = new BlockBoneDirt(4030, Material.ground);
-	public static final Block OffStone = new BlockOffStone(4031, Material.rock);
-	public static final Block OffPlank = new BlockOffPlank(4032, Material.wood);
-	public static final Block OffBrick = new BlockOffBrick(4033 , Material.rock);
-	public static final Block OffDirt = new BlockOffDirt(4034, Material.ground);
-	public static final Block LightedDirt = new BlockLightedDirt(4035, Material.ground);
-	public static final Block Waste = new BlockNuclearWaste(4036, Material.lava);
-	public static final Block OffIronBlock = new BlockOffIronBlock(4037, Material.iron);
-	public static final Block OffDiamondBlock = new BlockOffDiamondBlock(4038 , Material.iron);
-	public static final Block OffGlass = new BlockOffGlass(4039, Material.glass);
-	public static final Block LightedIronBlock = new BlockLightedIronBlock(4040, Material.iron);
-	public static final Block LightedDiamondBlock = new BlockLightedDiamondBlock(4041 , Material.iron);
-	public static final Block LightedGlass = new BlockLightedGlass(4042, Material.glass);
-	public static final Block LightedGoldBlock = new BlockLightedGoldBlock(4043, Material.iron);
-	public static final Block OffGoldBlock = new BlockOffGoldBlock(4044, Material.iron);
-	public static final Block FireHydrant = new BlockFireHydrant(4045, Material.iron);
-	public static final Block Lantern = new BlockLantern(4046, Material.glass);
-	public static final Block StonePillar = new BlockStonePillar(4047, Material.rock);
-	public static final Block XBox360 = new BlockXBox360(4048, Material.rock);
-	public static final Block PS3 = new BlockPS3(4049, Material.rock);
-	public static final Block WasteBin = new BlockWasteBin(4050, Material.cactus);
-	public static final Block VendingMachine = new BlockVendingMachine(4051, Material.iron);
-	public static final Block DriedSapling = new BlockDriedSapling(4052, Material.plants);
-	public static final Block LimestoneRock = new BlockLimestone(4053, Material.rock);
-	public static final Block Marble = new BlockMarble(4054, Material.glass);
-	public static final Block LimestoneBlock = new BlockLimestoneBlock(4055, Material.rock);	
-	public static final Block OffObsidian = new BlockOffObsidian(4056, Material.wood);
-	public static final Block LightedObsidian = new BlockLightedObsidian(4057, Material.wood);
-	public static final Block OffClay = new BlockOffClay(4058, Material.clay);
-	public static final Block LightedClay = new BlockLightedClay(4059, Material.clay);
-	public static final Block OffBlackWool = new BlockOffBlackWool(4060, Material.cloth);
-	public static final Block LightedBlackWool = new BlockLightedBlackWool(4061, Material.cloth);
-	public static final Block OffWhiteWool = new BlockOffWhiteWool(4062, Material.cloth);
-	public static final Block LightedWhiteWool = new BlockLightedWhiteWool(4063, Material.cloth);	
-	public static final Block OffBedrock = new BlockOffBedrock(4064, Material.rock);
-	public static final Block OffNetherrack = new BlockOffNetherrack(4065, Material.rock);
-	public static final Block OffEmeraldBlock = new BlockOffEmeraldBlock(4066, Material.iron);
-	public static final Block OffLapisBlock = new BlockOffLapisBlock(4067, Material.iron);
-	public static final Block OffBricks = new BlockOffBricks(4068, Material.rock);
-	public static final Block OffCobblestone = new BlockOffCobblestone(4069, Material.rock);
-	public static final Block OffMossyCobblestone = new BlockOffMossyCobblestone(4070, Material.rock);
-	public static final Block OffEndstone = new BlockOffEndstone(4071, Material.rock);
-	public static final Block OffNetherBrick = new BlockOffNetherBrick(4072, Material.rock);	
-	public static final Block LightedBedrock = new BlockLightedBedrock(4073, Material.rock);
-	public static final Block LightedNetherrack = new BlockLightedNetherrack(4074, Material.rock);
-	public static final Block LightedEmeraldBlock = new BlockLightedEmeraldBlock(4075, Material.iron);
-	public static final Block LightedLapisBlock = new BlockLightedLapisBlock(4076, Material.iron);
-	public static final Block LightedBricks = new BlockLightedBricks(4077, Material.rock);
-	public static final Block LightedCobblestone = new BlockLightedCobblestone(4078, Material.rock);
-	public static final Block LightedMossyCobblestone = new BlockLightedMossyCobblestone(4079, Material.rock);
-	public static final Block LightedEndstone = new BlockLightedEndstone(4080, Material.rock);
-	public static final Block LightedNetherBrick = new BlockLightedNetherBrick(4081, Material.rock);
-	public static final Block FakeSand = new BlockFakeSand(4082, Material.sand);
-	public static final Block FakeGravel = new BlockFakeGravel(4083, Material.ground);
-	public static final Block Drill = new BlockDrill(4084, Material.iron);
-	public static final Block DrillPole = new BlockDrillPole(4085, Material.iron);
-	public static final Block Aesthetic = new BlockAesthetic(4086, Material.ground);
-	public static final Block Fences = new BlockFences(4087, Material.wood);
-	public static final Block FakedPlanks = new BlockFakedPlanks(4088, Material.wood);
+	public static Block GlesterOre;
+	public static Block SilverOre;
+	public static Block TrinquantiumOre;
+	public static Block DelvlishOre;
+	public static Block ExtraOrdinaryStone;
+	public static Block TrinquantiumBlock;
+	public static Block CopperOre;
+	public static Block TinOre;
+	public static Block SilverBlock;
+	public static Block BronzeBlock;
+	public static Block LightedStone;
+	public static Block LightedPlank;
+	public static Block LightedBrick;
+	public static Block XRayBlock;
+	public static Block XRayBlockUn;
+	public static Block NetherSilver;
+	public static Block NetherCopper;
+	public static Block NetherTin;
+	public static Block NetherDelvlish;
+	public static Block NetherGlester;
+	public static Block NetherDiamond;
+	
+	public static Block NetherCoal = new BlockNetherCoal(1021, Material.rock);
+	public static Block NetherGold = new BlockNetherGold(1022, Material.rock);
+	public static Block NetherEmerald = new BlockNetherEmerald(1023, Material.rock);
+	public static Block NetherIron = new BlockNetherIron(1024, Material.rock);
+	public static Block NetherTrinquantium = new BlockNetherTrinquantium(1025, Material.rock);
+	public static Block CementWall = new BlockCementWall(1026, Material.rock);
+	public static Block PlasterWall = new BlockPlasterWall(1027, Material.rock);
+	public static Block WeakCementWall = new BlockWeakCementWall(1028, Material.rock);
+	public static Block EmptiedLog = new BlockEmptiedLog(1029, Material.wood);
+	public static Block BoneDirt = new BlockBoneDirt(1030, Material.ground);
+	public static Block OffStone = new BlockOffStone(1031, Material.rock);
+	public static Block OffPlank = new BlockOffPlank(1032, Material.wood);
+	public static Block OffBrick = new BlockOffBrick(1033 , Material.rock);
+	public static Block OffDirt = new BlockOffDirt(1034, Material.ground);
+	public static Block LightedDirt = new BlockLightedDirt(1035, Material.ground);
+	public static Block Waste = new BlockNuclearWaste(1036, Material.lava);
+	public static Block OffIronBlock = new BlockOffIronBlock(1037, Material.iron);
+	public static Block OffDiamondBlock = new BlockOffDiamondBlock(1038 , Material.iron);
+	public static Block OffGlass = new BlockOffGlass(1039, Material.glass);
+	public static Block LightedIronBlock = new BlockLightedIronBlock(1040, Material.iron);
+	public static Block LightedDiamondBlock = new BlockLightedDiamondBlock(1041 , Material.iron);
+	public static Block LightedGlass = new BlockLightedGlass(1042, Material.glass);
+	public static Block LightedGoldBlock = new BlockLightedGoldBlock(1043, Material.iron);
+	public static Block OffGoldBlock = new BlockOffGoldBlock(1044, Material.iron);
+	public static Block FireHydrant = new BlockFireHydrant(1045, Material.iron);
+	public static Block Lantern = new BlockLantern(1046, Material.glass);
+	public static Block StonePillar = new BlockStonePillar(1047, Material.rock);
+	public static Block XBox360 = new BlockXBox360(1048, Material.rock);
+	public static Block PS3 = new BlockPS3(1049, Material.rock);
+	public static Block WasteBin = new BlockWasteBin(1050, Material.cactus);
+	public static Block VendingMachine = new BlockVendingMachine(1051, Material.iron);
+	public static Block DriedSapling = new BlockDriedSapling(1052, Material.plants);
+	public static Block LimestoneRock = new BlockLimestone(1053, Material.rock);
+	public static Block Marble = new BlockMarble(1054, Material.glass);
+	public static Block LimestoneBlock = new BlockLimestoneBlock(1055, Material.rock);	
+	public static Block OffObsidian = new BlockOffObsidian(1056, Material.wood);
+	public static Block LightedObsidian = new BlockLightedObsidian(1057, Material.wood);
+	public static Block OffClay = new BlockOffClay(1058, Material.clay);
+	public static Block LightedClay = new BlockLightedClay(1059, Material.clay);
+	public static Block OffBlackWool = new BlockOffBlackWool(1060, Material.cloth);
+	public static Block LightedBlackWool = new BlockLightedBlackWool(1061, Material.cloth);
+	public static Block OffWhiteWool = new BlockOffWhiteWool(1062, Material.cloth);
+	public static Block LightedWhiteWool = new BlockLightedWhiteWool(1063, Material.cloth);	
+	public static Block OffBedrock = new BlockOffBedrock(1064, Material.rock);
+	public static Block OffNetherrack = new BlockOffNetherrack(1065, Material.rock);
+	public static Block OffEmeraldBlock = new BlockOffEmeraldBlock(1066, Material.iron);
+	public static Block OffLapisBlock = new BlockOffLapisBlock(1067, Material.iron);
+	public static Block OffBricks = new BlockOffBricks(1068, Material.rock);
+	public static Block OffCobblestone = new BlockOffCobblestone(1069, Material.rock);
+	public static Block OffMossyCobblestone = new BlockOffMossyCobblestone(1070, Material.rock);
+	public static Block OffEndstone = new BlockOffEndstone(1071, Material.rock);
+	public static Block OffNetherBrick = new BlockOffNetherBrick(1072, Material.rock);	
+	public static Block LightedBedrock = new BlockLightedBedrock(1073, Material.rock);
+	public static Block LightedNetherrack = new BlockLightedNetherrack(1074, Material.rock);
+	public static Block LightedEmeraldBlock = new BlockLightedEmeraldBlock(1075, Material.iron);
+	public static Block LightedLapisBlock = new BlockLightedLapisBlock(1076, Material.iron);
+	public static Block LightedBricks = new BlockLightedBricks(1077, Material.rock);
+	public static Block LightedCobblestone = new BlockLightedCobblestone(1078, Material.rock);
+	public static Block LightedMossyCobblestone = new BlockLightedMossyCobblestone(1079, Material.rock);
+	public static Block LightedEndstone = new BlockLightedEndstone(1080, Material.rock);
+	public static Block LightedNetherBrick = new BlockLightedNetherBrick(1081, Material.rock);
+	public static Block FakeSand = new BlockFakeSand(1082, Material.sand);
+	public static Block FakeGravel = new BlockFakeGravel(1083, Material.ground);
+	public static Block Drill = new BlockDrill(1084, Material.iron);
+	public static Block DrillPole = new BlockDrillPole(1085, Material.iron);
+	public static Block Aesthetic = new BlockAesthetic(1086, Material.ground);
+	public static Block Fences = new BlockFences(1087, Material.wood);
+	public static Block FakedPlanks = new BlockFakedPlanks(1088, Material.wood);
+
+	//Game floors/blocks for the PS3 and the Xbox 360
+	public static Block RedGameFloor = new BlockRedGameFloor(1089, Material.rock);
+	public static Block BlueGameFloor = new BlockBlueGameFloor(1090, Material.rock);
+	public static Block GreenGameFloor = new BlockGreenGameFloor(1091, Material.rock);
+	public static Block YellowGameFloor = new BlockYellowGameFloor(1092, Material.rock);
+	public static Block SpreadGameBlock = new BlockSpreadGameBlock(1093, Material.rock);
+
+	//This is Clone, I named it that because it 
+	//looks like planks but actually is a command block!
+	public static Block Clone = new BlockClone(1094);
+
+	//These are Sanded Blocks!
+	//These blocks don't look like Sand but do Drop like Sand!
+	public static Block SandedBrick;
+	public static Block SandedBedrock;
+	public static Block SandedPlank;
+	public static Block SandedStone;
+	public static Block SandedGlass;
+	public static Block SandedDirt;
+
+	//Work In Progress!!
+	public static final Block SandLauncher = new BlockSandLauncher(1101, Material.wood);
 
 	@EventHandler
-	public void load(FMLInitializationEvent event)
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		Registry.addIDs(event);
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event)
 	{
 		GameRegistry.registerBlock(Fences, ItemFencesBlock.class, modid + (Fences.getUnlocalizedName().substring(5)));
 		GameRegistry.registerWorldGenerator(eventmanager);
-		
+
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 0), "Iron Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 1), "Gold Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 2), "Diamond Fence");
@@ -356,11 +337,14 @@ public class ExtremeBlocksMain
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 13), "Netherrack Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 14), "Obsidian Fence");
 		LanguageRegistry.addName(new ItemStack(Fences, 1, 15), "Stone Fence");
-				
+
 		Block.commandBlock.setCreativeTab(EBMiscTab);
-			
+
+		Registry.addItems();
+		Registry.addBlocks();
+
 		gameRegistry();
-		
+
 		recipeRegistry();
 	}
 	private static void gameRegistry() 
@@ -368,9 +352,9 @@ public class ExtremeBlocksMain
 
 
 		fenceRecipeRegistry();
-		
+
 		oreRecipeRegistry();
-		
+
 		//Block Registry
 		Registry.RegisterBlock(GlesterOre, "GlesterOre", "Glester Ore");
 		Registry.RegisterBlock(SilverOre, "SilverOre", "Silver Ore");
@@ -427,7 +411,7 @@ public class ExtremeBlocksMain
 		Registry.RegisterBlock(DriedSapling,"DriedSapling", "Dried Sapling");
 		Registry.RegisterBlock(LimestoneRock,"LimestoneRock", "Limestone Ore");
 		Registry.RegisterBlock(LimestoneBlock,"LimestoneBlock", "Limestone Block");
-		Registry.RegisterBlock(Marble,"Marble", "Marble Block");
+		Registry.RegisterBlock(Marble,"Marble", "Marble Block");	
 		Registry.RegisterBlock(OffWhiteWool,"OffWhiteWool", "Off White Wool");
 		Registry.RegisterBlock(OffBricks,"OffBricks", "Off Bricks");
 		Registry.RegisterBlock(OffCobblestone,"OffCobblestone", "Off Cobblestone");
@@ -453,12 +437,24 @@ public class ExtremeBlocksMain
 		Registry.RegisterBlock(LightedLapisBlock,"LightedLapisBlock", "Lighted Lapis Block");
 		Registry.RegisterBlock(LightedObsidian,"LightedObsidian", "Lighted Obsidian");
 		Registry.RegisterBlock(LightedBlackWool,"LightedBlackWool", "Lighted Black Wool");
-		Registry.RegisterBlock(LightedClay,"LightedClay", "Lighted Clay");
+		Registry.RegisterBlock(LightedClay,"LightedClay", "Lighted Clay");	
 		Registry.RegisterBlock(Drill,"Drill", "One-Block Drill");
 		Registry.RegisterBlock(Aesthetic,"Aesthetic", "Aesthetic");
 		Registry.RegisterBlock(FakeGravel,"FakeGravel", "Fake Gravel");
 		Registry.RegisterBlock(FakeSand,"FakeSand", "Fake Sand");
 		Registry.RegisterBlock(FakedPlanks,"FakedPlanks", "Fake Floor - Planks");
+		Registry.RegisterBlock(RedGameFloor,"RedGameFloor", "Game Floor");
+		Registry.RegisterBlock(GreenGameFloor,"GreenGameFloor", "Game Floor");
+		Registry.RegisterBlock(BlueGameFloor,"BlueGameFloor", "Game Floor");
+		Registry.RegisterBlock(YellowGameFloor,"YellowGameFloor", "Game Floor");
+		Registry.RegisterBlock(SpreadGameBlock,"SpreadGameBlock", "Game Floor");
+		Registry.RegisterBlock(Clone,"Clone", "Command Block");
+		Registry.RegisterBlock(SandedBrick,"SandedBrick", "Sand-Like Bricks");
+		Registry.RegisterBlock(SandedPlank,"SandedPlank", "Sand-Like Planks");
+		Registry.RegisterBlock(SandedGlass,"SandedGlass", "Sand-Like Glass");
+		Registry.RegisterBlock(SandedStone,"SandedStone", "Sand-Like Stone");
+		Registry.RegisterBlock(SandedBedrock,"SandedBedrock", "Sand-Like Bedrock");
+		Registry.RegisterBlock(SandLauncher,"SandLauncher", "Sand-Launcher");
 
 		//Item Registry
 		Registry.RegisterItem(GoldCoin, "GoldCoin", "Gold Coin");
@@ -518,8 +514,11 @@ public class ExtremeBlocksMain
 		Registry.RegisterItem(GlesterHoe, "GlesterHoe", "Glester Hoe");
 		Registry.RegisterItem(GlesterSword, "GlesterSword", "Glester Sword");
 		Registry.RegisterItem(Limestone, "Limestone", "Limestone Fragment");
+		Registry.RegisterItem(Returner, "Returner", "Returner");
+		Registry.RegisterItem(ReturnerPS3, "ReturnerPS3", "Returner");
+		Registry.RegisterItem(Tester, "Tester", "Tester");
 	}
-	
+
 	private static void recipeRegistry()
 	{	
 		GameRegistry.addRecipe(
@@ -1070,7 +1069,7 @@ public class ExtremeBlocksMain
 					"XBX", "XBX", 'X', Item.stick, 'B', Block.stone
 						});
 	}
-	
+
 	public static void oreRecipeRegistry()
 	{
 		GameRegistry.addRecipe(
@@ -1078,49 +1077,48 @@ public class ExtremeBlocksMain
 						{
 					"#", "X",'X', Block.stone, '#', Item.diamond
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreCoal), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', Item.coal
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreEmerald), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', Item.emerald
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreGold), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', Item.ingotGold
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreIron), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', Item.ingotIron
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreRedstone), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', Item.redstone
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreLapis), new Object[] 
 						{
 					"#", "X",'X', Block.stone, '#', new ItemStack(Item.dyePowder, 1)
 						});
-		
+
 		GameRegistry.addRecipe(
 				new ItemStack(Block.oreNetherQuartz), new Object[] 
 						{
 					"#", "X",'X', Block.netherrack, '#', Item.netherQuartz
 						});
 	}
-			
 }
 
