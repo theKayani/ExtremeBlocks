@@ -16,10 +16,9 @@ public class EventManager implements IWorldGenerator
 		{
 			switch(world.provider.dimensionId)
 			{
-
-			case -1: generateNether(world, random, chunkX * 16, chunkZ * 16);
-			case 0: generateSurface(world, random, chunkX * 16, chunkZ * 16);
-			case 1: generateEnd(world, random, chunkX * 16, chunkZ * 16);
+				case -1: generateNether(world, random, chunkX * 16, chunkZ * 16);
+				case 0: generateSurface(world, random, chunkX * 16, chunkZ * 16);
+				case 1: generateEnd(world, random, chunkX * 16, chunkZ * 16);
 			}
 		}
 	}
@@ -31,37 +30,40 @@ public class EventManager implements IWorldGenerator
 
 	private void generateSurface(World world, Random random, int x, int z)
 	{
-		this.addOreSpawn(ExtremeBlocksMain.TrinquantiumOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.CopperOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.TinOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.DelvlishOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.GlesterOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.SilverOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.LimestoneRock, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.BoneDirt, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
-		this.addOreSpawn(ExtremeBlocksMain.Aesthetic, world, random, x, z, 16, 16, 4 + random.nextInt(3), 5, 15, 50);
+		this.addOreSpawn(ExtremeBlocksMain.TrinquantiumOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateCaTaA, 2, 4), 1, 20);
+		this.addOreSpawn(ExtremeBlocksMain.CopperOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateCaTaA, 3, 7), 10, 60);
+		this.addOreSpawn(ExtremeBlocksMain.TinOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateCaTaA, 3, 7), 10, 60);
+		this.addOreSpawn(ExtremeBlocksMain.DelvlishOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateDaGaL, 3, 5), 15, 50);
+		this.addOreSpawn(ExtremeBlocksMain.GlesterOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateDaGaL, 3, 5), 15, 50);
+		this.addOreSpawn(ExtremeBlocksMain.SilverOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateBaS, 2, 5), 30, 50);
+		this.addOreSpawn(ExtremeBlocksMain.LimestoneRock, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateDaGaL, 2, 8), 1, 30);
+		this.addOreSpawn(ExtremeBlocksMain.BoneDirt, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateBaS, 3, 6), 50, 70);
+		this.addOreSpawn(ExtremeBlocksMain.Aesthetic, world, random, x, z, 16, 16, 4 + random.nextInt(3), Vars.isNumber(Vars.CFOreSpawnRateCaTaA, 1, 9), 1, 100);
+		
+		int y = random.nextInt(4) - random.nextInt(4);	
+		new WorldGenDriedTree(world, random, x, y, z, true);
 	}
 
 	private void generateNether(World world, Random random, int x, int z)
 	{
-		int Xcoord = x + random.nextInt(16);
-		int Ycoord = 10 + random.nextInt(128);
-		int Zcoord = z + random.nextInt(16);
+		if(world.isDaytime())
+		{
+			int Xcoord = x + random.nextInt(16);
+			int Ycoord = 10 + random.nextInt(128);
+			int Zcoord = z + random.nextInt(16);
 
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherTrinquantium.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherTin.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherCopper.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherGlester.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherDelvlish.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherSilver.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherGold.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherIron.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherDiamond.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherCoal.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-		(new WorldGenNetherMinable(ExtremeBlocksMain.NetherEmerald.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
-
-
-
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherTrinquantium.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherTin.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherCopper.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherGlester.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherDelvlish.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherSilver.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherGold.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherIron.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherDiamond.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherCoal.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+			(new WorldGenNetherMinable(ExtremeBlocksMain.NetherEmerald.blockID, 12)).generate(world, random, Xcoord, Ycoord, Zcoord);
+		}
 	}
 
 	/**

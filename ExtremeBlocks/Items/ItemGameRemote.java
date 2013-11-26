@@ -22,9 +22,4 @@ public class ItemGameRemote extends Item
     {
         this.itemIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
     }
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
-		par3EntityPlayer.addChatMessage("Will Be Updated for you to actually do something with it!");
-		return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);	
-	}
 }

@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import ExtremeBlocks.ExtremeBlocksMain;
+import ExtremeBlocks.Vars;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -25,7 +26,7 @@ public class BlockGreenGameFloor extends Block
 	{
 		return ExtremeBlocksMain.RedGameFloor.blockID;
 	}
-	
+
 	public int idPicked(World par1World, int par2, int par3, int par4)
 	{
 		return ExtremeBlocksMain.RedGameFloor.blockID;	
@@ -36,7 +37,7 @@ public class BlockGreenGameFloor extends Block
 	{
 		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
 	}
-	
+
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
 	{
 		if(par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().itemID == ExtremeBlocksMain.GameRemote.itemID)

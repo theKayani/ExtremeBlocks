@@ -13,8 +13,10 @@ import ExtremeBlocks.ExtremeBlocksMain;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockWasteBin extends Block {
-	public BlockWasteBin(int par1, Material par2Material) {
+public class BlockWasteBin extends Block 
+{
+	public BlockWasteBin(int par1, Material par2Material) 
+	{
 		super(par1, par2Material);
 		this.setHardness(0.5F);
 		this.setUnlocalizedName("WasteBin");
@@ -23,39 +25,45 @@ public class BlockWasteBin extends Block {
 		this.setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
 	}
 
-	public int idDropped(int par1, Random par2Random, int par3) {
+	public int idDropped(int par1, Random par2Random, int par3) 
+	{
 		return this.blockID;
 	}
 
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube() 
+	{
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() {
+	public boolean renderAsNormalBlock() 
+	{
 		return false;
 	}
 
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,
-			int par4, Entity par5Entity) {
-		par5Entity.attackEntityFrom(DamageSource.inWall, 0.001F);
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) 
+	{
+		
 	}
 
 	@SideOnly(Side.CLIENT)
 	private Icon[] icons;
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerIcons(IconRegister par1IconRegister) 
+	{
 		icons = new Icon[3];
 
-		for (int i = 0; i < icons.length; i++) {
-			icons[i] = par1IconRegister.registerIcon(ExtremeBlocksMain.modid
-					+ ":" + (this.getUnlocalizedName().substring(5)) + i);
+		for (int i = 0; i < icons.length; i++) 
+		{
+			icons[i] = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)) + i);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int par1, int par2) {
-		switch (par1) {
+	public Icon getIcon(int par1, int par2) 
+	{
+		switch (par1) 
+		{
 		case 0:
 			return icons[1];
 		case 1:

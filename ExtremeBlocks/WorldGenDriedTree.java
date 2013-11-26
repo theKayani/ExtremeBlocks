@@ -8,6 +8,12 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenDriedTree extends WorldGenerator
 {
+	public WorldGenDriedTree(World par1World, Random par2Random, int par3, int par4, int par5, boolean par6)
+	{
+		super(par6);
+		this.generate(par1World, par2Random, par3, par4, par5);
+	}
+	
 	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
 	{
 		for (int l = 0; l < 10; ++l)

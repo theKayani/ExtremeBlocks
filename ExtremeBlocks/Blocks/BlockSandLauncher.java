@@ -16,8 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSandLauncher extends Block
 {
-	public boolean isRedstonePowered = false;
-	public int height = 1;
+	public int height = 2;
 
 	public BlockSandLauncher(int par1, Material par2Material) 
 	{
@@ -31,6 +30,15 @@ public class BlockSandLauncher extends Block
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) 
 	{
-		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + "RedGameFloor");
+		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
+	}
+	
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+	{
+		par1World.setBlock(par2, par3 + 1, par4, Block.torchWood.blockID);
+		par1World.setBlock(par2, par3 + height, par4, Block.sand.blockID);
+		
+		height++;
+		return true;
 	}
 }

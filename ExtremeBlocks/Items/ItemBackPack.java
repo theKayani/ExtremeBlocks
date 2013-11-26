@@ -29,8 +29,10 @@ public class ItemBackPack extends Item
     }
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
+		
 		IInventory EnderChest = par3EntityPlayer.getInventoryEnderChest();
 		par3EntityPlayer.displayGUIChest(EnderChest);
+		
 		return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
 	}
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par6)
