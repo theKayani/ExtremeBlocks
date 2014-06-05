@@ -1,111 +1,165 @@
-package ExtremeBlocks.Blocks;
-
-import java.util.Random;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+package extremeblocks.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import ExtremeBlocks.ExtremeBlocksMain;
+import com.hk.testing.util.BlockCustom;
+import com.hk.testing.util.MPUtil;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import extremeblocks.Init;
 
-public class BlockVendingMachine extends Block 
+public class BlockVendingMachine extends BlockCustom
 {
-	public BlockVendingMachine(int par1, Material par2Material) 
+	@SideOnly(Side.CLIENT)
+	private IIcon field_149936_O;
+	@SideOnly(Side.CLIENT)
+	private IIcon field_149935_N;
+
+	public BlockVendingMachine()
 	{
-		super(par1, par2Material);
-		this.setHardness(1.0F);
-		this.setUnlocalizedName("VendingMachine");
-		this.setCreativeTab(ExtremeBlocksMain.EBMiscTab);
-		this.setStepSound(soundMetalFootstep);
-		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 1.5F, 0.9F);
+		super(Material.iron, "Vending Machine");
+		this.irregular();
+		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.4F, 0.95F);
+		this.setBlockTextureName(Init.MODID + ":vendingmachine");
+		this.setCreativeTab(Init.tab_misc);
 	}
 
-	public int idDropped(int par1, Random par2Random, int par3) 
+	public boolean renderAsNormalBlock()
 	{
-		return this.blockID;
-	}
-
-	public boolean isOpaqueCube() {
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() {
+	public boolean isOpaqueCube()
+	{
 		return false;
 	}
 
-	private Item[] list = new Item[]
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	{
+		return p_149691_1_ == 1 ? this.field_149935_N : (p_149691_1_ == 0 ? this.field_149935_N : (p_149691_1_ != p_149691_2_ ? this.blockIcon : this.field_149936_O));
+	}
+
+	public void setBlockBoundsForItemRender()
+	{
+		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.0F, 0.95F);
+	}
+
+	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
+	{
+		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.4F, 0.95F);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_)
+	{
+		this.blockIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
+		this.field_149936_O = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_front");
+		this.field_149935_N = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
+	}
+
+	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
+	{
+		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+		this.func_149930_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+	}
+
+	private void func_149930_e(World p_149930_1_, int p_149930_2_, int p_149930_3_, int p_149930_4_)
+	{
+		if (!p_149930_1_.isRemote)
+		{
+			Block block = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ - 1);
+			Block block1 = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ + 1);
+			Block block2 = p_149930_1_.getBlock(p_149930_2_ - 1, p_149930_3_, p_149930_4_);
+			Block block3 = p_149930_1_.getBlock(p_149930_2_ + 1, p_149930_3_, p_149930_4_);
+			byte b0 = 3;
+
+			if (block.func_149730_j() && !block1.func_149730_j())
 			{
-				Item.appleGold,  	 	//1
-				Item.helmetChain, 		//2
-				Item.beefCooked,  	 	//3
-				Item.recordFar, 	 	//4
-				Item.legsLeather, 	 	//5
-				Item.recordMellohi,  	//6
-				Item.plateIron, 	 	//7
-				Item.horseArmorGold, 	//8
-				Item.helmetLeather,  	//9
-				Item.ghastTear,  	 	//10
-				Item.fishingRod,  	 	//11
-				Item.bootsDiamond,   	//12
-				Item.chickenRaw,  	 	//13
-				Item.map,  			 	//14
-				Item.goldenCarrot,   	//15
-				Item.cake, 			 	//16
-				Item.fireworkCharge, 	//17
-				Item.flowerPot,  	 	//18
-				Item.bakedPotato,  	 	//19
-				Item.hoeIron,  		 	//20
-				Item.leash,			 	//21
-				Item.feather,			//22
-				Item.bootsGold,		 	//23
-				Item.pumpkinPie,	 	//24
-				Item.ingotGold,		 	//25
-				Item.appleRed,		 	//26
-			};
+				b0 = 3;
+			}
 
-	public boolean onBlockActivated(World par1World, int par2, int par3,int par4, EntityPlayer par5EntityPlayer, int par6, float par7,float par8, float par9) 
-	{
-		if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().itemID == ExtremeBlocksMain.GoldCoin.itemID) 
-		{
-			par5EntityPlayer.inventory.consumeInventoryItem(ExtremeBlocksMain.GoldCoin.itemID);
-			par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(list[par1World.rand.nextInt(26)]));
-			return true;
-		}
-		return super.onBlockActivated(par1World, par2, par3, par4,par5EntityPlayer, par6, par7, par8, par9);
-	}
+			if (block1.func_149730_j() && !block.func_149730_j())
+			{
+				b0 = 2;
+			}
 
-	@SideOnly(Side.CLIENT)
-	private Icon[] icons;
+			if (block2.func_149730_j() && !block3.func_149730_j())
+			{
+				b0 = 5;
+			}
 
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) 
-	{
-		icons = new Icon[3];
+			if (block3.func_149730_j() && !block2.func_149730_j())
+			{
+				b0 = 4;
+			}
 
-		for (int i = 0; i < icons.length; i++) 
-		{
-			icons[i] = par1IconRegister.registerIcon(ExtremeBlocksMain.modid+ ":" + (this.getUnlocalizedName().substring(5)) + i);
+			p_149930_1_.setBlockMetadataWithNotify(p_149930_2_, p_149930_3_, p_149930_4_, b0, 2);
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int par1, int par2) 
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
 	{
-		switch (par1) 
+		int l = MathHelper.floor_double((double) (p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+
+		if (l == 0)
 		{
-		case 0:
-			return icons[1];
-		case 1:
-			return icons[2];
-		default:
-			return icons[0];
+			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 2, 2);
+		}
+
+		if (l == 1)
+		{
+			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 5, 2);
+		}
+
+		if (l == 2)
+		{
+			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 3, 2);
+		}
+
+		if (l == 3)
+		{
+			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 4, 2);
+		}
+	}
+
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	{
+		ItemStack held = player.getHeldItem();
+
+		if (player.inventory.consumeInventoryItem(Items.diamond))
+		{
+			return player.inventory.addItemStackToInventory(new ItemStack(MPUtil.getRandomItem(world.rand), world.rand.nextInt(20) == 0 ? 2 : 1));
+		}
+
+		return false;
+	}
+
+	public boolean canBlockStay(World world, int x, int y, int z)
+	{
+		return world.isAirBlock(x, y + 1, z);
+	}
+
+	public boolean canPlaceBlockAt(World world, int x, int y, int z)
+	{
+		return this.canBlockStay(world, x, y, z);
+	}
+
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	{
+		if (!canBlockStay(world, x, y, z))
+		{
+			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+			world.setBlockToAir(x, y, z);
 		}
 	}
 }

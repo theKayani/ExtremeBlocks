@@ -1,4 +1,4 @@
-package extremeblocks.blocks;
+package extremeblocks.blocks.abstractblocks;
 
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
@@ -9,25 +9,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 import extremeblocks.ExtremeBlocks;
 import extremeblocks.Init;
 
-public class BlockEmptiedLog extends BlockRotatedPillar
+public class BlockSided extends BlockRotatedPillar
 {
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
-	public BlockEmptiedLog()
+	public BlockSided(Material mat, String blockName, String textureName)
 	{
-		super(Material.wood);
-		this.setBlockName("Emptied Log");
-		this.setBlockTextureName(Init.MODID + ":emptiedlog_");
+		super(mat);
+		this.setBlockName(blockName);
+		this.setBlockTextureName(Init.MODID + ":" + textureName + "_");
 		this.setCreativeTab(Init.tab_mainBlocks);
 
 		ExtremeBlocks.blocks.add(this);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public IIcon getTopIcon(int p_150161_1_)
-	{
-		return this.topIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -37,9 +30,15 @@ public class BlockEmptiedLog extends BlockRotatedPillar
 		this.topIcon = ir.registerIcon(getTextureName() + "top");
 	}
 
+	@SideOnly(Side.CLIENT)
+	protected IIcon getTopIcon(int p_150161_1_)
+	{
+		return topIcon;
+	}
+
 	@Override
 	protected IIcon getSideIcon(int var1)
 	{
-		return this.blockIcon;
+		return blockIcon;
 	}
 }

@@ -1,47 +1,37 @@
-package ExtremeBlocks.Blocks;
+package extremeblocks.blocks;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import ExtremeBlocks.ExtremeBlocksMain;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+import com.hk.testing.util.BlockCustom;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import extremeblocks.Init;
 
-public class BlockStonePillar extends Block {
-	public BlockStonePillar(int par1, Material par2Material) {
-		super(par1, par2Material);
-		this.setHardness(0.9F);
-		this.setCreativeTab(ExtremeBlocksMain.EBBasicBlocksTab);
-		this.setUnlocalizedName("StonePillar");
+public class BlockStonePillar extends BlockCustom
+{
+	@SideOnly(Side.CLIENT)
+	private IIcon field_149936_O;
+	@SideOnly(Side.CLIENT)
+	private IIcon field_149935_N;
+
+	public BlockStonePillar()
+	{
+		super(Material.rock, "VendingMachine");
+		this.setCreativeTab(Init.tab_mainBlocks);
 	}
 
 	@SideOnly(Side.CLIENT)
-	private Icon[] icons;
-
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[3];
-
-		for (int i = 0; i < icons.length; i++) {
-			icons[i] = par1IconRegister.registerIcon(ExtremeBlocksMain.modid
-					+ ":" + (this.getUnlocalizedName().substring(5)) + i);
-		}
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	{
+		return p_149691_1_ == 1 ? this.field_149935_N : (p_149691_1_ == 0 ? this.field_149935_N : (p_149691_1_ != p_149691_2_ ? this.blockIcon : this.field_149936_O));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int par1, int par2) {
-		switch (par1) {
-		case 0:
-			return icons[1];
-		case 1:
-			return icons[2];
-		default:
-			return icons[0];
-		}
+	public void registerBlockIcons(IIconRegister p_149651_1_)
+	{
+		this.blockIcon = p_149651_1_.registerIcon("furnace_side");
+		this.field_149936_O = p_149651_1_.registerIcon("furnace_front_on");
+		this.field_149935_N = p_149651_1_.registerIcon("furnace_top");
 	}
 }

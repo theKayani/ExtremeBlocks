@@ -1,89 +1,126 @@
-package ExtremeBlocks.Blocks;
+package extremeblocks.blocks;
 
-import java.util.Random;
-
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
-import ExtremeBlocks.ExtremeBlocksMain;
+import com.hk.testing.util.BlockCustom;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import extremeblocks.Init;
 
-public class BlockDrill extends Block
+public class BlockDrill extends BlockCustom
 {
-	public static int PLP = 0;
+	public final boolean isHead;
+	private static ArrayList<Block> loot = new ArrayList<Block>();
 
-	public BlockDrill(int par1, Material par2Material) 
+	public BlockDrill(boolean isHead)
 	{
-		super(par1, par2Material);
-		this.setHardness(1.0F);
-		this.setUnlocalizedName("Drill");
-		this.setCreativeTab(ExtremeBlocksMain.EBBasicBlocksTab);
-		this.setStepSound(soundMetalFootstep);
+		super(Material.iron, "Drill" + (isHead ? " Head" : ""));
+		if (isHead) this.setCreativeTab(Init.tab_misc);
+		this.setBlockTextureName(Init.MODID + ":drill" + (isHead ? "_head" : ""));
+		this.setHardness(3.0F);
+		this.isHead = isHead;
 	}
 
-	public int idDropped(int par1, Random par2Random, int par3) 
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		return this.blockID;
+		boolean activated = activated(player);
+
+		if (activated)
+		{
+			loot.clear();
+		}
+
+		return activated;
 	}
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) 
+
+	private boolean activated(EntityPlayer player)
 	{
-		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
+		if (isHead)
+		{
+			player.addChatMessage(new ChatComponentTranslation("You have collected " + loot.size() + " blocks!"));
+
+			for (int i = 0; i < loot.size(); i++)
+			{
+				if (loot.get(i) != null)
+				{
+					player.inventory.addItemStackToInventory(new ItemStack(loot.get(i)));
+				}
+			}
+			return true;
+		}
+		return false;
 	}
+
 	public int getRenderType()
 	{
-		return 2;	
+		return 2;
 	}
-	public boolean isOpaqueCube() 
+
+	public boolean isOpaqueCube()
 	{
 		return false;
 	}
-	public boolean renderAsNormalBlock() 
+
+	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
+
 	public void onBlockAdded(World par1World, int par2, int par3, int par4)
 	{
-		if(par1World.getBlockId(par2, par3 - 1, par4) != Block.bedrock.blockID && !par1World.isAirBlock(par2, par3 - 1, par4))
+		if (isHead)
 		{
-			par1World.setBlock(par2, par3 - 1, par4, ExtremeBlocksMain.DrillPole.blockID);
+			if (par1World.getBlock(par2, par3 - 1, par4) != Blocks.bedrock && !par1World.isAirBlock(par2, par3 - 1, par4))
+			{
+				par1World.setBlock(par2, par3 - 1, par4, Init.drill_pole);
+			}
+			if (par1World.getBlock(par2, par3 - 1, par4) == Init.drill_pole)
+			{
+				par1World.setBlock(par2, par3, par4, Init.drill_pole);
+			}
 		}
-		if(par1World.getBlockId(par2, par3 - 1, par4) == ExtremeBlocksMain.DrillPole.blockID)
+		else
 		{
-			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.DrillPole.blockID);
+			if (par1World.getBlock(par2, par3 - 1, par4) != Blocks.bedrock && !par1World.isAirBlock(par2, par3 - 1, par4))
+			{
+				if (par1World.getBlock(par2, par3 - 1, par4).getCreativeTabToDisplayOn() != null && !par1World.isRemote)
+				{
+					loot.add(par1World.getBlock(par2, par3 - 1, par4));
+				}
+				par1World.setBlock(par2, par3 - 1, par4, Init.drill_pole);
+			}
+			if (par1World.getBlock(par2, par3 - 1, par4) == Blocks.bedrock || par1World.isAirBlock(par2, par3 - 1, par4))
+			{
+				par1World.setBlock(par2, par3, par4, Init.drill);
+			}
 		}
 	}
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
+
+	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block block)
 	{
-		if(par1World.getBlockId(par2, par3 - 1, par4) == ExtremeBlocksMain.DrillPole.blockID)
+		if (isHead)
 		{
-			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.DrillPole.blockID);
-		}
-		if(par1World.getBlockId(par2, par3 - 1, par4) == ExtremeBlocksMain.Drill.blockID)
-		{
-			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.DrillPole.blockID);
+			if (par1World.getBlock(par2, par3 - 1, par4) == Init.drill_pole || par1World.getBlock(par2, par3 - 1, par4) == Init.drill)
+			{
+				par1World.setBlock(par2, par3, par4, Init.drill_pole);
+			}
+			if (par1World.getBlock(par2, par3 - 1, par4) == Blocks.bedrock)
+			{
+				par1World.setBlock(par2, par3, par4, Init.drill);
+			}
 		}
 	}
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World par1World, int par2, int par3, int par4)
 	{
-		if(PLP > 0)
-		{
-			par5EntityPlayer.addChatMessage("You have collected " + PLP + " Stone blocks!");
-			par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Block.stone, PLP));
-			PLP = 0;
-		}
-		else if(PLP == 0)
-		{
-			par5EntityPlayer.addChatMessage("You have not collected any Stone blocks, Start Drilling!");
-		}
-		if(PLP < 0)
-		{
-			PLP = 0;
-		}
-		return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
+		return Item.getItemFromBlock(Init.drill);
 	}
 }

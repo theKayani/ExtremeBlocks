@@ -1,48 +1,43 @@
-package ExtremeBlocks.Items;
+package extremeblocks.items;
 
 import java.util.List;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import ExtremeBlocks.ExtremeBlocksMain;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.hk.testing.util.ItemCustom;
+import extremeblocks.ExtremeBlocks;
+import extremeblocks.Init;
 
-public class ItemCellphone extends Item 
+public class ItemCellphone extends ItemCustom
 {
-	 
-	public ItemCellphone(int par1) 
+	public ItemCellphone()
 	{
-		super(par1);
-		this.setCreativeTab(ExtremeBlocksMain.EBBasicItemsTab);
-		this.maxStackSize = 1;
-		this.setUnlocalizedName("Cellphone");
+		super("Cellphone", Init.tab_mainItems);
+		this.setTextureName(Init.MODID + ":cellphone");
 	}
-	@SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
-    {
-        this.itemIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
-    }
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
-		par3List.add(this.getTheInfo(par1ItemStack, par2EntityPlayer, par3List));
-		par3List.add(this.getTheInfo2(par1ItemStack, par2EntityPlayer, par3List));
+		list.add(getFirstLine(player.worldObj, player));
+		list.add(getSecondLine(player.worldObj, player));
+		list.add(getThirdLine(player.worldObj, player));
 	}
-	public String getTheInfo(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List)
-	{	
-		String Username = par2EntityPlayer.username;
-		int Distance = (int) par2EntityPlayer.distanceWalkedModified;
-		
-		return "Welcome " + Username + "! You Have Traveled " + Distance + " Feet.";
+
+	private String getFirstLine(World world, EntityPlayer player)
+	{
+		Block block = world.getBlock((int) player.posX, (int) (player.posY - 2), (int) player.posZ);
+		return "Time: " + (int) world.getWorldTime() + ", Traveled: " + player.distanceWalkedModified + ", Block: " + (block == Blocks.air ? "none" : block.getLocalizedName());
 	}
-	public String getTheInfo2(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List)
-	{	
-		int Oldness = par2EntityPlayer.getAge() / 1350;
-		int Health = (int) par2EntityPlayer.getHealth() / 2;
-		
-		return "You are " + Oldness + " Minutes Old. Your Health is " + Health + ".";
-	}	
+
+	private String getSecondLine(World world, EntityPlayer player)
+	{
+		return "Age: " + player.getAge() + ", Moon Phase: " + world.getCurrentMoonPhaseFactor() + ", Biome: " + world.provider.worldChunkMgr.getBiomeGenAt((int) player.posX, (int) player.posZ).biomeName;
+	}
+
+	private String getThirdLine(World world, EntityPlayer player)
+	{
+		return "X: " + (int) player.posX + ", Y: " + (int) player.posY + ", Z: " + (int) player.posZ + ", Dimension: " + world.provider.getDimensionName() + "(" + world.provider.dimensionId + ")";
+	}
 }

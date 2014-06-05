@@ -1,91 +1,40 @@
-package ExtremeBlocks.Blocks;
-
-import java.util.List;
-import java.util.Random;
+package extremeblocks.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.BlockBush;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import ExtremeBlocks.ExtremeBlocksMain;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.common.EnumPlantType;
+import extremeblocks.ExtremeBlocks;
+import extremeblocks.Init;
 
-public class BlockDriedSapling extends Block 
+public class BlockDriedSapling extends BlockBush
 {
-	public BlockDriedSapling(int par1, Material par2) 
+	public BlockDriedSapling()
 	{
-		super(par1, par2);
-		this.setUnlocalizedName("DriedSapling");
-		this.setCreativeTab(ExtremeBlocksMain.EBMiscTab);
-		this.setStepSound(soundGrassFootstep);
+		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.4F * 2.0F, 0.9F);
+		this.setBlockName("Dried Sapling");
+		this.setBlockTextureName(Init.MODID + ":driedsapling");
+		this.setCreativeTab(Init.tab_misc);
+
+		ExtremeBlocks.blocks.add(this);
 	}
 
-	public int idDropped(int par1, Random par2Random, int par3) 
-	{
-		return this.blockID;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) 
-	{
-		this.blockIcon = par1IconRegister.registerIcon(ExtremeBlocksMain.modid + ":" + (this.getUnlocalizedName().substring(5)));
-	}
-
-	public int getRenderType() 
-	{
-		return 2;
-	}
-
-	public boolean isOpaqueCube() 
+	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() 
+	public boolean canPlaceBlockOn(Block block)
 	{
-		return false;
+		return super.canPlaceBlockOn(block) || block == Blocks.sand;
 	}
 
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) 
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z)
 	{
-		if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().itemID == new ItemStack(Item.dyePowder, 1, 16).itemID) 
-		{
-			par1World.setBlock(par2, par3, par4, ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 1, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 2, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 3, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2 + 1, par3 + 3, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2 + 2, par3 + 4, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2 + 3, par3 + 5, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2 - 1, par3 + 3, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 2, par4 - 1,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 3, par4 - 1,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 3, par4 - 3,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 4, par4 - 2,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 4, par4,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 5, par4 + 1,ExtremeBlocksMain.EmptiedLog.blockID);
-			par1World.setBlock(par2, par3 + 4, par4 + 2,ExtremeBlocksMain.EmptiedLog.blockID);
-			return true;
-		}
-		return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
-	}
-	
-	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
-	{
-		
-	}
-	
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
-	{
-		if(par1World.getBlockId(par2, par3 - 1, par4) != Block.grass.blockID || par1World.getBlockId(par2, par3 - 1, par4) != Block.dirt.blockID)
-		{
-			par1World.destroyBlock(par2, par3, par4, true);
-		}
+		return EnumPlantType.Desert;
 	}
 }
