@@ -1,18 +1,18 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
 import java.util.ArrayList;
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.Init;
 
 public class BlockDrill extends BlockCustom
 {
@@ -44,7 +44,7 @@ public class BlockDrill extends BlockCustom
 	{
 		if (isHead)
 		{
-			player.addChatMessage(new ChatComponentTranslation("You have collected " + loot.size() + " blocks!"));
+			MPUtil.sendMessage("You have collected " + loot.size() + " blocks!", player);
 
 			for (int i = 0; i < loot.size(); i++)
 			{
@@ -90,7 +90,7 @@ public class BlockDrill extends BlockCustom
 		{
 			if (par1World.getBlock(par2, par3 - 1, par4) != Blocks.bedrock && !par1World.isAirBlock(par2, par3 - 1, par4))
 			{
-				if (par1World.getBlock(par2, par3 - 1, par4).getCreativeTabToDisplayOn() != null && !par1World.isRemote)
+				if (par1World.getBlock(par2, par3 - 1, par4).getCreativeTabToDisplayOn() != null && MPUtil.isServerSide())
 				{
 					loot.add(par1World.getBlock(par2, par3 - 1, par4));
 				}

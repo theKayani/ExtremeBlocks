@@ -1,7 +1,7 @@
-package extremeblocks.items;
+package main.extremeblocks.items;
 
-import com.hk.testing.util.ItemCustom;
-import extremeblocks.Init;
+import main.com.hk.testing.util.ItemCustom;
+import main.extremeblocks.Init;
 
 public class ItemNotes extends ItemCustom
 {

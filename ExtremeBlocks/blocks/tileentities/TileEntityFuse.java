@@ -1,4 +1,4 @@
-package extremeblocks.blocks.tileentities;
+package main.extremeblocks.blocks.tileentities;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

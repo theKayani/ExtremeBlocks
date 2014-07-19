@@ -1,6 +1,9 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
 import java.util.Random;
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -11,10 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.Init;
 
 public class BlockGameFloor extends BlockCustom
 {
@@ -74,7 +75,7 @@ public class BlockGameFloor extends BlockCustom
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		if (!world.isRemote)
+		if (MPUtil.isServerSide())
 		{
 			player.addChatComponentMessage(new ChatComponentTranslation(type.name() + " Floor Activated!"));
 		}

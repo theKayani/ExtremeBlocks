@@ -1,43 +1,59 @@
-package extremeblocks;
+package main.extremeblocks;
 
+import java.util.ArrayList;
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.CustomTab;
+import main.com.hk.testing.util.ItemCustom;
+import main.com.hk.testing.util.ItemToolSet.ItemCSword;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.blocks.BlockArmorStand;
+import main.extremeblocks.blocks.BlockCabinet;
+import main.extremeblocks.blocks.BlockCement;
+import main.extremeblocks.blocks.BlockConsole;
+import main.extremeblocks.blocks.BlockDriedSapling;
+import main.extremeblocks.blocks.BlockDrill;
+import main.extremeblocks.blocks.BlockFuseBlock;
+import main.extremeblocks.blocks.BlockGameFloor;
+import main.extremeblocks.blocks.BlockGameFloor.GameBlockType;
+import main.extremeblocks.blocks.BlockHydrant;
+import main.extremeblocks.blocks.BlockLantern;
+import main.extremeblocks.blocks.BlockPipe;
+import main.extremeblocks.blocks.BlockPowderKeg;
+import main.extremeblocks.blocks.BlockPower;
+import main.extremeblocks.blocks.BlockPower.PowerType;
+import main.extremeblocks.blocks.BlockRewardBlock;
+import main.extremeblocks.blocks.BlockTrash;
+import main.extremeblocks.blocks.BlockVendingMachine;
+import main.extremeblocks.blocks.BlockXrayBlock;
+import main.extremeblocks.blocks.abstractblocks.BlockCompact;
+import main.extremeblocks.blocks.abstractblocks.BlockOre;
+import main.extremeblocks.blocks.abstractblocks.BlockSided;
+import main.extremeblocks.blocks.abstractblocks.BlockStorage;
+import main.extremeblocks.blocks.tileentities.TileEntityStorage;
+import main.extremeblocks.blocks.tileentities.pipe.PipeType;
+import main.extremeblocks.items.ItemBackpack;
+import main.extremeblocks.items.ItemCellphone;
+import main.extremeblocks.items.ItemCounter;
+import main.extremeblocks.items.ItemExtractor;
+import main.extremeblocks.items.ItemFuse;
+import main.extremeblocks.items.ItemGrenade;
+import main.extremeblocks.items.ItemNotes;
+import main.extremeblocks.items.ItemReturner;
+import main.extremeblocks.util.BlockType;
+import main.extremeblocks.worldgen.WorldTypeIslands;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldType;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
-import com.hk.testing.util.BlockCustom;
-import com.hk.testing.util.CustomTab;
-import com.hk.testing.util.ItemCustom;
-import com.hk.testing.util.ItemToolSet.ItemCSword;
-import com.hk.testing.util.MPUtil;
-import extremeblocks.blocks.BlockCement;
-import extremeblocks.blocks.BlockConsole;
-import extremeblocks.blocks.BlockDriedSapling;
-import extremeblocks.blocks.BlockDrill;
-import extremeblocks.blocks.BlockFuseBlock;
-import extremeblocks.blocks.BlockGameFloor;
-import extremeblocks.blocks.BlockGameFloor.GameBlockType;
-import extremeblocks.blocks.BlockHydrant;
-import extremeblocks.blocks.BlockLantern;
-import extremeblocks.blocks.BlockPowderKeg;
-import extremeblocks.blocks.BlockRewardBlock;
-import extremeblocks.blocks.BlockTrash;
-import extremeblocks.blocks.BlockVendingMachine;
-import extremeblocks.blocks.BlockXrayBlock;
-import extremeblocks.blocks.abstractblocks.BlockCompact;
-import extremeblocks.blocks.abstractblocks.BlockOre;
-import extremeblocks.blocks.abstractblocks.BlockSided;
-import extremeblocks.items.ItemBackpack;
-import extremeblocks.items.ItemCellphone;
-import extremeblocks.items.ItemCounter;
-import extremeblocks.items.ItemExtractor;
-import extremeblocks.items.ItemFuse;
-import extremeblocks.items.ItemNotes;
-import extremeblocks.items.ItemReturner;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class Init
 {
@@ -49,6 +65,9 @@ public class Init
 	public static CreativeTabs tab_fakeFloors = new CustomTab("Fake Floors");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
+	public static CreativeTabs tab_foods = new CustomTab("Foods");
+
+	public static WorldType custom = new WorldTypeIslands();
 
 	public static ToolMaterial TRINQUANTIUM = EnumHelper.addToolMaterial("Trinquantium", 4, 2368, 10.0F, 4.0F, 15);
 	public static ToolMaterial BRONZE = EnumHelper.addToolMaterial("Bronze", 2, 328, 5.0F, 3.0F, 12);
@@ -101,6 +120,9 @@ public class Init
 	public static final Item sapphire = new ItemCustom("Sapphire", tab_mainItems).setTextureName(MODID + ":sapphire");
 	public static final Item onyx = new ItemCustom("Onyx", tab_mainItems).setTextureName(MODID + ":onyx");
 	public static final Item fuse = new ItemFuse();
+	public static final Item grenade = new ItemGrenade();
+	//public static final Item mellow_weed = new ItemWeed("Mellow Weed", 1);
+	//public static final Item normal_weed = new ItemWeed("Weed", 2);
 
 	public static final Block glester_ore = new BlockOre("Glester Ore").setDrop(glester_rock);
 	public static final Block silver_ore = new BlockOre("Silver Ore");
@@ -147,6 +169,131 @@ public class Init
 	public static final Block fuse_block = new BlockFuseBlock();
 	public static final Block powder_keg = new BlockPowderKeg();
 
+	public static final Block transportPipe = new BlockPipe(PipeType.TRANSPORT);
+	public static final Block powerPipe = new BlockPipe(PipeType.POWER);
+	public static final Block emitter = new BlockPower(PowerType.EMITTER);
+	public static final Block receiver = new BlockPower(PowerType.RECEIVER);
+
+	public static BlockStorage crate = new BlockStorage("Crate", Material.wood, BlockType.NORMAL)
+	{
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
+
+			for (int i = 0; i < 3; ++i)
+			{
+				for (int j = 0; j < 3; ++j)
+				{
+					slots.add(new Slot(te, j + i * 3, 62 + j * 18, 17 + i * 18));
+				}
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath("textures/gui/container/dispenser.png").setStorageSlots(9);
+
+	public static BlockStorage barrel = new BlockStorage("Barrel", Material.wood, BlockType.BARREL)
+	{
+		@Override
+		public boolean renderAsNormalBlock()
+		{
+			return false;
+		}
+
+		@Override
+		public boolean isOpaqueCube()
+		{
+			return false;
+		}
+
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
+
+			for (int i = 0; i < 4; ++i)
+			{
+				for (int j = 0; j < 2; ++j)
+				{
+					slots.add(new Slot(te, j + i * 2, 71 + j * 18, 8 + i * 18));
+				}
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath(MODID + ":textures/gui/barrel.png").setStorageSlots(8).setBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
+
+	public static BlockStorage cabinet = new BlockCabinet();
+
+	public static BlockStorage strongbox = (BlockStorage) new BlockStorage("Strongbox", Material.iron, BlockType.BARREL)
+	{
+		@Override
+		public boolean renderAsNormalBlock()
+		{
+			return false;
+		}
+
+		@Override
+		public boolean isOpaqueCube()
+		{
+			return false;
+		}
+
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
+
+			for (int i = 0; i < 3; ++i)
+			{
+				slots.add(new Slot(te, i, 62 + i * 18, 36));
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath(MODID + ":textures/gui/strongbox.png").setStorageSlots(3).setBounds(0.2F, 0.0F, 0.4F, 0.8F, 0.3F, 0.6F).setHardness(7.0F).setBlockTextureName("iron_block");
+
+	public static BlockStorage armorStand = new BlockArmorStand();
+
+	public static BlockStorage bigCrate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
+	{
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
+
+			for (int j = 0; j < 3; ++j)
+			{
+				for (int k = 0; k < 9; ++k)
+				{
+					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
+				}
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath(MODID + ":textures/gui/chest.png").setStorageSlots(27);
+
+	public static BlockStorage smallCrate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
+	{
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
+
+			for (int j = 0; j < 2; ++j)
+			{
+				for (int k = 0; k < 2; ++k)
+				{
+					slots.add(new Slot(te, k + j * 2, 71 + k * 18, 29 + j * 18));
+				}
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath(MODID + ":textures/gui/smallcrate.png").setStorageSlots(4);
+
 	public static void addRecipes()
 	{
 		MPUtil.addRecipe(new ItemStack(counter), "X#", 'X', core_chip, '#', Blocks.wooden_button);
@@ -158,7 +305,7 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(fire_hydrant), " # ", "#X#", "XBX", '#', Items.iron_ingot, 'X', pipes, 'B', Items.flint);
 		MPUtil.addRecipe(new ItemStack(vending_machine), "##B", "#X#", "###", '#', Items.iron_ingot, 'X', core_chip, 'B', light);
 		MPUtil.addRecipe(new ItemStack(trash), "##", "##", '#', Items.iron_ingot);
-		MPUtil.addRecipe(new ItemStack(limestone_block), "##", "##", '#', limestone);
+		MPUtil.addRecipe(new ItemStack(limestone_ore), "##", "##", '#', limestone);
 		MPUtil.addRecipe(new ItemStack(game_remote), "###", "#X#", "# #", '#', plastic, 'X', chip);
 		MPUtil.addRecipe(new ItemStack(light), "###", "#X#", "###", '#', Items.redstone, 'X', chip);
 		MPUtil.addRecipe(new ItemStack(core_chip), "###", '#', chip);
@@ -190,18 +337,49 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(powder_keg), "#X#", "#X#", '#', Items.gunpowder, 'X', fuse);
 		MPUtil.addRecipe(new ItemStack(meteor), "##", "##", '#', meteorite_shards);
 
-		MPUtil.addCompactRecipe(new ItemStack(limestone_block), limestone);
-		MPUtil.addCompactRecipe(new ItemStack(silver_block), silver_ingot);
-		MPUtil.addCompactRecipe(new ItemStack(bronze_block), bronze_ingot);
-		MPUtil.addCompactRecipe(new ItemStack(trinquantium_block), trinquantium_ingot);
-		MPUtil.addCompactRecipe(new ItemStack(plaster_wall), plastic);
-		MPUtil.addCompactRecipe(new ItemStack(compact_stone), Blocks.stone);
-		MPUtil.addCompactRecipe(new ItemStack(waste), Items.slime_ball);
+		MPUtil.addRecipe(new ItemStack(strongbox), "II", 'I', Items.iron_ingot);
+		MPUtil.addRecipe(new ItemStack(barrel), "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
+		MPUtil.addRecipe(new ItemStack(cabinet), "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
+		MPUtil.addRecipe(new ItemStack(armorStand), "W", "W", "W", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(smallCrate), "SS", "SS", 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(crate), "PP", "PP", 'P', Blocks.planks);
+		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log2);
+
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(limestone_block), new ItemStack(limestone));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(silver_block), new ItemStack(silver_ingot));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(bronze_block), new ItemStack(bronze_ingot));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(trinquantium_block), new ItemStack(trinquantium_ingot));
+		MPUtil.addCompactRecipe(new ItemStack(plaster_wall), new ItemStack(plastic));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(compact_stone), new ItemStack(Blocks.stone));
+		MPUtil.addCompactRecipe(new ItemStack(waste), new ItemStack(Items.slime_ball));
 
 		MPUtil.addSmeltingRecipe(new ItemStack(trinquantium_ore), new ItemStack(trinquantium_ingot), 4.0F);
 		MPUtil.addSmeltingRecipe(new ItemStack(silver_ore), new ItemStack(silver_ingot), 2.0F);
 		MPUtil.addSmeltingRecipe(new ItemStack(copper_and_tin_lump), new ItemStack(bronze_ingot), 3.0F);
 		MPUtil.addSmeltingRecipe(new ItemStack(weak_cement_wall), new ItemStack(cement_wall), 3.0F);
 		MPUtil.addSmeltingRecipe(new ItemStack(limestone_block), new ItemStack(marble), 3.0F);
+	}
+
+	public static void handleConfig(FMLPreInitializationEvent event)
+	{
+		String spawn_rates = "Ore Spawn Rates";
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+
+		Vars.alterWorld = config.get(config.CATEGORY_GENERAL, "Alter World", false).getBoolean(false);
+
+		Vars.copperSR = config.get(spawn_rates, "Copper SR", 20).getInt(20);
+		Vars.tinSR = config.get(spawn_rates, "Tin SR", 20).getInt(20);
+		Vars.silverSR = config.get(spawn_rates, "Silver SR", 2).getInt(2);
+		Vars.trinquantiumSR = config.get(spawn_rates, "Trinquantium SR", 1).getInt(1);
+		Vars.glesterSR = config.get(spawn_rates, "Glester SR", 10).getInt(10);
+		Vars.delvlishSR = config.get(spawn_rates, "Delvlish SR", 10).getInt(10);
+		Vars.meteoriteSR = config.get(spawn_rates, "Meteorite SR", 5).getInt(5);
+		Vars.fluoriteSR = config.get(spawn_rates, "Fluorite SR", 15).getInt(15);
+		Vars.compactStoneSR = config.get(spawn_rates, "Compact Stone SR", 10).getInt(10);
+		Vars.onyxSR = config.get(spawn_rates, "Onyx SR", 10).getInt(10);
+
+		config.save();
 	}
 }

@@ -1,9 +1,9 @@
-package extremeblocks.blocks.abstractblocks;
+package main.extremeblocks.blocks.abstractblocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
 
 public class BlockOre extends BlockCustom
 {

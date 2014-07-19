@@ -1,13 +1,12 @@
-package extremeblocks.items;
+package main.extremeblocks.items;
 
+import main.com.hk.testing.util.ItemCustom;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import com.hk.testing.util.ItemCustom;
-import extremeblocks.ExtremeBlocks;
-import extremeblocks.Init;
 
 public class ItemExtractor extends ItemCustom
 {
@@ -22,11 +21,11 @@ public class ItemExtractor extends ItemCustom
 	{
 		Block block = par3World.getBlock(par4, par5, par6);
 
-		if (block == Blocks.log && block.getDamageValue(par3World, par4, par5, par6) == 0)
+		if (block == Blocks.log)
 		{
 			par1ItemStack.damageItem(1, par2EntityPlayer);
 			par2EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Init.sap));
-			par3World.setBlock(par4, par5, par6, Init.emptied_log);
+			par3World.setBlock(par4, par5, par6, Init.emptied_log, block.getDamageValue(par3World, par4, par5, par6), 2);
 		}
 		return true;
 	}

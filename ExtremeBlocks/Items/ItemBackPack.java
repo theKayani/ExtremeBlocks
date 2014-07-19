@@ -1,11 +1,10 @@
-package extremeblocks.items;
+package main.extremeblocks.items;
 
+import main.com.hk.testing.util.ItemCustom;
+import main.extremeblocks.Init;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import com.hk.testing.util.ItemCustom;
-import extremeblocks.ExtremeBlocks;
-import extremeblocks.Init;
 
 public class ItemBackpack extends ItemCustom
 {

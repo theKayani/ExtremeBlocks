@@ -1,5 +1,7 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.extremeblocks.ExtremeBlocks;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,8 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import extremeblocks.ExtremeBlocks;
-import extremeblocks.Init;
 
 public class BlockDriedSapling extends BlockBush
 {

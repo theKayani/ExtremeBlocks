@@ -1,5 +1,8 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -11,11 +14,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
-import com.hk.testing.util.MPUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.Init;
 
 public class BlockVendingMachine extends BlockCustom
 {
@@ -75,7 +75,7 @@ public class BlockVendingMachine extends BlockCustom
 
 	private void func_149930_e(World p_149930_1_, int p_149930_2_, int p_149930_3_, int p_149930_4_)
 	{
-		if (!p_149930_1_.isRemote)
+		if (MPUtil.isServerSide())
 		{
 			Block block = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ - 1);
 			Block block1 = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ + 1);
@@ -138,7 +138,7 @@ public class BlockVendingMachine extends BlockCustom
 
 		if (player.inventory.consumeInventoryItem(Items.diamond))
 		{
-			return player.inventory.addItemStackToInventory(new ItemStack(MPUtil.getRandomItem(world.rand), world.rand.nextInt(20) == 0 ? 2 : 1));
+			return player.inventory.addItemStackToInventory(new ItemStack(MPUtil.getRandomItem(), world.rand.nextInt(20) == 0 ? 2 : 1));
 		}
 
 		return false;

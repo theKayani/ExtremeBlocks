@@ -1,5 +1,6 @@
-package extremeblocks.blocks.tileentities;
+package main.extremeblocks.blocks.tileentities;
 
+import main.com.hk.testing.util.MPUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +27,7 @@ public class TileEntityRewardBlock extends TileEntity
 
 	public boolean blockClicked(World world, EntityPlayer player)
 	{
-		if (!world.isRemote)
+		if (MPUtil.isServerSide())
 		{
 			player.addChatComponentMessage(new ChatComponentTranslation("Reward Block Activated! Amount: " + amount++));
 		}

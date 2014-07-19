@@ -1,18 +1,23 @@
-package extremeblocks.blocks.abstractblocks;
+package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import main.com.hk.testing.util.MPUtil;
+import main.com.hk.testing.util.RegistryHelper;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import com.hk.testing.util.RegistryHelper;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.Init;
 
 public class BlockLightedBlock extends Block
 {
@@ -24,15 +29,10 @@ public class BlockLightedBlock extends Block
 
 	private BlockLightedBlock(Block parent, boolean isLighted)
 	{
-		super(Material.wood);
+		super(parent.getMaterial());
 		this.setBlockName((isLighted ? "Lighted_" : "Off_") + parent.getLocalizedName() + "[" + ID++ + "]");
 		this.setHardness(0.3F);
-
-		if (isLighted)
-		{
-			this.setCreativeTab(Init.tab_lightedBlocks);
-		}
-
+		if (isLighted) this.setCreativeTab(Init.tab_lightedBlocks);
 		this.setLightLevel(isLighted ? 0.9375F : 0.0F);
 
 		this.id = ID;
@@ -53,28 +53,19 @@ public class BlockLightedBlock extends Block
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		if (isLighted)
+		for (int i = 0; i < lightedBlocks.size(); i++)
 		{
-			for (int i = 0; i < lightedBlocks.size(); i++)
+			if (isLighted && parent == lightedBlocks.get(i).parent)
 			{
-				if (parent == lightedBlocks.get(i).parent)
-				{
-					world.setBlock(x, y, z, offBlocks.get(i));
-				}
+				world.setBlock(x, y, z, offBlocks.get(i));
 			}
-			return true;
-		}
-		else
-		{
-			for (int i = 0; i < offBlocks.size(); i++)
+			else if (!isLighted && parent == offBlocks.get(i).parent)
 			{
-				if (parent == offBlocks.get(i).parent)
-				{
-					world.setBlock(x, y, z, lightedBlocks.get(i));
-				}
+				world.setBlock(x, y, z, lightedBlocks.get(i));
 			}
-			return true;
 		}
+
+		return true;
 	}
 
 	public void registerBlockIcons(IIconRegister ir)
@@ -92,21 +83,28 @@ public class BlockLightedBlock extends Block
 		lightedBlocks.add(lighted);
 		offBlocks.add(off);
 
-		// MPUtil.addRecipe(new ItemStack(lighted), " T ", "TBT", " T ", 'T',
-		// Blocks.torch, 'B', parent);
-
 		RegistryHelper.register(lighted);
 		RegistryHelper.register(off);
+
+		LanguageRegistry.addName(off, "Off " + parent.getLocalizedName());
+		LanguageRegistry.addName(lighted, "Lighted " + parent.getLocalizedName());
+
+		MPUtil.addRecipe(new ItemStack(lighted), "TTT", "TBT", "TTT", 'T', Blocks.torch, 'B', parent);
 	}
+	
+	public int damageDropped(int p_149692_1_)
+    {
+        return parent.damageDropped(p_149692_1_);
+    }
 
 	public String getUnlocalizedName()
 	{
-		return "[" + id + "]Lighted " + parent.getLocalizedName();
+		return "Lighted " + parent.getLocalizedName() + "[" + id + "]";
 	}
 
 	public String getLocalizedName()
 	{
-		return getUnlocalizedName();
+		return "Lighted " + parent.getLocalizedName();
 	}
 
 	@SideOnly(Side.CLIENT)

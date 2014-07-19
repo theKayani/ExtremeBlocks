@@ -1,12 +1,12 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
 
 public class BlockHydrant extends BlockCustom
 {

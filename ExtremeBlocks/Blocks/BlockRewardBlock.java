@@ -1,13 +1,13 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.extremeblocks.Init;
+import main.extremeblocks.blocks.tileentities.TileEntityRewardBlock;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
-import extremeblocks.blocks.tileentities.TileEntityRewardBlock;
 
 public class BlockRewardBlock extends BlockCustom implements ITileEntityProvider
 {

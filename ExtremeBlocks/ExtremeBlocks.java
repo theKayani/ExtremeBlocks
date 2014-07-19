@@ -1,55 +1,53 @@
-package extremeblocks;
+package main.extremeblocks;
 
-import java.io.File;
 import java.util.ArrayList;
+import main.com.hk.testing.util.ItemToolSet;
+import main.com.hk.testing.util.RegistryHelper;
+import main.extremeblocks.blocks.abstractblocks.BlockFakeFloor;
+import main.extremeblocks.blocks.abstractblocks.BlockLightedBlock;
+import main.extremeblocks.entities.EntityGrenade;
+import main.extremeblocks.network.PacketHandlerEB;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraftforge.common.util.EnumHelper;
-import com.hk.testing.util.Config;
-import com.hk.testing.util.ItemToolSet;
-import com.hk.testing.util.RegistryHelper;
-import com.hk.testing.util.StringLocator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import extremeblocks.blocks.abstractblocks.BlockFakeFloor;
-import extremeblocks.blocks.abstractblocks.BlockLightedBlock;
-import extremeblocks.blocks.tileentities.TileEntityConsole;
-import extremeblocks.blocks.tileentities.TileEntityFuse;
-import extremeblocks.blocks.tileentities.TileEntityRewardBlock;
 
-@Mod(modid = Init.MODID, name = "Extreme Blocks", version = "5.0")
+@Mod(modid = Init.MODID, name = "Extreme Blocks", version = "5.7")
 public class ExtremeBlocks
 {
+	@SidedProxy(clientSide = "main.extremeblocks.EBClient", serverSide = "main.extremeblocks.EBCommon")
+	public static EBCommon proxy;
 	@Instance(Init.MODID)
 	public static ExtremeBlocks instance;
-	public static Config config;
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
 	public static ArrayList<Item> items = new ArrayList<Item>();
+	public static final PacketHandlerEB packetPipeline = new PacketHandlerEB();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		config = new Config(event);
-
-		config.add("Spawn Amount", 3440, "How many Time to Spawn it!");
-		config.add("Can Spawn", false, "Can it Spawn or Not?");
-		config.add("Name", "Boom", "What to Name it");
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+		
+		Init.handleConfig(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		StringLocator locator = new StringLocator(new File("/Users/owner/Desktop/MCP/1.1060/src/main/resources/assets/extremeblocks/lang/en_US.lang"));
+		packetPipeline.initialise();
 		new Init();
-		
+
 		GameRegistry.registerWorldGenerator(new WorldManager(), 5);
 
 		Init.TRINQUANTIUM.customCraftingMaterial = Init.trinquantium_ingot;
@@ -76,7 +74,6 @@ public class ExtremeBlocks
 
 		for (int i = 0; i < blocks.size(); i++)
 		{
-			locator.addLocalization(blocks.get(i), blocks.get(i).getLocalizedName().replaceAll("tile.", "").replaceAll(".name", ""));
 			RegistryHelper.register(blocks.get(i));
 		}
 		for (int i = 0; i < items.size(); i++)
@@ -84,16 +81,18 @@ public class ExtremeBlocks
 			RegistryHelper.register(items.get(i));
 		}
 
-		GameRegistry.registerTileEntity(TileEntityConsole.class, "Console");
-		GameRegistry.registerTileEntity(TileEntityRewardBlock.class, "RewardBlock");
-		GameRegistry.registerTileEntity(TileEntityFuse.class, "Fuse");
-
 		Init.addRecipes();
+
+		EntityRegistry.registerModEntity(EntityGrenade.class, "Grenade", 1, this, 80, 3, true);
+
+		proxy.registerRenderThings();
+		proxy.registerSounds();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		packetPipeline.postInitialise();
 		ArrayList<Block> allBlocks = new ArrayList<Block>();
 
 		for (int i = 0; i < RegistryHelper.blocksList.length; i++)
@@ -124,20 +123,29 @@ public class ExtremeBlocks
 				RegistryHelper.register(new BlockFakeFloor(allBlocks.get(i)));
 			}
 		}
-		
+
 		int harvestLevel = 0;
 		int maxUses = 0;
 		int efficiency = 0;
 		int damage = 0;
 		int enchantability = 0;
-		
-		for(int i = 0; i < ToolMaterial.values().length; i++)
+
+		for (int i = 0; i < ToolMaterial.values().length; i++)
 		{
 			harvestLevel += ToolMaterial.values()[i].getHarvestLevel();
 			maxUses += ToolMaterial.values()[i].getMaxUses();
 			efficiency += ToolMaterial.values()[i].getEfficiencyOnProperMaterial();
 			damage += ToolMaterial.values()[i].getDamageVsEntity();
 			enchantability += ToolMaterial.values()[i].getEnchantability();
+		}
+
+		// ToolMaterial hardcore = EnumHelper.addToolMaterial("Hardcore",
+		// harvestLevel, maxUses, efficiency, damage, enchantability);
+
+		// new ItemToolSet(hardcore, Items.boat, "Hardcore", Init.MODID,
+		// Init.tab_tools).registerTools();
+	}
+}ity();
 		}
 
 		//ToolMaterial hardcore = EnumHelper.addToolMaterial("Hardcore", harvestLevel, maxUses, efficiency, damage, enchantability);

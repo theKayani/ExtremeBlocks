@@ -1,11 +1,11 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
 
 public class BlockLantern extends BlockCustom
 {

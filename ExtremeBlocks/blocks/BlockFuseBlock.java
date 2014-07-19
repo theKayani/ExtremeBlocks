@@ -1,6 +1,10 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
 import java.util.Random;
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.Init;
+import main.extremeblocks.blocks.tileentities.TileEntityFuse;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -10,13 +14,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.Init;
-import extremeblocks.blocks.tileentities.TileEntityFuse;
 
 public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 {
@@ -31,21 +31,22 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 	{
 		return world.getBlock(x, y - 1, z).getMaterial().isOpaque();
 	}
-	
+
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
+	{
 		return Init.fuse;
-    }
-	
+	}
+
 	@SideOnly(Side.CLIENT)
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return Init.fuse;
-    }
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
+	{
+		return Init.fuse;
+	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int lol, float sideX, float sideY, float sideZ)
 	{
-		player.addChatMessage(new ChatComponentTranslation("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ));
+		MPUtil.sendMessage("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ, player);
+
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
 			world.setBlock(x, y, z, Blocks.fire);
@@ -54,10 +55,10 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 		}
 		return false;
 	}
-	
+
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
-		if (!world.isRemote)
+		if (MPUtil.isServerSide())
 		{
 			if (!this.canPlaceBlockAt(world, x, y, z))
 			{

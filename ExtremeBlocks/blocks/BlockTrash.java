@@ -1,11 +1,11 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.extremeblocks.Init;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
 
 public class BlockTrash extends BlockCustom
 {

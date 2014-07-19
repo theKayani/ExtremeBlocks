@@ -1,5 +1,8 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.MPUtil;
+import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -7,11 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import com.hk.testing.util.BlockCustom;
-import extremeblocks.Init;
 
 public class BlockPowderKeg extends BlockCustom
 {
@@ -39,7 +39,7 @@ public class BlockPowderKeg extends BlockCustom
 		{
 			for (int k = -1; k < 2; k++)
 			{
-				if (!world.isRemote && world.getBlock(x + i, y, z + k) == Blocks.fire)
+				if (MPUtil.isServerSide() && world.getBlock(x + i, y, z + k) == Blocks.fire)
 				{
 					explode(world, x, y, z);
 				}
@@ -49,7 +49,8 @@ public class BlockPowderKeg extends BlockCustom
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int lol, float sideX, float sideY, float sideZ)
 	{
-		player.addChatMessage(new ChatComponentTranslation("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ));
+		MPUtil.sendMessage("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ, player);
+
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
 			explode(world, x, y, z);
@@ -66,7 +67,7 @@ public class BlockPowderKeg extends BlockCustom
 
 	private void explode(World world, int x, int y, int z)
 	{
-		if(!world.isRemote)
+		if (MPUtil.isServerSide())
 		{
 			world.createExplosion(null, x, y, z, 4.0F, true);
 		}
@@ -74,9 +75,9 @@ public class BlockPowderKeg extends BlockCustom
 
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		if (entity instanceof EntityArrow && !world.isRemote)
+		if (entity instanceof EntityArrow && MPUtil.isServerSide())
 		{
-			EntityArrow entityarrow = (EntityArrow)entity;
+			EntityArrow entityarrow = (EntityArrow) entity;
 
 			if (entityarrow.isBurning())
 			{

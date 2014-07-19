@@ -1,13 +1,13 @@
-package extremeblocks.blocks;
+package main.extremeblocks.blocks;
 
+import main.extremeblocks.ExtremeBlocks;
+import main.extremeblocks.Init;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import extremeblocks.ExtremeBlocks;
-import extremeblocks.Init;
 
 public class BlockEmptiedLog extends BlockRotatedPillar
 {
