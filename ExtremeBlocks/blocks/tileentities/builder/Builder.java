@@ -29,9 +29,9 @@ public class Builder
 		return 5;
 	}
 
-	public static int getPowerNeeded(int buildingMode) 
+	public static int getPowerNeeded(int buildingMode)
 	{
-		switch(buildingMode)
+		switch (buildingMode)
 		{
 			case 1:
 				return 300;
@@ -47,9 +47,9 @@ public class Builder
 		return 0;
 	}
 
-	public void buildStructure(int buildingMode, int stage) 
+	public void buildStructure(int buildingMode, int stage)
 	{
-		switch(buildingMode)
+		switch (buildingMode)
 		{
 			case 1:
 				buildDirtHut(stage);
@@ -71,7 +71,7 @@ public class Builder
 
 	public static String getStructure(int buildingMode)
 	{
-		switch(buildingMode)
+		switch (buildingMode)
 		{
 			case 1:
 				return "Epic Dirt Hut";
@@ -89,7 +89,7 @@ public class Builder
 
 	public static int getMaxStages(int buildingMode)
 	{
-		switch(buildingMode)
+		switch (buildingMode)
 		{
 			case 1:
 				return 3;
@@ -107,7 +107,7 @@ public class Builder
 
 	public static int getDistance(int buildingMode)
 	{
-		switch(buildingMode)
+		switch (buildingMode)
 		{
 			case 1:
 			case 2:
@@ -124,11 +124,11 @@ public class Builder
 
 	private void buildSteakHouse(int stage)
 	{
-		switch(stage)
+		switch (stage)
 		{
 			case 0:
 			{
-				for(int i = 6; i >= 0; i--)
+				for (int i = 6; i >= 0; i--)
 				{
 					WorldUtil.createLayer(worldObj, baseX, baseY + i, baseZ, Blocks.air, 12, 16, false, false);
 				}
@@ -136,7 +136,7 @@ public class Builder
 			}
 			case 1:
 			{
-				for(int i = 5; i >= 0; i--)
+				for (int i = 5; i >= 0; i--)
 				{
 					WorldUtil.createLayer(worldObj, baseX, baseY + i, baseZ, Blocks.planks, 12, 16, false, false);
 					WorldUtil.createLayer(worldObj, baseX, baseY + i, baseZ, Blocks.air, 10, 14, false, false);
@@ -160,10 +160,10 @@ public class Builder
 				break;
 			}
 			case 3:
-			{	
+			{
 				/* CHAIRS */
 				// < = +Z | > = -Z | V = +X | ^ = -X
-				//    X,     Y,     Z, META
+				// X, Y, Z, META
 				WorldUtil.setBlock(worldObj, baseX + 0, baseY + 1, baseZ + 1, Blocks.oak_stairs, 3);
 				WorldUtil.setBlock(worldObj, baseX + 0, baseY + 1, baseZ - 1, Blocks.oak_stairs, 2);
 				WorldUtil.setBlock(worldObj, baseX + 0, baseY + 1, baseZ - 3, Blocks.oak_stairs, 3);
@@ -175,7 +175,7 @@ public class Builder
 				break;
 			}
 			case 4:
-			{	
+			{
 				WorldUtil.setBlock(worldObj, baseX + 4, baseY + 1, baseZ + 0, Blocks.oak_stairs, 2);
 				WorldUtil.setBlock(worldObj, baseX + 5, baseY + 1, baseZ + 0, Blocks.oak_stairs, 2);
 				WorldUtil.setBlock(worldObj, baseX + 4, baseY + 1, baseZ - 2, Blocks.oak_stairs, 3);
@@ -299,7 +299,7 @@ public class Builder
 				WorldUtil.createLayer(worldObj, baseX + 1, baseY + 4, baseZ, Blocks.torch, 0, 14, false, true);
 				WorldUtil.createLayer(worldObj, baseX - 1, baseY + 4, baseZ, Blocks.torch, 0, 14, false, true);
 				WorldUtil.createLayer(worldObj, baseX + 5, baseY + 4, baseZ, Blocks.torch, 0, 14, false, true);
-				WorldUtil.createLayer(worldObj, baseX - 5, baseY + 4, baseZ, Blocks.torch, 0, 14, false, true);		
+				WorldUtil.createLayer(worldObj, baseX - 5, baseY + 4, baseZ, Blocks.torch, 0, 14, false, true);
 				break;
 			}
 			case 19:
@@ -313,11 +313,11 @@ public class Builder
 
 	private void buildHouse(int stage)
 	{
-		switch(stage)
+		switch (stage)
 		{
 			case 0:
 			{
-				for(int i = 7; i >= 0; i--)
+				for (int i = 7; i >= 0; i--)
 				{
 					WorldUtil.createLayer(worldObj, baseX, baseY + i, baseZ, Blocks.air, 6, 8, false, false);
 				}
@@ -325,7 +325,7 @@ public class Builder
 			}
 			case 1:
 			{
-				WorldUtil.createLayer(worldObj, baseX, baseY, baseZ, Blocks.brick_block,  6, 8, false, false);
+				WorldUtil.createLayer(worldObj, baseX, baseY, baseZ, Blocks.brick_block, 6, 8, false, false);
 				break;
 			}
 			case 2:
@@ -342,7 +342,7 @@ public class Builder
 			}
 			case 4:
 			{
-				WorldUtil.createLayer(worldObj, baseX, baseY + 3, baseZ, Blocks.brick_block,  6, 8, false, false);
+				WorldUtil.createLayer(worldObj, baseX, baseY + 3, baseZ, Blocks.brick_block, 6, 8, false, false);
 				break;
 			}
 			case 5:
@@ -359,7 +359,7 @@ public class Builder
 			}
 			case 7:
 			{
-				WorldUtil.createLayer(worldObj, baseX, baseY + 6, baseZ, Blocks.brick_block,  6, 8, false, false);
+				WorldUtil.createLayer(worldObj, baseX, baseY + 6, baseZ, Blocks.brick_block, 6, 8, false, false);
 				break;
 			}
 			case 8:
@@ -439,7 +439,7 @@ public class Builder
 
 	private void buildDirtHut(int stage)
 	{
-		switch(stage)
+		switch (stage)
 		{
 			case 0:
 			{
@@ -463,11 +463,11 @@ public class Builder
 
 	private void buildSmallBakery(int stage)
 	{
-		switch(stage)
+		switch (stage)
 		{
 			case 0:
 			{
-				for(int i = 7; i >= 0; i--)
+				for (int i = 7; i >= 0; i--)
 				{
 					WorldUtil.createLayer(worldObj, baseX, baseY + i, baseZ, Blocks.air, 8, 12, false, false);
 				}
@@ -581,7 +581,7 @@ public class Builder
 
 	private void buildFarm(int stage)
 	{
-		switch(stage)
+		switch (stage)
 		{
 			case 0:
 			{

@@ -59,5 +59,6 @@ public class PacketTransportPipe extends PacketPipe<TileEntityTransportPipe>
 
 	@Override
 	public void handleServerSide(EntityPlayer player)
-	{}
+	{
+	}
 }

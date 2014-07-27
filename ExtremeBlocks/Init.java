@@ -121,8 +121,8 @@ public class Init
 	public static final Item onyx = new ItemCustom("Onyx", tab_mainItems).setTextureName(MODID + ":onyx");
 	public static final Item fuse = new ItemFuse();
 	public static final Item grenade = new ItemGrenade();
-	//public static final Item mellow_weed = new ItemWeed("Mellow Weed", 1);
-	//public static final Item normal_weed = new ItemWeed("Weed", 2);
+	// public static final Item mellow_weed = new ItemWeed("Mellow Weed", 1);
+	// public static final Item normal_weed = new ItemWeed("Weed", 2);
 
 	public static final Block glester_ore = new BlockOre("Glester Ore").setDrop(glester_rock);
 	public static final Block silver_ore = new BlockOre("Silver Ore");
@@ -341,10 +341,12 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(barrel), "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
 		MPUtil.addRecipe(new ItemStack(cabinet), "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
 		MPUtil.addRecipe(new ItemStack(armorStand), "W", "W", "W", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(armorStand), "W", "W", "W", 'W', Blocks.log2);
 		MPUtil.addRecipe(new ItemStack(smallCrate), "SS", "SS", 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(crate), "PP", "PP", 'P', Blocks.planks);
 		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log);
 		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log2);
+		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log2);
 
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(limestone_block), new ItemStack(limestone));
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(silver_block), new ItemStack(silver_ingot));
@@ -352,6 +354,7 @@ public class Init
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(trinquantium_block), new ItemStack(trinquantium_ingot));
 		MPUtil.addCompactRecipe(new ItemStack(plaster_wall), new ItemStack(plastic));
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(compact_stone), new ItemStack(Blocks.stone));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenade), new ItemStack(Items.gunpowder));
 		MPUtil.addCompactRecipe(new ItemStack(waste), new ItemStack(Items.slime_ball));
 
 		MPUtil.addSmeltingRecipe(new ItemStack(trinquantium_ore), new ItemStack(trinquantium_ingot), 4.0F);
@@ -361,25 +364,25 @@ public class Init
 		MPUtil.addSmeltingRecipe(new ItemStack(limestone_block), new ItemStack(marble), 3.0F);
 	}
 
-	public static void handleConfig(FMLPreInitializationEvent event)
+	public static void handleConfig()
 	{
-		String spawn_rates = "Ore Spawn Rates";
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
+		Configuration config = ExtremeBlocks.configFile;
+		String CG = config.CATEGORY_GENERAL;
 
-		Vars.alterWorld = config.get(config.CATEGORY_GENERAL, "Alter World", false).getBoolean(false);
+		Vars.alterWorld = config.get(CG, "Alter World", false).getBoolean(false);
 
-		Vars.copperSR = config.get(spawn_rates, "Copper SR", 20).getInt(20);
-		Vars.tinSR = config.get(spawn_rates, "Tin SR", 20).getInt(20);
-		Vars.silverSR = config.get(spawn_rates, "Silver SR", 2).getInt(2);
-		Vars.trinquantiumSR = config.get(spawn_rates, "Trinquantium SR", 1).getInt(1);
-		Vars.glesterSR = config.get(spawn_rates, "Glester SR", 10).getInt(10);
-		Vars.delvlishSR = config.get(spawn_rates, "Delvlish SR", 10).getInt(10);
-		Vars.meteoriteSR = config.get(spawn_rates, "Meteorite SR", 5).getInt(5);
-		Vars.fluoriteSR = config.get(spawn_rates, "Fluorite SR", 15).getInt(15);
-		Vars.compactStoneSR = config.get(spawn_rates, "Compact Stone SR", 10).getInt(10);
-		Vars.onyxSR = config.get(spawn_rates, "Onyx SR", 10).getInt(10);
+		Vars.copperSR = config.get(CG, "Copper SR", 20).getInt(20);
+		Vars.tinSR = config.get(CG, "Tin SR", 20).getInt(20);
+		Vars.silverSR = config.get(CG, "Silver SR", 2).getInt(2);
+		Vars.trinquantiumSR = config.get(CG, "Trinquantium SR", 1).getInt(1);
+		Vars.glesterSR = config.get(CG, "Glester SR", 10).getInt(10);
+		Vars.delvlishSR = config.get(CG, "Delvlish SR", 10).getInt(10);
+		Vars.meteoriteSR = config.get(CG, "Meteorite SR", 5).getInt(5);
+		Vars.fluoriteSR = config.get(CG, "Fluorite SR", 15).getInt(15);
+		Vars.compactStoneSR = config.get(CG, "Compact Stone SR", 10).getInt(10);
+		Vars.onyxSR = config.get(CG, "Onyx SR", 10).getInt(10);
+		Vars.boneDirtSR = config.get(CG, "Bone Dirt SR", 5).getInt(5);
 
-		config.save();
+		if(config.hasChanged()) config.save();
 	}
 }

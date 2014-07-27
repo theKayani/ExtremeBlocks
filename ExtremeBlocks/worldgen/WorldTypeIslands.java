@@ -48,14 +48,7 @@ public class WorldTypeIslands extends WorldType
 	public void onCustomizeButton(Minecraft mc, GuiCreateWorld guiCreateWorld)
 	{
 		mc.displayGuiScreen(new GuiCustomizeIslands(guiCreateWorld, Vars.numbOfTrees, Vars.numbOfPumps, Vars.numbOfCactus, Vars.numbOfMelons));
-		Vars.numbOfCactus =
-		Vars.spawnedCactus =
-		Vars.numbOfPumps =
-		Vars.spawnedPumps =
-		Vars.numbOfMelons =
-		Vars.spawnedMelons =
-		Vars.numbOfTrees =
-		Vars.spawnedTrees = 0;
+		Vars.numbOfCactus = Vars.spawnedCactus = Vars.numbOfPumps = Vars.spawnedPumps = Vars.numbOfMelons = Vars.spawnedMelons = Vars.numbOfTrees = Vars.spawnedTrees = 0;
 	}
 
 	@Override

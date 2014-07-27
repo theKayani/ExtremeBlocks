@@ -91,11 +91,11 @@ public class BlockLightedBlock extends Block
 
 		MPUtil.addRecipe(new ItemStack(lighted), "TTT", "TBT", "TTT", 'T', Blocks.torch, 'B', parent);
 	}
-	
+
 	public int damageDropped(int p_149692_1_)
-    {
-        return parent.damageDropped(p_149692_1_);
-    }
+	{
+		return parent.damageDropped(p_149692_1_);
+	}
 
 	public String getUnlocalizedName()
 	{

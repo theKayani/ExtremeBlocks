@@ -57,7 +57,9 @@ public class TileEntityTransportPipe extends TileEntityAbstractPipe<TransportPip
 	@Override
 	public TransportPipeLogic[] getLogics()
 	{
-		return new TransportPipeLogic[] { new TransportPipeLogic(this, EAST), new TransportPipeLogic(this, UP), new TransportPipeLogic(this, SOUTH), new TransportPipeLogic(this, WEST), new TransportPipeLogic(this, DOWN), new TransportPipeLogic(this, NORTH) };
+		return new TransportPipeLogic[] {
+		new TransportPipeLogic(this, EAST), new TransportPipeLogic(this, UP), new TransportPipeLogic(this, SOUTH), new TransportPipeLogic(this, WEST), new TransportPipeLogic(this, DOWN), new TransportPipeLogic(this, NORTH)
+		};
 	}
 
 	@Override
@@ -132,15 +134,15 @@ public class TileEntityTransportPipe extends TileEntityAbstractPipe<TransportPip
 
 		items = packet.items;
 	}
-	
+
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
 		NBTTagList nbttaglist = new NBTTagList();
 		ItemStack[] stacks = items.toArray(new ItemStack[0]);
-		
+
 		nbt.setInteger("Size", items.size());
-	
+
 		for (int i = 0; i < stacks.length; ++i)
 		{
 			if (stacks[i] != null)
@@ -161,14 +163,14 @@ public class TileEntityTransportPipe extends TileEntityAbstractPipe<TransportPip
 		int size = nbt.getInteger("Size");
 		ItemStack[] stacks = new ItemStack[size];
 		NBTTagList nbttaglist = (NBTTagList) nbt.getTag("Items");
-		
+
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound lol = nbttaglist.getCompoundTagAt(i);
 			int j = lol.getByte("Slot") & 255;
 			if (j >= 0 && j < stacks.length) stacks[j] = ItemStack.loadItemStackFromNBT(lol);
 		}
-		
+
 		items.addAll(Arrays.asList(stacks));
 	}
 

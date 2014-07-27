@@ -71,16 +71,15 @@ public class TileEntityPipeRender extends TileEntitySpecialRenderer
 
 	private void renderItems(TileEntityTransportPipe te, double x, double y, double z, float scale)
 	{
-		RenderBlocks rb = new RenderBlocks();
 		ItemStack[] items = te.items.toArray(new ItemStack[0]);
 
 		for (int i = 0; i < items.length; i++)
 		{
-			if (items[i] != null && items[i].getItem() != null) doRenderItem(te, items[i], x + (i / 0.2D), y, z + (i / 0.2D), rb);
+			if (items[i] != null && items[i].getItem() != null) doRenderItem(items[i], x + (i / 0.2D), y, z + (i / 0.2D));
 		}
 	}
 
-	public void doRenderItem(TileEntityTransportPipe te, ItemStack itemstack, double x, double y, double z, RenderBlocks rb)
+	public void doRenderItem(ItemStack itemstack, double x, double y, double z)
 	{
 		EntityItem item = new EntityItem(null);
 		item.age = 0;

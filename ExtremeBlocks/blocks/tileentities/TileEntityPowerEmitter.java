@@ -20,64 +20,64 @@ public class TileEntityPowerEmitter extends TileEntity implements IPowerEmitter,
 	public int currentItemBurnTime;
 	public ItemStack payment;
 	protected String customName;
-	
+
 	public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
-    {
-        this.payment = par2ItemStack;
+	{
+		this.payment = par2ItemStack;
 
-        if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
-        {
-            par2ItemStack.stackSize = this.getInventoryStackLimit();
-        }
+		if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+		{
+			par2ItemStack.stackSize = this.getInventoryStackLimit();
+		}
 
-        this.markDirty();
-    }
-	
+		this.markDirty();
+	}
+
 	public ItemStack getStackInSlot(int par1)
-    {
-        return par1 == 0 ? this.payment : null;
-    }
+	{
+		return par1 == 0 ? this.payment : null;
+	}
 
-    public ItemStack decrStackSize(int par1, int par2)
-    {
-        if (this.payment != null)
-        {
-            ItemStack itemstack;
+	public ItemStack decrStackSize(int par1, int par2)
+	{
+		if (this.payment != null)
+		{
+			ItemStack itemstack;
 
-            if (this.payment.stackSize <= par2)
-            {
-                itemstack = this.payment;
-                this.payment = null;
-                this.markDirty();
-                return itemstack;
-            }
-            else
-            {
-                itemstack = this.payment.splitStack(par2);
-                if (this.payment.stackSize == 0) this.payment = null;
-                this.markDirty();
-                return itemstack;
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }
-    
-    public ItemStack getStackInSlotOnClosing(int par1)
-    {
-        if (this.payment != null)
-        {
-            ItemStack itemstack = this.payment;
-            this.payment = null;
-            return itemstack;
-        }
-        else
-        {
-            return null;
-        }
-    }
+			if (this.payment.stackSize <= par2)
+			{
+				itemstack = this.payment;
+				this.payment = null;
+				this.markDirty();
+				return itemstack;
+			}
+			else
+			{
+				itemstack = this.payment.splitStack(par2);
+				if (this.payment.stackSize == 0) this.payment = null;
+				this.markDirty();
+				return itemstack;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public ItemStack getStackInSlotOnClosing(int par1)
+	{
+		if (this.payment != null)
+		{
+			ItemStack itemstack = this.payment;
+			this.payment = null;
+			return itemstack;
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 	@Override
 	public int getPower(ForgeDirection sideSent)
@@ -140,7 +140,9 @@ public class TileEntityPowerEmitter extends TileEntity implements IPowerEmitter,
 	{
 		super.writeToNBT(nbt);
 		NBTTagList nbttaglist = new NBTTagList();
-		ItemStack[] stacks = new ItemStack[]{payment};
+		ItemStack[] stacks = new ItemStack[] {
+			payment
+		};
 
 		nbt.setInteger("Size", 1);
 
@@ -217,12 +219,22 @@ public class TileEntityPowerEmitter extends TileEntity implements IPowerEmitter,
 		return customName != null;
 	}
 
-	@Override public void openInventory() {}
-	@Override public void closeInventory() {}
+	@Override
+	public void openInventory()
+	{
+	}
+
+	@Override
+	public void closeInventory()
+	{
+	}
 
 	public int getPower()
 	{
-		return TileEntityFurnace.getItemBurnTime(payment) / 100;//(currentItemBurnTime * itemstack.stackSize) / 500 : 0;
+		return TileEntityFurnace.getItemBurnTime(payment) / 100;// (currentItemBurnTime
+																// *
+																// itemstack.stackSize)
+																// / 500 : 0;
 	}
 
 	@SideOnly(Side.CLIENT)

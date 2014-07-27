@@ -19,7 +19,8 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	protected String customName;
 
 	public TileEntityStorage()
-	{}
+	{
+	}
 
 	public TileEntityStorage(BlockStorage block, int storageSlots, String texturePath, String customName)
 	{
@@ -253,11 +254,13 @@ public class TileEntityStorage extends TileEntity implements IInventory
 
 	@Override
 	public void openInventory()
-	{}
+	{
+	}
 
 	@Override
 	public void closeInventory()
-	{}
+	{
+	}
 
 	public final ResourceLocation getTexture()
 	{

@@ -28,9 +28,9 @@ public class TileEntityPowerReceiver extends TileEntity implements IPowerReceive
 	{
 		if (MPUtil.isServerSide())
 		{
-			if(done) return;
+			if (done) return;
 			MPUtil.sendToAll(new PacketPowerReceiver(this));
-			
+
 			baseX = xCoord + sideToBuild.offsetX * Builder.getDistance(buildingMode);
 			baseY = yCoord + sideToBuild.offsetY * Builder.getDistance(buildingMode);
 			baseZ = zCoord + sideToBuild.offsetZ * Builder.getDistance(buildingMode);
@@ -38,7 +38,7 @@ public class TileEntityPowerReceiver extends TileEntity implements IPowerReceive
 
 			if (counter++ >= 50 && isBuilding)
 			{
-				if(power >= builder.getPowerNeeded(buildingMode))
+				if (power >= builder.getPowerNeeded(buildingMode))
 				{
 					builder.buildStructure(buildingMode, stage);
 					power -= builder.getPowerNeeded(buildingMode);
@@ -67,7 +67,7 @@ public class TileEntityPowerReceiver extends TileEntity implements IPowerReceive
 	@Override
 	public boolean onClickedOn(EntityPlayer player)
 	{
-		if(MPUtil.isServerSide() && player instanceof EntityPlayerMP) MPUtil.sendTo(new PacketPowerReceiver(this), (EntityPlayerMP) player);
+		if (MPUtil.isServerSide() && player instanceof EntityPlayerMP) MPUtil.sendTo(new PacketPowerReceiver(this), (EntityPlayerMP) player);
 		player.openGui(ExtremeBlocks.instance, 3, worldObj, xCoord, yCoord, zCoord);
 		return true;
 	}
@@ -76,14 +76,14 @@ public class TileEntityPowerReceiver extends TileEntity implements IPowerReceive
 	{
 		super.writeToNBT(nbt);
 
-		nbt.setBoolean("Is Building", isBuilding);    
+		nbt.setBoolean("Is Building", isBuilding);
 		nbt.setInteger("Building Mode", buildingMode);
-		nbt.setInteger("Power", power);               
-		nbt.setInteger("Stage", stage);               
-		nbt.setInteger("Counter", counter);           
-		nbt.setInteger("Base X", baseX);              
-		nbt.setInteger("Base Y", baseY);              
-		nbt.setInteger("Base Z", baseZ);              
+		nbt.setInteger("Power", power);
+		nbt.setInteger("Stage", stage);
+		nbt.setInteger("Counter", counter);
+		nbt.setInteger("Base X", baseX);
+		nbt.setInteger("Base Y", baseY);
+		nbt.setInteger("Base Z", baseZ);
 		nbt.setBoolean("Done", done);
 	}
 
@@ -91,21 +91,21 @@ public class TileEntityPowerReceiver extends TileEntity implements IPowerReceive
 	{
 		super.readFromNBT(nbt);
 
-		this.isBuilding = nbt.getBoolean("Is Building");                             
-		this.buildingMode = nbt.getInteger("Building Mode");                                   
+		this.isBuilding = nbt.getBoolean("Is Building");
+		this.buildingMode = nbt.getInteger("Building Mode");
 		this.power = nbt.getInteger("Power");
 		this.stage = nbt.getInteger("Stage");
-		this.counter = nbt.getInteger("Counter");                     
+		this.counter = nbt.getInteger("Counter");
 		this.baseX = nbt.getInteger("Base X");
 		this.baseY = nbt.getInteger("Base Y");
-		this.baseZ = nbt.getInteger("Base Z");                            
-		this.done = nbt.getBoolean("Done");   
+		this.baseZ = nbt.getInteger("Base Z");
+		this.done = nbt.getBoolean("Done");
 	}
-	
+
 	public boolean canInteractWith(EntityPlayer par1EntityPlayer)
 	{
-        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
-    }
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
+	}
 
 	@Override
 	public void receivePacket(PacketPowerReceiver packet)

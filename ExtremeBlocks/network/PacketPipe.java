@@ -16,7 +16,8 @@ public abstract class PacketPipe<E extends TileEntityAbstractPipe> extends Packe
 	public ForgeDirection sideReceived, sideSent;
 
 	public PacketPipe()
-	{}
+	{
+	}
 
 	public PacketPipe(TileEntityPowerPipe pipe)
 	{
@@ -44,7 +45,7 @@ public abstract class PacketPipe<E extends TileEntityAbstractPipe> extends Packe
 	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
 	{
 		super.encodeInto(ctx, buffer);
-		
+
 		buffer.writeBoolean(hasDir);
 		buffer.writeBoolean(hasSource);
 
@@ -59,7 +60,7 @@ public abstract class PacketPipe<E extends TileEntityAbstractPipe> extends Packe
 	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
 	{
 		super.decodeInto(ctx, buffer);
-		
+
 		this.hasDir = buffer.readBoolean();
 		this.hasSource = buffer.readBoolean();
 

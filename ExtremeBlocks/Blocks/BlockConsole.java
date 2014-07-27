@@ -19,7 +19,7 @@ public class BlockConsole extends BlockCustom implements ITileEntityProvider
 		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.4F, 0.9F);
 	}
 
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float sideX, float sideY, float sideZ)
 	{
 		return ((TileEntityConsole) world.getTileEntity(x, y, z)).blockClicked(world, player);
 	}

@@ -24,8 +24,8 @@ public class GuiPowerReceiver extends GuiContainer
 	public void updateScreen()
 	{
 		super.updateScreen();
-		
-		if(receiver.done)
+
+		if (receiver.done)
 		{
 			receiver.isBuilding = receiver.done = false;
 			receiver.stage = receiver.counter = receiver.buildingMode = 0;
@@ -40,22 +40,22 @@ public class GuiPowerReceiver extends GuiContainer
 		this.buttonList.add(new GuiButton(1, 220, 70, 50, 20, "Done"));
 	}
 
-	public void actionPerformed(GuiButton b) 
+	public void actionPerformed(GuiButton b)
 	{
-		switch(b.id)
+		switch (b.id)
 		{
 			case 0:
 			{
-				if(!receiver.done && !receiver.isBuilding)
+				if (!receiver.done && !receiver.isBuilding)
 				{
-					if(receiver.buildingMode >= 0 && receiver.buildingMode < Builder.maxStructures()) receiver.buildingMode++;
+					if (receiver.buildingMode >= 0 && receiver.buildingMode < Builder.maxStructures()) receiver.buildingMode++;
 					else receiver.buildingMode = 0;
 				}
 				break;
 			}
 			case 1:
 			{
-				if(receiver.buildingMode != 0 && !receiver.isBuilding)
+				if (receiver.buildingMode != 0 && !receiver.isBuilding)
 				{
 					receiver.isBuilding = true;
 				}
@@ -87,9 +87,9 @@ public class GuiPowerReceiver extends GuiContainer
 		int l = (height - ySize) / 2;
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 	}
-	
+
 	public void sendPacket()
 	{
-		if(MPUtil.isClientSide()) MPUtil.sendToServer(new PacketPowerReceiver(receiver));
+		if (MPUtil.isClientSide()) MPUtil.sendToServer(new PacketPowerReceiver(receiver));
 	}
 }

@@ -46,12 +46,15 @@ public class TileEntityPowerPipe extends TileEntityAbstractPipe<PowerPipeLogic, 
 
 	@Override
 	public void destroyedBlock(int x, int y, int z, int chance)
-	{}
+	{
+	}
 
 	@Override
 	public PowerPipeLogic[] getLogics()
 	{
-		return new PowerPipeLogic[] { new PowerPipeLogic(this, EAST), new PowerPipeLogic(this, UP), new PowerPipeLogic(this, SOUTH), new PowerPipeLogic(this, WEST), new PowerPipeLogic(this, DOWN), new PowerPipeLogic(this, NORTH) };
+		return new PowerPipeLogic[] {
+		new PowerPipeLogic(this, EAST), new PowerPipeLogic(this, UP), new PowerPipeLogic(this, SOUTH), new PowerPipeLogic(this, WEST), new PowerPipeLogic(this, DOWN), new PowerPipeLogic(this, NORTH)
+		};
 	}
 
 	@Override
@@ -135,5 +138,7 @@ public class TileEntityPowerPipe extends TileEntityAbstractPipe<PowerPipeLogic, 
 	}
 
 	@Override
-	public void update() {}
+	public void update()
+	{
+	}
 }

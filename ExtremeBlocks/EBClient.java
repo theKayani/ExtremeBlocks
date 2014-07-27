@@ -32,7 +32,6 @@ public class EBClient extends EBCommon
 
 		GameRegistry.registerTileEntity(TileEntityPowerEmitter.class, "Power Emitter");
 		GameRegistry.registerTileEntity(TileEntityPowerReceiver.class, "Power Receiver");
-
 		GameRegistry.registerTileEntity(TileEntityAbstractPipe.class, "Pipe");
 		GameRegistry.registerTileEntity(TileEntityStorage.class, "Storage");
 
@@ -43,5 +42,6 @@ public class EBClient extends EBCommon
 	}
 
 	public void registerSounds()
-	{}
+	{
+	}
 }

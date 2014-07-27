@@ -98,7 +98,7 @@ public abstract class TileEntityAbstractPipe<E extends PipeLogic, P extends Pack
 				}
 			}
 		}
-		
+
 		if (sourceCount > 0) hasSource = true;
 		else hasSource = false;
 
@@ -146,7 +146,7 @@ public abstract class TileEntityAbstractPipe<E extends PipeLogic, P extends Pack
 	public static ForgeDirection getDirection(String symbol)
 	{
 		char sym = symbol.charAt(0);
-		
+
 		switch (sym)
 		{
 			case 'E':

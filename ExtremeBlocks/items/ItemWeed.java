@@ -26,7 +26,7 @@ public class ItemWeed extends ItemEdible
 	{
 		if (MPUtil.isServerSide())
 		{
-			switch(state)
+			switch (state)
 			{
 				case 1:
 					par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 200, 1));

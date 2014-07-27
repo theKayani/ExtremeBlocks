@@ -7,9 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 public abstract class PacketPosition extends AbstractPacket
 {
 	public int xPos, yPos, zPos;
-	
-	public PacketPosition() {}
-	
+
+	public PacketPosition()
+	{
+	}
+
 	public PacketPosition(int xPos, int yPos, int zPos)
 	{
 		this.xPos = xPos;

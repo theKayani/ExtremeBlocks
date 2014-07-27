@@ -12,6 +12,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,13 +26,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Init.MODID, name = "Extreme Blocks", version = "5.7")
+@Mod(modid = Init.MODID, name = "Extreme Blocks", version = "5.8", guiFactory = "main.extremeblocks.EBGuiFactory")
 public class ExtremeBlocks
 {
 	@SidedProxy(clientSide = "main.extremeblocks.EBClient", serverSide = "main.extremeblocks.EBCommon")
 	public static EBCommon proxy;
 	@Instance(Init.MODID)
 	public static ExtremeBlocks instance;
+	public static Configuration configFile;
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
 	public static ArrayList<Item> items = new ArrayList<Item>();
 	public static final PacketHandlerEB packetPipeline = new PacketHandlerEB();
@@ -37,9 +41,14 @@ public class ExtremeBlocks
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		MinecraftForge.EVENT_BUS.register(new EBEventHandler());
+		MinecraftForge.ORE_GEN_BUS.register(new EBEventHandler());
+		MinecraftForge.TERRAIN_GEN_BUS.register(new EBEventHandler());
+		FMLCommonHandler.instance().bus().register(new EBEventHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		
-		Init.handleConfig(event);
+		configFile = new Configuration(event.getSuggestedConfigurationFile());
+		configFile.load();
+		Init.handleConfig();
 	}
 
 	@EventHandler
@@ -48,7 +57,7 @@ public class ExtremeBlocks
 		packetPipeline.initialise();
 		new Init();
 
-		GameRegistry.registerWorldGenerator(new WorldManager(), 5);
+		GameRegistry.registerWorldGenerator(new WorldManager(), 1);
 
 		Init.TRINQUANTIUM.customCraftingMaterial = Init.trinquantium_ingot;
 		Init.BRONZE.customCraftingMaterial = Init.bronze_ingot;
@@ -132,11 +141,13 @@ public class ExtremeBlocks
 
 		for (int i = 0; i < ToolMaterial.values().length; i++)
 		{
-			harvestLevel += ToolMaterial.values()[i].getHarvestLevel();
-			maxUses += ToolMaterial.values()[i].getMaxUses();
-			efficiency += ToolMaterial.values()[i].getEfficiencyOnProperMaterial();
-			damage += ToolMaterial.values()[i].getDamageVsEntity();
-			enchantability += ToolMaterial.values()[i].getEnchantability();
+			ToolMaterial mat = ToolMaterial.values()[i];
+
+			harvestLevel += mat.getHarvestLevel();
+			maxUses += mat.getMaxUses();
+			efficiency += mat.getEfficiencyOnProperMaterial();
+			damage += mat.getDamageVsEntity();
+			enchantability += mat.getEnchantability();
 		}
 
 		// ToolMaterial hardcore = EnumHelper.addToolMaterial("Hardcore",
@@ -144,12 +155,5 @@ public class ExtremeBlocks
 
 		// new ItemToolSet(hardcore, Items.boat, "Hardcore", Init.MODID,
 		// Init.tab_tools).registerTools();
-	}
-}ity();
-		}
-
-		//ToolMaterial hardcore = EnumHelper.addToolMaterial("Hardcore", harvestLevel, maxUses, efficiency, damage, enchantability);
-		
-		//new ItemToolSet(hardcore, Items.boat, "Hardcore", Init.MODID, Init.tab_tools).registerTools();
 	}
 }

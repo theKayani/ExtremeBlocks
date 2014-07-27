@@ -95,60 +95,60 @@ public class ContainerPowerEmitter extends Container
 
 		if (slot != null && slot.getHasStack())
 		{
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
 
-            if (par2 == 0)
-            {
-                if (!this.mergeItemStack(itemstack1, 1, 37, true))
-                {
-                    return null;
-                }
+			if (par2 == 0)
+			{
+				if (!this.mergeItemStack(itemstack1, 1, 37, true))
+				{
+					return null;
+				}
 
-                slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (itemstack1.stackSize > 0 && TileEntityFurnace.isItemFuel(itemstack1))
-            {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false))
-                {
-                    return null;
-                }
-            }
-            else if (par2 >= 1 && par2 < 28)
-            {
-                if (!this.mergeItemStack(itemstack1, 28, 37, false))
-                {
-                    return null;
-                }
-            }
-            else if (par2 >= 28 && par2 < 37)
-            {
-                if (!this.mergeItemStack(itemstack1, 1, 28, false))
-                {
-                    return null;
-                }
-            }
-            else if (!this.mergeItemStack(itemstack1, 1, 37, false))
-            {
-                return null;
-            }
+				slot.onSlotChange(itemstack1, itemstack);
+			}
+			else if (itemstack1.stackSize > 0 && TileEntityFurnace.isItemFuel(itemstack1))
+			{
+				if (!this.mergeItemStack(itemstack1, 0, 1, false))
+				{
+					return null;
+				}
+			}
+			else if (par2 >= 1 && par2 < 28)
+			{
+				if (!this.mergeItemStack(itemstack1, 28, 37, false))
+				{
+					return null;
+				}
+			}
+			else if (par2 >= 28 && par2 < 37)
+			{
+				if (!this.mergeItemStack(itemstack1, 1, 28, false))
+				{
+					return null;
+				}
+			}
+			else if (!this.mergeItemStack(itemstack1, 1, 37, false))
+			{
+				return null;
+			}
 
-            if (itemstack1.stackSize == 0)
-            {
-                slot.putStack((ItemStack)null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
+			if (itemstack1.stackSize == 0)
+			{
+				slot.putStack((ItemStack) null);
+			}
+			else
+			{
+				slot.onSlotChanged();
+			}
 
-            if (itemstack1.stackSize == itemstack.stackSize)
-            {
-                return null;
-            }
+			if (itemstack1.stackSize == itemstack.stackSize)
+			{
+				return null;
+			}
 
-            slot.onPickupFromSlot(player, itemstack1);
-        }
+			slot.onPickupFromSlot(player, itemstack1);
+		}
 
 		return itemstack;
 	}

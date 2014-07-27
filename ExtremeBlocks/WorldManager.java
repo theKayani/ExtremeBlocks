@@ -17,7 +17,7 @@ public class WorldManager implements IWorldGenerator
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
-	{
+	{	
 		if (!Vars.alterWorld) return;
 
 		switch (world.provider.dimensionId)
@@ -35,10 +35,12 @@ public class WorldManager implements IWorldGenerator
 	}
 
 	private void generateInEnd(World world, Random random, int chunkX, int chunkZ)
-	{}
+	{
+	}
 
 	private void generateInNether(World world, Random random, int chunkX, int chunkZ)
-	{}
+	{
+	}
 
 	private void generateInOverworld(World world, Random random, int chunkX, int chunkZ)
 	{
@@ -48,15 +50,16 @@ public class WorldManager implements IWorldGenerator
 		this.chunk_Z = chunkZ;
 
 		addOreSpawn(Init.trinquantium_ore, 4, MathHelp.clamp(Vars.trinquantiumSR, 0, 5), 0, 25);
-		addOreSpawn(Init.tin_ore, 8, MathHelp.clamp(Vars.tinSR					, 16, 24), 10, 100);
-		addOreSpawn(Init.copper_ore, 8, MathHelp.clamp(Vars.copperSR			, 16, 24), 10, 100);
-		addOreSpawn(Init.glester_ore, 6, MathHelp.clamp(Vars.glesterSR			, 6, 14), 20, 50);
-		addOreSpawn(Init.delvlish_ore, 6, MathHelp.clamp(Vars.delvlishSR		, 6, 14), 20, 50);
-		addOreSpawn(Init.silver_ore, 3, MathHelp.clamp(Vars.silverSR			, 0, 6), 40, 80);
-		addOreSpawn(Init.meteorite, 5, MathHelp.clamp(Vars.meteoriteSR			, 1, 9), 0, 20);
-		addOreSpawn(Init.onyx_ore, 10, MathHelp.clamp(Vars.onyxSR				, 6, 14), 20, 120);
-		addOreSpawn(Init.fluorite_ore, 16, MathHelp.clamp(Vars.fluoriteSR		, 11, 19), 0, 256);
-		addOreSpawn(Init.compact_stone, 3, MathHelp.clamp(Vars.compactStoneSR	, 6, 14), 0, 256);
+		addOreSpawn(Init.tin_ore, 8, MathHelp.clamp(Vars.tinSR, 16, 24), 10, 100);
+		addOreSpawn(Init.copper_ore, 8, MathHelp.clamp(Vars.copperSR, 16, 24), 10, 100);
+		addOreSpawn(Init.glester_ore, 6, MathHelp.clamp(Vars.glesterSR, 6, 14), 20, 50);
+		addOreSpawn(Init.delvlish_ore, 6, MathHelp.clamp(Vars.delvlishSR, 6, 14), 20, 50);
+		addOreSpawn(Init.silver_ore, 3, MathHelp.clamp(Vars.silverSR, 0, 6), 40, 80);
+		addOreSpawn(Init.meteorite, 5, MathHelp.clamp(Vars.meteoriteSR, 1, 9), 0, 20);
+		addOreSpawn(Init.onyx_ore, 10, MathHelp.clamp(Vars.onyxSR, 6, 14), 20, 120);
+		addOreSpawn(Init.fluorite_ore, 16, MathHelp.clamp(Vars.fluoriteSR, 11, 19), 0, 256);
+		addOreSpawn(Init.compact_stone, 3, MathHelp.clamp(Vars.compactStoneSR, 6, 14), 0, 256);
+		addOreSpawn(Init.bone_dirt, 1, MathHelp.clamp(Vars.boneDirtSR, 1, 9), 20, 60);
 
 		for (int j = 0; j < 3; ++j)
 		{

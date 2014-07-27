@@ -40,7 +40,7 @@ public class GuiCustomizeIslands extends GuiScreen
 
 	protected void actionPerformed(GuiButton b)
 	{
-		switch(b.id)
+		switch (b.id)
 		{
 			case 0:
 			{
@@ -105,22 +105,22 @@ public class GuiCustomizeIslands extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		this.drawDefaultBackground();
-		
-		drawString("Number of Trees to Spawn"	, 85, 15);
-		drawString(Vars.numbOfTrees + trees		, 60, 34);
-		
+
+		drawString("Number of Trees to Spawn", 85, 15);
+		drawString(Vars.numbOfTrees + trees, 60, 34);
+
 		drawString("Number of Pumpkins to Spawn", 85, 55);
-		drawString(Vars.numbOfPumps + pumps		, 60, 74);
-		
-		drawString("Number of Cactus to Spawn"	, 85, 95);
-		drawString(Vars.numbOfCactus + cactus	, 60, 114);
-		
-		drawString("Number of Melons to Spawn"	, 85, 135);
-		drawString(Vars.numbOfMelons + melons	, 60, 154);
-		
+		drawString(Vars.numbOfPumps + pumps, 60, 74);
+
+		drawString("Number of Cactus to Spawn", 85, 95);
+		drawString(Vars.numbOfCactus + cactus, 60, 114);
+
+		drawString("Number of Melons to Spawn", 85, 135);
+		drawString(Vars.numbOfMelons + melons, 60, 154);
+
 		super.drawScreen(par1, par2, par3);
 	}
-	
+
 	public void drawString(Object str, int x, int y)
 	{
 		this.drawCenteredString(this.fontRendererObj, String.valueOf(str), x, y, 16777215);

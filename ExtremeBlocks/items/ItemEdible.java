@@ -49,7 +49,7 @@ public class ItemEdible extends ItemFood
 	{
 		if (MPUtil.isServerSide())
 		{
-			for(int i = 0; i < potionIDs.size(); i++)
+			for (int i = 0; i < potionIDs.size(); i++)
 			{
 				par3EntityPlayer.addPotionEffect(new PotionEffect(potionIDs.get(i), potionDurations.get(i), potionAmplifiers.get(i)));
 			}
@@ -58,7 +58,7 @@ public class ItemEdible extends ItemFood
 
 	public ItemEdible addPotionEffect(Potion potion, int potionDuration, int potionAmplifier)
 	{
-		if(potion == null) return this;
+		if (potion == null) return this;
 		potionIDs.add(potion.id);
 		potionDurations.add(potionDuration * 20);
 		potionAmplifiers.add(potionAmplifier);
@@ -72,7 +72,7 @@ public class ItemEdible extends ItemFood
 
 	public ItemEdible setAction(EnumAction action)
 	{
-		this.action  = action;
+		this.action = action;
 		return this;
 	}
 

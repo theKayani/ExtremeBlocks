@@ -14,6 +14,7 @@ public class Vars
 	public static int onyxSR;
 	public static int fluoriteSR;
 	public static int compactStoneSR;
+	public static int boneDirtSR;
 
 	public static boolean playingIslands;
 

@@ -10,7 +10,8 @@ public class PacketPowerPipe extends PacketPipe
 	public int power;
 
 	public PacketPowerPipe()
-	{}
+	{
+	}
 
 	public PacketPowerPipe(TileEntityPowerPipe pipe)
 	{
@@ -42,5 +43,6 @@ public class PacketPowerPipe extends PacketPipe
 
 	@Override
 	public void handleServerSide(EntityPlayer player)
-	{}
+	{
+	}
 }
