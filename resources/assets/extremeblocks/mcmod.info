@@ -1,0 +1,16 @@
+[
+{
+  "modid": "extremeblocks",
+  "name": "Extreme Blocks Mod",
+  "description": "Adds tons of blocks and items that all alter drastically gameplay!",
+  "version": "6.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ExampleDude"],
+  "credits": "The Forge and FML guys, for making this amazing modding program! Forge!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
