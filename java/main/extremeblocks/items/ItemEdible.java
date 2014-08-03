@@ -33,7 +33,7 @@ public class ItemEdible extends ItemCustom
 
 	public ItemEdible(String name, int healedAmount, float saturationModifier)
 	{
-		this(name, Init.tab_foods, healedAmount, saturationModifier);
+		this(name, Init.tab_consumables, healedAmount, saturationModifier);
 	}
 
 	public ItemEdible(String name, CreativeTabs tab, int healedAmount, float saturationModifier)

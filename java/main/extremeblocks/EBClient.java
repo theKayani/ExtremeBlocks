@@ -35,12 +35,7 @@ public class EBClient extends EBCommon
 		ClientRegistry.registerTileEntity(TileEntityTransportPipe.class, "Transport Pipe", new TileEntityPipeRender("transport"));
 		ClientRegistry.registerTileEntity(TileEntityPowerPipe.class, "Power Pipe", new TileEntityPipeRender("power"));
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX1));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX2));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX4));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX6));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX8));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenadeX10));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenade));
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.transportPipe), new ItemRenderPipe("transport"));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.powerPipe), new ItemRenderPipe("power"));

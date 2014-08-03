@@ -61,22 +61,19 @@ public class ContainerStorage extends Container
 					return null;
 				}
 			}
-			else if (par2 >= this.tiny.getSizeInventory())
+			else if (!this.mergeItemStack(itemstack1, 0, this.tiny.getSizeInventory(), false))
 			{
-				if (!this.mergeItemStack(itemstack1, 0, this.tiny.getSizeInventory(), false))
-				{
-					return null;
-				}
-				else if (!this.mergeItemStack(itemstack1, this.tiny.getSizeInventory(), this.inventorySlots.size(), false))
-				{
-					return null;
-				}
+				return null;
 			}
 
-			if (itemstack1.stackSize == 0) slot.putStack(null);
-			else slot.onSlotChanged();
-			
-			if(itemstack.stackSize == 0) itemstack = null;
+			if (itemstack1.stackSize == 0)
+			{
+				slot.putStack((ItemStack) null);
+			}
+			else
+			{
+				slot.onSlotChanged();
+			}
 		}
 
 		return itemstack;

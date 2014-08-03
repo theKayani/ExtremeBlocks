@@ -186,12 +186,13 @@ Youtube Channel: [url=http://www.youtube.com/user/TheZombiesOnTheBus]TheZombiesO
 Forums Page: [url=http://www.minecraftforum.net/user/1909162-shadowknight1234/]ShadowKnight1234[/url]
 [youtube]H9Ebvllv70Q[/youtube][/spoiler]
 
-[u]How to Install:[/u]
+[color=rgb(153, 153, 153)][u]How to Install:[/u][/color]
 [color=rgb(153, 153, 153)]1. Make sure you have the correct version of Forge and Minecraft[/color]
 [color=rgb(153, 153, 153)]2. Download one of the Version Jars below[/color]
 [color=rgb(153, 153, 153)]3. Goto the forge-created mod folder in your minecraft directory.[/color]
 [color=rgb(153, 153, 153)]4. Place the Extreme Blocks Jar inside of the mods folder.[/color]
 [color=rgb(153, 153, 153)]5. Enjoy![/color]
+[color=rgb(153, 153, 153)]If you have any issues or Crash Reports, Feel free to post it on the Extreme Blocks [/color][url=https://github.com/Fir3will/ExtremeBlocks/issues]Issue Tracker![/url]
 
 [size=x-large][color=rgb(255, 0, 0)]EXTREME BLOCKS GITHUB: [/color][/size][url=http://github.com/Fir3will/ExtremeBlocks][size=x-large]CLICK HERE![/size][/url]
 

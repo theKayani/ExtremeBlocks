@@ -16,7 +16,7 @@ public class ItemWeed extends ItemEdible
 	public ItemWeed(String name, int state)
 	{
 		super(name, 7);
-		this.setCreativeTab(Init.tab_mainItems);
+		this.setCreativeTab(Init.tab_consumables);
 		this.setAction(EnumAction.bow);
 		this.setAlwaysEdible();
 

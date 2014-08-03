@@ -1,8 +1,6 @@
 package main.extremeblocks.entities;
 
 import main.com.hk.testing.util.MPUtil;
-import main.com.hk.testing.util.Rand;
-import main.extremeblocks.network.PacketGrenade;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
@@ -10,8 +8,6 @@ import net.minecraft.world.World;
 
 public class EntityGrenade extends EntityThrowable
 {
-	public float power;
-
 	public EntityGrenade(World par1World)
 	{
 		super(par1World);
@@ -30,7 +26,6 @@ public class EntityGrenade extends EntityThrowable
 	public EntityGrenade(World par1World, EntityLivingBase par2EntityLivingBase, float power)
 	{
 		super(par1World, par2EntityLivingBase);
-		this.power = power;
 	}
 
 	protected void onImpact(MovingObjectPosition mop)
@@ -58,7 +53,7 @@ public class EntityGrenade extends EntityThrowable
 		}
 		if (MPUtil.isServerSide())
 		{
-			this.worldObj.newExplosion(this, mop.blockX, mop.blockY, mop.blockZ, power, true, false);
+			this.worldObj.newExplosion(this, mop.blockX, mop.blockY, mop.blockZ, 2.0F, true, false);
 			this.setDead();
 		}
 	}

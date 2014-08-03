@@ -21,6 +21,6 @@ public class CustomTab extends CreativeTabs
 	@SideOnly(Side.CLIENT)
 	public String getTranslatedTabLabel()
 	{
-		return this.getTabLabel();
+		return "EB " + this.getTabLabel();
 	}
 }

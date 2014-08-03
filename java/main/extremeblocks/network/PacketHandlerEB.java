@@ -115,7 +115,6 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 		registerPacket(PacketTransportPipe.class);
 		registerPacket(PacketPowerPipe.class);
 		registerPacket(PacketPowerReceiver.class);
-		registerPacket(PacketGrenade.class);
 	}
 
 	public void postInitialise()

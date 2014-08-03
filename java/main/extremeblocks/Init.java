@@ -62,14 +62,14 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static CreativeTabs tab_ebOres = new CustomTab("EB Ores");
+	public static CreativeTabs tab_ebOres = new CustomTab("Ores");
 	public static CreativeTabs tab_lightedBlocks = new CustomTab("Lighted Blocks");
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_misc = new CustomTab("Miscellaneous");
 	public static CreativeTabs tab_fakeFloors = new CustomTab("Fake Floors");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
-	public static CreativeTabs tab_foods = new CustomTab("Foods");
+	public static CreativeTabs tab_consumables = new CustomTab("Consumables");
 
 	public static WorldType custom = new WorldTypeIslands();
 
@@ -124,12 +124,7 @@ public class Init
 	public static final Item sapphire = new ItemCustom("Sapphire", tab_mainItems).setTextureName(MODID + ":sapphire");
 	public static final Item onyx = new ItemCustom("Onyx", tab_mainItems).setTextureName(MODID + ":onyx");
 	public static final Item fuse = new ItemFuse();
-	public static final Item grenadeX1 = new ItemGrenade(1.0F);
-	public static final Item grenadeX2 = new ItemGrenade(2.0F);
-	public static final Item grenadeX4 = new ItemGrenade(4.0F);
-	public static final Item grenadeX6 = new ItemGrenade(6.0F);
-	public static final Item grenadeX8 = new ItemGrenade(8.0F);
-	public static final Item grenadeX10 = new ItemGrenade(10.0F);
+	public static final Item grenade = new ItemGrenade();
 	public static Item mellow_weed;
 	public static Item normal_weed;
 	public static  Item hemp_leaves;
@@ -267,9 +262,9 @@ public class Init
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/strongbox.png").setStorageSlots(3).setBounds(0.2F, 0.0F, 0.4F, 0.8F, 0.3F, 0.6F).setHardness(7.0F).setBlockTextureName("iron_block");
 
-	public static BlockStorage armorStand = new BlockArmorStand();
+	public static BlockStorage armor_stand = new BlockArmorStand();
 
-	public static BlockStorage bigCrate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
+	public static BlockStorage big_crate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
@@ -288,7 +283,7 @@ public class Init
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/chest.png").setStorageSlots(27);
 	
-	public static BlockStorage largeCrate = new BlockStorage("Large Crate", Material.wood, BlockType.NORMAL)
+	public static BlockStorage large_crate = new BlockStorage("Large Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
@@ -306,8 +301,27 @@ public class Init
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/large_chest.png").setStorageSlots(54).setYSize(222);
+	
+	public static BlockStorage massive_crate = new BlockStorage("Massive Crate", Material.wood, BlockType.NORMAL)
+	{
+		@Override
+		public Slot[] addSlotsToContainer(TileEntityStorage te)
+		{
+			ArrayList<Slot> slots = new ArrayList<Slot>();
 
-	public static BlockStorage smallCrate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
+			for (int j = 0; j < 12; ++j)
+			{
+				for (int k = 0; k < 9; ++k)
+				{
+					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
+				}
+			}
+
+			return slots.toArray(new Slot[0]);
+		}
+	}.setGuiTexturePath(MODID + ":textures/gui/massive_chest.png").setStorageSlots(54).setYSize(330);
+
+	public static BlockStorage small_crate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
@@ -387,13 +401,15 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(strongbox), "II", 'I', Items.iron_ingot);
 		MPUtil.addRecipe(new ItemStack(barrel), "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
 		MPUtil.addRecipe(new ItemStack(cabinet), "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
-		MPUtil.addRecipe(new ItemStack(armorStand), "W", "W", "W", 'W', Blocks.log);
-		MPUtil.addRecipe(new ItemStack(armorStand), "W", "W", "W", 'W', Blocks.log2);
-		MPUtil.addRecipe(new ItemStack(smallCrate), "SS", "SS", 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log);
-		MPUtil.addRecipe(new ItemStack(bigCrate), "WW", "WW", 'W', Blocks.log2);
+		MPUtil.addRecipe(new ItemStack(armor_stand), "W", "W", "W", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(armor_stand), "W", "W", "W", 'W', Blocks.log2);
+		MPUtil.addRecipe(new ItemStack(small_crate), "SS", "SS", 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log);
+		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log2);
 		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log);
 		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log2);
+		MPUtil.addRecipe(new ItemStack(large_crate), "WW", "WW", 'W', crate);
+		MPUtil.addRecipe(new ItemStack(massive_crate), "WW", "WW", 'W', big_crate);
 		MPUtil.addRecipe(new ItemStack(stone_stick), "SS", "SS", "SS", 'S', crushed_stone);
 		MPUtil.addRecipe(new ItemStack(pestle_mortar), "  R", "RSR", " S ", 'S', crushed_stone, 'R', stone_stick);
 
@@ -403,12 +419,7 @@ public class Init
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(trinquantium_block), new ItemStack(trinquantium_ingot));
 		MPUtil.addCompactRecipe(new ItemStack(plaster_wall), new ItemStack(plastic));
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(compact_stone), new ItemStack(Blocks.stone));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX1), new ItemStack(Items.gunpowder));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX2), new ItemStack(grenadeX1));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX4), new ItemStack(grenadeX2));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX6), new ItemStack(grenadeX4));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX8), new ItemStack(grenadeX6));
-		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenadeX10), new ItemStack(grenadeX8));
+		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenade), new ItemStack(Items.gunpowder));
 		MPUtil.addCompactRecipe(new ItemStack(waste), new ItemStack(Items.slime_ball));
 
 		MPUtil.addRecipe(new ItemStack(eb_table), "C", 'C', Blocks.crafting_table);

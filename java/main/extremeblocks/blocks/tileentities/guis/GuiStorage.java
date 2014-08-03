@@ -1,11 +1,17 @@
 package main.extremeblocks.blocks.tileentities.guis;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import main.extremeblocks.blocks.tileentities.TileEntityStorage;
 import main.extremeblocks.blocks.tileentities.containers.ContainerStorage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 public class GuiStorage extends GuiContainer
