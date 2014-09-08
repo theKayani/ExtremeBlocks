@@ -1,14 +1,22 @@
 package main.com.hk.testing.util;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class StackHelper
 {
+	public static int getMaxMetadataOf(Item item)
+	{
+		if (item == null) return 0;
+		ArrayList<ItemStack> list = JavaHelp.newArrayList();
+		item.getSubItems(item, item.getCreativeTab(), list);
+		return list.size();
+	}
+
 	public static boolean isBlockOrItem(Object obj)
 	{
 		return obj instanceof Block || obj instanceof Item;
@@ -26,7 +34,6 @@ public class StackHelper
 			return 0;
 		}
 		int mergeCount = Math.min(mergeTarget.getMaxStackSize() - mergeTarget.stackSize, mergeSource.stackSize);
-
 		if (mergeCount < 1)
 		{
 			return 0;
@@ -43,42 +50,35 @@ public class StackHelper
 	{
 		if (itemstacks == null)
 		{
-			new IllegalArgumentException("Itemstack Cannot be NULL!").printStackTrace();
+			new IllegalArgumentException("Itemstacks Cannot be NULL!").printStackTrace();
 			return null;
 		}
-
 		boolean[] val = new boolean[itemstacks.length];
-
 		for (int i = 0; i < itemstacks.length; i++)
 		{
 			val[i] = addToInv(inv, itemstacks[i]);
 		}
-
 		return val;
 	}
 
 	public static boolean addToInv(IInventory inv, ItemStack par1ItemStack)
 	{
-		ArrayList<ItemStack> inventorySlots = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> inventorySlots = JavaHelp.newArrayList();
 		boolean flag1 = false;
 		int k = 0;
 		ItemStack itemstack1 = null;
-
 		for (int i = 0; i < inv.getSizeInventory(); i++)
 		{
 			inventorySlots.add(inv.getStackInSlot(i));
 		}
-
 		if (par1ItemStack.isStackable())
 		{
 			while (par1ItemStack.stackSize > 0 && k < inv.getSizeInventory())
 			{
 				itemstack1 = inventorySlots.get(k);
-
 				if (itemstack1 != null && itemstack1.getItem() == par1ItemStack.getItem() && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == itemstack1.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, itemstack1))
 				{
 					int l = itemstack1.stackSize + par1ItemStack.stackSize;
-
 					if (l <= par1ItemStack.getMaxStackSize())
 					{
 						par1ItemStack.stackSize = 0;
@@ -95,18 +95,14 @@ public class StackHelper
 					}
 				}
 				++k;
-
 			}
 		}
-
 		if (par1ItemStack.stackSize > 0)
 		{
 			k = 0;
-
 			while (k < inv.getSizeInventory())
 			{
 				itemstack1 = inventorySlots.get(k);
-
 				if (itemstack1 == null)
 				{
 					inv.setInventorySlotContents(k, par1ItemStack.copy());
@@ -118,10 +114,8 @@ public class StackHelper
 				++k;
 			}
 		}
-
 		if (itemstack1 != null && itemstack1.stackSize == 0) itemstack1 = null;
 		if (par1ItemStack != null && par1ItemStack.stackSize == 0) par1ItemStack = null;
-
 		return flag1;
 	}
 
@@ -130,13 +124,11 @@ public class StackHelper
 		if (par1ItemStack == null || slot < 0 || slot >= inv.getSizeInventory()) return false;
 		boolean flag1 = false;
 		ItemStack itemstack1 = inv.getStackInSlot(slot);
-
 		if (par1ItemStack.isStackable())
 		{
 			if (itemstack1 != null && itemstack1.getItem() == par1ItemStack.getItem() && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == itemstack1.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, itemstack1))
 			{
 				int l = itemstack1.stackSize + par1ItemStack.stackSize;
-
 				if (l <= par1ItemStack.getMaxStackSize())
 				{
 					par1ItemStack.stackSize = 0;
@@ -153,11 +145,9 @@ public class StackHelper
 				}
 			}
 		}
-
 		if (par1ItemStack.stackSize > 0)
 		{
 			itemstack1 = inv.getStackInSlot(slot);
-
 			if (itemstack1 == null)
 			{
 				inv.setInventorySlotContents(slot, par1ItemStack.copy());
@@ -166,10 +156,8 @@ public class StackHelper
 				flag1 = true;
 			}
 		}
-
 		if (itemstack1 != null && itemstack1.stackSize == 0) itemstack1 = null;
 		if (par1ItemStack != null && par1ItemStack.stackSize == 0) par1ItemStack = null;
-
 		return flag1;
 	}
 }

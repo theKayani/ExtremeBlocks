@@ -1,17 +1,24 @@
 package main.extremeblocks;
 
 import java.util.ArrayList;
-import main.com.hk.testing.util.ItemToolSet;
+import main.com.hk.testing.util.JavaHelp;
 import main.com.hk.testing.util.RegistryHelper;
+import main.com.hk.testing.util.ToolSet;
 import main.extremeblocks.blocks.abstractblocks.BlockFakeFloor;
 import main.extremeblocks.blocks.abstractblocks.BlockLightedBlock;
 import main.extremeblocks.entities.EntityGrenade;
+import main.extremeblocks.entities.EntityMolotov;
+import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
+import main.extremeblocks.entities.mobs.EntityCastleZombie;
+import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
+import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.network.PacketHandlerEB;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -34,8 +41,8 @@ public class ExtremeBlocks
 	@Instance(Init.MODID)
 	public static ExtremeBlocks instance;
 	public static Configuration configFile;
-	public static ArrayList<Block> blocks = new ArrayList<Block>();
-	public static ArrayList<Item> items = new ArrayList<Item>();
+	public static ArrayList<Block> blocks = JavaHelp.newArrayList();
+	public static ArrayList<Item> items = JavaHelp.newArrayList();
 	public static final PacketHandlerEB packetPipeline = new PacketHandlerEB();
 
 	@EventHandler
@@ -56,9 +63,7 @@ public class ExtremeBlocks
 	{
 		packetPipeline.initialise();
 		new Init();
-
 		GameRegistry.registerWorldGenerator(new WorldManager(), 1);
-
 		Init.TRINQUANTIUM.customCraftingMaterial = Init.trinquantium_ingot;
 		Init.BRONZE.customCraftingMaterial = Init.bronze_ingot;
 		Init.DELVLISH.customCraftingMaterial = Init.delvlish_crystal;
@@ -69,31 +74,32 @@ public class ExtremeBlocks
 		Init.ONYX.customCraftingMaterial = Init.onyx;
 		Init.DIAMOND.customCraftingMaterial = Items.emerald;
 		Init.FLUORITE.customCraftingMaterial = Init.fluorite;
-
-		new ItemToolSet(Init.TRINQUANTIUM, Init.trinquantium_ingot, "Trinquantium", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.BRONZE, Init.bronze_ingot, "Bronze", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.DELVLISH, Init.delvlish_crystal, "Delvlish", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.SILVER, Init.silver_ingot, "Silver", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.GLESTER, Init.glester_rock, "Glester", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.METEORITE, Init.meteor, "Meteorite", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.SAPPHIRE, Init.sapphire, "Sapphire", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.ONYX, Init.onyx, "Onyx", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.DIAMOND, Items.emerald, "Emerald", Init.MODID, Init.tab_tools).registerTools();
-		new ItemToolSet(Init.FLUORITE, Init.fluorite, "Fluorite", Init.MODID, Init.tab_tools).registerTools();
-
-		for (int i = 0; i < blocks.size(); i++)
+		new ToolSet(Init.TRINQUANTIUM, Init.trinquantium_ingot, "Trinquantium");
+		new ToolSet(Init.BRONZE, Init.bronze_ingot, "Bronze");
+		new ToolSet(Init.DELVLISH, Init.delvlish_crystal, "Delvlish");
+		new ToolSet(Init.SILVER, Init.silver_ingot, "Silver");
+		new ToolSet(Init.GLESTER, Init.glester_rock, "Glester");
+		new ToolSet(Init.METEORITE, Init.meteor, "Meteorite");
+		new ToolSet(Init.SAPPHIRE, Init.sapphire, "Sapphire");
+		new ToolSet(Init.ONYX, Init.onyx, "Onyx");
+		new ToolSet(Init.DIAMOND, Items.emerald, "Emerald");
+		new ToolSet(Init.FLUORITE, Init.fluorite, "Fluorite");
+		for (Block block : blocks)
 		{
-			RegistryHelper.register(blocks.get(i));
+			RegistryHelper.register(block);
 		}
-		for (int i = 0; i < items.size(); i++)
+		for (Item item : items)
 		{
-			RegistryHelper.register(items.get(i));
+			RegistryHelper.register(item);
 		}
-
 		Init.addRecipes();
-
 		EntityRegistry.registerModEntity(EntityGrenade.class, "Grenade", 1, this, 80, 3, true);
-
+		EntityRegistry.registerModEntity(EntityMolotov.class, "Molotov", 2, this, 80, 3, true);
+		EBClient.registerEntity(EntityCastleZombie.class, "Castle Zombie", EnumCreatureType.creature, BiomeGenBase.plains);
+		EBClient.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.creature, BiomeGenBase.plains);
+		EBClient.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster);
+		EBClient.registerEntity(EntityRobot.class, "Robot", EnumCreatureType.creature);
+		// EBClient <-- command right click it
 		proxy.registerRenderThings();
 		proxy.registerSounds();
 	}
@@ -102,12 +108,10 @@ public class ExtremeBlocks
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		packetPipeline.postInitialise();
-		ArrayList<Block> allBlocks = new ArrayList<Block>();
-
+		ArrayList<Block> allBlocks = JavaHelp.newArrayList();
 		for (int i = 0; i < RegistryHelper.blocksList.length; i++)
 		{
 			Block block = Block.getBlockById(i);
-
 			if (block != null && block != Blocks.air)
 			{
 				RegistryHelper.blocksList[i] = block;
@@ -117,43 +121,18 @@ public class ExtremeBlocks
 		for (int i = 0; i < RegistryHelper.itemsList.length; i++)
 		{
 			Item item = Item.getItemById(i);
-
 			if (item != null)
 			{
 				RegistryHelper.itemsList[i] = item;
 			}
 		}
-
 		for (int i = 0; i < allBlocks.size(); i++)
 		{
 			if (allBlocks.get(i).isNormalCube() && allBlocks.get(i).isOpaqueCube())
 			{
-				BlockLightedBlock.createPair(allBlocks.get(i));
-				RegistryHelper.register(new BlockFakeFloor(allBlocks.get(i)));
+				if (Vars.addLightedBlocks) BlockLightedBlock.createPair(allBlocks.get(i));
+				if (Vars.addFakeFloors) RegistryHelper.register(new BlockFakeFloor(allBlocks.get(i)));
 			}
 		}
-
-		int harvestLevel = 0;
-		int maxUses = 0;
-		int efficiency = 0;
-		int damage = 0;
-		int enchantability = 0;
-
-		for (int i = 0; i < ToolMaterial.values().length; i++)
-		{
-			ToolMaterial mat = ToolMaterial.values()[i];
-
-			harvestLevel += mat.getHarvestLevel();
-			maxUses += mat.getMaxUses();
-			efficiency += mat.getEfficiencyOnProperMaterial();
-			damage += mat.getDamageVsEntity();
-			enchantability += mat.getEnchantability();
-		}
-
-		// ToolMaterial hardcore = EnumHelper.addToolMaterial("Hardcore",
-		// harvestLevel, maxUses, efficiency, damage, enchantability);
-
-		// new ItemToolSet(hardcore, Items.boat, "Hardcore", Init.MODID,
-		// Init.tab_tools).registerTools();
 	}
 }

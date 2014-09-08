@@ -30,14 +30,12 @@ public class WorldGenBlock extends WorldGenerator
 			int i1 = par3 + par2Random.nextInt(8) - par2Random.nextInt(8);
 			int j1 = par4 + par2Random.nextInt(4) - par2Random.nextInt(4);
 			int k1 = par5 + par2Random.nextInt(8) - par2Random.nextInt(8);
-
 			if (par1World.isAirBlock(i1, j1, k1) && par1World.getBlock(i1, j1 - 1, k1) == blockUnder && blockToSpawn.canPlaceBlockAt(par1World, i1, j1, k1))
 			{
 				par1World.setBlock(i1, j1, k1, blockToSpawn, 0, 2);
 				return true;
 			}
 		}
-
 		return false;
 	}
 }

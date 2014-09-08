@@ -11,7 +11,6 @@ public class ItemNotes extends ItemCustom
 	{
 		super("Notes[" + (first ? "1" : "0") + "]", Init.tab_mainItems);
 		this.setTextureName("paper");
-
 		this.first = first;
 	}
 }

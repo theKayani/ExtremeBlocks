@@ -14,9 +14,10 @@ public class BlockTrash extends BlockCustom
 		super(Material.iron, "Trash");
 		this.setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
 		this.setBlockTextureName(Init.MODID + ":trash");
-		this.setCreativeTab(Init.tab_misc);
+		this.setCreativeTab(Init.tab_mainBlocks);
 	}
 
+	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
 		if (entity instanceof EntityItem)
@@ -25,11 +26,13 @@ public class BlockTrash extends BlockCustom
 		}
 	}
 
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;

@@ -25,8 +25,7 @@ public class ItemGrenade extends ItemCustom
 	{
 		if (MPUtil.isServerSide())
 		{
-			EntityGrenade grenade = new EntityGrenade(par2World, par3EntityPlayer);
-			par2World.spawnEntityInWorld(grenade);
+			par2World.spawnEntityInWorld(new EntityGrenade(par2World, par3EntityPlayer));
 			--par1ItemStack.stackSize;
 		}
 		return par1ItemStack;

@@ -25,7 +25,6 @@ public class BlockGameFloor extends BlockCustom
 	{
 		super(Material.rock, type.name() + " Game Block");
 		this.setBlockTextureName(Init.MODID + ":" + (type == GameBlockType.Spread ? type.name().toLowerCase() + "_" : "") + "game_block");
-
 		this.type = type;
 	}
 
@@ -79,9 +78,7 @@ public class BlockGameFloor extends BlockCustom
 		{
 			player.addChatComponentMessage(new ChatComponentTranslation(type.name() + " Floor Activated!"));
 		}
-
 		ItemStack held = player.getHeldItem();
-
 		if (held != null && held.getItem() == Init.game_remote && type != GameBlockType.Spread)
 		{
 			world.setBlock(x, y, z, type.getNext());
@@ -93,7 +90,6 @@ public class BlockGameFloor extends BlockCustom
 	public enum GameBlockType
 	{
 		Red, Blue, Green, Yellow, Spread;
-
 		public Block getNext()
 		{
 			switch (this)

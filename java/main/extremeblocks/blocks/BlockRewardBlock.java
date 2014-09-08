@@ -14,7 +14,7 @@ public class BlockRewardBlock extends BlockCustom implements ITileEntityProvider
 	public BlockRewardBlock()
 	{
 		super(Material.iron, "Reward Block");
-		this.setCreativeTab(Init.tab_misc);
+		this.setCreativeTab(Init.tab_mainBlocks);
 		this.setBlockTextureName(Init.MODID + ":reward_block");
 	}
 

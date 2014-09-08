@@ -2,7 +2,6 @@ package main.extremeblocks.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class PacketPosition extends AbstractPacket
 {
@@ -20,7 +19,7 @@ public abstract class PacketPosition extends AbstractPacket
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
+	public void encodeInto(ByteBuf buffer)
 	{
 		buffer.writeInt(xPos);
 		buffer.writeInt(yPos);
@@ -28,7 +27,7 @@ public abstract class PacketPosition extends AbstractPacket
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
+	public void decodeInto(ByteBuf buffer)
 	{
 		xPos = buffer.readInt();
 		yPos = buffer.readInt();

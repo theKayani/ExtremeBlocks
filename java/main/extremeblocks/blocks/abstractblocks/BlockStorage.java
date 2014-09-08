@@ -3,6 +3,7 @@ package main.extremeblocks.blocks.abstractblocks;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import main.com.hk.testing.util.JavaHelp;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.tileentities.TileEntityStorage;
@@ -28,40 +29,42 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public int id, storageSlots, ySize, xSize;
 	public String containerName, guiTexturePath, name;
 	public BlockType type;
-	private static HashMap<Integer, BlockStorage> ids = new HashMap<Integer, BlockStorage>();
-	public static ArrayList<BlockStorage> blocks = new ArrayList<BlockStorage>();
+	private static HashMap<Integer, BlockStorage> ids = JavaHelp.newHashMap();
+	public static ArrayList<BlockStorage> blocks = JavaHelp.newArrayList();
 
 	public BlockStorage(String name, Material mat, CreativeTabs tab, int storageSlots, String containerName, String guiTexturePath, BlockType type)
 	{
 		super(mat);
-		setBlockType(type);
-		setBlockName(name);
-		setCreativeTab(tab);
-		setStorageSlots(storageSlots);
-		setName(name);
-		setContainerName(containerName);
-		setTexture(name.toLowerCase());
-		setGuiTexturePath(guiTexturePath);
-		setXSize(176);
-		setYSize(166);
-		setTickRandomly(true);
-
+		this.setHardness(2.0F);
+		this.setBlockType(type);
+		this.setBlockName(name);
+		this.setCreativeTab(tab);
+		this.setStorageSlots(storageSlots);
+		this.setName(name);
+		this.setContainerName(containerName);
+		this.setTexture(name.toLowerCase());
+		this.setGuiTexturePath(guiTexturePath);
+		this.setXSize(176);
+		this.setYSize(166);
+		this.setTickRandomly(true);
 		this.id = autoID++;
-
 		ids.put(this.id, this);
 		blocks.add(this);
+
 		ExtremeBlocks.blocks.add(this);
 	}
+
 	public BlockStorage(String name, Material material, BlockType type)
 	{
 		this(name, material, getCreativeTab(), 9, name, "textures/gui/container/dispenser.png", type);
 	}
 
+	@Override
 	public int tickRate(World p_149738_1_)
 	{
 		return 20;
 	}
-	
+
 	public BlockStorage setXSize(int xSize)
 	{
 		this.xSize = xSize;
@@ -76,7 +79,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 
 	protected static CreativeTabs getCreativeTab()
 	{
-		return Init.tab_misc;
+		return Init.tab_mainBlocks;
 	}
 
 	public BlockStorage setBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
@@ -127,12 +130,10 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are)
 	{
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-
 		if (tileEntity == null || player.isSneaking())
 		{
 			return false;
 		}
-
 		player.openGui(ExtremeBlocks.instance, 1, world, x, y, z);
 		return true;
 	}
@@ -147,31 +148,25 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	private void dropItems(World world, int x, int y, int z)
 	{
 		Random rand = new Random();
-
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (!(tileEntity instanceof IInventory))
 		{
 			return;
 		}
 		IInventory inventory = (IInventory) tileEntity;
-
 		for (int i = 0; i < inventory.getSizeInventory(); i++)
 		{
 			ItemStack item = inventory.getStackInSlot(i);
-
 			if (item != null && item.stackSize > 0)
 			{
 				float rx = rand.nextFloat() * 0.8F + 0.1F;
 				float ry = rand.nextFloat() * 0.8F + 0.1F;
 				float rz = rand.nextFloat() * 0.8F + 0.1F;
-
 				EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, item.copy());
-
 				if (item.hasTagCompound())
 				{
 					entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
 				}
-
 				float factor = 0.05F;
 				entityItem.motionX = rand.nextGaussian() * factor;
 				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
@@ -188,13 +183,14 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 		return new TileEntityStorage(this, storageSlots, guiTexturePath, containerName);
 	}
 
+	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		boolean sup = super.canPlaceBlockAt(world, x, y, z);
-
 		return sup && this.canBlockStay(world, x, y, z);
 	}
 
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block lol)
 	{
 		if (!this.canBlockStay(world, x, y, z))
@@ -204,6 +200,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 		}
 	}
 
+	@Override
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
 		return this.type.shouldDrop() ? world.getBlock(x, y - 1, z).getMaterial().isSolid() : super.canBlockStay(world, x, y, z);

@@ -13,7 +13,8 @@ public class BlockHydrant extends BlockCustom
 	public BlockHydrant()
 	{
 		super(Material.iron, "Fire Hydrant");
-		this.setCreativeTab(Init.tab_misc);
+		this.setHardness(3.0F);
+		this.setCreativeTab(Init.tab_mainBlocks);
 		this.setBlockTextureName(Init.MODID + ":fire_hydrant");
 		this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.6F, 0.6F);
 	}
@@ -23,7 +24,6 @@ public class BlockHydrant extends BlockCustom
 		if (player.getHeldItem().getItem() == Init.wrench)
 		{
 			Block block = world.getBlock(x, y + 1, z);
-
 			if (block.isReplaceable(world, x, y + 1, z))
 			{
 				world.setBlock(x, y + 1, z, Blocks.flowing_water);
@@ -42,7 +42,6 @@ public class BlockHydrant extends BlockCustom
 				}
 			}
 		}
-
 		return true;
 	}
 

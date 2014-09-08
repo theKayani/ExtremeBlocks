@@ -12,7 +12,7 @@ public class BlockLantern extends BlockCustom
 	public BlockLantern()
 	{
 		super(Material.glass, "Lantern");
-		this.setCreativeTab(Init.tab_misc);
+		this.setCreativeTab(Init.tab_mainBlocks);
 		this.setBlockTextureName(Init.MODID + ":lantern");
 		this.setLightLevel(0.4F);
 		this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 1.0F, 0.7F);

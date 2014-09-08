@@ -19,7 +19,6 @@ public class BlockSided extends BlockRotatedPillar
 		this.setBlockName(blockName);
 		this.setBlockTextureName(Init.MODID + ":" + textureName + "_");
 		this.setCreativeTab(Init.tab_mainBlocks);
-
 		ExtremeBlocks.blocks.add(this);
 	}
 

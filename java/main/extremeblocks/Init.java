@@ -4,47 +4,18 @@ import java.util.ArrayList;
 import main.com.hk.testing.util.BlockCustom;
 import main.com.hk.testing.util.CustomTab;
 import main.com.hk.testing.util.ItemCustom;
-import main.com.hk.testing.util.ItemToolSet.ItemCSword;
+import main.com.hk.testing.util.JavaHelp;
 import main.com.hk.testing.util.MPUtil;
-import main.com.hk.testing.util.Rand;
-import main.extremeblocks.blocks.BlockArmorStand;
-import main.extremeblocks.blocks.BlockCabinet;
-import main.extremeblocks.blocks.BlockCement;
-import main.extremeblocks.blocks.BlockConsole;
-import main.extremeblocks.blocks.BlockDriedSapling;
-import main.extremeblocks.blocks.BlockDrill;
-import main.extremeblocks.blocks.BlockEBTable;
-import main.extremeblocks.blocks.BlockFuseBlock;
-import main.extremeblocks.blocks.BlockGameFloor;
+import main.extremeblocks.blocks.*;
 import main.extremeblocks.blocks.BlockGameFloor.GameBlockType;
-import main.extremeblocks.blocks.BlockHydrant;
-import main.extremeblocks.blocks.BlockLantern;
-import main.extremeblocks.blocks.BlockPipe;
-import main.extremeblocks.blocks.BlockPowderKeg;
-import main.extremeblocks.blocks.BlockPower;
-import main.extremeblocks.blocks.BlockPower.PowerType;
-import main.extremeblocks.blocks.BlockRewardBlock;
-import main.extremeblocks.blocks.BlockTrash;
-import main.extremeblocks.blocks.BlockVendingMachine;
-import main.extremeblocks.blocks.BlockXrayBlock;
 import main.extremeblocks.blocks.abstractblocks.BlockCompact;
-import main.extremeblocks.blocks.abstractblocks.BlockOre;
+import main.extremeblocks.blocks.abstractblocks.BlockEBOre;
 import main.extremeblocks.blocks.abstractblocks.BlockSided;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
 import main.extremeblocks.blocks.tileentities.TileEntityStorage;
-import main.extremeblocks.blocks.tileentities.pipe.PipeType;
-import main.extremeblocks.items.ItemBackpack;
-import main.extremeblocks.items.ItemCellphone;
-import main.extremeblocks.items.ItemCounter;
-import main.extremeblocks.items.ItemExtractor;
-import main.extremeblocks.items.ItemFuse;
-import main.extremeblocks.items.ItemGrenade;
-import main.extremeblocks.items.ItemNotes;
-import main.extremeblocks.items.ItemPestleMortar;
-import main.extremeblocks.items.ItemReturner;
-import main.extremeblocks.items.ItemWeed;
+import main.extremeblocks.entities.mobs.EntityRobot.RobotType;
+import main.extremeblocks.items.*;
 import main.extremeblocks.util.BlockType;
-import main.extremeblocks.util.EBCraftingManager;
 import main.extremeblocks.worldgen.WorldTypeIslands;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -62,28 +33,22 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static CreativeTabs tab_ebOres = new CustomTab("Ores");
-	public static CreativeTabs tab_lightedBlocks = new CustomTab("Lighted Blocks");
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
-	public static CreativeTabs tab_misc = new CustomTab("Miscellaneous");
-	public static CreativeTabs tab_fakeFloors = new CustomTab("Fake Floors");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
-	public static CreativeTabs tab_consumables = new CustomTab("Consumables");
-
-	public static WorldType custom = new WorldTypeIslands();
-
-	public static ToolMaterial TRINQUANTIUM = EnumHelper.addToolMaterial("Trinquantium", 4, 2368, 10.0F, 4.0F, 15);
-	public static ToolMaterial BRONZE = EnumHelper.addToolMaterial("Bronze", 2, 328, 5.0F, 3.0F, 12);
-	public static ToolMaterial SILVER = EnumHelper.addToolMaterial("Silver", 0, 13, 6.0F, 8.0F, 7);
+	public static CreativeTabs tab_lightedBlocks;
+	public static CreativeTabs tab_fakeFloors;
+	public static WorldType islands = new WorldTypeIslands();
+	public static ToolMaterial TRINQUANTIUM = EnumHelper.addToolMaterial("Trinquantium", 4, 2368, 10.0F, 7.0F, 15);
+	public static ToolMaterial BRONZE = EnumHelper.addToolMaterial("Bronze", 2, 328, 5.0F, 1.0F, 12);
+	public static ToolMaterial SILVER = EnumHelper.addToolMaterial("Silver", 0, 13, 6.0F, 6.0F, 7);
 	public static ToolMaterial GLESTER = EnumHelper.addToolMaterial("Glester", 0, 71, 9.0F, 0.0F, 9);
-	public static ToolMaterial DELVLISH = EnumHelper.addToolMaterial("Delvlish", 0, 71, 0.0F, 5.0F, 4);
-	public static ToolMaterial METEORITE = EnumHelper.addToolMaterial("Meteorite", 3, 2306, 6.0F, 6.0F, 4);
-	public static ToolMaterial SAPPHIRE = EnumHelper.addToolMaterial("Sapphire", 3, 1909, 7.0F, 7.0F, 14);
-	public static ToolMaterial ONYX = EnumHelper.addToolMaterial("Onyx", 2, 514, 4.0F, 9.0F, 17);
+	public static ToolMaterial DELVLISH = EnumHelper.addToolMaterial("Delvlish", 0, 71, 0.0F, 3.0F, 4);
+	public static ToolMaterial METEORITE = EnumHelper.addToolMaterial("Meteorite", 3, 2306, 6.0F, 4.0F, 4);
+	public static ToolMaterial SAPPHIRE = EnumHelper.addToolMaterial("Sapphire", 3, 1909, 7.0F, 5.0F, 14);
+	public static ToolMaterial ONYX = EnumHelper.addToolMaterial("Onyx", 2, 514, 4.0F, 4.0F, 17);
 	public static ToolMaterial FLUORITE = EnumHelper.addToolMaterial("Fluorite", 2, 392, 5.0F, 2.0F, 7);
-	public static ToolMaterial DIAMOND = EnumHelper.addToolMaterial("Emerald", 4, 4096, 12.0F, 5.0F, 15);
-
+	public static ToolMaterial DIAMOND = EnumHelper.addToolMaterial("Emerald", 4, 4096, 12.0F, 7.0F, 15);
 	public static final Item extreme_blocks = new ItemCustom("EB", null).setTextureName(MODID + ":EB");
 	public static final Item gold_coin = new ItemCustom("Gold Coin", tab_mainItems).setTextureName(MODID + ":gold_coin");
 	public static final Item glester_rock = new ItemCustom("Glester Rock", tab_mainItems).setTextureName(MODID + ":glester_rock");
@@ -105,7 +70,6 @@ public class Init
 	public static final Item plastic = new ItemCustom("Plastic", tab_mainItems).setTextureName(MODID + ":plastic");
 	public static final Item chip = new ItemCustom("Chip", tab_mainItems).setTextureName(MODID + ":chip");
 	public static final Item bone_shard = new ItemCustom("Bone Shard", tab_mainItems).setTextureName(MODID + ":bone_shard");
-	public static final Item bone_sword = new ItemCSword(ToolMaterial.GOLD);
 	public static final Item wrench = new ItemCustom("Wrench", tab_mainItems).setTextureName(MODID + ":wrench");
 	public static final Item pipes = new ItemCustom("Pipes", tab_mainItems).setTextureName(MODID + ":pipes");
 	public static final Item pipe = new ItemCustom("Pipe", tab_mainItems).setTextureName(MODID + ":pipe");
@@ -125,18 +89,35 @@ public class Init
 	public static final Item onyx = new ItemCustom("Onyx", tab_mainItems).setTextureName(MODID + ":onyx");
 	public static final Item fuse = new ItemFuse();
 	public static final Item grenade = new ItemGrenade();
-	public static Item mellow_weed;
-	public static Item normal_weed;
-	public static  Item hemp_leaves;
+	public static final Item molotov = new ItemMolotov();
+	public static final Item mellow_weed = new ItemWeed("Mellow Weed", 1).setTextureName(MODID + ":mellow_weed");
+	public static final Item normal_weed = new ItemWeed("Weed", 2).setTextureName(MODID + ":normal_weed");
+	public static final Item hemp_leaves = new ItemWeed("Hemp Leaves", 0).setTextureName(MODID + ":hemp_leaves");
 	public static final Item pestle_mortar = new ItemPestleMortar();
 	public static final Item stone_stick = new ItemCustom("Stone Rod", tab_mainItems).setTextureName(MODID + ":stone_stick");
+	public static final Item orange = new ItemEdible("Orange", 4).setTextureName(MODID + ":orange");
+	public static final Item banana = new ItemEdible("Banana", 2).setTextureName(MODID + ":banana");
+	public static final Item peach = new ItemEdible("Peach", 3).setTextureName(MODID + ":peach");
+	public static final Item grapes = new ItemEdible("Grapes", 1).setTextureName(MODID + ":grapes");
+	public static final Item power_core = new ItemCustom("Power Core", tab_mainItems).setTextureName(MODID + ":power_core");
+	public static final Item computer_ai = new ItemCustom("Computer AI Chip", tab_mainItems).setTextureName(MODID + ":computer_ai");
+	public static final Item robot_head = new ItemCustom("Robot Head", tab_mainItems).setTextureName(MODID + ":robot_head");
+	public static final Item robot_arm = new ItemCustom("Robot Arm", tab_mainItems).setTextureName(MODID + ":robot_arm");
+	public static final Item robot_leg = new ItemCustom("Robot Leg", tab_mainItems).setTextureName(MODID + ":robot_leg");
+	public static final Item robot_torso = new ItemCustom("Robot Torso", tab_mainItems).setTextureName(MODID + ":robot_torso");
+	public static final Item robot = new ItemCustom("Complete Robot", tab_mainItems).setTextureName(MODID + ":robot");
+	public static final Item robot_warrior = new ItemRobot(RobotType.WARRIOR);
+	public static final Item robot_farmer = new ItemRobot(RobotType.FARMER);
+	public static final Item robot_archer = new ItemRobot(RobotType.ARCHER);
+	public static final Item robot_hunter = new ItemRobot(RobotType.HUNTER);
+	public static final Item robot_miner = new ItemRobot(RobotType.MINER);
 
-	public static final Block glester_ore = new BlockOre("Glester Ore").setDrop(glester_rock);
-	public static final Block silver_ore = new BlockOre("Silver Ore");
-	public static final Block trinquantium_ore = new BlockOre("Trinquantium Ore");
-	public static final Block copper_ore = new BlockOre("Copper Ore").setDrop(copper);
-	public static final Block tin_ore = new BlockOre("Tin Ore").setDrop(tin);
-	public static final Block delvlish_ore = new BlockOre("Delvlish Ore").setDrop(delvlish_crystal);
+	public static final Block glester_ore = new BlockEBOre("Glester Ore").setDrop(glester_rock);
+	public static final Block silver_ore = new BlockEBOre("Silver Ore");
+	public static final Block trinquantium_ore = new BlockEBOre("Trinquantium Ore");
+	public static final Block copper_ore = new BlockEBOre("Copper Ore").setDrop(copper);
+	public static final Block tin_ore = new BlockEBOre("Tin Ore").setDrop(tin);
+	public static final Block delvlish_ore = new BlockEBOre("Delvlish Ore").setDrop(delvlish_crystal);
 	public static final Block compact_stone = new BlockCustom(Material.rock, "Compact Stone").setHardness(3.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":Compact Stone");
 	public static final Block silver_block = new BlockCompact("Silver Block");
 	public static final Block bronze_block = new BlockCompact("Bronze Block");
@@ -144,22 +125,22 @@ public class Init
 	public static final Block xray_block = new BlockXrayBlock(true);
 	public static final Block xray_block_un = new BlockXrayBlock(false);
 	public static final Block cement_wall = new BlockCement(true);
-	public static final Block plaster_wall = new BlockCustom(Material.rock, "Plaster Wall").setBlockTextureName(MODID + ":plasterwall").setCreativeTab(tab_mainBlocks);
+	public static final Block plaster_wall = new BlockCustom(Material.rock, "Plaster Wall").setHardness(1.0F).setBlockTextureName(MODID + ":plasterwall").setCreativeTab(tab_mainBlocks);
 	public static final Block weak_cement_wall = new BlockCement(false);
-	public static final Block emptied_log = new BlockSided(Material.wood, "Emptied Log", "emptiedlog");
-	public static final Block bone_dirt = new BlockCustom(Material.ground, "Bone Dirt").setDrop(bone_shard).setBlockTextureName(MODID + ":bone_dirt").setCreativeTab(tab_mainBlocks);
-	public static final Block waste = new BlockCustom(Material.lava, "Waste").irregular().setBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F).setBlockTextureName(MODID + ":waste").setCreativeTab(tab_misc);
+	public static final Block emptied_log = new BlockSided(Material.wood, "Emptied Log", "emptiedlog").setHardness(2.0F);
+	public static final Block bone_dirt = new BlockCustom(Material.ground, "Bone Dirt").setDrop(bone_shard).setBlockTextureName(MODID + ":bone_dirt").setCreativeTab(tab_mainBlocks).setHardness(0.6F);
+	public static final Block waste = new BlockCustom(Material.lava, "Waste").irregular().setBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F).setBlockTextureName(MODID + ":waste").setHardness(0.5F).setCreativeTab(tab_mainBlocks);
 	public static final Block fire_hydrant = new BlockHydrant();
-	public static final Block lantern = new BlockLantern();
-	public static final Block stone_pillar = new BlockSided(Material.rock, "Stone Pillar", "stonepillar");
-	public static final Block trash = new BlockTrash();
+	public static final Block lantern = new BlockLantern().setHardness(0.3F);
+	public static final Block stone_pillar = new BlockSided(Material.rock, "Stone Pillar", "stonepillar").setHardness(1.5F);
+	public static final Block trash = new BlockTrash().setHardness(3.0F);
 	public static final Block vending_machine = new BlockVendingMachine();
 	public static final Block dried_sapling = new BlockDriedSapling();
-	public static final Block limestone_block = new BlockCustom(Material.rock, "Block of Limestone").setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":limestoneblock");
-	public static final Block marble = new BlockCustom(Material.glass, "Marble").setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":marbleblock");
-	public static final Block limestone_ore = new BlockOre("Limestone Ore").setDrop(limestone);
-	public static final Block fake_sand = new BlockCustom(Material.ground, "Fake Sand").setCreativeTab(tab_misc).setBlockTextureName("sand");
-	public static final Block fake_gravel = new BlockCustom(Material.ground, "Fake Gravel").setCreativeTab(tab_misc).setBlockTextureName("gravel");
+	public static final Block limestone_block = new BlockCustom(Material.rock, "Block of Limestone").setHardness(1.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":limestoneblock");
+	public static final Block marble = new BlockCustom(Material.glass, "Marble").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":marbleblock");
+	public static final Block limestone_ore = new BlockEBOre("Limestone Ore").setDrop(limestone);
+	public static final Block fake_sand = new BlockCustom(Material.ground, "Fake Sand").setHardness(0.5F).setCreativeTab(tab_mainBlocks).setBlockTextureName("sand");
+	public static final Block fake_gravel = new BlockCustom(Material.ground, "Fake Gravel").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName("gravel");
 	public static final Block drill = new BlockDrill(true);
 	public static final Block drill_pole = new BlockDrill(false);
 	public static final Block red_game_floor = new BlockGameFloor(GameBlockType.Red);
@@ -169,26 +150,21 @@ public class Init
 	public static final Block spread_game_block = new BlockGameFloor(GameBlockType.Spread);
 	public static final Block console = new BlockConsole();
 	public static final Block reward_block = new BlockRewardBlock();
-	public static final Block onyx_ore = new BlockOre("Onyx Ore").setDrop(onyx);
-	public static final Block meteorite = new BlockOre("Meteorite").setDrop(meteorite_shards);
-	public static final Block fluorite_ore = new BlockOre("Fluorite Ore").setDrop(fluorite);
-	public static final Block sapphire_ore = new BlockOre("Sapphire Ore").setDrop(sapphire);
+	public static final Block onyx_ore = new BlockEBOre("Onyx Ore").setDrop(onyx);
+	public static final Block meteorite = new BlockEBOre("Meteorite").setDrop(meteorite_shards);
+	public static final Block fluorite_ore = new BlockEBOre("Fluorite Ore").setDrop(fluorite);
+	public static final Block sapphire_ore = new BlockEBOre("Sapphire Ore").setDrop(sapphire);
 	public static final Block fuse_block = new BlockFuseBlock();
 	public static final Block powder_keg = new BlockPowderKeg();
-	public static final Block transportPipe = new BlockPipe(PipeType.TRANSPORT);
-	public static final Block powerPipe = new BlockPipe(PipeType.POWER);
-	public static final Block emitter = new BlockPower(PowerType.EMITTER);
-	public static final Block receiver = new BlockPower(PowerType.RECEIVER);
 	public static final Block eb_table = new BlockEBTable();
-	public static Block hemp;
-
+	public static final Block hemp = new BlockHemp();
+	public static final Block plate = new BlockPlate();
 	public static BlockStorage crate = new BlockStorage("Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int i = 0; i < 3; ++i)
 			{
 				for (int j = 0; j < 3; ++j)
@@ -196,11 +172,9 @@ public class Init
 					slots.add(new Slot(te, j + i * 3, 62 + j * 18, 17 + i * 18));
 				}
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath("textures/gui/container/dispenser.png").setStorageSlots(9);
-
 	public static BlockStorage barrel = new BlockStorage("Barrel", Material.wood, BlockType.BARREL)
 	{
 		@Override
@@ -218,8 +192,7 @@ public class Init
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int i = 0; i < 4; ++i)
 			{
 				for (int j = 0; j < 2; ++j)
@@ -227,13 +200,10 @@ public class Init
 					slots.add(new Slot(te, j + i * 2, 71 + j * 18, 8 + i * 18));
 				}
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/barrel.png").setStorageSlots(8).setBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
-
 	public static BlockStorage cabinet = new BlockCabinet();
-
 	public static BlockStorage strongbox = (BlockStorage) new BlockStorage("Strongbox", Material.iron, BlockType.BARREL)
 	{
 		@Override
@@ -251,26 +221,21 @@ public class Init
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int i = 0; i < 3; ++i)
 			{
 				slots.add(new Slot(te, i, 62 + i * 18, 36));
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/strongbox.png").setStorageSlots(3).setBounds(0.2F, 0.0F, 0.4F, 0.8F, 0.3F, 0.6F).setHardness(7.0F).setBlockTextureName("iron_block");
-
 	public static BlockStorage armor_stand = new BlockArmorStand();
-
 	public static BlockStorage big_crate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int j = 0; j < 3; ++j)
 			{
 				for (int k = 0; k < 9; ++k)
@@ -278,18 +243,15 @@ public class Init
 					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
 				}
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/chest.png").setStorageSlots(27);
-	
 	public static BlockStorage large_crate = new BlockStorage("Large Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int j = 0; j < 6; ++j)
 			{
 				for (int k = 0; k < 9; ++k)
@@ -297,37 +259,15 @@ public class Init
 					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
 				}
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/large_chest.png").setStorageSlots(54).setYSize(222);
-	
-	public static BlockStorage massive_crate = new BlockStorage("Massive Crate", Material.wood, BlockType.NORMAL)
-	{
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
-			for (int j = 0; j < 12; ++j)
-			{
-				for (int k = 0; k < 9; ++k)
-				{
-					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
-				}
-			}
-
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/massive_chest.png").setStorageSlots(54).setYSize(330);
-
 	public static BlockStorage small_crate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
 	{
 		@Override
 		public Slot[] addSlotsToContainer(TileEntityStorage te)
 		{
-			ArrayList<Slot> slots = new ArrayList<Slot>();
-
+			ArrayList<Slot> slots = JavaHelp.newArrayList();
 			for (int j = 0; j < 2; ++j)
 			{
 				for (int k = 0; k < 2; ++k)
@@ -335,25 +275,14 @@ public class Init
 					slots.add(new Slot(te, k + j * 2, 71 + k * 18, 29 + j * 18));
 				}
 			}
-
 			return slots.toArray(new Slot[0]);
 		}
 	}.setGuiTexturePath(MODID + ":textures/gui/smallcrate.png").setStorageSlots(4);
 
 	public Init()
 	{
-		if(!Vars.isPG13)
-		{
-			hemp_leaves = new ItemWeed("Hemp Leaves", 0).setTextureName(MODID + ":hemp_leaves");
-			hemp = new BlockHemp();
-			mellow_weed = new ItemWeed("Mellow Weed", 1).setTextureName(MODID + ":mellow_weed");
-			normal_weed = new ItemWeed("Weed", 2).setTextureName(MODID + ":normal_weed");
-		}
-		else
-		{
-			hemp = null;
-			normal_weed = hemp_leaves = mellow_weed = null;
-		}
+		if (Vars.addFakeFloors) tab_fakeFloors = new CustomTab("Fake Floors");
+		if (Vars.addLightedBlocks) tab_lightedBlocks = new CustomTab("Lighted Blocks");
 	}
 
 	public static void addRecipes()
@@ -378,7 +307,6 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(pipes), "##", "##", '#', pipe);
 		MPUtil.addRecipe(new ItemStack(wrench), "# #", "###", " # ", '#', Items.iron_ingot);
 		MPUtil.addRecipe(new ItemStack(pipe), "###", '#', Items.iron_ingot);
-		MPUtil.addRecipe(new ItemStack(bone_sword), "#", "#", '#', bone_shard);
 		MPUtil.addRecipe(new ItemStack(Items.bone), "##", "##", '#', bone_shard);
 		MPUtil.addRecipe(new ItemStack(plastic, 2), "##", "##", '#', sap);
 		MPUtil.addRecipe(new ItemStack(chip), "##", "##", '#', Items.redstone);
@@ -409,9 +337,21 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log);
 		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log2);
 		MPUtil.addRecipe(new ItemStack(large_crate), "WW", "WW", 'W', crate);
-		MPUtil.addRecipe(new ItemStack(massive_crate), "WW", "WW", 'W', big_crate);
 		MPUtil.addRecipe(new ItemStack(stone_stick), "SS", "SS", "SS", 'S', crushed_stone);
 		MPUtil.addRecipe(new ItemStack(pestle_mortar), "  R", "RSR", " S ", 'S', crushed_stone, 'R', stone_stick);
+		MPUtil.addRecipe(new ItemStack(power_core), "RCR", "CDC", "RCR", 'R', chip, 'C', core_chip, 'D', Items.diamond);
+		MPUtil.addRecipe(new ItemStack(computer_ai), " D ", "GCG", " C ", 'G', Items.gold_nugget, 'C', core_chip, 'D', Items.diamond);
+		MPUtil.addRecipe(new ItemStack(robot_head), "III", "ICI", "RIR", 'I', Items.iron_ingot, 'C', computer_ai, 'R', Items.redstone);
+		MPUtil.addRecipe(new ItemStack(robot_arm), "II", "II", "RR", 'I', Items.iron_ingot, 'R', Items.redstone);
+		MPUtil.addRecipe(new ItemStack(robot_leg), "III", "ICI", "GG", 'I', Items.iron_ingot, 'C', core_chip, 'G', Items.gold_ingot);
+		MPUtil.addRecipe(new ItemStack(robot_torso), "RIR", "IPI", "III", 'I', Items.iron_ingot, 'R', Items.redstone, 'P', power_core);
+		MPUtil.addRecipe(new ItemStack(robot), " H ", "ATA", "L L", 'H', robot_head, 'A', robot_arm, 'T', robot_torso, 'L', robot_leg);
+		MPUtil.addRecipe(new ItemStack(plate), "S S", "PPP", 'P', Blocks.planks, 'S', Items.stick);
+		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
+		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
+		MPUtil.addShapelessRecipe(new ItemStack(robot_archer), robot, Items.bow);
+		MPUtil.addShapelessRecipe(new ItemStack(robot_miner), robot, Items.golden_pickaxe);
+		MPUtil.addShapelessRecipe(new ItemStack(robot_hunter), robot, Items.iron_sword, Items.bow);
 
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(limestone_block), new ItemStack(limestone));
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(silver_block), new ItemStack(silver_ingot));
@@ -434,29 +374,36 @@ public class Init
 
 	public static void handleConfig()
 	{
-		Configuration config = ExtremeBlocks.configFile;
-		String CG = Configuration.CATEGORY_GENERAL;
-
-		Vars.alterWorld = config.get(CG, "Alter World", false, "Will Extreme Blocks generate in your world?").getBoolean(false);
-		Vars.xrayBlockWork = config.get(CG, "X-Ray Blocks Work", true, "Do X Ray blocks Work? Or is it like Glass?").setRequiresWorldRestart(true).getBoolean(true);
-		Vars.customCraftingTable = config.get(CG, "Custom Crafting Table for EB Recipes", true, "Will only the Custom Table be used for EB Recipes? If False, both Crafting tables will be used for them.").setRequiresMcRestart(true).getBoolean(true);
-		Vars.isPG13 = config.get(CG, "Keep it PG 13", true, "Make sure it's clean, in the sense of Content and Cursing maybe?").setRequiresMcRestart(true).getBoolean(true);
-		Vars.addVanillaRecipes = config.get(CG, "Add Vanilla Recipes", true, "The EB Crafting Table also have the vanilla recipes").setRequiresMcRestart(true).getBoolean(true);
-
-		Vars.counterMessage = config.get(CG, "Counter Message", "", "The message that will be displayed on the Counter EB Item (Leave blank for your username)").getString();
-
-		Vars.copperSR = config.get(CG, "Copper SR", 20, "How Often Copper Ore Spawns, 16-24").getInt(20);
-		Vars.tinSR = config.get(CG, "Tin SR", 20, "How Often Tin Ore Spawns, 16-24").getInt(20);
-		Vars.silverSR = config.get(CG, "Silver SR", 2, "How Often Silver Ore Spawns, 0-7").getInt(2);
-		Vars.trinquantiumSR = config.get(CG, "Trinquantium SR", 1, "How Often Trinquantium Ore Spawns, 0-6").getInt(1);
-		Vars.glesterSR = config.get(CG, "Glester SR", 10, "How Often Glester Ore Spawns, 6-14").getInt(10);
-		Vars.delvlishSR = config.get(CG, "Delvlish SR", 10, "How Often Delvlish Ore Spawns, 6-14").getInt(10);
-		Vars.meteoriteSR = config.get(CG, "Meteorite SR", 5, "How Often The Meteorite Spawns, 1-9").getInt(5);
-		Vars.fluoriteSR = config.get(CG, "Fluorite SR", 15, "How Often Fluorite Ore Spawns, 11-19").getInt(15);
-		Vars.compactStoneSR = config.get(CG, "Compact Stone SR", 10, "How Often Compact Stone Spawns, 6-14").getInt(10);
-		Vars.onyxSR = config.get(CG, "Onyx SR", 10, "How Often Onyx Ore Spawns, 6-14").getInt(10);
-		Vars.boneDirtSR = config.get(CG, "Bone Dirt SR", 5, "How Often Bone Dirt Spawns, 1-9").getInt(5);
-
-		if(config.hasChanged()) config.save();
+		Configuration cfg = ExtremeBlocks.configFile;
+		String CG = Vars.CG;
+		String SR = Vars.SR;
+		String GO = Vars.GO;
+		String CM = Vars.CM;
+		Vars.addLightedBlocks = cfg.get(CG, "Add Lighted Blocks", false).setRequiresMcRestart(true).getBoolean(false);
+		Vars.addFakeFloors = cfg.get(CG, "Add Fake Floors", false).setRequiresMcRestart(true).getBoolean(false);
+		Vars.xrayBlockWork = cfg.get(CG, "X-Ray Blocks Work", true, "Do X Ray blocks Work? Or is it like Glass?").setRequiresWorldRestart(true).getBoolean(true);
+		Vars.customCraftingTable = cfg.get(CG, "Custom Crafting Table for EB Recipes", true, "Will only the Custom Table be used for EB Recipes? If False, both Crafting tables will be used for them.").setRequiresMcRestart(true).getBoolean(true);
+		Vars.addVanillaRecipes = cfg.get(CG, "Add Vanilla Recipes", true, "The EB Crafting Table also have the vanilla recipes").setRequiresMcRestart(true).getBoolean(true);
+		Vars.counterMessage = cfg.get(CG, "Counter Message", "", "The message that will be displayed on the Counter (Leave blank for your username)").getString();
+		Vars.alterWorld = cfg.get(GO, "Alter World", true, "Will Extreme Blocks generate in your world?").getBoolean(true);
+		Vars.genCastle = cfg.get(GO, "Gen Castle", true, "Generate the Castle in your World?").getBoolean(true);
+		Vars.genDriedTree = cfg.get(GO, "Gen Dried Tree", true, "Generate the Dried Tree in your World?").getBoolean(true);
+		Vars.addMobs = cfg.get(CM, "Add Mobs", true, "Add the EB Mobs to your World?").getBoolean(true);
+		Vars.addCastleSkeleton = cfg.get(CM, "Add Castle Skeleton", true, "Allow the Castle Skeleton to spawn. Note: If is Off, the egg will spawn a Skeleton Instead!").getBoolean(true);
+		Vars.addCastleZombie = cfg.get(CM, "Add Castle Zombie", true, "Allow the Castle Zombie to spawn. Note: If is Off, the egg will spawn a Zombie Instead!").getBoolean(true);
+		Vars.addEvilIronGolem = cfg.get(CM, "Add Evil Iron Golem", true, "Allow the Evil Iron Golem to spawn. Note: If is Off, the egg will spawn an Iron Golem Instead!").getBoolean(true);
+		Vars.addRobot = cfg.get(CM, "Add Robot", true, "Allow the Robot to function. Note: If is Off, the egg will spawn a Villager Instead!").getBoolean(true);
+		Vars.copperSR = cfg.get(SR, "Copper SR", 20, "How Often Copper Ore Spawns, 16-24").getInt(20);
+		Vars.tinSR = cfg.get(SR, "Tin SR", 20, "How Often Tin Ore Spawns, 16-24").getInt(20);
+		Vars.silverSR = cfg.get(SR, "Silver SR", 2, "How Often Silver Ore Spawns, 0-7").getInt(2);
+		Vars.trinquantiumSR = cfg.get(SR, "Trinquantium SR", 1, "How Often Trinquantium Ore Spawns, 0-6").getInt(1);
+		Vars.glesterSR = cfg.get(SR, "Glester SR", 10, "How Often Glester Ore Spawns, 6-14").getInt(10);
+		Vars.delvlishSR = cfg.get(SR, "Delvlish SR", 10, "How Often Delvlish Ore Spawns, 6-14").getInt(10);
+		Vars.meteoriteSR = cfg.get(SR, "Meteorite SR", 5, "How Often The Meteorite Spawns, 1-9").getInt(5);
+		Vars.fluoriteSR = cfg.get(SR, "Fluorite SR", 15, "How Often Fluorite Ore Spawns, 11-19").getInt(15);
+		Vars.compactStoneSR = cfg.get(SR, "Compact Stone SR", 10, "How Often Compact Stone Spawns, 6-14").getInt(10);
+		Vars.onyxSR = cfg.get(SR, "Onyx SR", 10, "How Often Onyx Ore Spawns, 6-14").getInt(10);
+		Vars.boneDirtSR = cfg.get(SR, "Bone Dirt SR", 5, "How Often Bone Dirt Spawns, 1-9").getInt(5);
+		if (cfg.hasChanged()) cfg.save();
 	}
 }

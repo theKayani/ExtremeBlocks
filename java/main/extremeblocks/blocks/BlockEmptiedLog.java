@@ -20,7 +20,6 @@ public class BlockEmptiedLog extends BlockRotatedPillar
 		this.setBlockName("Emptied Log");
 		this.setBlockTextureName(Init.MODID + ":emptiedlog_");
 		this.setCreativeTab(Init.tab_mainBlocks);
-
 		ExtremeBlocks.blocks.add(this);
 	}
 

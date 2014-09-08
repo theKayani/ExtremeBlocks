@@ -58,3 +58,9 @@ tile.Cabinet.name=Cabinet
 tile.Barrel.name=Barrel
 tile.Large Crate.name=Large Crate
 tile.Massive Crate.name=Massive Crate
+tile.Plate.name=Wooden Plate
+
+entity.Castle Zombie.name=Castle Zombie
+entity.Castle Skeleton.name=Castle Skeleton
+entity.Evil Iron Golem.name=Evil Iron Golem
+entity.Robot.name=Robot

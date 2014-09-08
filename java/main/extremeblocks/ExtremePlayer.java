@@ -19,7 +19,6 @@ public class ExtremePlayer implements IExtendedEntityProperties
 	public void saveNBTData(NBTTagCompound compound)
 	{
 		NBTTagCompound properties = new NBTTagCompound();
-
 		compound.setTag(ExtremePlayer.NAME, properties);
 	}
 
@@ -30,7 +29,9 @@ public class ExtremePlayer implements IExtendedEntityProperties
 	}
 
 	@Override
-	public void init(Entity entity, World world) {}
+	public void init(Entity entity, World world)
+	{
+	}
 
 	public static final void register(EntityPlayer player)
 	{
@@ -41,6 +42,6 @@ public class ExtremePlayer implements IExtendedEntityProperties
 	{
 		return (ExtremePlayer) player.getExtendedProperties(ExtremePlayer.NAME);
 	}
-	
-	public final static String NAME = ExtremePlayer.class.getSimpleName();//"ExtremePlayer";
+
+	public final static String NAME = ExtremePlayer.class.getSimpleName();// "ExtremePlayer";
 }

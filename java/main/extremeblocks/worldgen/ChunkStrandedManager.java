@@ -28,32 +28,27 @@ public class ChunkStrandedManager extends ChunkProviderGenerate
 			int k1 = k + this.rand.nextInt(16) + 8;
 			int l1 = this.rand.nextInt(256);
 			int i2 = l + this.rand.nextInt(16) + 8;
-
 			if (Vars.numbOfTrees > Vars.spawnedTrees && (new WorldGenOneTree()).generate(this.worldObj, this.rand, k1, l1, i2))
 			{
 				System.out.println("Spawned Tree- " + Vars.spawnedTrees + "/" + Vars.numbOfTrees);
 				Vars.spawnedTrees++;
 			}
-
 			if (Vars.numbOfPumps > Vars.spawnedPumps && (new WorldGenBlock(Blocks.pumpkin)).generate(this.worldObj, this.rand, k1, l1, i2))
 			{
 				System.out.println("Spawned Pump- " + Vars.spawnedPumps + "/" + Vars.numbOfPumps);
 				Vars.spawnedPumps++;
 			}
-
 			if (Vars.numbOfCactus > Vars.spawnedCactus && (new WorldGenBlock(Blocks.cactus, Blocks.sand)).generate(this.worldObj, this.rand, k1, l1, i2))
 			{
 				System.out.println("Spawned Cactus- " + Vars.spawnedCactus + "/" + Vars.numbOfCactus);
 				Vars.spawnedCactus++;
 			}
-
 			if (Vars.numbOfMelons > Vars.spawnedMelons && (new WorldGenBlock(Blocks.melon_block)).generate(this.worldObj, this.rand, k1, l1, i2))
 			{
 				System.out.println("Spawned Melon- " + Vars.spawnedMelons + "/" + Vars.numbOfMelons);
 				Vars.spawnedMelons++;
 			}
 		}
-
 		super.populate(par1IChunkProvider, par2, par3);
 	}
 }

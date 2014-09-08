@@ -22,7 +22,7 @@ public class EntityGrenade extends EntityThrowable
 	{
 		super(par1World, par2, par4, par6);
 	}
-	
+
 	public EntityGrenade(World par1World, EntityLivingBase par2EntityLivingBase, float power)
 	{
 		super(par1World, par2EntityLivingBase);
@@ -53,7 +53,7 @@ public class EntityGrenade extends EntityThrowable
 		}
 		if (MPUtil.isServerSide())
 		{
-			this.worldObj.newExplosion(this, mop.blockX, mop.blockY, mop.blockZ, 2.0F, true, false);
+			this.worldObj.newExplosion(this, mop.blockX, mop.blockY, mop.blockZ, 2.0F, true, true);
 			this.setDead();
 		}
 	}

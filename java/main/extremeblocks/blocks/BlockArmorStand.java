@@ -1,6 +1,7 @@
 package main.extremeblocks.blocks;
 
 import java.util.ArrayList;
+import main.com.hk.testing.util.JavaHelp;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
 import main.extremeblocks.blocks.tileentities.TileEntityStorage;
@@ -63,13 +64,11 @@ public class BlockArmorStand extends BlockStorage
 	@Override
 	public Slot[] addSlotsToContainer(TileEntityStorage te)
 	{
-		ArrayList<Slot> slots = new ArrayList<Slot>();
-
+		ArrayList<Slot> slots = JavaHelp.newArrayList();
 		for (int i = 0; i < 4; ++i)
 		{
 			slots.add(new Slot(te, i, 53 + i * 18, 37));
 		}
-
 		return slots.toArray(new Slot[0]);
 	}
 }

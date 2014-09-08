@@ -23,38 +23,31 @@ public class ItemFuse extends ItemCustom
 			{
 				--par5;
 			}
-
 			if (par7 == 1)
 			{
 				++par5;
 			}
-
 			if (par7 == 2)
 			{
 				--par6;
 			}
-
 			if (par7 == 3)
 			{
 				++par6;
 			}
-
 			if (par7 == 4)
 			{
 				--par4;
 			}
-
 			if (par7 == 5)
 			{
 				++par4;
 			}
-
 			if (!par3World.isAirBlock(par4, par5, par6))
 			{
 				return false;
 			}
 		}
-
 		if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6, par7, par1ItemStack))
 		{
 			return false;
@@ -66,7 +59,6 @@ public class ItemFuse extends ItemCustom
 				--par1ItemStack.stackSize;
 				par3World.setBlock(par4, par5, par6, Init.fuse_block);
 			}
-
 			return true;
 		}
 	}

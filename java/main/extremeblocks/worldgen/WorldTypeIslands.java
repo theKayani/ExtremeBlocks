@@ -61,11 +61,7 @@ public class WorldTypeIslands extends WorldType
 	@Override
 	public GenLayer getBiomeLayer(long worldSeed, GenLayer parentLayer)
 	{
-		GenLayer parent = new GenLayerIsland(200L);
-		new GenLayerAddIsland(200L, parent);
-		// new GenLayerAddMushroomIsland(200L, parent);
-		// new GenLayerShore(200L, parent);
-		new GenLayerDeepOcean(200L, parent);
+		GenLayer parent = new GenLayerIsland(worldSeed);
 		return parent;
 	}
 }

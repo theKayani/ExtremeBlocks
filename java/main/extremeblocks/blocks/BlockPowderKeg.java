@@ -19,7 +19,8 @@ public class BlockPowderKeg extends BlockCustom
 	{
 		super(Material.wood, "Powder Keg");
 		this.setBlockTextureName(Init.MODID + ":powder_keg");
-		this.setCreativeTab(Init.tab_misc);
+		this.setHardness(1.0F);
+		this.setCreativeTab(Init.tab_mainBlocks);
 		this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.8F, 0.75F);
 	}
 
@@ -50,7 +51,6 @@ public class BlockPowderKeg extends BlockCustom
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int lol, float sideX, float sideY, float sideZ)
 	{
 		MPUtil.sendMessage("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ, player);
-
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
 			explode(world, x, y, z);
@@ -78,7 +78,6 @@ public class BlockPowderKeg extends BlockCustom
 		if (entity instanceof EntityArrow && MPUtil.isServerSide())
 		{
 			EntityArrow entityarrow = (EntityArrow) entity;
-
 			if (entityarrow.isBurning())
 			{
 				explode(world, x, y, z);

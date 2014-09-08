@@ -14,14 +14,12 @@ public class TileEntityRewardBlock extends TileEntity
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-
 		amount = nbt.getInteger("Amount");
 	}
 
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-
 		nbt.setInteger("Amount", amount);
 	}
 
@@ -31,7 +29,6 @@ public class TileEntityRewardBlock extends TileEntity
 		{
 			player.addChatComponentMessage(new ChatComponentTranslation("Reward Block Activated! Amount: " + amount++));
 		}
-
 		return true;
 	}
 }

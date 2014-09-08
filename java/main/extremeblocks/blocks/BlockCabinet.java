@@ -6,6 +6,7 @@ import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 import java.util.ArrayList;
 import java.util.Random;
+import main.com.hk.testing.util.JavaHelp;
 import main.com.hk.testing.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
@@ -22,7 +23,7 @@ public class BlockCabinet extends BlockStorage
 {
 	public BlockCabinet()
 	{
-		super("Cabinet", Material.wood, Init.tab_misc, 6, "Cabinet", Init.MODID + ":textures/gui/cabinet.png", BlockType.CABINET);
+		super("Cabinet", Material.wood, Init.tab_mainBlocks, 6, "Cabinet", Init.MODID + ":textures/gui/cabinet.png", BlockType.CABINET);
 		this.setHardness(1.0F);
 		this.setTickRandomly(true);
 	}
@@ -30,7 +31,6 @@ public class BlockCabinet extends BlockStorage
 	private void notifyBlocks(World world, int x, int y, int z, int flag)
 	{
 		world.notifyBlocksOfNeighborChange(x, y, z, this);
-
 		if (flag == 1)
 		{
 			world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
@@ -58,7 +58,6 @@ public class BlockCabinet extends BlockStorage
 		if (MPUtil.isServerSide())
 		{
 			int l = world.getBlockMetadata(x, y, z);
-
 			if ((l & 8) != 0)
 			{
 				world.setBlockMetadataWithNotify(x, y, z, l & 7, 3);
@@ -73,13 +72,11 @@ public class BlockCabinet extends BlockStorage
 	@Override
 	public Slot[] addSlotsToContainer(TileEntityStorage te)
 	{
-		ArrayList<Slot> slots = new ArrayList<Slot>();
-
+		ArrayList<Slot> slots = JavaHelp.newArrayList();
 		for (int i = 0; i < 6; ++i)
 		{
 			slots.add(new Slot(te, i, 34 + i * 18, 32));
 		}
-
 		return slots.toArray(new Slot[0]);
 	}
 
@@ -105,27 +102,22 @@ public class BlockCabinet extends BlockStorage
 		{
 			int l = world.getBlockMetadata(x, y, z) & 7;
 			boolean flag = false;
-
 			if (!world.isSideSolid(x - 1, y, z, EAST) && l == 1)
 			{
 				flag = true;
 			}
-
 			if (!world.isSideSolid(x + 1, y, z, WEST) && l == 2)
 			{
 				flag = true;
 			}
-
 			if (!world.isSideSolid(x, y, z - 1, SOUTH) && l == 3)
 			{
 				flag = true;
 			}
-
 			if (!world.isSideSolid(x, y, z + 1, NORTH) && l == 4)
 			{
 				flag = true;
 			}
-
 			if (flag)
 			{
 				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
@@ -177,12 +169,10 @@ public class BlockCabinet extends BlockStorage
 		float f1 = 0.625F;
 		float f2 = 0.1875F;
 		float f3 = 0.125F;
-
 		if (flag)
 		{
 			f3 = 0.0625F;
 		}
-
 		if (j == 1) // WEST
 		{
 			this.setBlockBounds(0.0F, 0.2F, 0.1F, 0.2F, 0.8F, 0.9F);
@@ -208,7 +198,6 @@ public class BlockCabinet extends BlockStorage
 			int i1 = i & 7;
 			this.notifyBlocks(world, x, y, z, i1);
 		}
-
 		super.breakBlock(world, x, y, z, block, i);
 	}
 
@@ -217,9 +206,7 @@ public class BlockCabinet extends BlockStorage
 		int j1 = world.getBlockMetadata(x, y, z);
 		int k1 = j1 & 8;
 		j1 &= 7;
-
 		ForgeDirection dir = ForgeDirection.getOrientation(flag);
-
 		if (dir == NORTH && world.isSideSolid(x, y, z + 1, NORTH))
 		{
 			j1 = 4;
@@ -240,7 +227,6 @@ public class BlockCabinet extends BlockStorage
 		{
 			j1 = this.iHaveNoIdeaWhatThisDoes(world, x, y, z);
 		}
-
 		return j1 + k1;
 	}
 

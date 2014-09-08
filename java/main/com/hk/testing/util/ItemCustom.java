@@ -21,7 +21,6 @@ public class ItemCustom extends Item
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(tab);
 		this.name = name;
-
 		ExtremeBlocks.items.add(this);
 	}
 
@@ -44,7 +43,6 @@ public class ItemCustom extends Item
 	public void registerIcons(IIconRegister ir)
 	{
 		super.registerIcons(ir);
-
 		for (int i = 0; i < iconPaths.size(); i++)
 		{
 			icons.put(iconPaths.get(i), ir.registerIcon(iconPaths.get(i)));
@@ -66,6 +64,6 @@ public class ItemCustom extends Item
 		iconPaths.add(iiconPath);
 	}
 
-	private static HashMap<String, IIcon> icons = new HashMap<String, IIcon>();
-	private static ArrayList<String> iconPaths = new ArrayList<String>();
+	private static HashMap<String, IIcon> icons = JavaHelp.newHashMap();
+	private static ArrayList<String> iconPaths = JavaHelp.newArrayList();
 }

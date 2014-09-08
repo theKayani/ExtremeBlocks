@@ -3,7 +3,6 @@ package main.extremeblocks.util;
 public enum BlockType
 {
 	NORMAL(false, false), CABINET(true, true), BARREL(true, false);
-
 	private boolean shouldDrop;
 	private boolean canPlaceOnSide;
 

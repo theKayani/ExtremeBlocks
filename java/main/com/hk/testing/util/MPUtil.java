@@ -1,6 +1,5 @@
 package main.com.hk.testing.util;
 
-import com.sun.istack.internal.logging.Logger;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Vars;
 import main.extremeblocks.items.ItemGrenade;
@@ -22,24 +21,22 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class MPUtil
-{	
+{
 	public static void addRecipe(ItemStack item, Object... objects)
 	{
-		if(Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
+		if (Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
 		{
 			GameRegistry.addRecipe(item, objects);
 		}
-
 		RecipeManager.add(true, item, objects);
 	}
 
 	public static void addShapelessRecipe(ItemStack item, Object... objects)
 	{
-		if(Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
+		if (Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
 		{
 			GameRegistry.addShapelessRecipe(item, objects);
 		}
-
 		RecipeManager.addShapeless(true, item, objects);
 	}
 
@@ -67,87 +64,29 @@ public class MPUtil
 
 	public static void addToolSetRecipe(Object material, Item... tools)
 	{
+		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ ERROR CREATING TOOL SET RECIPES: MATERIAL ISN'T BLOCK OR ITEM ~~~~~~~~~~~~~~|";
 		assert tools.length == 5 : "[ERR]~~~~~~~~~~~~ ERROR CREATING TOOL SET RECIPES: NOT ENOUGH TOOLS ~~~~~~~~~~~~~~|";
-
-		if (tools.length != 5)
-		{
-			System.err.println("[ERR]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
-			System.err.println("[ERR]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
-			System.err.println("[ERR]~~~~~~~~~~~~ ERROR CREATING TOOL SET RECIPES: NOT ENOUGH TOOLS ~~~~~~~~~~~~~~|");
-			System.err.println("[ERR]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
-			System.err.println("[ERR]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
-			return;
-		}
-
-		/*
-		 * addRecipe(new ItemStack(tools[0]), "MMM", " # ", " # ", 'M',
-		 * material, '#', Items.stick); addRecipe(new ItemStack(tools[1]), "M",
-		 * "#", "#", 'M', material, '#', Items.stick); addRecipe(new
-		 * ItemStack(tools[2]), "MM", "M#", " #", 'M', material, '#',
-		 * Items.stick); addRecipe(new ItemStack(tools[3]), "MM", " #", " #",
-		 * 'M', material, '#', Items.stick); addRecipe(new ItemStack(tools[4]),
-		 * "M", "M", "#", 'M', material, '#', Items.stick);
-		 */
-
-		addPickaxeRecipe(material, tools[0]);
-		addShovelRecipe(material, tools[1]);
-		addAxeRecipe(material, tools[2]);
-		addHoeRecipe(material, tools[3]);
-		addSwordRecipe(material, tools[4]);
-	}
-
-	public static void addSwordRecipe(Object material, Item tool)
-	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ MATERIAL NEEDS TO BE AN ITEM OR BLOCK ~~~~~~~~~~~~~~|";
-
-		addRecipe(new ItemStack(tool), "X", "X", "#", 'X', material, '#', Items.stick);
-	}
-
-	public static void addPickaxeRecipe(Object material, Item tool)
-	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ MATERIAL NEEDS TO BE AN ITEM OR BLOCK ~~~~~~~~~~~~~~|";
-
-		addRecipe(new ItemStack(tool), "XXX", "#", "#", 'X', material, '#', Items.stick);
-	}
-
-	public static void addShovelRecipe(Object material, Item tool)
-	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ MATERIAL NEEDS TO BE AN ITEM OR BLOCK ~~~~~~~~~~~~~~|";
-
-		addRecipe(new ItemStack(tool), "X", "#", "#", 'X', material, '#', Items.stick);
-	}
-
-	public static void addAxeRecipe(Object material, Item tool)
-	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ MATERIAL NEEDS TO BE AN ITEM OR BLOCK ~~~~~~~~~~~~~~|";
-
-		addRecipe(new ItemStack(tool), "XX", "X#", "#", 'X', material, '#', Items.stick);
-	}
-
-	public static void addHoeRecipe(Object material, Item tool)
-	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ MATERIAL NEEDS TO BE AN ITEM OR BLOCK ~~~~~~~~~~~~~~|";
-
-		addRecipe(new ItemStack(tool), "XX", "#", "#", 'X', material, '#', Items.stick);
+		addRecipe(new ItemStack(tools[0]), "MMM", " # ", " # ", 'M', material, '#', Items.stick);
+		addRecipe(new ItemStack(tools[1]), "M", "#", "#", 'M', material, '#', Items.stick);
+		addRecipe(new ItemStack(tools[2]), "MM", "M#", " #", 'M', material, '#', Items.stick);
+		addRecipe(new ItemStack(tools[3]), "MM", " #", " #", 'M', material, '#', Items.stick);
+		addRecipe(new ItemStack(tools[4]), "M", "M", "#", 'M', material, '#', Items.stick);
 	}
 
 	public static String obfuscatedMessage(int length)
 	{
 		String val = "";
 		String obs = String.valueOf(EnumChatFormatting.OBFUSCATED);
-
 		for (int i = 0; i < length; i++)
 		{
 			val += obs + 'a';
 		}
-
 		return val;
 	}
 
 	public static Item getRandomItem()
 	{
 		int random = Rand.nextInt(RegistryHelper.itemsList.length - 1);
-
 		if (RegistryHelper.itemsList[random] != null && RegistryHelper.itemsList[random].getCreativeTab() != null)
 		{
 			return RegistryHelper.itemsList[random];
@@ -158,7 +97,6 @@ public class MPUtil
 	public static Item getRandomModItem()
 	{
 		Item item = getRandomItem();
-
 		if (!item.getClass().getName().startsWith("net.minecraft."))
 		{
 			return item;
@@ -169,8 +107,7 @@ public class MPUtil
 	public static Item getRandomEBItem()
 	{
 		Item item = getRandomItem();
-
-		if (item.getClass().getName().startsWith("main.extremeblocks.") && !(item instanceof ItemGrenade))
+		if (item.getClass().getName().startsWith("main.extremeblocks."))
 		{
 			return item;
 		}
@@ -180,7 +117,6 @@ public class MPUtil
 	public static Item getRandomVanillaItem()
 	{
 		Item item = getRandomItem();
-
 		if (item.getClass().getName().startsWith("net.minecraft."))
 		{
 			return item;

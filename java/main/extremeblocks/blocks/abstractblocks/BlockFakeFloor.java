@@ -1,13 +1,8 @@
 package main.extremeblocks.blocks.abstractblocks;
 
-import java.util.List;
-import main.com.hk.testing.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -26,10 +21,8 @@ public class BlockFakeFloor extends Block
 		super(parent.getMaterial());
 		this.setCreativeTab(Init.tab_fakeFloors);
 		this.setBlockName("[" + ID++ + "]Fake " + parent.getLocalizedName());
-
 		this.id = ID;
 		this.parent = parent;
-
 		LanguageRegistry.addName(this, "Fake " + parent.getLocalizedName() + " Floor");
 	}
 

@@ -1,14 +1,13 @@
 package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import main.com.hk.testing.util.JavaHelp;
 import main.com.hk.testing.util.MPUtil;
 import main.com.hk.testing.util.RegistryHelper;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -34,7 +33,6 @@ public class BlockLightedBlock extends Block
 		this.setHardness(0.3F);
 		if (isLighted) this.setCreativeTab(Init.tab_lightedBlocks);
 		this.setLightLevel(isLighted ? 0.9375F : 0.0F);
-
 		this.id = ID;
 		this.isLighted = isLighted;
 		this.parent = parent;
@@ -64,7 +62,6 @@ public class BlockLightedBlock extends Block
 				world.setBlock(x, y, z, lightedBlocks.get(i));
 			}
 		}
-
 		return true;
 	}
 
@@ -79,16 +76,12 @@ public class BlockLightedBlock extends Block
 		BlockLightedBlock off = new BlockLightedBlock(parent, false);
 		off.opposite = lighted;
 		lighted.opposite = off;
-
 		lightedBlocks.add(lighted);
 		offBlocks.add(off);
-
 		RegistryHelper.register(lighted);
 		RegistryHelper.register(off);
-
 		LanguageRegistry.addName(off, "Off " + parent.getLocalizedName());
 		LanguageRegistry.addName(lighted, "Lighted " + parent.getLocalizedName());
-
 		MPUtil.addRecipe(new ItemStack(lighted), "TTT", "TBT", "TTT", 'T', Blocks.torch, 'B', parent);
 	}
 
@@ -113,6 +106,6 @@ public class BlockLightedBlock extends Block
 		return Item.getItemFromBlock(isLighted ? this : opposite);
 	}
 
-	private static ArrayList<BlockLightedBlock> lightedBlocks = new ArrayList<BlockLightedBlock>();
-	private static ArrayList<BlockLightedBlock> offBlocks = new ArrayList<BlockLightedBlock>();
+	private static ArrayList<BlockLightedBlock> lightedBlocks = JavaHelp.newArrayList();
+	private static ArrayList<BlockLightedBlock> offBlocks = JavaHelp.newArrayList();
 }

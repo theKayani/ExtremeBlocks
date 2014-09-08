@@ -27,7 +27,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket>
 {
 	private EnumMap<Side, FMLEmbeddedChannel> channels;
-	private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
+	private final LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
 	private boolean isPostInitialised = false;
 
 	public boolean registerPacket(Class<? extends AbstractPacket> clazz)
@@ -36,17 +36,14 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 		{
 			return false;
 		}
-
 		if (this.packets.contains(clazz))
 		{
 			return false;
 		}
-
 		if (this.isPostInitialised)
 		{
 			return false;
 		}
-
 		this.packets.add(clazz);
 		return true;
 	}
@@ -56,15 +53,13 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 	{
 		ByteBuf buffer = Unpooled.buffer();
 		Class<? extends AbstractPacket> clazz = msg.getClass();
-
 		if (!this.packets.contains(msg.getClass()))
 		{
 			throw new NullPointerException("No Packet Registered for: " + msg.getClass().getCanonicalName());
 		}
-
 		byte discriminator = (byte) this.packets.indexOf(clazz);
 		buffer.writeByte(discriminator);
-		msg.encodeInto(ctx, buffer);
+		msg.encodeInto(buffer);
 		FMLProxyPacket proxyPacket = new FMLProxyPacket(buffer.copy(), ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
 		out.add(proxyPacket);
 	}
@@ -75,15 +70,12 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 		ByteBuf payload = msg.payload();
 		byte discriminator = payload.readByte();
 		Class<? extends AbstractPacket> clazz = this.packets.get(discriminator);
-
 		if (clazz == null)
 		{
 			throw new NullPointerException("No packet registered for discriminator: " + discriminator);
 		}
-
 		AbstractPacket pkt = clazz.newInstance();
-		pkt.decodeInto(ctx, payload.slice());
-
+		pkt.decodeInto(payload.slice());
 		EntityPlayer player;
 		switch (FMLCommonHandler.instance().getEffectiveSide())
 		{
@@ -91,16 +83,13 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 				player = this.getClientPlayer();
 				pkt.handleClientSide(player);
 				break;
-
 			case SERVER:
 				INetHandler netHandler = ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
 				player = ((NetHandlerPlayServer) netHandler).playerEntity;
 				pkt.handleServerSide(player);
 				break;
-
 			default:
 		}
-
 		out.add(pkt);
 	}
 
@@ -112,9 +101,9 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 
 	public void registerPackets()
 	{
-		registerPacket(PacketTransportPipe.class);
-		registerPacket(PacketPowerPipe.class);
-		registerPacket(PacketPowerReceiver.class);
+		registerPacket(PacketOpenGui.class);
+		registerPacket(PacketSyncRobot.class);
+		registerPacket(PacketRemoveEntity.class);
 	}
 
 	public void postInitialise()
@@ -123,11 +112,9 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 		{
 			return;
 		}
-
 		this.isPostInitialised = true;
 		Collections.sort(this.packets, new Comparator<Class<? extends AbstractPacket>>()
 		{
-
 			@Override
 			public int compare(Class<? extends AbstractPacket> clazz1, Class<? extends AbstractPacket> clazz2)
 			{
@@ -136,7 +123,6 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 				{
 					com = clazz1.getCanonicalName().compareTo(clazz2.getCanonicalName());
 				}
-
 				return com;
 			}
 		});

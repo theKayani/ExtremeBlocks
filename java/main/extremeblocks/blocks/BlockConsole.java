@@ -15,7 +15,8 @@ public class BlockConsole extends BlockCustom implements ITileEntityProvider
 	{
 		super(Material.wood, "Console");
 		this.setBlockTextureName(Init.MODID + ":Console");
-		this.setCreativeTab(Init.tab_misc);
+		this.setCreativeTab(Init.tab_mainBlocks);
+		this.setHardness(2.0F);
 		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.4F, 0.9F);
 	}
 

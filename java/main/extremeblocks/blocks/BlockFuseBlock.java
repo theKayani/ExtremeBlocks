@@ -46,7 +46,6 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int lol, float sideX, float sideY, float sideZ)
 	{
 		MPUtil.sendMessage("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ, player);
-
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
 			world.setBlock(x, y, z, Blocks.fire);
@@ -65,7 +64,6 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 				this.dropBlockAsItem(world, x, y, z, 0, 0);
 				world.setBlockToAir(x, y, z);
 			}
-
 			super.onNeighborBlockChange(world, x, y, z, block);
 		}
 	}

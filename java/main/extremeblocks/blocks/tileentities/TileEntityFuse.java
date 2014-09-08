@@ -18,11 +18,9 @@ public class TileEntityFuse extends TileEntity
 				for (int k = -1; k < 2; k++)
 				{
 					Block block = worldObj.getBlock(xCoord + i, yCoord + j, zCoord + k);
-
 					if (block == Blocks.fire)
 					{
 						timer++;
-
 						if (timer >= 10)
 						{
 							worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.fire);
@@ -36,14 +34,12 @@ public class TileEntityFuse extends TileEntity
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-
 		timer = nbt.getInteger("Timer");
 	}
 
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-
 		nbt.setInteger("Timer", timer);
 	}
 }

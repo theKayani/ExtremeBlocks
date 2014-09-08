@@ -2,6 +2,7 @@ package main.extremeblocks.blocks;
 
 import java.util.ArrayList;
 import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.testing.util.JavaHelp;
 import main.com.hk.testing.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -17,12 +18,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockDrill extends BlockCustom
 {
 	public final boolean isHead;
-	private static ArrayList<Block> loot = new ArrayList<Block>();
+	private static ArrayList<Block> loot = JavaHelp.newArrayList();
 
 	public BlockDrill(boolean isHead)
 	{
 		super(Material.iron, "Drill" + (isHead ? " Head" : ""));
-		if (isHead) this.setCreativeTab(Init.tab_misc);
+		if (isHead) this.setCreativeTab(Init.tab_mainBlocks);
 		this.setBlockTextureName(Init.MODID + ":drill" + (isHead ? "_head" : ""));
 		this.setHardness(3.0F);
 		this.isHead = isHead;
@@ -31,13 +32,11 @@ public class BlockDrill extends BlockCustom
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
 		boolean activated = activated(player);
-
 		if (activated)
 		{
 			MPUtil.sendMessage("You have collected " + loot.size() + " blocks!", player);
 			loot.clear();
 		}
-
 		return activated;
 	}
 

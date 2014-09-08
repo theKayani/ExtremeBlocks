@@ -1,40 +1,43 @@
 package main.extremeblocks.worldgen;
 
+import java.util.List;
 import java.util.Random;
+import main.com.hk.testing.util.Builder;
+import main.com.hk.testing.util.JavaHelp;
+import main.com.hk.testing.util.Rand;
 import main.extremeblocks.Init;
-import net.minecraft.block.Block;
+import main.extremeblocks.Vars;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenDriedTree extends WorldGenerator
 {
-	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+	public boolean generate(World world, Random random, int x, int y, int z)
 	{
-		Block block;
-
-		do
+		if (!Vars.genDriedTree) return false;
+		Builder helper = new Builder(world, x, y, z);
+		if (helper.getBiomeAtSpot().temperature < 1.0D) return false;
+		for (int i = -4; i < 5; i++)
 		{
-			block = par1World.getBlock(par3, par4, par5);
-			if (!(block.isLeaves(par1World, par3, par4, par5) || block.isAir(par1World, par3, par4, par5)))
+			for (int j = 0; j < 7; j++)
 			{
-				break;
-			}
-			--par4;
-		}
-		while (par4 > 0);
-
-		for (int l = 0; l < 4; ++l)
-		{
-			int i1 = par3 + par2Random.nextInt(8) - par2Random.nextInt(8);
-			int j1 = par4 + par2Random.nextInt(4) - par2Random.nextInt(4);
-			int k1 = par5 + par2Random.nextInt(8) - par2Random.nextInt(8);
-
-			if (par1World.isAirBlock(i1, j1, k1) && Init.emptied_log.canBlockStay(par1World, i1, j1, k1))
-			{
-				par1World.setBlock(i1, j1, k1, Init.emptied_log, 0, 2);
+				for (int k = -4; k < 5; k++)
+				{
+					if (!helper.isBlockReplaceable(i, j, k))
+					{
+						return false;
+					}
+				}
 			}
 		}
-
+		for (int l = 0; l < 5; ++l)
+		{
+			List<ItemStack> list = JavaHelp.newArrayList();
+			Init.emptied_log.getSubBlocks(Item.getItemFromBlock(Init.emptied_log), Init.emptied_log.getCreativeTabToDisplayOn(), list);
+			world.setBlock(x, y + l, z, Init.emptied_log, Rand.nextInt(list.size()), 2);
+		}
 		return true;
 	}
 }

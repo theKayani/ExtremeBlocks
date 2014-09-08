@@ -1,7 +1,6 @@
 package main.com.hk.testing.util;
 
 import java.util.Random;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.util.IPlayerMessage;
 import net.minecraft.block.Block;
@@ -10,10 +9,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class BlockCustom extends Block
 {
-	private boolean normal = true;
+	private boolean normal = true, different;
 	private Item itemToDrop;
 	private int amountDropped;
 
@@ -24,13 +24,12 @@ public class BlockCustom extends Block
 		this.setBlockTextureName(name);
 		setDrop(this);
 		setDroppedAmount(1);
-
 		if (this instanceof INamed)
 		{
 			LanguageRegistry.addName(this, ((INamed) this).getName());
 		}
-
 		ExtremeBlocks.blocks.add(this);
+		different = false;
 	}
 
 	public BlockCustom setBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
@@ -41,12 +40,14 @@ public class BlockCustom extends Block
 
 	public BlockCustom setDrop(Item itemToDrop)
 	{
+		different = true;
 		this.itemToDrop = itemToDrop;
 		return this;
 	}
 
 	public BlockCustom setDrop(Block blockToDrop)
 	{
+		different = true;
 		return setDrop(Item.getItemFromBlock(blockToDrop));
 	}
 
@@ -56,14 +57,16 @@ public class BlockCustom extends Block
 		return this;
 	}
 
+	@Override
 	public int quantityDropped(Random rand)
 	{
 		return amountDropped;
 	}
 
+	@Override
 	public Item getItemDropped(int meta, Random rand, int idk)
 	{
-		return itemToDrop;
+		return different ? itemToDrop : Item.getItemFromBlock(this);
 	}
 
 	public BlockCustom irregular()
@@ -72,11 +75,11 @@ public class BlockCustom extends Block
 		return this;
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
 		TileEntity te = world.getTileEntity(x, y, z);
 		boolean clicked = false;
-
 		if (te != null && te instanceof IPlayerMessage)
 		{
 			clicked = ((IPlayerMessage) te).onClickedOn(player);
@@ -84,11 +87,13 @@ public class BlockCustom extends Block
 		return clicked;
 	}
 
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return normal;
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return normal;

@@ -3,9 +3,10 @@ package main.extremeblocks.items;
 import java.util.List;
 import main.com.hk.testing.util.ItemCustom;
 import main.extremeblocks.Init;
-import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -17,6 +18,7 @@ public class ItemCellphone extends ItemCustom
 		this.setTextureName(Init.MODID + ":cellphone");
 	}
 
+	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
 		list.add(getFirstLine(player.worldObj, player));
@@ -26,8 +28,8 @@ public class ItemCellphone extends ItemCustom
 
 	private String getFirstLine(World world, EntityPlayer player)
 	{
-		Block block = world.getBlock((int) player.posX, (int) (player.posY - 2), (int) player.posZ);
-		return "Time: " + (int) world.getWorldTime() + ", Traveled: " + player.distanceWalkedModified + ", Block: " + (block == Blocks.air ? "none" : block.getLocalizedName());
+		Entity entity = world.findNearestEntityWithinAABB(EntityLiving.class, player.boundingBox.expand(100.0D, 100.0D, 100.0D), player);
+		return "Time: " + (int) world.getWorldTime() + ", Traveled: " + player.distanceWalkedModified + ", Closest Mob: " + (entity == null ? "None" : EntityList.getEntityString(entity));
 	}
 
 	private String getSecondLine(World world, EntityPlayer player)

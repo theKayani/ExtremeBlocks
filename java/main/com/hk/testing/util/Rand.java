@@ -1,15 +1,26 @@
 package main.com.hk.testing.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 public class Rand
 {
-	public static boolean nextBoolean()
+	private static final Random rand;
+	static
 	{
-		return Math.random() > 0.5D;
+		rand = new Random();
 	}
 
-	public static short nextShort()
+	private Rand()
 	{
-		return (short) (Math.random() * Short.MAX_VALUE);
+	}
+
+	public static boolean nextBoolean()
+	{
+		return rand.nextBoolean();
 	}
 
 	public static boolean isPercent(int percent)
@@ -21,32 +32,92 @@ public class Rand
 		return false;
 	}
 
-	public static double nextDFG()
+	public static double nextDouble()
 	{
-		String cut = "" + Math.random();
-		cut = cut.substring(0, 6);
+		return rand.nextDouble();
+	}
 
-		return Double.parseDouble(cut);
+	public static float nextFloat()
+	{
+		return rand.nextFloat();
+	}
+
+	public static synchronized double nextGaussian()
+	{
+		return rand.nextGaussian();
 	}
 
 	public static int nextInt()
 	{
-		return (int) (Math.random() * Integer.MAX_VALUE);
+		return rand.nextInt();
 	}
 
 	public static int nextInt(int n)
 	{
-		if (n <= 0)
-		{
-			IllegalArgumentException e = new IllegalArgumentException("n Must be a positive!");
-			e.printStackTrace();
-		}
-
-		return (int) (Math.random() * n);
+		return rand.nextInt(n);
 	}
 
 	public static long nextLong()
 	{
-		return (long) (Math.random() * Long.MAX_VALUE);
+		return rand.nextLong();
+	}
+
+	public static void setSeed(long seed)
+	{
+		rand.setSeed(seed);
+	}
+
+	public static void nextBytes(byte[] bytes)
+	{
+		rand.nextBytes(bytes);
+	}
+
+	public static byte[] nextBytes(int length)
+	{
+		byte[] bytes = new byte[length];
+		rand.nextBytes(bytes);
+		return bytes;
+	}
+
+	public static byte nextByte()
+	{
+		return nextBytes(1)[0];
+	}
+
+	public static String nextString()
+	{
+		return nextString(100);
+	}
+
+	public static String nextString(int maxLength)
+	{
+		String chars = "";
+		int len = nextInt(maxLength);
+		for (int i = 0; i < len; i++)
+		{
+			chars += Character.forDigit(nextInt(Character.MAX_RADIX), Character.MAX_RADIX);
+		}
+		return chars;
+	}
+
+	public static ItemStack getRandomItemStackOf(Item item)
+	{
+		return new ItemStack(item, getRandomMetadataOf(item), 1);
+	}
+
+	public static int getRandomMetadataOf(Item item)
+	{
+		if (item == null) return 0;
+		return nextInt(StackHelper.getMaxMetadataOf(item));
+	}
+
+	public boolean equals(Object obj)
+	{
+		return obj instanceof Rand;
+	}
+
+	public int hashCode()
+	{
+		return this.getClass().getName().length();
 	}
 }

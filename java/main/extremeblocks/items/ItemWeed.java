@@ -11,18 +11,18 @@ import net.minecraft.world.World;
 
 public class ItemWeed extends ItemEdible
 {
-	private int state;
+	private final int state;
 
 	public ItemWeed(String name, int state)
 	{
 		super(name, 7);
-		this.setCreativeTab(Init.tab_consumables);
+		this.setCreativeTab(Init.tab_mainItems);
 		this.setAction(EnumAction.bow);
 		this.setAlwaysEdible();
-
 		this.state = state;
 	}
 
+	@Override
 	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer player)
 	{
 		if (MPUtil.isServerSide())
@@ -37,7 +37,7 @@ public class ItemWeed extends ItemEdible
 				case 1:
 					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 200));
 					player.addPotionEffect(new PotionEffect(Potion.confusion.id, 220));
-					MPUtil.sendMessage("WOAH! That wasn't Bad!", player);
+					MPUtil.sendMessage("Woo! That wasn't Bad!", player);
 					break;
 				case 2:
 					player.addPotionEffect(new PotionEffect(Potion.hunger.id, 200, 1));

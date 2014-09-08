@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import main.extremeblocks.Init;
+import main.com.hk.testing.util.JavaHelp;
 import main.extremeblocks.Vars;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
@@ -26,58 +26,47 @@ public class EBCraftingManager
 {
 	public static final EBCraftingManager INSTANCE = new EBCraftingManager();
 	public static final int WILDCARD_VALUE = Short.MAX_VALUE;
-	private List recipes = new ArrayList();
+	private List recipes = JavaHelp.newArrayList();
 
 	private EBCraftingManager()
 	{
 		String[][] recipePatterns;
 		Object[][] recipeItems;
-
-		if(Vars.addVanillaRecipes)
+		if (Vars.addVanillaRecipes)
 		{
-			recipePatterns = new String[][] {{"XXX", " # ", " # "}, {"X", "#", "#"}, {"XX", "X#", " #"}, {"XX", " #", " #"}};
-			recipeItems = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_pickaxe, Items.stone_pickaxe, Items.iron_pickaxe, Items.diamond_pickaxe, Items.golden_pickaxe}, {Items.wooden_shovel, Items.stone_shovel, Items.iron_shovel, Items.diamond_shovel, Items.golden_shovel}, {Items.wooden_axe, Items.stone_axe, Items.iron_axe, Items.diamond_axe, Items.golden_axe}, {Items.wooden_hoe, Items.stone_hoe, Items.iron_hoe, Items.diamond_hoe, Items.golden_hoe}};
+			recipePatterns = new String[][] { { "XXX", " # ", " # " }, { "X", "#", "#" }, { "XX", "X#", " #" }, { "XX", " #", " #" } };
+			recipeItems = new Object[][] { { Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot }, { Items.wooden_pickaxe, Items.stone_pickaxe, Items.iron_pickaxe, Items.diamond_pickaxe, Items.golden_pickaxe }, { Items.wooden_shovel, Items.stone_shovel, Items.iron_shovel, Items.diamond_shovel, Items.golden_shovel }, { Items.wooden_axe, Items.stone_axe, Items.iron_axe, Items.diamond_axe, Items.golden_axe }, { Items.wooden_hoe, Items.stone_hoe, Items.iron_hoe, Items.diamond_hoe, Items.golden_hoe } };
 			for (int i = 0; i < recipeItems[0].length; ++i)
 			{
 				Object object = recipeItems[0][i];
-
 				for (int j = 0; j < recipeItems.length - 1; ++j)
 				{
-					Item item = (Item)recipeItems[j + 1][i];
+					Item item = (Item) recipeItems[j + 1][i];
 					addRecipe(new ItemStack(item), recipePatterns[j], '#', Items.stick, 'X', object);
 				}
 			}
-
 			addRecipe(new ItemStack(Items.shears), " #", "# ", '#', Items.iron_ingot);
-
-			recipePatterns = new String[][] {{"X", "X", "#"}};
-			recipeItems = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
-
+			recipePatterns = new String[][] { { "X", "X", "#" } };
+			recipeItems = new Object[][] { { Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot }, { Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword } };
 			for (int i = 0; i < recipeItems[0].length; ++i)
 			{
 				Object object = recipeItems[0][i];
-
 				for (int j = 0; j < recipeItems.length - 1; ++j)
 				{
-					Item item = (Item)recipeItems[j + 1][i];
+					Item item = (Item) recipeItems[j + 1][i];
 					addRecipe(new ItemStack(item), recipePatterns[j], '#', Items.stick, 'X', object);
 				}
 			}
-
 			addRecipe(new ItemStack(Items.bow, 1), " #X", "# X", " #X", 'X', Items.string, '#', Items.stick);
 			addRecipe(new ItemStack(Items.arrow, 4), "X", "#", "Y", 'Y', Items.feather, 'X', Items.flint, '#', Items.stick);
-
-
-			recipeItems = new Object[][] {{Blocks.gold_block, new ItemStack(Items.gold_ingot, 9)}, {Blocks.iron_block, new ItemStack(Items.iron_ingot, 9)}, {Blocks.diamond_block, new ItemStack(Items.diamond, 9)}, {Blocks.emerald_block, new ItemStack(Items.emerald, 9)}, {Blocks.lapis_block, new ItemStack(Items.dye, 9, 4)}, {Blocks.redstone_block, new ItemStack(Items.redstone, 9)}, {Blocks.coal_block, new ItemStack(Items.coal, 9, 0)}, {Blocks.hay_block, new ItemStack(Items.wheat, 9)}};
-
+			recipeItems = new Object[][] { { Blocks.gold_block, new ItemStack(Items.gold_ingot, 9) }, { Blocks.iron_block, new ItemStack(Items.iron_ingot, 9) }, { Blocks.diamond_block, new ItemStack(Items.diamond, 9) }, { Blocks.emerald_block, new ItemStack(Items.emerald, 9) }, { Blocks.lapis_block, new ItemStack(Items.dye, 9, 4) }, { Blocks.redstone_block, new ItemStack(Items.redstone, 9) }, { Blocks.coal_block, new ItemStack(Items.coal, 9, 0) }, { Blocks.hay_block, new ItemStack(Items.wheat, 9) } };
 			for (int i = 0; i < recipeItems.length; ++i)
 			{
-				Block block = (Block)recipeItems[i][0];
-				ItemStack itemstack = (ItemStack)recipeItems[i][1];
+				Block block = (Block) recipeItems[i][0];
+				ItemStack itemstack = (ItemStack) recipeItems[i][1];
 				addRecipe(new ItemStack(block), "###", "###", "###", '#', itemstack);
 				addRecipe(itemstack, "#", '#', block);
 			}
-
 			addRecipe(new ItemStack(Items.gold_ingot), "###", "###", "###", '#', Items.gold_nugget);
 			addRecipe(new ItemStack(Items.gold_nugget, 9), "#", '#', Items.gold_ingot);
 			addShapelessRecipe(new ItemStack(Items.mushroom_stew), Blocks.brown_mushroom, Blocks.red_mushroom, Items.bowl);
@@ -105,16 +94,14 @@ public class EBCraftingManager
 			addRecipe(new ItemStack(Blocks.redstone_lamp, 1), " R ", "RGR", " R ", 'R', Items.redstone, 'G', Blocks.glowstone);
 			addRecipe(new ItemStack(Blocks.beacon, 1), "GGG", "GSG", "OOO", 'G', Blocks.glass, 'S', Items.nether_star, 'O', Blocks.obsidian);
 			addRecipe(new ItemStack(Blocks.nether_brick, 1), "NN", "NN", 'N', Items.netherbrick);
-
-			recipePatterns = new String[][] {{"XXX", "X X"}, {"X X", "XXX", "XXX"}, {"XXX", "X X", "X X"}, {"X X", "X X"}};
-			recipeItems = new Object[][] {{Items.leather, Blocks.fire, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.leather_helmet, Items.chainmail_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet}, {Items.leather_chestplate, Items.chainmail_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate}, {Items.leather_leggings, Items.chainmail_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings}, {Items.leather_boots, Items.chainmail_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots}};
+			recipePatterns = new String[][] { { "XXX", "X X" }, { "X X", "XXX", "XXX" }, { "XXX", "X X", "X X" }, { "X X", "X X" } };
+			recipeItems = new Object[][] { { Items.leather, Blocks.fire, Items.iron_ingot, Items.diamond, Items.gold_ingot }, { Items.leather_helmet, Items.chainmail_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet }, { Items.leather_chestplate, Items.chainmail_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate }, { Items.leather_leggings, Items.chainmail_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings }, { Items.leather_boots, Items.chainmail_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots } };
 			for (int i = 0; i < recipeItems[0].length; ++i)
 			{
 				Object object = recipeItems[0][i];
-
 				for (int j = 0; j < recipeItems.length - 1; ++j)
 				{
-					Item item = (Item)recipeItems[j + 1][i];
+					Item item = (Item) recipeItems[j + 1][i];
 					addRecipe(new ItemStack(item), recipePatterns[j], 'X', object);
 				}
 			}
@@ -126,7 +113,6 @@ public class EBCraftingManager
 				addRecipe(new ItemStack(Blocks.stained_glass, 8, BlockColored.func_150031_c(i)), "###", "#X#", "###", '#', new ItemStack(Blocks.glass), 'X', new ItemStack(Items.dye, 1, i));
 				addRecipe(new ItemStack(Blocks.stained_glass_pane, 16, i), "###", "###", '#', new ItemStack(Blocks.stained_glass, 1, i));
 			}
-
 			addShapelessRecipe(new ItemStack(Items.dye, 1, 11), new ItemStack(Blocks.yellow_flower, 1, 0));
 			addShapelessRecipe(new ItemStack(Items.dye, 1, 1), new ItemStack(Blocks.red_flower, 1, 0));
 			addShapelessRecipe(new ItemStack(Items.dye, 3, 15), Items.bone);
@@ -154,18 +140,15 @@ public class EBCraftingManager
 			addShapelessRecipe(new ItemStack(Items.dye, 2, 13), new ItemStack(Blocks.double_plant, 1, 1));
 			addShapelessRecipe(new ItemStack(Items.dye, 2, 1), new ItemStack(Blocks.double_plant, 1, 4));
 			addShapelessRecipe(new ItemStack(Items.dye, 2, 9), new ItemStack(Blocks.double_plant, 1, 5));
-
 			for (i = 0; i < 16; ++i)
 			{
 				addRecipe(new ItemStack(Blocks.carpet, 3, i), "##", '#', new ItemStack(Blocks.wool, 1, i));
 			}
-
 			this.recipes.add(new RecipesArmorDyes());
 			this.recipes.add(new RecipeBookCloning());
 			this.recipes.add(new RecipesMapCloning());
 			this.recipes.add(new RecipesMapExtending());
 			this.recipes.add(new RecipeFireworks());
-
 			addRecipe(new ItemStack(Items.paper, 3), "###", '#', Items.reeds);
 			addShapelessRecipe(new ItemStack(Items.book, 1), Items.paper, Items.paper, Items.paper, Items.leather);
 			addShapelessRecipe(new ItemStack(Items.writable_book, 1), Items.book, new ItemStack(Items.dye, 1, 0), Items.feather);
@@ -280,34 +263,31 @@ public class EBCraftingManager
 			addRecipe(new ItemStack(Blocks.daylight_detector), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', Items.quartz, 'W', Blocks.wooden_slab);
 			addRecipe(new ItemStack(Blocks.hopper), "I I", "ICI", " I ", 'I', Items.iron_ingot, 'C', Blocks.chest);
 		}
-		
 		this.recipes.addAll(RecipeManager.PIES);
-
 		Collections.sort(this.recipes, new Comparator()
 		{
 			public int compare(IRecipe p_compare_1_, IRecipe p_compare_2_)
 			{
 				return p_compare_1_ instanceof EBShapelessRecipes && p_compare_2_ instanceof EBShapedRecipes ? 1 : (p_compare_2_ instanceof EBShapelessRecipes && p_compare_1_ instanceof EBShapedRecipes ? -1 : (p_compare_2_.getRecipeSize() < p_compare_1_.getRecipeSize() ? -1 : (p_compare_2_.getRecipeSize() > p_compare_1_.getRecipeSize() ? 1 : 0)));
 			}
+
 			public int compare(Object p_compare_1_, Object p_compare_2_)
 			{
-				return this.compare((IRecipe)p_compare_1_, (IRecipe)p_compare_2_);
+				return this.compare((IRecipe) p_compare_1_, (IRecipe) p_compare_2_);
 			}
 		});
 		System.err.println(this.recipes.size() + " recipes added to EB table");
 	}
 
-	public EBShapedRecipes addRecipe(ItemStack stack, Object ... obs)
+	public EBShapedRecipes addRecipe(ItemStack stack, Object... obs)
 	{
 		String s = "";
 		int i = 0;
 		int j = 0;
 		int k = 0;
-
 		if (obs[i] instanceof String[])
 		{
-			String[] astring = (String[])((String[])obs[i++]);
-
+			String[] astring = (String[]) ((String[]) obs[i++]);
 			for (int l = 0; l < astring.length; ++l)
 			{
 				String s1 = astring[l];
@@ -320,74 +300,64 @@ public class EBCraftingManager
 		{
 			while (obs[i] instanceof String)
 			{
-				String s2 = (String)obs[i++];
+				String s2 = (String) obs[i++];
 				++k;
 				j = s2.length();
 				s = s + s2;
 			}
 		}
-
 		HashMap hashmap;
-
-		for (hashmap = new HashMap(); i < obs.length; i += 2)
+		for (hashmap = JavaHelp.newHashMap(); i < obs.length; i += 2)
 		{
-			Character character = (Character)obs[i];
+			Character character = (Character) obs[i];
 			ItemStack itemstack1 = null;
-
 			if (obs[i + 1] instanceof Item)
 			{
-				itemstack1 = new ItemStack((Item)obs[i + 1]);
+				itemstack1 = new ItemStack((Item) obs[i + 1]);
 			}
 			else if (obs[i + 1] instanceof Block)
 			{
-				itemstack1 = new ItemStack((Block)obs[i + 1], 1, 32767);
+				itemstack1 = new ItemStack((Block) obs[i + 1], 1, 32767);
 			}
 			else if (obs[i + 1] instanceof ItemStack)
 			{
-				itemstack1 = (ItemStack)obs[i + 1];
+				itemstack1 = (ItemStack) obs[i + 1];
 			}
-
 			hashmap.put(character, itemstack1);
 		}
-
 		ItemStack[] aitemstack = new ItemStack[j * k];
-
 		for (int i1 = 0; i1 < j * k; ++i1)
 		{
 			char c0 = s.charAt(i1);
-
 			if (hashmap.containsKey(Character.valueOf(c0)))
 			{
-				aitemstack[i1] = ((ItemStack)hashmap.get(Character.valueOf(c0))).copy();
+				aitemstack[i1] = ((ItemStack) hashmap.get(Character.valueOf(c0))).copy();
 			}
 			else
 			{
 				aitemstack[i1] = null;
 			}
 		}
-
 		EBShapedRecipes shapedrecipes = new EBShapedRecipes(j, k, aitemstack, stack);
 		this.recipes.add(shapedrecipes);
 		return shapedrecipes;
 	}
 
-	public void addShapelessRecipe(ItemStack stack, Object ... obs)
+	public void addShapelessRecipe(ItemStack stack, Object... obs)
 	{
-		ArrayList arraylist = new ArrayList();
+		ArrayList arraylist = JavaHelp.newArrayList();
 		Object[] aobject = obs;
 		int i = obs.length;
-
 		for (int j = 0; j < i; ++j)
 		{
 			Object object1 = aobject[j];
-
 			if (object1 instanceof ItemStack)
 			{
-				arraylist.add(((ItemStack)object1).copy());
+				arraylist.add(((ItemStack) object1).copy());
 			}
 			else if (object1 instanceof Item)
 			{
-				arraylist.add(new ItemStack((Item)object1));
+				arraylist.add(new ItemStack((Item) object1));
 			}
 			else
 			{
@@ -395,11 +365,9 @@ public class EBCraftingManager
 				{
 					throw new RuntimeException("Invalid shapeless recipy!");
 				}
-
-				arraylist.add(new ItemStack((Block)object1));
+				arraylist.add(new ItemStack((Block) object1));
 			}
 		}
-
 		this.recipes.add(new EBShapelessRecipes(stack, arraylist));
 	}
 
@@ -409,27 +377,22 @@ public class EBCraftingManager
 		ItemStack itemstack = null;
 		ItemStack itemstack1 = null;
 		int j;
-
 		for (j = 0; j < p_82787_1_.getSizeInventory(); ++j)
 		{
 			ItemStack itemstack2 = p_82787_1_.getStackInSlot(j);
-
 			if (itemstack2 != null)
 			{
 				if (i == 0)
 				{
 					itemstack = itemstack2;
 				}
-
 				if (i == 1)
 				{
 					itemstack1 = itemstack2;
 				}
-
 				++i;
 			}
 		}
-
 		if (i == 2 && itemstack.getItem() == itemstack1.getItem() && itemstack.stackSize == 1 && itemstack1.stackSize == 1 && itemstack.getItem().isRepairable())
 		{
 			Item item = itemstack.getItem();
@@ -437,26 +400,22 @@ public class EBCraftingManager
 			int k = item.getMaxDamage() - itemstack1.getItemDamageForDisplay();
 			int l = j1 + k + item.getMaxDamage() * 5 / 100;
 			int i1 = item.getMaxDamage() - l;
-
 			if (i1 < 0)
 			{
 				i1 = 0;
 			}
-
 			return new ItemStack(itemstack.getItem(), 1, i1);
 		}
 		else
 		{
 			for (j = 0; j < this.recipes.size(); ++j)
 			{
-				IRecipe irecipe = (IRecipe)this.recipes.get(j);
-
+				IRecipe irecipe = (IRecipe) this.recipes.get(j);
 				if (irecipe.matches(p_82787_1_, p_82787_2_))
 				{
 					return irecipe.getCraftingResult(p_82787_1_);
 				}
 			}
-
 			return null;
 		}
 	}
