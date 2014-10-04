@@ -1,21 +1,13 @@
 package main.extremeblocks.entities.mobs;
 
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Vars;
 import main.extremeblocks.worldgen.WorldGenCastle;
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIFleeSun;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIRestrictSun;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -26,8 +18,17 @@ import net.minecraft.world.World;
 public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 {
 	private boolean atCastle = false;
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 30, 15.0F);
-	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityLiving.class, 1.2D, false);
+	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 30, 15.0F);
+	private final EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityLiving.class, 1.2D, false);
+
+	public static final IEntitySelector ai = new IEntitySelector()
+	{
+		@Override
+		public boolean isEntityApplicable(Entity entity)
+		{
+			return entity instanceof EntityPlayer ? true : !(entity instanceof EntityCastleZombie || entity instanceof EntityCastleSkeleton);
+		}
+	};
 
 	public EntityCastleSkeleton(World world)
 	{
@@ -41,13 +42,14 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, true, true, allButCastleMobs));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, true, true, ai));
 		if (world != null && !world.isRemote)
 		{
 			this.setCombatTask();
 		}
 	}
 
+	@Override
 	public void setCombatTask()
 	{
 		this.tasks.removeTask(this.aiAttackOnCollide);
@@ -68,12 +70,14 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 		return this;
 	}
 
+	@Override
 	public boolean attackEntityFrom(DamageSource ds, float h)
 	{
 		if (ds.isFireDamage()) return false;
 		return super.attackEntityFrom(ds, h);
 	}
 
+	@Override
 	protected void addRandomArmor()
 	{
 		super.addRandomArmor();
@@ -82,6 +86,7 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 		this.setCurrentItemOrArmor(0, bow);
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 		if (MPUtil.isServerSide() && !Vars.addCastleSkeleton)
@@ -94,11 +99,13 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 		super.onLivingUpdate();
 	}
 
+	@Override
 	protected boolean isValidLightLevel()
 	{
 		return WorldGenCastle.isCastleInRangeOf((int) posX, (int) posZ, 20.0D);
 	}
 
+	@Override
 	protected boolean canDespawn()
 	{
 		return !atCastle;

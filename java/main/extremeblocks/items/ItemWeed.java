@@ -1,6 +1,6 @@
 package main.extremeblocks.items;
 
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;

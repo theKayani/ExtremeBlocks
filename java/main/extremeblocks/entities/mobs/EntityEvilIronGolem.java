@@ -1,9 +1,9 @@
 package main.extremeblocks.entities.mobs;
 
-import main.com.hk.testing.util.MPUtil;
-import main.com.hk.testing.util.Rand;
-import main.com.hk.testing.util.Vector3F;
-import main.com.hk.testing.util.WorldUtil;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Rand;
+import main.com.hk.eb.util.Vector3F;
+import main.com.hk.eb.util.WorldUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import main.extremeblocks.worldgen.WorldGenCastle;

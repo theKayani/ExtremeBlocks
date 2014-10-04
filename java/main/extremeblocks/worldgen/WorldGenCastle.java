@@ -2,11 +2,11 @@ package main.extremeblocks.worldgen;
 
 import java.util.ArrayList;
 import java.util.Random;
-import main.com.hk.testing.util.Builder;
-import main.com.hk.testing.util.Builder.ChestType;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.Rand;
-import main.com.hk.testing.util.Vector3F;
+import main.com.hk.eb.util.Builder;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.Rand;
+import main.com.hk.eb.util.Vector3F;
+import main.com.hk.eb.util.Builder.ChestType;
 import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;

@@ -1,7 +1,7 @@
 package main.extremeblocks.items;
 
-import main.com.hk.testing.util.ItemCustom;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.ItemCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.entities.EntityGrenade;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
 package main.extremeblocks.entities.mobs;
 
-import main.com.hk.testing.util.MPUtil;
-import main.com.hk.testing.util.Rand;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Vars;
 import main.extremeblocks.worldgen.WorldGenCastle;
 import net.minecraft.enchantment.Enchantment;
@@ -41,9 +41,10 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		this.tasks.addTask(9, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, allButCastleMobs));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, EntityCastleSkeleton.ai));
 	}
 
+	@Override
 	public void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -57,12 +58,14 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		return this;
 	}
 
+	@Override
 	public boolean attackEntityFrom(DamageSource ds, float h)
 	{
 		if (ds.isFireDamage()) return false;
 		return super.attackEntityFrom(ds, h);
 	}
 
+	@Override
 	protected void addRandomArmor()
 	{
 		super.addRandomArmor();
@@ -72,6 +75,7 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		this.setCurrentItemOrArmor(0, stick);
 	}
 
+	@Override
 	protected void dropRareDrop(int p_70600_1_)
 	{
 		switch (this.rand.nextInt(4))
@@ -91,6 +95,7 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		}
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 		if (MPUtil.isServerSide() && !Vars.addCastleZombie)
@@ -103,6 +108,7 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		super.onLivingUpdate();
 	}
 
+	@Override
 	protected boolean canDespawn()
 	{
 		return !(atCastle || isConverting());
@@ -116,11 +122,13 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 		return zombie;
 	}
 
+	@Override
 	protected float getSoundPitch()
 	{
 		return super.getSoundPitch() - 1.0F;
 	}
 
+	@Override
 	protected boolean isValidLightLevel()
 	{
 		return WorldGenCastle.isCastleInRangeOf((int) posX, (int) posZ, 20.0D);

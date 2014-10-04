@@ -1,7 +1,7 @@
 package main.extremeblocks.blocks;
 
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,9 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockVendingMachine extends BlockCustom
 {
 	@SideOnly(Side.CLIENT)
-	private IIcon field_149936_O;
-	@SideOnly(Side.CLIENT)
-	private IIcon field_149935_N;
+	private IIcon frontIcon;
 
 	public BlockVendingMachine()
 	{
@@ -48,9 +46,9 @@ public class BlockVendingMachine extends BlockCustom
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	public IIcon getIcon(int side, int meta)
 	{
-		return p_149691_1_ == 1 ? this.field_149935_N : (p_149691_1_ == 0 ? this.field_149935_N : (p_149691_1_ != p_149691_2_ ? this.blockIcon : this.field_149936_O));
+		return side == 1 ? this.blockIcon : (side == 0 ? this.blockIcon : (side != meta ? this.blockIcon : this.frontIcon));
 	}
 
 	@Override
@@ -70,25 +68,24 @@ public class BlockVendingMachine extends BlockCustom
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
 		this.blockIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
-		this.field_149936_O = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_front");
-		this.field_149935_N = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
+		this.frontIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_front");
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
+	public void onBlockAdded(World world, int x, int y, int z)
 	{
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
-		this.func_149930_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+		super.onBlockAdded(world, x, y, z);
+		this.setupOrientation(world, x, y, z);
 	}
 
-	private void func_149930_e(World p_149930_1_, int p_149930_2_, int p_149930_3_, int p_149930_4_)
+	private void setupOrientation(World world, int x, int y, int z)
 	{
 		if (MPUtil.isServerSide())
 		{
-			Block block = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ - 1);
-			Block block1 = p_149930_1_.getBlock(p_149930_2_, p_149930_3_, p_149930_4_ + 1);
-			Block block2 = p_149930_1_.getBlock(p_149930_2_ - 1, p_149930_3_, p_149930_4_);
-			Block block3 = p_149930_1_.getBlock(p_149930_2_ + 1, p_149930_3_, p_149930_4_);
+			Block block = world.getBlock(x, y, z - 1);
+			Block block1 = world.getBlock(x, y, z + 1);
+			Block block2 = world.getBlock(x - 1, y, z);
+			Block block3 = world.getBlock(x + 1, y, z);
 			byte b0 = 3;
 			if (block.func_149730_j() && !block1.func_149730_j())
 			{
@@ -106,29 +103,29 @@ public class BlockVendingMachine extends BlockCustom
 			{
 				b0 = 4;
 			}
-			p_149930_1_.setBlockMetadataWithNotify(p_149930_2_, p_149930_3_, p_149930_4_, b0, 2);
+			world.setBlockMetadataWithNotify(x, y, z, b0, 2);
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
 	{
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+		int l = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		if (l == 0)
 		{
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 2, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if (l == 1)
 		{
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 5, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
 		}
 		if (l == 2)
 		{
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 3, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 3, 2);
 		}
 		if (l == 3)
 		{
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 4, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
 	}
 

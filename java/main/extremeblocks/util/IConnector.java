@@ -4,5 +4,5 @@ import net.minecraft.world.World;
 
 public interface IConnector
 {
-	public boolean canBePlacedAt(World world, int x, int y, int z);
+	public boolean canConnect(World world, int x, int y, int z);
 }

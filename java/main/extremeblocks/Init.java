@@ -1,28 +1,64 @@
 package main.extremeblocks;
 
-import java.util.ArrayList;
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.CustomTab;
-import main.com.hk.testing.util.ItemCustom;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.MPUtil;
-import main.extremeblocks.blocks.*;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.CustomTab;
+import main.com.hk.eb.util.ItemCustom;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.RegistryHelper;
+import main.extremeblocks.blocks.BlockCement;
+import main.extremeblocks.blocks.BlockCharger;
+import main.extremeblocks.blocks.BlockConsole;
+import main.extremeblocks.blocks.BlockCooker;
+import main.extremeblocks.blocks.BlockCrop;
+import main.extremeblocks.blocks.BlockDriedSapling;
+import main.extremeblocks.blocks.BlockDrill;
+import main.extremeblocks.blocks.BlockEBTable;
+import main.extremeblocks.blocks.BlockFuseBlock;
+import main.extremeblocks.blocks.BlockGameFloor;
 import main.extremeblocks.blocks.BlockGameFloor.GameBlockType;
+import main.extremeblocks.blocks.BlockGenerator;
+import main.extremeblocks.blocks.BlockHemp;
+import main.extremeblocks.blocks.BlockHydrant;
+import main.extremeblocks.blocks.BlockLantern;
+import main.extremeblocks.blocks.BlockPlate;
+import main.extremeblocks.blocks.BlockPowderKeg;
+import main.extremeblocks.blocks.BlockProtector;
+import main.extremeblocks.blocks.BlockRecipeRevert;
+import main.extremeblocks.blocks.BlockRewardBlock;
+import main.extremeblocks.blocks.BlockTrash;
+import main.extremeblocks.blocks.BlockVendingMachine;
+import main.extremeblocks.blocks.BlockWire;
+import main.extremeblocks.blocks.BlockXrayBlock;
 import main.extremeblocks.blocks.abstractblocks.BlockCompact;
 import main.extremeblocks.blocks.abstractblocks.BlockEBOre;
 import main.extremeblocks.blocks.abstractblocks.BlockSided;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
-import main.extremeblocks.blocks.tileentities.TileEntityStorage;
 import main.extremeblocks.entities.mobs.EntityRobot.RobotType;
-import main.extremeblocks.items.*;
-import main.extremeblocks.util.BlockType;
+import main.extremeblocks.items.ItemBackpack;
+import main.extremeblocks.items.ItemBattery;
+import main.extremeblocks.items.ItemCellphone;
+import main.extremeblocks.items.ItemCounter;
+import main.extremeblocks.items.ItemEdible;
+import main.extremeblocks.items.ItemExtractor;
+import main.extremeblocks.items.ItemFurnaceUpgrade;
+import main.extremeblocks.items.ItemFurnaceUpgrade.FurnaceUpgrade;
+import main.extremeblocks.items.ItemFuse;
+import main.extremeblocks.items.ItemGrenade;
+import main.extremeblocks.items.ItemMolotov;
+import main.extremeblocks.items.ItemNotes;
+import main.extremeblocks.items.ItemPestleMortar;
+import main.extremeblocks.items.ItemReturner;
+import main.extremeblocks.items.ItemRobot;
+import main.extremeblocks.items.ItemSeed;
+import main.extremeblocks.items.ItemSorter;
+import main.extremeblocks.items.ItemWeed;
+import main.extremeblocks.util.SortingSystem;
 import main.extremeblocks.worldgen.WorldTypeIslands;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -33,6 +69,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
+	public static final String VERSION = "6.1";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -111,7 +148,22 @@ public class Init
 	public static final Item robot_archer = new ItemRobot(RobotType.ARCHER);
 	public static final Item robot_hunter = new ItemRobot(RobotType.HUNTER);
 	public static final Item robot_miner = new ItemRobot(RobotType.MINER);
+	public static final Item battery = new ItemBattery(2000);
+	public static final Item furnace_fast_upgrade = new ItemFurnaceUpgrade(FurnaceUpgrade.SPEED, 1).setTextureName(MODID + ":furnace_upgrade");
+	public static final Item tomato_seeds = new ItemSeed("Tomato Seeds", ItemSeed.TOMATO_CROP);
+	public static final Item tomato = new ItemEdible("Tomato", 3).setTextureName(MODID + ":tomato");
+	public static final Item cucumber_seeds = new ItemSeed("Cucumber Seeds", ItemSeed.CUCUMBER_CROP);
+	public static final Item cucumber = new ItemEdible("Cucumber", 3).setTextureName(MODID + ":cucumber");
+	public static final Item sorter_component = new ItemCustom("Sorter Component", tab_mainItems).setTextureName(MODID + ":sorter_component");
 
+	public static BlockStorage crate;
+	public static BlockStorage barrel;
+	public static BlockStorage cabinet;
+	public static BlockStorage strongbox;
+	public static BlockStorage armor_stand;
+	public static BlockStorage big_crate;
+	public static BlockStorage large_crate;
+	public static BlockStorage small_crate;
 	public static final Block glester_ore = new BlockEBOre("Glester Ore").setDrop(glester_rock);
 	public static final Block silver_ore = new BlockEBOre("Silver Ore");
 	public static final Block trinquantium_ore = new BlockEBOre("Trinquantium Ore");
@@ -139,15 +191,15 @@ public class Init
 	public static final Block limestone_block = new BlockCustom(Material.rock, "Block of Limestone").setHardness(1.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":limestoneblock");
 	public static final Block marble = new BlockCustom(Material.glass, "Marble").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":marbleblock");
 	public static final Block limestone_ore = new BlockEBOre("Limestone Ore").setDrop(limestone);
-	public static final Block fake_sand = new BlockCustom(Material.ground, "Fake Sand").setHardness(0.5F).setCreativeTab(tab_mainBlocks).setBlockTextureName("sand");
+	public static final Block fake_sand = new BlockCustom(Material.sand, "Fake Sand").setHardness(0.5F).setCreativeTab(tab_mainBlocks).setBlockTextureName("sand");
 	public static final Block fake_gravel = new BlockCustom(Material.ground, "Fake Gravel").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName("gravel");
 	public static final Block drill = new BlockDrill(true);
 	public static final Block drill_pole = new BlockDrill(false);
-	public static final Block red_game_floor = new BlockGameFloor(GameBlockType.Red);
-	public static final Block yellow_game_floor = new BlockGameFloor(GameBlockType.Yellow);
-	public static final Block green_game_floor = new BlockGameFloor(GameBlockType.Green);
-	public static final Block blue_game_floor = new BlockGameFloor(GameBlockType.Blue);
-	public static final Block spread_game_block = new BlockGameFloor(GameBlockType.Spread);
+	public static final Block red_game_floor = new BlockGameFloor(GameBlockType.RED);
+	public static final Block yellow_game_floor = new BlockGameFloor(GameBlockType.YELLOW);
+	public static final Block green_game_floor = new BlockGameFloor(GameBlockType.GREEN);
+	public static final Block blue_game_floor = new BlockGameFloor(GameBlockType.BLUE);
+	public static final Block spread_game_block = new BlockGameFloor(GameBlockType.SPREAD);
 	public static final Block console = new BlockConsole();
 	public static final Block reward_block = new BlockRewardBlock();
 	public static final Block onyx_ore = new BlockEBOre("Onyx Ore").setDrop(onyx);
@@ -159,130 +211,33 @@ public class Init
 	public static final Block eb_table = new BlockEBTable();
 	public static final Block hemp = new BlockHemp();
 	public static final Block plate = new BlockPlate();
-	public static BlockStorage crate = new BlockStorage("Crate", Material.wood, BlockType.NORMAL)
-	{
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int i = 0; i < 3; ++i)
-			{
-				for (int j = 0; j < 3; ++j)
-				{
-					slots.add(new Slot(te, j + i * 3, 62 + j * 18, 17 + i * 18));
-				}
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath("textures/gui/container/dispenser.png").setStorageSlots(9);
-	public static BlockStorage barrel = new BlockStorage("Barrel", Material.wood, BlockType.BARREL)
-	{
-		@Override
-		public boolean renderAsNormalBlock()
-		{
-			return false;
-		}
-
-		@Override
-		public boolean isOpaqueCube()
-		{
-			return false;
-		}
-
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int i = 0; i < 4; ++i)
-			{
-				for (int j = 0; j < 2; ++j)
-				{
-					slots.add(new Slot(te, j + i * 2, 71 + j * 18, 8 + i * 18));
-				}
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/barrel.png").setStorageSlots(8).setBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
-	public static BlockStorage cabinet = new BlockCabinet();
-	public static BlockStorage strongbox = (BlockStorage) new BlockStorage("Strongbox", Material.iron, BlockType.BARREL)
-	{
-		@Override
-		public boolean renderAsNormalBlock()
-		{
-			return false;
-		}
-
-		@Override
-		public boolean isOpaqueCube()
-		{
-			return false;
-		}
-
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int i = 0; i < 3; ++i)
-			{
-				slots.add(new Slot(te, i, 62 + i * 18, 36));
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/strongbox.png").setStorageSlots(3).setBounds(0.2F, 0.0F, 0.4F, 0.8F, 0.3F, 0.6F).setHardness(7.0F).setBlockTextureName("iron_block");
-	public static BlockStorage armor_stand = new BlockArmorStand();
-	public static BlockStorage big_crate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
-	{
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int j = 0; j < 3; ++j)
-			{
-				for (int k = 0; k < 9; ++k)
-				{
-					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
-				}
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/chest.png").setStorageSlots(27);
-	public static BlockStorage large_crate = new BlockStorage("Large Crate", Material.wood, BlockType.NORMAL)
-	{
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int j = 0; j < 6; ++j)
-			{
-				for (int k = 0; k < 9; ++k)
-				{
-					slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
-				}
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/large_chest.png").setStorageSlots(54).setYSize(222);
-	public static BlockStorage small_crate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
-	{
-		@Override
-		public Slot[] addSlotsToContainer(TileEntityStorage te)
-		{
-			ArrayList<Slot> slots = JavaHelp.newArrayList();
-			for (int j = 0; j < 2; ++j)
-			{
-				for (int k = 0; k < 2; ++k)
-				{
-					slots.add(new Slot(te, k + j * 2, 71 + k * 18, 29 + j * 18));
-				}
-			}
-			return slots.toArray(new Slot[0]);
-		}
-	}.setGuiTexturePath(MODID + ":textures/gui/smallcrate.png").setStorageSlots(4);
+	public static final Block wire = new BlockWire();
+	public static final Block charger = new BlockCharger();
+	public static final Block cooker_off = new BlockCooker(false);
+	public static final Block cooker_on = new BlockCooker(true);
+	public static final Block generator = new BlockGenerator();
+	public static final Block tomato_crop = new BlockCrop("Tomato Crop", tomato_seeds, tomato);
+	public static final Block cucumber_crop = new BlockCrop("Cucumber Crop", cucumber_seeds, cucumber);
+	public static final Block arrow_security = new BlockProtector();
+	public static final Block recipe_revert = new BlockRecipeRevert();
 
 	public Init()
 	{
-		if (Vars.addFakeFloors) tab_fakeFloors = new CustomTab("Fake Floors");
-		if (Vars.addLightedBlocks) tab_lightedBlocks = new CustomTab("Lighted Blocks");
+		if (Vars.addFakeFloors)
+		{
+			tab_fakeFloors = new CustomTab("Fake Floors");
+		}
+		if (Vars.addLightedBlocks)
+		{
+			tab_lightedBlocks = new CustomTab("Lighted Blocks");
+		}
+		for (int i = 0; i < SortingSystem.values().length; i++)
+		{
+			ItemSorter sorter = new ItemSorter(SortingSystem.values()[i]);
+			RegistryHelper.register(sorter);
+			MPUtil.addRecipe(new ItemStack(sorter), sorter.getRecipe());
+		}
+		BlockStorage.initBlocks();
 	}
 
 	public static void addRecipes()
@@ -347,6 +302,15 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(robot_torso), "RIR", "IPI", "III", 'I', Items.iron_ingot, 'R', Items.redstone, 'P', power_core);
 		MPUtil.addRecipe(new ItemStack(robot), " H ", "ATA", "L L", 'H', robot_head, 'A', robot_arm, 'T', robot_torso, 'L', robot_leg);
 		MPUtil.addRecipe(new ItemStack(plate), "S S", "PPP", 'P', Blocks.planks, 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(battery, 1, battery.getMaxDamage()), " T ", "TRT", "CCC", 'T', tin, 'R', Items.redstone, 'C', copper);
+		MPUtil.addRecipe(new ItemStack(wire, 10), "GPG", 'G', Blocks.glass_pane, 'P', pipe);
+		MPUtil.addRecipe(new ItemStack(generator), "IGI", "IBI", "ICI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()), 'C', core_chip);
+		MPUtil.addRecipe(new ItemStack(charger), "IBI", "IBI", 'I', Items.iron_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()));
+		MPUtil.addRecipe(new ItemStack(sorter_component), "S S", " I ", "S S", 'I', Items.iron_ingot, 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(furnace_fast_upgrade), "III", "GGG", "DDD", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Items.diamond);
+		MPUtil.addRecipe(new ItemStack(arrow_security), "IDI", "IGI", "IBI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Blocks.dispenser, 'B', Blocks.iron_block);
+		MPUtil.addRecipe(new ItemStack(recipe_revert), "BIB", "ICI", "III", 'I', Items.iron_ingot, 'C', Blocks.crafting_table, 'B', Blocks.iron_block);
+
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_archer), robot, Items.bow);
@@ -404,6 +368,9 @@ public class Init
 		Vars.compactStoneSR = cfg.get(SR, "Compact Stone SR", 10, "How Often Compact Stone Spawns, 6-14").getInt(10);
 		Vars.onyxSR = cfg.get(SR, "Onyx SR", 10, "How Often Onyx Ore Spawns, 6-14").getInt(10);
 		Vars.boneDirtSR = cfg.get(SR, "Bone Dirt SR", 5, "How Often Bone Dirt Spawns, 1-9").getInt(5);
-		if (cfg.hasChanged()) cfg.save();
+		if (cfg.hasChanged())
+		{
+			cfg.save();
+		}
 	}
 }

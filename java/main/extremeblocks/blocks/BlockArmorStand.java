@@ -1,10 +1,10 @@
 package main.extremeblocks.blocks;
 
 import java.util.ArrayList;
-import main.com.hk.testing.util.JavaHelp;
+import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
-import main.extremeblocks.blocks.tileentities.TileEntityStorage;
+import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.util.BlockType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

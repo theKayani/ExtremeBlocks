@@ -17,10 +17,11 @@ public class BlockDriedSapling extends BlockBush
 	public BlockDriedSapling()
 	{
 		super();
-		this.setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.4F * 2.0F, 0.9F);
-		this.setBlockName("Dried Sapling");
-		this.setBlockTextureName(Init.MODID + ":driedsapling");
-		this.setCreativeTab(Init.tab_mainBlocks);
+		setBlockBounds(0.1F, 0.0F, 0.1F, 0.9F, 0.4F * 2.0F, 0.9F);
+		setBlockName("Dried Sapling");
+		setBlockTextureName(Init.MODID + ":driedsapling");
+		setCreativeTab(Init.tab_mainBlocks);
+		setStepSound(soundTypeGrass);
 		ExtremeBlocks.blocks.add(this);
 	}
 
@@ -29,7 +30,7 @@ public class BlockDriedSapling extends BlockBush
 	{
 		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.dye)
 		{
-			(new WorldGenDriedTree()).generate(world, world.rand, x, y, z);
+			new WorldGenDriedTree().generate(world, world.rand, x, y, z);
 		}
 		return true;
 	}

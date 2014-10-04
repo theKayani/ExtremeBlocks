@@ -1,6 +1,6 @@
 package main.extremeblocks;
 
-import static main.com.hk.testing.util.MathHelp.clamp;
+import static main.com.hk.eb.util.MathHelp.clamp;
 import java.util.Random;
 import main.extremeblocks.worldgen.WorldGenCastle;
 import main.extremeblocks.worldgen.WorldGenDriedTree;

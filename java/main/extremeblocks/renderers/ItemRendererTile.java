@@ -5,6 +5,7 @@ import net.minecraftforge.client.IItemRenderer;
 
 public class ItemRendererTile implements IItemRenderer
 {
+
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
 	{

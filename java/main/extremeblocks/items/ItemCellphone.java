@@ -1,7 +1,7 @@
 package main.extremeblocks.items;
 
 import java.util.List;
-import main.com.hk.testing.util.ItemCustom;
+import main.com.hk.eb.util.ItemCustom;
 import main.extremeblocks.Init;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

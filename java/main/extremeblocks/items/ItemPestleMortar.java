@@ -1,7 +1,7 @@
 package main.extremeblocks.items;
 
-import main.com.hk.testing.util.ItemCustom;
-import main.com.hk.testing.util.Rand;
+import main.com.hk.eb.util.ItemCustom;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

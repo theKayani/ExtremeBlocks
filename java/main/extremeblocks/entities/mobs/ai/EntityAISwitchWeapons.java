@@ -13,8 +13,7 @@ public class EntityAISwitchWeapons extends EntityAIBase
 	private final EntityRobot entityHost;
 	private EntityLivingBase attackTarget;
 	private double entityMoveSpeed;
-	private int amplifier, maxRangedAttackTime, field_75318_f,
-			rangedAttackTime;
+	private int amplifier, maxRangedAttackTime, field_75318_f, rangedAttackTime;
 	private float distance, distanceSquare;
 	private boolean useRange;
 	private final Item sword, bow;

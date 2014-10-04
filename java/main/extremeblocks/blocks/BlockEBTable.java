@@ -1,6 +1,6 @@
 package main.extremeblocks.blocks;
 
-import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.material.Material;
@@ -15,9 +15,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockEBTable extends BlockCustom
 {
 	@SideOnly(Side.CLIENT)
-	private IIcon field_150035_a;
+	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon field_150034_b;
+	private IIcon frontIcon;
 
 	public BlockEBTable()
 	{
@@ -29,9 +29,9 @@ public class BlockEBTable extends BlockCustom
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	public IIcon getIcon(int side, int meta)
 	{
-		return p_149691_1_ == 1 ? this.field_150035_a : (p_149691_1_ == 0 ? Blocks.planks.getIcon(p_149691_1_, 2) : (p_149691_1_ != 2 && p_149691_1_ != 4 ? this.blockIcon : this.field_150034_b));
+		return side == 1 ? this.topIcon : (side == 0 ? Blocks.planks.getIcon(side, 0) : (side != 2 && side != 4 ? this.blockIcon : this.frontIcon));
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class BlockEBTable extends BlockCustom
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.field_150035_a = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.field_150034_b = p_149651_1_.registerIcon(this.getTextureName() + "_front");
+		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+		this.frontIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
 	}
 
 	@Override

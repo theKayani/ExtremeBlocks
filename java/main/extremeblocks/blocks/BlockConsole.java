@@ -1,8 +1,8 @@
 package main.extremeblocks.blocks;
 
-import main.com.hk.testing.util.BlockCustom;
+import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.tileentities.TileEntityConsole;
+import main.extremeblocks.tileentities.TileEntityConsole;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

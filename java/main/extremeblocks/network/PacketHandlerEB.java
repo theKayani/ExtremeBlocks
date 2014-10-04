@@ -10,6 +10,9 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
+import main.extremeblocks.network.packets.PacketOpenGui;
+import main.extremeblocks.network.packets.PacketRemoveEntity;
+import main.extremeblocks.network.packets.PacketSyncRobot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -32,19 +35,10 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 
 	public boolean registerPacket(Class<? extends AbstractPacket> clazz)
 	{
-		if (this.packets.size() > 256)
-		{
-			return false;
-		}
-		if (this.packets.contains(clazz))
-		{
-			return false;
-		}
-		if (this.isPostInitialised)
-		{
-			return false;
-		}
-		this.packets.add(clazz);
+		if (packets.size() > 256) return false;
+		if (packets.contains(clazz)) return false;
+		if (isPostInitialised) return false;
+		packets.add(clazz);
 		return true;
 	}
 
@@ -53,11 +47,8 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 	{
 		ByteBuf buffer = Unpooled.buffer();
 		Class<? extends AbstractPacket> clazz = msg.getClass();
-		if (!this.packets.contains(msg.getClass()))
-		{
-			throw new NullPointerException("No Packet Registered for: " + msg.getClass().getCanonicalName());
-		}
-		byte discriminator = (byte) this.packets.indexOf(clazz);
+		if (!packets.contains(msg.getClass())) throw new NullPointerException("No Packet Registered for: " + msg.getClass().getCanonicalName());
+		byte discriminator = (byte) packets.indexOf(clazz);
 		buffer.writeByte(discriminator);
 		msg.encodeInto(buffer);
 		FMLProxyPacket proxyPacket = new FMLProxyPacket(buffer.copy(), ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
@@ -69,18 +60,15 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 	{
 		ByteBuf payload = msg.payload();
 		byte discriminator = payload.readByte();
-		Class<? extends AbstractPacket> clazz = this.packets.get(discriminator);
-		if (clazz == null)
-		{
-			throw new NullPointerException("No packet registered for discriminator: " + discriminator);
-		}
+		Class<? extends AbstractPacket> clazz = packets.get(discriminator);
+		if (clazz == null) throw new NullPointerException("No packet registered for discriminator: " + discriminator);
 		AbstractPacket pkt = clazz.newInstance();
 		pkt.decodeInto(payload.slice());
 		EntityPlayer player;
 		switch (FMLCommonHandler.instance().getEffectiveSide())
 		{
 			case CLIENT:
-				player = this.getClientPlayer();
+				player = getClientPlayer();
 				pkt.handleClientSide(player);
 				break;
 			case SERVER:
@@ -95,7 +83,7 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 
 	public void initialise()
 	{
-		this.channels = NetworkRegistry.INSTANCE.newChannel("ExtremeBlocks", this);
+		channels = NetworkRegistry.INSTANCE.newChannel("ExtremeBlocks", this);
 		registerPackets();
 	}
 
@@ -108,12 +96,9 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 
 	public void postInitialise()
 	{
-		if (this.isPostInitialised)
-		{
-			return;
-		}
-		this.isPostInitialised = true;
-		Collections.sort(this.packets, new Comparator<Class<? extends AbstractPacket>>()
+		if (isPostInitialised) return;
+		isPostInitialised = true;
+		Collections.sort(packets, new Comparator<Class<? extends AbstractPacket>>()
 		{
 			@Override
 			public int compare(Class<? extends AbstractPacket> clazz1, Class<? extends AbstractPacket> clazz2)
@@ -136,34 +121,34 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 
 	public void sendToAll(AbstractPacket message)
 	{
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALL);
-		this.channels.get(Side.SERVER).writeAndFlush(message);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALL);
+		channels.get(Side.SERVER).writeAndFlush(message);
 	}
 
 	public void sendTo(AbstractPacket message, EntityPlayerMP player)
 	{
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.PLAYER);
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
-		this.channels.get(Side.SERVER).writeAndFlush(message);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.PLAYER);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
+		channels.get(Side.SERVER).writeAndFlush(message);
 	}
 
 	public void sendToAllAround(AbstractPacket message, NetworkRegistry.TargetPoint point)
 	{
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALLAROUNDPOINT);
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(point);
-		this.channels.get(Side.SERVER).writeAndFlush(message);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALLAROUNDPOINT);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(point);
+		channels.get(Side.SERVER).writeAndFlush(message);
 	}
 
 	public void sendToDimension(AbstractPacket message, int dimensionId)
 	{
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
-		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimensionId);
-		this.channels.get(Side.SERVER).writeAndFlush(message);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
+		channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimensionId);
+		channels.get(Side.SERVER).writeAndFlush(message);
 	}
 
 	public void sendToServer(AbstractPacket message)
 	{
-		this.channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
-		this.channels.get(Side.CLIENT).writeAndFlush(message);
+		channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
+		channels.get(Side.CLIENT).writeAndFlush(message);
 	}
 }

@@ -1,10 +1,10 @@
 package main.extremeblocks.blocks;
 
 import java.util.Random;
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.tileentities.TileEntityFuse;
+import main.extremeblocks.tileentities.TileEntityFuse;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -23,29 +23,32 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 	public BlockFuseBlock()
 	{
 		super(Material.circuits, "Fuse Block");
-		this.setBlockTextureName(Init.MODID + ":fuse");
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15F, 1.0F);
+		setBlockTextureName(Init.MODID + ":fuse");
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15F, 1.0F);
 	}
 
+	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		return world.getBlock(x, y - 1, z).getMaterial().isOpaque();
 	}
 
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return Init.fuse;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
 		return Init.fuse;
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int lol, float sideX, float sideY, float sideZ)
 	{
-		MPUtil.sendMessage("Side X: " + sideX + ", Side Y: " + sideY + ", Side Z: " + sideZ, player);
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
 			world.setBlock(x, y, z, Blocks.fire);
@@ -55,11 +58,12 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 		return false;
 	}
 
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
 		if (MPUtil.isServerSide())
 		{
-			if (!this.canPlaceBlockAt(world, x, y, z))
+			if (!canPlaceBlockAt(world, x, y, z))
 			{
 				this.dropBlockAsItem(world, x, y, z, 0, 0);
 				world.setBlockToAir(x, y, z);
@@ -68,16 +72,19 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 		}
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 
+	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
 		return null;

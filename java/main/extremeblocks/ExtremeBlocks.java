@@ -1,9 +1,9 @@
 package main.extremeblocks;
 
 import java.util.ArrayList;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.RegistryHelper;
-import main.com.hk.testing.util.ToolSet;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.RegistryHelper;
+import main.com.hk.eb.util.ToolSet;
 import main.extremeblocks.blocks.abstractblocks.BlockFakeFloor;
 import main.extremeblocks.blocks.abstractblocks.BlockLightedBlock;
 import main.extremeblocks.entities.EntityGrenade;
@@ -33,7 +33,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Init.MODID, name = "Extreme Blocks", version = "6.0", guiFactory = "main.extremeblocks.EBGuiFactory")
+@Mod(modid = Init.MODID, name = "Extreme Blocks", version = Init.VERSION, guiFactory = "main.extremeblocks.EBGuiFactory")
 public class ExtremeBlocks
 {
 	@SidedProxy(clientSide = "main.extremeblocks.EBClient", serverSide = "main.extremeblocks.EBCommon")
@@ -107,6 +107,7 @@ public class ExtremeBlocks
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		ArrayList<String> lines = JavaHelp.newArrayList();
 		packetPipeline.postInitialise();
 		ArrayList<Block> allBlocks = JavaHelp.newArrayList();
 		for (int i = 0; i < RegistryHelper.blocksList.length; i++)
@@ -128,10 +129,25 @@ public class ExtremeBlocks
 		}
 		for (int i = 0; i < allBlocks.size(); i++)
 		{
-			if (allBlocks.get(i).isNormalCube() && allBlocks.get(i).isOpaqueCube())
+			Block b = allBlocks.get(i);
+
+			if (b.isNormalCube() && b.isOpaqueCube())
 			{
-				if (Vars.addLightedBlocks) BlockLightedBlock.createPair(allBlocks.get(i));
-				if (Vars.addFakeFloors) RegistryHelper.register(new BlockFakeFloor(allBlocks.get(i)));
+				if (Vars.addLightedBlocks)
+				{
+					BlockLightedBlock.createPair(b);
+				}
+				if (Vars.addFakeFloors)
+				{
+					RegistryHelper.register(new BlockFakeFloor(b));
+				}
+			}
+			if (b.getClass().getName().startsWith("main.extremeblocks"))
+			{
+				if (b.getLocalizedName().contains("tile.") || b.getLocalizedName().contains(".name"))
+				{
+					System.err.println("ADD LOCALIZATION FOR " + b.getLocalizedName() + "!");
+				}
 			}
 		}
 	}

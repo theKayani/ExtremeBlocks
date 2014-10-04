@@ -1,22 +1,29 @@
 package main.extremeblocks;
 
-import main.extremeblocks.blocks.tileentities.TileEntityConsole;
-import main.extremeblocks.blocks.tileentities.TileEntityFuse;
-import main.extremeblocks.blocks.tileentities.TileEntityPlate;
-import main.extremeblocks.blocks.tileentities.TileEntityRewardBlock;
-import main.extremeblocks.blocks.tileentities.TileEntityStorage;
 import main.extremeblocks.entities.EntityGrenade;
 import main.extremeblocks.entities.EntityMolotov;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
+import main.extremeblocks.renderers.ItemRendererPipe;
 import main.extremeblocks.renderers.ItemRendererTile;
 import main.extremeblocks.renderers.RenderCastleSkeleton;
 import main.extremeblocks.renderers.RenderCastleZombie;
 import main.extremeblocks.renderers.RenderEvilIronGolem;
 import main.extremeblocks.renderers.RenderRobot;
 import main.extremeblocks.renderers.TileEntityPlateRenderer;
+import main.extremeblocks.renderers.TileEntityWireRenderer;
+import main.extremeblocks.tileentities.TileEntityCharger;
+import main.extremeblocks.tileentities.TileEntityConsole;
+import main.extremeblocks.tileentities.TileEntityCooker;
+import main.extremeblocks.tileentities.TileEntityFuse;
+import main.extremeblocks.tileentities.TileEntityGenerator;
+import main.extremeblocks.tileentities.TileEntityPlate;
+import main.extremeblocks.tileentities.TileEntityProtector;
+import main.extremeblocks.tileentities.TileEntityRewardBlock;
+import main.extremeblocks.tileentities.TileEntityStorage;
+import main.extremeblocks.tileentities.TileEntityWire;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
@@ -34,13 +41,19 @@ public class EBClient extends EBCommon
 	public void registerRenderThings()
 	{
 		GameRegistry.registerTileEntity(TileEntityConsole.class, "Console");
-		GameRegistry.registerTileEntity(TileEntityRewardBlock.class, "RewardBlock");
+		GameRegistry.registerTileEntity(TileEntityRewardBlock.class, "Reward Block");
 		GameRegistry.registerTileEntity(TileEntityFuse.class, "Fuse");
 		GameRegistry.registerTileEntity(TileEntityStorage.class, "Storage");
+		GameRegistry.registerTileEntity(TileEntityCharger.class, "Charger");
+		GameRegistry.registerTileEntity(TileEntityCooker.class, "Cooker");
+		GameRegistry.registerTileEntity(TileEntityGenerator.class, "Generator");
+		GameRegistry.registerTileEntity(TileEntityProtector.class, "Protector");
 
 		ClientRegistry.registerTileEntity(TileEntityPlate.class, "Plate", new TileEntityPlateRenderer());
+		ClientRegistry.registerTileEntity(TileEntityWire.class, "Wire", new TileEntityWireRenderer());
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.plate), new ItemRendererTile());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.wire), new ItemRendererPipe());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenade));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMolotov.class, new RenderSnowball(Init.molotov));

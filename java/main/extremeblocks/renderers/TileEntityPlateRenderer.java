@@ -1,7 +1,7 @@
 package main.extremeblocks.renderers;
 
-import main.extremeblocks.blocks.tileentities.TileEntityPlate;
 import main.extremeblocks.renderers.models.ModelPlate;
+import main.extremeblocks.tileentities.TileEntityPlate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -42,7 +42,7 @@ public class TileEntityPlateRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale)
 	{
-		renderItems((TileEntityPlate) te, x, y, z, scale);
+		if (te != null) renderItems((TileEntityPlate) te, x, y, z, scale);
 
 		render(x, y, z);
 	}

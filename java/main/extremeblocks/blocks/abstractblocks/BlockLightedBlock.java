@@ -2,9 +2,9 @@ package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.ArrayList;
 import java.util.Random;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.MPUtil;
-import main.com.hk.testing.util.RegistryHelper;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;

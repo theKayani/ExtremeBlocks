@@ -1,8 +1,8 @@
 package main.extremeblocks.items;
 
 import java.util.ArrayList;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,10 +16,10 @@ import net.minecraft.world.World;
 
 public class ItemEdible extends ItemFood
 {
+	private final String name;
 	private EnumAction action = EnumAction.eat;
 	private int maxUseDuration = 32;
-	private final ArrayList<Integer> potionIDs, potionDurations,
-			potionAmplifiers;
+	private final ArrayList<Integer> potionIDs, potionDurations, potionAmplifiers;
 
 	public ItemEdible(String name)
 	{
@@ -31,6 +31,24 @@ public class ItemEdible extends ItemFood
 		this(name, healedAmount, 0.6F);
 	}
 
+	@Override
+	public String getUnlocalizedName()
+	{
+		return name;
+	}
+
+	@Override
+	public String getUnlocalizedName(ItemStack par1ItemStack)
+	{
+		return this.getUnlocalizedName();
+	}
+
+	@Override
+	public String getItemStackDisplayName(ItemStack par1ItemStack)
+	{
+		return getUnlocalizedName();
+	}
+
 	public ItemEdible(String name, int healedAmount, float saturationModifier)
 	{
 		this(name, Init.tab_mainItems, healedAmount, saturationModifier);
@@ -39,11 +57,12 @@ public class ItemEdible extends ItemFood
 	public ItemEdible(String name, CreativeTabs tab, int healedAmount, float saturationModifier)
 	{
 		super(healedAmount, saturationModifier, false);
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(tab);
-		this.potionIDs = JavaHelp.newArrayList();
-		this.potionDurations = JavaHelp.newArrayList();
-		this.potionAmplifiers = JavaHelp.newArrayList();
+		setUnlocalizedName(name);
+		setCreativeTab(tab);
+		potionIDs = JavaHelp.newArrayList();
+		potionDurations = JavaHelp.newArrayList();
+		potionAmplifiers = JavaHelp.newArrayList();
+		this.name = name;
 		ExtremeBlocks.items.add(this);
 	}
 
@@ -90,12 +109,21 @@ public class ItemEdible extends ItemFood
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack)
 	{
-		return this.maxUseDuration;
+		return maxUseDuration;
 	}
 
 	public ItemEdible setMaxUseDuration(int maxUseDuration)
 	{
 		this.maxUseDuration = maxUseDuration;
 		return this;
+	}
+
+	public Potion getPotionFromID(int id)
+	{
+		for (Potion p : Potion.potionTypes)
+		{
+			if (p.id == id) return p;
+		}
+		return null;
 	}
 }

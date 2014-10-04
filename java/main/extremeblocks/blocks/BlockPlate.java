@@ -1,10 +1,10 @@
 package main.extremeblocks.blocks;
 
 import java.util.Random;
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.tileentities.TileEntityPlate;
+import main.extremeblocks.tileentities.TileEntityPlate;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;

@@ -224,6 +224,26 @@ Can be right clicked with something in your hand to place it on the plate. When 
 
 [color=rgb(0, 0, 255)][b]Small/Big/Large/Crate/Barrel/Strongbox/Stand/Cabinet:[/color][/b]
 Can be used as an additional storage space. Other than Chests or etc.
+
+[color=rgb(0, 0, 255)][b]Wire:[/color][/b]
+This is pretty self explanatory! Placed next to a power emitter, it'll receive power from it and send it to where the Power is needed!
+
+[color=rgb(0, 0, 255)][b]Charger:[/color][/b]
+When supplied some power from a wire, it'll charge up any batteries that are in it's slots.
+
+[color=rgb(0, 0, 255)][b]Cooker:[/color][/b]
+This is just like a Furnace, but doesn't use the vanilla fuel! It uses the Power. Place a battery in it's slots or connect it to a wire!
+
+[color=rgb(0, 0, 255)][b]Generator:[/color][/b]
+Pretty self explanatory! When you place some furnace fuel into it's slot, it'll start generating power. ONLY IF IT'S REDSTONE POWERED!
+
+[color=rgb(0, 0, 255)][b]Arrow Tower:[/color][/b]
+When given some power, it'll start dropping arrows on the closest enemies! It'll attack all mobs that are in a 10 block radius of it! It'll take 50 watts of power when it shoots an arrow. If it doesn't have enough power, it'll stop.If there are more than one enemies in it's range, it'll drop arrows on all of them. Considering it has enough power!
+
+[color=rgb(0, 0, 255)][b]Recipe Reverting Station:[/color][/b]
+When you right click this block with an Item in your hand, it'll revert that item back. Meaning it'll drop all the items used to create the item in a recipe. And ofcourse you'll loose an Item. If the recipe give you more than one of the item, You'll need the correct amount of items to revert it back!
+
+NOTE: Every other Block is just used in crafting or isn't very useful right now.
 [/spoiler]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/6bf219b5e65c144fc2f3e55d21083a48b8ba1b2bda39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zps3888600c.png[/IMG]
 [spoiler]
@@ -271,6 +291,26 @@ Can be eaten to heal some hunger
 [color=rgb(0, 0, 255)][b]Robot:[/color][/b]
 When used on a block, spawns a Robot in that position corresponding to the Robot. Note that the Complete Robot needs to be crafted with some tool to be used
 
+[color=rgb(0, 0, 255)][b]Furnace Upgrade:[/color][/b]
+When placed in the Cooker's Arrow slot, it will work twice as fast and consume the item. Then when placed in the slot again, it will work even faster. SO on and so forth, all the way till it's uprades are to ten!
+
+[color=rgb(0, 0, 255)][b]Battery:[/color][/b]
+This is a portable way to carry around the power that you want to have with you. Kinda like a portable generator. Most of the machines let you use this but one doesn't. The Arrow Tower. That needs RAW POWER!
+
+[color=rgb(0, 0, 255)][b]Tomato/Seeds:[/color][/b]
+Another food and crop. The Tomato's saturaturation isn't bad. It's the same as an apple, but you do get quite some from the crop. The seeds are obtained like normal wheat seeds. Punching grass!
+
+[color=rgb(0, 0, 255)][b]Cucumber/Seeds:[/color][/b]
+Similar to the Tomato's saturation, the Cucumber's saturaturation is the same as an apple. The seeds are also obtained like normal wheat seeds!
+
+[color=rgb(0, 0, 255)][b]Sorters:[/color][/b]
+The sorters are exactly what they say they are! They sort the inventory corresponding to their names. I think most of them are pretty self explanatory, but these ones: 
+- Rarity Sorter: This sort's it by the color of it's name. Like the Golden Apples and some enchanted tools, If it's value is higher, it's higher in the inventory!
+- Items Sorter: Sorts by half the inventory in Items, then the bottom half in blocks. Simple!
+- Durability Sorter: If the item is a tool, and it's durability is higher, it'll be higher up in the chest!
+- Tools Sorter (WIP): When used, it will sort the better tools ontop of the chest. Not by durability or kind. If it has a higher harvest level, it'll be higher in the chest!
+Most sorter's are crafted the same way, except the two items ontop on the side, the recipes are posted in the album. Make sure to check it out!
+
 NOTE: Every other Item is just used in crafting or isn't very useful right now.
 [/spoiler]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/b1e2d756688d5152d97cda911204200a6e8632b0da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zpsdfce9217.png[/IMG]
@@ -315,7 +355,7 @@ Forums Page: [url=http://www.minecraftforum.net/user/1909162-shadowknight1234/]S
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/5ab9b81f3af95559f1f644cd891606ac499ec737da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps32188083.png[/IMG]
 [color=rgb(153, 153, 153)]1. Make sure you have the correct version of Forge and Minecraft[/color]
 [color=rgb(153, 153, 153)]2. Download one of the Version Jars below[/color]
-[color=rgb(153, 153, 153)]3. Goto the forge-created mod folder in your minecraft directory.[/color]
+[color=rgb(153, 153, 153)]3. Go to the forge-created mod folder in your minecraft directory.[/color]
 [color=rgb(153, 153, 153)]4. Place the Extreme Blocks Jar inside of the mods folder.[/color]
 [color=rgb(153, 153, 153)]5. Enjoy![/color]
 [color=rgb(153, 153, 153)]If you have any issues or Crash Reports, Feel free to post it on the Extreme Blocks [/color][url=https://github.com/Fir3will/ExtremeBlocks/issues]Issue Tracker![/url]
@@ -324,7 +364,25 @@ Forums Page: [url=http://www.minecraftforum.net/user/1909162-shadowknight1234/]S
 [spoiler]
 [size=large][color=rgb(255, 0, 0)][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
 
-~~6.0~~ 1.7.10- [url=http://www.mediafire.com/download/at4611p7fmptotx/something.jar]Click Here![/url]
+~~6.1~~ 1.7.10- [url=]Click Here![/url]
+[spoiler]
+- Rewrote the whole Power System except the Transport Pipe
+- Fixed Robots despawning
+- Added some machines to correspond with the Power System
+- Added a Battery system as well to cope without the wires
+- Added Inventory Sorting items
+- Fixed the sounds for most of the blocks
+- Added two new crops, the Tomato and Cucumber Crop, with their respective drop
+- Removed the messages from right clicking the fuse and powder keg block
+- Added the Recipe Reverting Station
+- Updated to the Forge Version: 10.13.0.1205. Update accordingly if it doesn't work!
+
+NOTE: This mod does not work on 1.7.2! Only 1.7.10!
+
+-Updated the Github!
+[/spoiler]
+
+~~6.0~~ 1.7.10- [url=http://adf.ly/sHnji]Click Here![/url]
 [spoiler]
 - Added the Robot Mob
 - Added the Castle Skeleton Mob
@@ -354,7 +412,7 @@ NOTE: This mod does not work on 1.7.2! Only 1.7.10!
 -Updated the Github!
 [/spoiler]
 
-~~5.9~~ 1.7.10- [url=https://www.mediafire.com/download/m3ivng5ey549y54/something.jar]Click Here![/url]
+~~5.9~~ 1.7.10- [url=http://adf.ly/sHnxx]Click Here![/url]
 [spoiler]
 -Added the Extreme Crafting Table!
  *This could be used for every EB Recipe and there are some config options to help alter the functions of said table!
@@ -367,7 +425,7 @@ NOTE: This mod does not work on 1.7.2! Only 1.7.10!
 
 -Updated the Github![/spoiler]
 
-~~5.8~~ 1.7.10- [url=https://www.mediafire.com/download/a3unooenb837guj/something.jar]Click Here![/url]
+~~5.8~~ 1.7.10- [url=http://adf.ly/sHnzY]Click Here![/url]
 [spoiler]-Added config changing from inside the game!
  *At the main menu, click the Mods Button and go to Extreme Blocks. From there Click Config and you could change everything!
 -Tons of bug fixes to 5.7 update.
@@ -377,7 +435,7 @@ NOTE: This mod does not work on 1.7.2! Only 1.7.10!
  
 ~Updated the Github![/spoiler]
 
-~~5.7~~ 1.7.2/1.7.10- [url=https://www.mediafire.com/download/q7rhghca8080agt/something.jar]Click Here![/url]
+~~5.7~~ 1.7.2/1.7.10- [url=http://adf.ly/sHo05]Click Here![/url]
 [spoiler]-Added the Islands World Type!
 -Added the Power and Transport Pipe!
 -Added the Constructor and the Power Station!
@@ -394,7 +452,7 @@ P.P.S I want to thank everyone, that has even just read the post, because I had 
 
 ~Updated GitHub with 5.7-1.7.2/1.7.10 Code![/spoiler]
 
-~~5.0~~ 1.7.2/1.7.10- [url=https://www.mediafire.com/download/pbm2dudud4vc59o/something.jar]Click Here![/url]
+~~5.0~~ 1.7.2/1.7.10- [url=http://adf.ly/sHo1b]Click Here![/url]
 [spoiler]-Updated to 1.7.2, (Took ALOT Longer that I thought!)
 -Removed the Hardcore Crafting table and the Hardcore Tools!
 -Added Tons of more Fake Floors, and Tons of more Lighted Blocks!
@@ -405,7 +463,7 @@ P.P.S. This will work with 1.7.10 also! The Git hub is also all 1.7.10! If you h
 
 ~Updated GitHub with 5.0-1.7.2/1.7.10 Code![/spoiler]
 
-~~4.0~~ 1.6.4- [url=https://www.mediafire.com/download/f60f85xxu6bpg1s/something.jar]Click Here![/url]
+~~4.0~~ 1.6.4- [url=http://adf.ly/sHo2J]Click Here![/url]
 [spoiler]-Added a new Tool Set!
 -Added 10 new foods, All different! (No crafting recipe yet... Sorry!)
 -Added the Hardcore Crafting table! You'll see what it is!
@@ -413,7 +471,7 @@ P.P.S. This will work with 1.7.10 also! The Git hub is also all 1.7.10! If you h
 -Fixed some bugs....
 -Will not update the Github this time either... Sorry!... Again![/spoiler]
 
-~~3.8~~ 1.6.4- [url=https://www.mediafire.com/download/m8272xs647golxg/something.jar]Click Here![/url]
+~~3.8~~ 1.6.4- [url=http://adf.ly/sHo2k]Click Here![/url]
 [spoiler]-Added 3 new Ores with their own respective tool set! (Also their corresponding Ore Storage Blocks!)
 -Added the Dried Tree World Gen (The Dried Tree Generates in the Desert!)
 -Added the Fuse Block and the Powder Keg!, Fuse block sets to fire when there's a fire next to it!
@@ -429,7 +487,7 @@ P.P.S. This will work with 1.7.10 also! The Git hub is also all 1.7.10! If you h
 -Added a Poll to the Forum, fill it out! It'll help me and you too!
 -Updated the Git-Hub[/spoiler]
 
-~~3.5~~ 1.6.4- [url=https://www.mediafire.com/download/ywmqy4qajcvc19c/something.jar]Click Here![/url]
+~~3.5~~ 1.6.4- [url=http://adf.ly/sHo3f]Click Here![/url]
 [spoiler]-ADDED CONFIG FILE!! Not only for IDs but also for other things related to the Mod!!! IT'S AWESOME!!!
 -Play around with the options and I MEAN PLAY AROUND! there's a cheat if you find it out! GOOD LUCK!!
 -Added the Console's Game! EXTREMELY GLITCHY!!!!
@@ -440,14 +498,14 @@ P.P.S. This will work with 1.7.10 also! The Git hub is also all 1.7.10! If you h
 
 -Sorry it took so long, it was actually really difficult, the stupid game.... Took Forever to get it right... DON'T JUDGE ME!!![/spoiler]
 
-~~3.1~~ 1.6.4 - [url=http://www.mediafire.com/?optzlcbv96jdcix]Click Here![/url]
+~~3.1~~ 1.6.4 - [url=http://adf.ly/sHo64]Click Here![/url]
 [spoiler]-Added a new Block (Fake Floor). Mobs and players fall through it!
 -Fixed some bugs/glitches with the Dried Sapling!
 -Fixed other bugs you probably won't notice!
 -Updated the Terms of Use, Please Read! 
 -Also, added the Extreme Blocks GitHub[/spoiler]
 
-~~2.9~~ 1.6.4 - [url=http://www.mediafire.com/download/h82rrw0y6ia7127/something.jar]Click Here![/url]
+~~2.9~~ 1.6.4 - [url=http://adf.ly/sHo7O]Click Here![/url]
 [spoiler]-Added More Fences in it's own tab! They connect to each other and are really cool!
 -Might add in Fence Gates for all the fences above!
 -Added a new World Gen Tree? Check it out!
@@ -455,32 +513,32 @@ P.P.S. This will work with 1.7.10 also! The Git hub is also all 1.7.10! If you h
 -Fixed some bugs you probably won't notice...
 -Removed Herobrine[/spoiler]
 
-~~2.7~~ 1.6.4 - [url=http://www.mediafire.com/download/c4vun26f5hhxbj2/something.jar]Click Here![/url]
+~~2.7~~ 1.6.4 - [url=http://adf.ly/sHo85]Click Here![/url]
 [spoiler]-Added the Drill Block! Put it down on some floor and it drills a 1 x 1 hole all the way down to Bedrock!
 -Added Fake Sand and Fake Gravel! They don't drop but look exactly like Sand and Gravel!
 -Fixed some World Generating Issues! Ore was TOO Rare! Now spawns much more commonly!
 -Added the Aesthetic Block! This does not look like sand or gravel but does drop down! Spawns Naturally!
 -Fixed A Ton of bugs including with the Extractor and the Vending Machine![/spoiler]
 
-~~2.5~~ 1.6.4 - [url=http://www.mediafire.com/download/o3hdeauj3xpx4wr/something.jar]Click Here![/url]
+~~2.5~~ 1.6.4 - [url=http://adf.ly/sHo8n]Click Here![/url]
 [spoiler]-Added Around 13 New Lighted Blocks![/spoiler]
 
-~~2.3~~ 1.6.4 - [url=http://www.mediafire.com/download/4camkz6ayxky968/something.jar]Click Here![/url]
+~~2.3~~ 1.6.4 - [url=http://adf.ly/sHoAG]Click Here![/url]
 [spoiler]-Major Rework to the Code itself, not Gameplay, Much simpler, for me really.[/spoiler]
 
-~~2.2~~ 1.6.4 - [url=http://www.mediafire.com/download/zs05accpw5u383m/something.jar]Click Here![/url]
+~~2.2~~ 1.6.4 - [url=http://adf.ly/sHoBy]Click Here![/url]
 [spoiler]-Adds 2 New Mobs![/spoiler]
 
-~~1.7~~ 1.6.4 - [url=http://www.mediafire.com/download/dg2gtgrgcaj3d56/something.jar]Click Here![/url]
+~~1.7~~ 1.6.4 - [url=http://adf.ly/sHoCu]Click Here![/url]
 [spoiler]-Added Custom Materials for the weapons[/spoiler]
 
-~~1.5~~ 1.6.4 - [url=http://www.mediafire.com/download/d71ccdwy32pizm4/something.jar]Click Here![/url]
+~~1.5~~ 1.6.4 - [url=http://adf.ly/sHoDt]Click Here![/url]
 [spoiler]-Added Bone Dirt, and many other Blocks and Items.[/spoiler]
 
-~~1.2~~ 1.6.4 - [url=http://www.mediafire.com/download/2p6wa16psuuuu3a/something.jar]Click Here![/url]
+~~1.2~~ 1.6.4 - [url=http://adf.ly/sHoEY]Click Here![/url]
 [spoiler]-Fixed the crash that occured at the start of the mod![/spoiler]
 
-~~1.0~~ 1.6.4 - [url=http://www.mediafire.com/download/u6lqsakc047ibc3/something.jar]Click Here![/url] (Corrupted File)
+~~1.0~~ 1.6.4 - [url=http://adf.ly/sHoF1]Click Here![/url] (Corrupted File)
 [spoiler]-New Mod![/spoiler]
 [/spoiler]
 

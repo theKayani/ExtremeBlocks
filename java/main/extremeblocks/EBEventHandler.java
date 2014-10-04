@@ -1,21 +1,36 @@
 package main.extremeblocks;
 
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EBEventHandler
 {
+	@SubscribeEvent
+	public void onBlockBreak(BreakEvent event)
+	{
+		if (event.block == Blocks.double_plant)
+		{
+			if (event.world.rand.nextInt(10) == 0)
+			{
+				MPUtil.dropItemAsEntity(event.world, event.x, event.y, event.z, false, new ItemStack(Rand.nextBoolean() ? Init.cucumber_seeds : Init.tomato_seeds));
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onLivingDrops(LivingDropsEvent event)
 	{
@@ -37,7 +52,10 @@ public class EBEventHandler
 	@SubscribeEvent
 	public void onConfigChanged(OnConfigChangedEvent event)
 	{
-		if (event.modID.equals(Init.MODID)) Init.handleConfig();
+		if (event.modID.equals(Init.MODID))
+		{
+			Init.handleConfig();
+		}
 		if (!Vars.addMobs)
 		{
 			Vars.addRobot = Vars.addEvilIronGolem = Vars.addCastleZombie = Vars.addCastleSkeleton = false;

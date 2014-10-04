@@ -1,8 +1,8 @@
 package main.extremeblocks.entities.mobs;
 
 import java.util.Random;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiHandler;
 import main.extremeblocks.Init;
@@ -10,7 +10,7 @@ import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.ai.EntityAIHarvestCrops;
 import main.extremeblocks.entities.mobs.ai.EntityAIRobotMine;
 import main.extremeblocks.entities.mobs.ai.EntityAISwitchWeapons;
-import main.extremeblocks.network.PacketSyncRobot;
+import main.extremeblocks.network.packets.PacketSyncRobot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -505,10 +505,15 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 		return villager;
 	}
 
+	@Override
+	protected boolean canDespawn()
+	{
+		return false;
+	}
+
 	public static enum RobotType
 	{
-		WARRIOR(Items.golden_sword), FARMER(Items.golden_hoe), MINER(
-				Items.golden_pickaxe), HUNTER(Items.compass), ARCHER(Items.bow);
+		WARRIOR(Items.golden_sword), FARMER(Items.golden_hoe), MINER(Items.golden_pickaxe), HUNTER(Items.compass), ARCHER(Items.bow);
 		public final String name;
 		public final Item[] items;
 

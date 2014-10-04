@@ -59,6 +59,15 @@ tile.Barrel.name=Barrel
 tile.Large Crate.name=Large Crate
 tile.Massive Crate.name=Massive Crate
 tile.Plate.name=Wooden Plate
+tile.Power Wire.name=Wire
+tile.Charger.name=Charger
+tile.Cooker.name=Cooker
+tile.Cooker_On.name=Cooker
+tile.Generator.name=Generator
+tile.Tomato Crop.name=Tomato Crop
+tile.Cucumber Crop.name=Cucumber Crop
+tile.Protector.name=Arrow Tower
+tile.Recipe Reverting Station.name=Recipe Reverting Station
 
 entity.Castle Zombie.name=Castle Zombie
 entity.Castle Skeleton.name=Castle Skeleton

@@ -3,10 +3,12 @@ package main.extremeblocks.blocks.abstractblocks;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import main.com.hk.testing.util.JavaHelp;
+import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.tileentities.TileEntityStorage;
+import main.extremeblocks.blocks.BlockArmorStand;
+import main.extremeblocks.blocks.BlockCabinet;
+import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.util.BlockType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -214,4 +216,133 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 		}
 		return null;
 	}
+
+	public static void initBlocks()
+	{
+		if (!registered)
+		{
+			registered = true;
+			Init.crate = new BlockStorage("Crate", Material.wood, BlockType.NORMAL)
+			{
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int i = 0; i < 3; ++i)
+					{
+						for (int j = 0; j < 3; ++j)
+						{
+							slots.add(new Slot(te, j + i * 3, 62 + j * 18, 17 + i * 18));
+						}
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath("textures/gui/container/dispenser.png").setStorageSlots(9);
+			Init.barrel = new BlockStorage("Barrel", Material.wood, BlockType.BARREL)
+			{
+				@Override
+				public boolean renderAsNormalBlock()
+				{
+					return false;
+				}
+
+				@Override
+				public boolean isOpaqueCube()
+				{
+					return false;
+				}
+
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int i = 0; i < 4; ++i)
+					{
+						for (int j = 0; j < 2; ++j)
+						{
+							slots.add(new Slot(te, j + i * 2, 71 + j * 18, 8 + i * 18));
+						}
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath(Init.MODID + ":textures/gui/barrel.png").setStorageSlots(8).setBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.8F, 0.8F);
+			Init.strongbox = (BlockStorage) new BlockStorage("Strongbox", Material.iron, BlockType.BARREL)
+			{
+				@Override
+				public boolean renderAsNormalBlock()
+				{
+					return false;
+				}
+
+				@Override
+				public boolean isOpaqueCube()
+				{
+					return false;
+				}
+
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int i = 0; i < 3; ++i)
+					{
+						slots.add(new Slot(te, i, 62 + i * 18, 36));
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath(Init.MODID + ":textures/gui/strongbox.png").setStorageSlots(3).setBounds(0.2F, 0.0F, 0.4F, 0.8F, 0.3F, 0.6F).setHardness(7.0F).setBlockTextureName("iron_block");
+			Init.big_crate = new BlockStorage("Big Crate", Material.wood, BlockType.NORMAL)
+			{
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int j = 0; j < 3; ++j)
+					{
+						for (int k = 0; k < 9; ++k)
+						{
+							slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
+						}
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath(Init.MODID + ":textures/gui/chest.png").setStorageSlots(27);
+			Init.large_crate = new BlockStorage("Large Crate", Material.wood, BlockType.NORMAL)
+			{
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int j = 0; j < 6; ++j)
+					{
+						for (int k = 0; k < 9; ++k)
+						{
+							slots.add(new Slot(te, k + j * 9, 8 + k * 18, 18 + j * 18));
+						}
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath(Init.MODID + ":textures/gui/large_chest.png").setStorageSlots(54).setYSize(222);
+			Init.small_crate = new BlockStorage("Small Crate", Material.wood, BlockType.NORMAL)
+			{
+				@Override
+				public Slot[] addSlotsToContainer(TileEntityStorage te)
+				{
+					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					for (int j = 0; j < 2; ++j)
+					{
+						for (int k = 0; k < 2; ++k)
+						{
+							slots.add(new Slot(te, k + j * 2, 71 + k * 18, 29 + j * 18));
+						}
+					}
+					return slots.toArray(new Slot[0]);
+				}
+			}.setGuiTexturePath(Init.MODID + ":textures/gui/smallcrate.png").setStorageSlots(4);
+			Init.armor_stand = new BlockArmorStand();
+			Init.cabinet = new BlockCabinet();
+		}
+	}
+
+	private static boolean registered;
 }

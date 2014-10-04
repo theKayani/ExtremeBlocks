@@ -1,8 +1,8 @@
 package main.extremeblocks.blocks;
 
 import java.util.Random;
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.Rand;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

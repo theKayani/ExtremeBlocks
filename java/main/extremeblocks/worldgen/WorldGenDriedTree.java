@@ -2,9 +2,9 @@ package main.extremeblocks.worldgen;
 
 import java.util.List;
 import java.util.Random;
-import main.com.hk.testing.util.Builder;
-import main.com.hk.testing.util.JavaHelp;
-import main.com.hk.testing.util.Rand;
+import main.com.hk.eb.util.Builder;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import net.minecraft.item.Item;

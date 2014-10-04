@@ -1,8 +1,8 @@
 package main.extremeblocks.blocks;
 
 import java.util.Random;
-import main.com.hk.testing.util.BlockCustom;
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,7 +11,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -23,48 +22,70 @@ public class BlockGameFloor extends BlockCustom
 
 	public BlockGameFloor(GameBlockType type)
 	{
-		super(Material.rock, type.name() + " Game Block");
-		this.setBlockTextureName(Init.MODID + ":" + (type == GameBlockType.Spread ? type.name().toLowerCase() + "_" : "") + "game_block");
+		super(Material.rock, type.name + " Game Block");
+		this.setBlockTextureName(Init.MODID + ":" + (type == GameBlockType.SPREAD ? type.name.toLowerCase() + "_" : "") + "game_block");
 		this.type = type;
 	}
 
+	@Override
 	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
 	{
-		if (type == GameBlockType.Spread && entity instanceof EntityLivingBase)
+		spreadBlock(world, x, y, z, entity);
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	{
+		spreadBlock(world, x, y, z, entity);
+	}
+
+	@Override
+	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float lol)
+	{
+		spreadBlock(world, x, y, z, entity);
+	}
+
+	public void spreadBlock(World world, int x, int y, int z, Entity entity)
+	{
+		if (type == GameBlockType.SPREAD && entity instanceof EntityLivingBase)
 		{
 			for (int i = -1; i < 2; i++)
 			{
-				for (int j = -1; j < 2; j++)
-				{
-					world.setBlock(x + i, y, z + j, Init.spread_game_block);
-				}
+				world.setBlock(x + i, y, z, Init.spread_game_block);
+			}
+			for (int i = -1; i < 2; i++)
+			{
+				world.setBlock(x, y, z + i, Init.spread_game_block);
 			}
 		}
 	}
 
+	@Override
 	public Item getItemDropped(int meta, Random rand, int idk)
 	{
 		return null;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
-		return Item.getItemFromBlock(type != GameBlockType.Spread ? Init.red_game_floor : Init.red_game_floor);
+		return Item.getItemFromBlock(type == GameBlockType.SPREAD ? Init.spread_game_block : Init.red_game_floor);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess p_149720_1_, int p_149720_2_, int p_149720_3_, int p_149720_4_)
 	{
 		switch (type)
 		{
-			case Red:
+			case RED:
 				return 0xFF0000;
-			case Blue:
+			case BLUE:
 				return 0x0000FF;
-			case Green:
+			case GREEN:
 				return 0x00FF00;
-			case Yellow:
+			case YELLOW:
 				return 0xFFFF00;
 			default:
 				break;
@@ -72,16 +93,55 @@ public class BlockGameFloor extends BlockCustom
 		return super.colorMultiplier(p_149720_1_, p_149720_2_, p_149720_3_, p_149720_4_);
 	}
 
+	@Override
+	public int getBlockColor()
+	{
+		switch (type)
+		{
+			case RED:
+				return 0xFF0000;
+			case BLUE:
+				return 0x0000FF;
+			case GREEN:
+				return 0x00FF00;
+			case YELLOW:
+				return 0xFFFF00;
+			default:
+				break;
+		}
+		return super.getBlockColor();
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(int flag)
+	{
+		switch (type)
+		{
+			case RED:
+				return 0xFF0000;
+			case BLUE:
+				return 0x0000FF;
+			case GREEN:
+				return 0x00FF00;
+			case YELLOW:
+				return 0xFFFF00;
+			default:
+				break;
+		}
+		return super.getRenderColor(flag);
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		if (MPUtil.isServerSide())
-		{
-			player.addChatComponentMessage(new ChatComponentTranslation(type.name() + " Floor Activated!"));
-		}
 		ItemStack held = player.getHeldItem();
-		if (held != null && held.getItem() == Init.game_remote && type != GameBlockType.Spread)
+		if (held != null && held.getItem() == Init.game_remote && type != GameBlockType.SPREAD)
 		{
-			world.setBlock(x, y, z, type.getNext());
+			if (MPUtil.isServerSide())
+			{
+				world.setBlock(x, y, z, type.getNext());
+			}
 			return true;
 		}
 		return false;
@@ -89,18 +149,26 @@ public class BlockGameFloor extends BlockCustom
 
 	public enum GameBlockType
 	{
-		Red, Blue, Green, Yellow, Spread;
+		RED, BLUE, GREEN, YELLOW, SPREAD;
+
+		public final String name;
+
+		private GameBlockType()
+		{
+			name = name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
+		}
+
 		public Block getNext()
 		{
 			switch (this)
 			{
-				case Blue:
+				case BLUE:
 					return Init.green_game_floor;
-				case Green:
+				case GREEN:
 					return Init.yellow_game_floor;
-				case Red:
+				case RED:
 					return Init.blue_game_floor;
-				case Yellow:
+				case YELLOW:
 					return Init.red_game_floor;
 				default:
 					return null;

@@ -1,6 +1,6 @@
 package main.extremeblocks.items;
 
-import main.com.hk.testing.util.ItemCustom;
+import main.com.hk.eb.util.ItemCustom;
 import main.extremeblocks.Init;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

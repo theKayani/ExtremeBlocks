@@ -1,6 +1,6 @@
 package main.extremeblocks.entities;
 
-import main.com.hk.testing.util.MPUtil;
+import main.com.hk.eb.util.MPUtil;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
