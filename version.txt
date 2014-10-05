@@ -1,2 +1,2 @@
-Version: 6.2
-Summary Message: Testing Message!
+Version: 6.1
+Summary Message: Added the Power System!
