@@ -14,13 +14,13 @@ import net.minecraft.world.World;
 
 public class EntityAIRobotMine extends EntityAIBase
 {
+	public boolean positioned;
 	public final EntityRobot taskOwner;
 	public final Block[] blocks;
 	public final int rangeToCheck;
 	public final RobotInventory entityInventory;
 	public final World world;
 	public final EntityLookHelper lookHelper;
-	private int[] orePosition;
 	public int x, y, z, counter, swingCounter, levelCounter, maxCount;
 	private boolean moveUp, next, done;
 	public double top;
@@ -30,13 +30,13 @@ public class EntityAIRobotMine extends EntityAIBase
 		this.taskOwner = taskOwner;
 		this.blocks = blocks;
 		this.rangeToCheck = rangeToCheck;
-		this.entityInventory = taskOwner.inv;
-		this.lookHelper = taskOwner.getLookHelper();
-		this.world = taskOwner.worldObj;
-		this.x = (int) taskOwner.posX;
-		this.y = (int) taskOwner.posY;
-		this.z = (int) taskOwner.posZ;
-		this.setMutexBits(3);
+		entityInventory = taskOwner.inv;
+		lookHelper = taskOwner.getLookHelper();
+		world = taskOwner.worldObj;
+		x = (int) taskOwner.posX;
+		y = (int) taskOwner.posY;
+		z = (int) taskOwner.posZ;
+		setMutexBits(3);
 		setCount();
 	}
 
@@ -49,33 +49,36 @@ public class EntityAIRobotMine extends EntityAIBase
 	@Override
 	public void updateTask()
 	{
-		x = (int) (taskOwner.posX);
-		y = (int) (taskOwner.posY);
-		z = (int) (taskOwner.posZ);
+		x = (int) taskOwner.posX;
+		y = (int) taskOwner.posY;
+		z = (int) taskOwner.posZ;
+		if (!positioned)
+		{
+			taskOwner.setPosition(x + 0.5D, y, z + 0.5D);
+			positioned = true;
+		}
 		setCount();
 		taskOwner.stayStill = true;
 		if (moveUp)
 		{
-			startMovingUp(x - 1, y, z - 1);
+			startMovingUp(x, y, z - 1);
 		}
 		else
 		{
 			if (next)
 			{
-				doStuff(x - 1, y - 1, z - 1);
+				doStuff(x + 1, y - 1, z - 1);
 			}
 			else
 			{
 				doStuff(x, y - 1, z - 1);
 			}
 		}
-		lookHelper.setLookPosition(taskOwner.posX, taskOwner.posY - 2, taskOwner.posZ, 10.0F, this.taskOwner.getVerticalFaceSpeed());
+		lookHelper.setLookPosition(taskOwner.posX, taskOwner.posY - 2, taskOwner.posZ, 10.0F, taskOwner.getVerticalFaceSpeed());
 		if (taskOwner.posY >= top)
 		{
 			taskOwner.startMining = false;
-			taskOwner.stayStill = false;
 			done = true;
-
 		}
 	}
 

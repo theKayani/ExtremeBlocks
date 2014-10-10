@@ -1,5 +1,6 @@
 package main.extremeblocks;
 
+import main.extremeblocks.blocks.BlockMedal.MedalType;
 import main.extremeblocks.entities.EntityGrenade;
 import main.extremeblocks.entities.EntityMolotov;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
@@ -12,23 +13,27 @@ import main.extremeblocks.renderers.RenderCastleSkeleton;
 import main.extremeblocks.renderers.RenderCastleZombie;
 import main.extremeblocks.renderers.RenderEvilIronGolem;
 import main.extremeblocks.renderers.RenderRobot;
+import main.extremeblocks.renderers.TileEntityMedalRenderer;
 import main.extremeblocks.renderers.TileEntityPlateRenderer;
 import main.extremeblocks.renderers.TileEntityWireRenderer;
 import main.extremeblocks.tileentities.TileEntityCharger;
 import main.extremeblocks.tileentities.TileEntityConsole;
 import main.extremeblocks.tileentities.TileEntityCooker;
+import main.extremeblocks.tileentities.TileEntityDrill;
 import main.extremeblocks.tileentities.TileEntityFuse;
 import main.extremeblocks.tileentities.TileEntityGenerator;
+import main.extremeblocks.tileentities.TileEntityMedal;
 import main.extremeblocks.tileentities.TileEntityPlate;
 import main.extremeblocks.tileentities.TileEntityProtector;
+import main.extremeblocks.tileentities.TileEntityRevertingStation;
 import main.extremeblocks.tileentities.TileEntityRewardBlock;
 import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.tileentities.TileEntityWire;
+import main.extremeblocks.util.SpawnDetail;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -48,12 +53,21 @@ public class EBClient extends EBCommon
 		GameRegistry.registerTileEntity(TileEntityCooker.class, "Cooker");
 		GameRegistry.registerTileEntity(TileEntityGenerator.class, "Generator");
 		GameRegistry.registerTileEntity(TileEntityProtector.class, "Protector");
+		GameRegistry.registerTileEntity(TileEntityDrill.class, "Drill");
+		GameRegistry.registerTileEntity(TileEntityRevertingStation.class, "Reverting Station");
 
 		ClientRegistry.registerTileEntity(TileEntityPlate.class, "Plate", new TileEntityPlateRenderer());
 		ClientRegistry.registerTileEntity(TileEntityWire.class, "Wire", new TileEntityWireRenderer());
+		ClientRegistry.registerTileEntity(TileEntityMedal.class, "Medal", new TileEntityMedalRenderer(null));
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.plate), new ItemRendererTile());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.wire), new ItemRendererPipe());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.gold_medal), new TileEntityMedalRenderer(MedalType.GOLD));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.iron_medal), new TileEntityMedalRenderer(MedalType.IRON));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.diamond_medal), new TileEntityMedalRenderer(MedalType.DIAMOND));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.bronze_medal), new TileEntityMedalRenderer(MedalType.BRONZE));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.trinquantium_medal), new TileEntityMedalRenderer(MedalType.TRINQUANTIUM));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.silver_medal), new TileEntityMedalRenderer(MedalType.SILVER));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenade));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMolotov.class, new RenderSnowball(Init.molotov));
@@ -69,7 +83,7 @@ public class EBClient extends EBCommon
 	{
 	}
 
-	public static void registerEntity(Class<? extends EntityLiving> entityClass, String mobName, EnumCreatureType creature, BiomeGenBase... biomes)
+	public static void registerEntity(Class<? extends EntityLiving> entityClass, String mobName, EnumCreatureType creature, SpawnDetail... spawns)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		if (creature == EnumCreatureType.monster)
@@ -81,13 +95,13 @@ public class EBClient extends EBCommon
 			EntityRegistry.registerGlobalEntityID(entityClass, mobName, id, 16777215, 0);
 		}
 		EntityRegistry.registerModEntity(entityClass, mobName, id, ExtremeBlocks.instance, 80, 3, true);
-		if (biomes != null && biomes.length != 0)
+		if (spawns != null && spawns.length > 0)
 		{
-			for (int i = 0; i < biomes.length; i++)
+			for (SpawnDetail spawn : spawns)
 			{
-				if (biomes[i] != null)
+				if (spawn != null)
 				{
-					EntityRegistry.addSpawn(entityClass, 10, 1, 3, creature, BiomeGenBase.getBiomeGenArray()[i]);
+					EntityRegistry.addSpawn(entityClass, spawn.chanceToSpawn, spawn.minAmountToSpawn, spawn.maxAmountToSpawn, creature, spawn.biome);
 				}
 			}
 		}

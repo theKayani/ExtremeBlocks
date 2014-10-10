@@ -144,6 +144,7 @@ public class MPUtil
 
 	public static void dropItemsAsEntities(World world, double x, double y, double z, boolean useClone, ItemStack... stacks)
 	{
+		if (stacks == null || stacks.length <= 0) return;
 		for (ItemStack stack : stacks)
 		{
 			dropItemAsEntity(world, x, y, z, useClone, stack);
@@ -152,6 +153,7 @@ public class MPUtil
 
 	public static void dropItemAsEntity(World world, double x, double y, double z, boolean useClone, ItemStack stack)
 	{
+		if (stack == null) return;
 		ItemStack item = useClone ? stack.copy() : stack;
 		if (MPUtil.isServerSide() && item != null && item.stackSize > 0)
 		{

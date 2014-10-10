@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.ExtremeBlocks;
+import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.BlockArmorStand;
 import main.extremeblocks.blocks.BlockCabinet;
 import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.util.BlockType;
@@ -24,7 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider
+public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs
 {
 	public static final boolean debug = true;
 	private static int autoID = 0;
@@ -37,20 +37,20 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public BlockStorage(String name, Material mat, CreativeTabs tab, int storageSlots, String containerName, String guiTexturePath, BlockType type)
 	{
 		super(mat);
-		this.setHardness(2.0F);
-		this.setBlockType(type);
-		this.setBlockName(name);
-		this.setCreativeTab(tab);
-		this.setStorageSlots(storageSlots);
-		this.setName(name);
-		this.setContainerName(containerName);
-		this.setTexture(name.toLowerCase());
-		this.setGuiTexturePath(guiTexturePath);
-		this.setXSize(176);
-		this.setYSize(166);
-		this.setTickRandomly(true);
-		this.id = autoID++;
-		ids.put(this.id, this);
+		setHardness(2.0F);
+		setBlockType(type);
+		setBlockName(name);
+		setCreativeTab(tab);
+		setStorageSlots(storageSlots);
+		setName(name);
+		setContainerName(containerName);
+		setTexture(name.toLowerCase());
+		setGuiTexturePath(guiTexturePath);
+		setXSize(176);
+		setYSize(166);
+		setTickRandomly(true);
+		id = autoID++;
+		ids.put(id, this);
 		blocks.add(this);
 
 		ExtremeBlocks.blocks.add(this);
@@ -86,7 +86,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 
 	public BlockStorage setBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
 	{
-		this.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
+		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		return this;
 	}
 
@@ -132,11 +132,8 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are)
 	{
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (tileEntity == null || player.isSneaking())
-		{
-			return false;
-		}
-		player.openGui(ExtremeBlocks.instance, 1, world, x, y, z);
+		if (tileEntity == null || player.isSneaking()) return false;
+		player.openGui(ExtremeBlocks.instance, TILE_STORAGE, world, x, y, z);
 		return true;
 	}
 
@@ -151,10 +148,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	{
 		Random rand = new Random();
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (!(tileEntity instanceof IInventory))
-		{
-			return;
-		}
+		if (!(tileEntity instanceof IInventory)) return;
 		IInventory inventory = (IInventory) tileEntity;
 		for (int i = 0; i < inventory.getSizeInventory(); i++)
 		{
@@ -189,13 +183,13 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		boolean sup = super.canPlaceBlockAt(world, x, y, z);
-		return sup && this.canBlockStay(world, x, y, z);
+		return sup && canBlockStay(world, x, y, z);
 	}
 
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block lol)
 	{
-		if (!this.canBlockStay(world, x, y, z))
+		if (!canBlockStay(world, x, y, z))
 		{
 			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlockToAir(x, y, z);
@@ -205,15 +199,12 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
-		return this.type.shouldDrop() ? world.getBlock(x, y - 1, z).getMaterial().isSolid() : super.canBlockStay(world, x, y, z);
+		return type.shouldDrop() ? world.getBlock(x, y - 1, z).getMaterial().isSolid() : super.canBlockStay(world, x, y, z);
 	}
 
 	public static BlockStorage getByID(int id)
 	{
-		if (ids.containsKey(id))
-		{
-			return ids.get(id);
-		}
+		if (ids.containsKey(id)) return ids.get(id);
 		return null;
 	}
 
@@ -339,7 +330,6 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 					return slots.toArray(new Slot[0]);
 				}
 			}.setGuiTexturePath(Init.MODID + ":textures/gui/smallcrate.png").setStorageSlots(4);
-			Init.armor_stand = new BlockArmorStand();
 			Init.cabinet = new BlockCabinet();
 		}
 	}

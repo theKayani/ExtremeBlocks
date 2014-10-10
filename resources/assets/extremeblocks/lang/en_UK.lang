@@ -68,8 +68,14 @@ tile.Tomato Crop.name=Tomato Crop
 tile.Cucumber Crop.name=Cucumber Crop
 tile.Protector.name=Arrow Tower
 tile.Recipe Reverting Station.name=Recipe Reverting Station
+tile.Gold Medal.name=Gold Medal
+tile.Bronze Medal.name=Bronze Medal
+tile.Diamond Medal.name=Diamond Medal
+tile.Silver Medal.name=Silver Medal
+tile.Trinquantium Medal.name=Trinquantium Medal
+tile.Iron Medal.name=Iron Medal
 
 entity.Castle Zombie.name=Castle Zombie
 entity.Castle Skeleton.name=Castle Skeleton
 entity.Evil Iron Golem.name=Evil Iron Golem
-entity.Robot.name=Robot
+entity.extremeblocks.Robot.name=Robot

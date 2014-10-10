@@ -13,6 +13,7 @@ import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.network.PacketHandlerEB;
+import main.extremeblocks.util.SpawnDetail;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -95,10 +96,10 @@ public class ExtremeBlocks
 		Init.addRecipes();
 		EntityRegistry.registerModEntity(EntityGrenade.class, "Grenade", 1, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityMolotov.class, "Molotov", 2, this, 80, 3, true);
-		EBClient.registerEntity(EntityCastleZombie.class, "Castle Zombie", EnumCreatureType.creature, BiomeGenBase.plains);
-		EBClient.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.creature, BiomeGenBase.plains);
-		EBClient.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster);
-		EBClient.registerEntity(EntityRobot.class, "Robot", EnumCreatureType.creature);
+		EntityRegistry.registerModEntity(EntityRobot.class, "Robot", 3, this, 80, 3, true);
+		EBClient.registerEntity(EntityCastleZombie.class, "Castle Zombie", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
+		EBClient.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
+		EBClient.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster, SpawnDetail.getForBiomes(10, 1, 3, BiomeGenBase.hell, BiomeGenBase.sky));
 		// EBClient <-- command right click it
 		proxy.registerRenderThings();
 		proxy.registerSounds();
@@ -107,7 +108,7 @@ public class ExtremeBlocks
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		ArrayList<String> lines = JavaHelp.newArrayList();
+		JavaHelp.newArrayList();
 		packetPipeline.postInitialise();
 		ArrayList<Block> allBlocks = JavaHelp.newArrayList();
 		for (int i = 0; i < RegistryHelper.blocksList.length; i++)

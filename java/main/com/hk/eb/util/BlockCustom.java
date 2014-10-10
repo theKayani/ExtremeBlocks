@@ -38,7 +38,7 @@ public class BlockCustom extends Block
 	{
 		super(mat);
 		setBlockName(name);
-		setBlockTextureName(name);
+		setBlockTextureName(Init.MODID + ":" + name.replaceAll(" ", "_").toLowerCase());
 		setDrop(this);
 		setDroppedAmount(1);
 		if (this instanceof INamed)

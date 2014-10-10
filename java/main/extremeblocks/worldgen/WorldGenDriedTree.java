@@ -1,19 +1,17 @@
 package main.extremeblocks.worldgen;
 
-import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.Builder;
-import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenDriedTree extends WorldGenerator
 {
+	@Override
 	public boolean generate(World world, Random random, int x, int y, int z)
 	{
 		if (!Vars.genDriedTree) return false;
@@ -25,18 +23,13 @@ public class WorldGenDriedTree extends WorldGenerator
 			{
 				for (int k = -4; k < 5; k++)
 				{
-					if (!helper.isBlockReplaceable(i, j, k))
-					{
-						return false;
-					}
+					if (!helper.isBlockReplaceable(i, j, k)) return false;
 				}
 			}
 		}
 		for (int l = 0; l < 5; ++l)
 		{
-			List<ItemStack> list = JavaHelp.newArrayList();
-			Init.emptied_log.getSubBlocks(Item.getItemFromBlock(Init.emptied_log), Init.emptied_log.getCreativeTabToDisplayOn(), list);
-			world.setBlock(x, y + l, z, Init.emptied_log, Rand.nextInt(list.size()), 2);
+			helper.setBlock(Init.emptied_log, 0, l, 0, Rand.getRandomMetadataOf(Item.getItemFromBlock(Init.emptied_log)));
 		}
 		return true;
 	}

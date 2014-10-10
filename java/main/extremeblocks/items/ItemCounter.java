@@ -7,26 +7,36 @@ import main.extremeblocks.Vars;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCounter extends ItemCustom
 {
-	private static int count;
-
 	public ItemCounter()
 	{
 		super("Counter", Init.tab_mainItems);
-		this.setTextureName(Init.MODID + ":counter");
+		setTextureName(Init.MODID + ":counter");
+		maxStackSize = 1;
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack par1ItemStack, int pass)
+	{
+		return true;
+	}
+
+	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
-		list.add("Count: " + count);
+		list.add("Count: " + itemstack.getItemDamage());
 		list.add(Vars.counterMessage.equals("") ? player.getCommandSenderName() : Vars.counterMessage);
 	}
 
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World par2World, EntityPlayer par3EntityPlayer)
 	{
-		count++;
-		return par1ItemStack;
+		stack.setItemDamage(stack.getItemDamage() + 1);
+		return stack;
 	}
 }

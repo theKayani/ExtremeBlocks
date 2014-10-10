@@ -1,4 +1,4 @@
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/8c4ea36f7ea31fccdc0ead3c05c2a858e919924e1622ef322aa0f7ded251b0f8381ecfdeeec262d6da39a3ee5e6b4b0d3255bfef95601890afd8070914b3882c8a041ae95efe_zpsc1acf821.png[/IMG]
+[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Oct%202014%20-%201/6e10be3c46994c6b3ce9bbc579524297cefb30d7863faa43b2e25bf746e343de6200be77c1165061da39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zps0b21c743.png[/IMG]
 
 Welcome to Minecraft, but wait, Some of these "things" are otherworldly! I Don't know what it is but I LIKE IT, Oh wait a minute, it's just this AWESOME MOD! Extreme Blocks Mod! This mod, a.k.a. the Extreme Blocks Mod adds in a ton of new stuff! Adds a lot of new ores! They are all pretty different!
 
@@ -364,7 +364,33 @@ Forums Page: [url=http://www.minecraftforum.net/user/1909162-shadowknight1234/]S
 [spoiler]
 [size=large][color=rgb(255, 0, 0)][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
 
-~~6.1~~ 1.7.10- [url=]Click Here![/url]
+~~6.2~~ 1.7.10- [url=]Click Here![/url]
+[spoiler]
+- Made the Counter item seperate from other Counters
+- Nerfed the Drill, also made it work a lot more slowly and smoothly
+- Fixed the Strongbox recipe conflict
+- Removed the Armor Stand
+- Fixed the Medals and added the Diamond Medal
+- Added a Version Checker
+- Made the Castle World Gen more rare
+- Gave the Castle Zombie an Iron Shovel instead of a Blaze Rod
+- Fixed random Castle generation crashes
+- Made it so the Castle Zombie and Skeleton attack the player
+- Buffed up the Recipe Reverting Station
+- Multiple bug fixes pointed out by TKH, also "self-caught"
+- Added the recipe for the Cooker
+- Fixed some of the Config problems
+- Fixed the armor not showing properly on the Robot mob
+- Removed the Robot's Spawn egg
+- Made the Robot shoot arrows straight
+- Adding enchantments to the Robots tools and weapons now work
+
+NOTE: This mod does not work on 1.7.2! Only 1.7.10!
+
+-Updated the Github!
+[/spoiler]
+
+~~6.1~~ 1.7.10- [url=http://adf.ly/sabG7]Click Here![/url]
 [spoiler]
 - Rewrote the whole Power System except the Transport Pipe
 - Fixed Robots despawning
@@ -375,7 +401,7 @@ Forums Page: [url=http://www.minecraftforum.net/user/1909162-shadowknight1234/]S
 - Added two new crops, the Tomato and Cucumber Crop, with their respective drop
 - Removed the messages from right clicking the fuse and powder keg block
 - Added the Recipe Reverting Station
-- Updated to the Forge Version: 10.13.0.1205. Update accordingly if it doesn't work!
+- Updated to the Forge Version: 10.13.0.1205.
 
 NOTE: This mod does not work on 1.7.2! Only 1.7.10!
 

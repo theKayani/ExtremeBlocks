@@ -2,6 +2,7 @@ package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.ExtremeBlocks;
+import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,7 +13,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockEBTable extends BlockCustom
+public class BlockEBTable extends BlockCustom implements GuiIDs
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -22,25 +23,25 @@ public class BlockEBTable extends BlockCustom
 	public BlockEBTable()
 	{
 		super(Material.wood, "EB Crafting Table");
-		this.setHardness(2.5F);
-		this.setCreativeTab(Init.tab_mainBlocks);
-		this.setBlockTextureName(Init.MODID + ":crafting_table");
+		setHardness(2.5F);
+		setCreativeTab(Init.tab_mainBlocks);
+		setBlockTextureName(Init.MODID + ":crafting_table");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return side == 1 ? this.topIcon : (side == 0 ? Blocks.planks.getIcon(side, 0) : (side != 2 && side != 4 ? this.blockIcon : this.frontIcon));
+		return side == 1 ? topIcon : side == 0 ? Blocks.planks.getIcon(side, 0) : side != 2 && side != 4 ? blockIcon : frontIcon;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.frontIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
+		blockIcon = p_149651_1_.registerIcon(getTextureName() + "_side");
+		topIcon = p_149651_1_.registerIcon(getTextureName() + "_top");
+		frontIcon = p_149651_1_.registerIcon(getTextureName() + "_front");
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class BlockEBTable extends BlockCustom
 	{
 		if (!player.isSneaking())
 		{
-			player.openGui(ExtremeBlocks.instance, 4, world, x, y, z);
+			player.openGui(ExtremeBlocks.instance, BLOCK_EBTABLE, world, x, y, z);
 			return true;
 		}
 		return false;

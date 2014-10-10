@@ -1,12 +1,9 @@
 package main.extremeblocks.worldgen;
 
-import java.util.ArrayList;
 import java.util.Random;
 import main.com.hk.eb.util.Builder;
-import main.com.hk.eb.util.JavaHelp;
-import main.com.hk.eb.util.Rand;
-import main.com.hk.eb.util.Vector3F;
 import main.com.hk.eb.util.Builder.ChestType;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
@@ -23,12 +20,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenCastle extends WorldGenerator
 {
-	public static final ArrayList<Vector3F> positions;
 	private final boolean netherish;
-	static
-	{
-		positions = JavaHelp.newArrayList();
-	}
 
 	public WorldGenCastle()
 	{
@@ -38,7 +30,7 @@ public class WorldGenCastle extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z)
 	{
-		if (!Vars.genCastle) return false;
+		if (!Vars.genCastle || Rand.nextInt(100) != 0) return false;
 		Builder helper = new Builder(world, x, y, z);
 		for (int i = -4; i < 5; i++)
 		{
@@ -46,15 +38,10 @@ public class WorldGenCastle extends WorldGenerator
 			{
 				for (int k = -5; k < 6; k++)
 				{
-					if (!helper.isBlockReplaceable(i, j, k))
-					{
-						return false;
-					}
+					if (!helper.isBlockReplaceable(i, j, k)) return false;
 				}
 			}
 		}
-		if (isCastleInRangeOf(x, z, 100)) return false;
-		positions.add(new Vector3F(x, y, z));
 		for (int i = 0; i < 22; i++)
 		{
 			helper.enableRandomMetadata();
@@ -72,9 +59,18 @@ public class WorldGenCastle extends WorldGenerator
 			helper.setBlockToAir(-6, i, 4);
 			helper.setBlockToAir(-5, i, 5);
 			helper.setBlockToAir(5, i, 5);
-			if (i == 6 || i == 12 || i == 18) helper.setEntitySpawnerAt(EntityCastleSkeleton.class, 0, 6, 1);
-			if (i == 21) helper.setEntitySpawnerAt(EntityEvilIronGolem.class, 0, 6, 1);
-			if (i != 2 && i != 5 && i != 8 && i != 11 && i != 14 && i != 17 && i != 20) helper.createLayer(Blocks.air, 0, i, 0, 10, 10);
+			if (i == 6 || i == 12 || i == 18)
+			{
+				helper.setEntitySpawnerAt(EntityCastleSkeleton.class, 0, 6, 1);
+			}
+			if (i == 21)
+			{
+				helper.setEntitySpawnerAt(EntityEvilIronGolem.class, 0, 6, 1);
+			}
+			if (i != 2 && i != 5 && i != 8 && i != 11 && i != 14 && i != 17 && i != 20)
+			{
+				helper.createLayer(Blocks.air, 0, i, 0, 10, 10);
+			}
 			if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13 || i == 16 || i == 19 || i == 22)
 			{
 				for (int l = -3; l < 3; l++)
@@ -153,7 +149,7 @@ public class WorldGenCastle extends WorldGenerator
 		helper.setDoorAt(0, 0, 6, 0, true);
 		helper.setBlock(Blocks.lava, -5, 0, 5);
 		helper.setBlock(Blocks.lava, 5, 0, 5);
-		helper.setEntitySpawnerAt((Rand.nextBoolean() ? EntitySpider.class : EntityPigZombie.class), 0, 0, 0);
+		helper.setEntitySpawnerAt(Rand.nextBoolean() ? EntitySpider.class : EntityPigZombie.class, 0, 0, 0);
 		helper.setChestAt(5, 21, -5, getChest(world));
 		helper.setChestAt(-5, 21, -5, getChest(world));
 		helper.setChestAt(3, 21, -5, getChest(world));
@@ -214,26 +210,5 @@ public class WorldGenCastle extends WorldGenerator
 				return ChestType.BONUS_CHEST;
 			}
 		}
-	}
-
-	public static boolean isCastleInRangeOf(int x, int z, double distance)
-	{
-		return getClosestCastleTo(x, z, distance) != null;
-	}
-
-	public static Vector3F getClosestCastleTo(int x, int z, double distance)
-	{
-		final Vector3F at = new Vector3F((float) x, 0.0F, (float) z);
-		Vector3F spot = null;
-		for (final Vector3F pos : positions)
-		{
-			final Vector3F loc = pos.clone().setY(0.0F);
-			if (loc.distance(at) < distance)
-			{
-				distance = loc.distance(at);
-				spot = pos;
-			}
-		}
-		return spot;
 	}
 }

@@ -4,6 +4,7 @@ import static main.com.hk.eb.util.MathHelp.clamp;
 import java.util.Random;
 import main.extremeblocks.worldgen.WorldGenCastle;
 import main.extremeblocks.worldgen.WorldGenDriedTree;
+import main.extremeblocks.worldgen.WorldGenHouse;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -24,8 +25,8 @@ public class WorldManager implements IWorldGenerator
 		if (!Vars.alterWorld) return;
 		this.world = world;
 		this.random = random;
-		this.chunk_X = chunkX * 16;
-		this.chunk_Z = chunkZ * 16;
+		chunk_X = chunkX * 16;
+		chunk_Z = chunkZ * 16;
 		switch (world.provider.dimensionId)
 		{
 			case -1:
@@ -67,14 +68,23 @@ public class WorldManager implements IWorldGenerator
 			int k = chunk_X + random.nextInt(16);
 			int l = chunk_Z + random.nextInt(16);
 			int y = world.getTopSolidOrLiquidBlock(k, l);
-			(new WorldGenDriedTree()).generate(world, random, k, y, l);
+			new WorldGenDriedTree().generate(world, random, k, y, l);
 		}
+
 		for (j = 0; j < 1; j++)
 		{
 			int k = chunk_X + random.nextInt(16);
 			int l = chunk_Z + random.nextInt(16);
 			int y = world.getTopSolidOrLiquidBlock(k, l);
-			(new WorldGenCastle()).generate(world, random, k, y, l);
+			new WorldGenCastle().generate(world, random, k, y, l);
+		}
+
+		for (j = 0; j < 1; j++)
+		{
+			int k = chunk_X + random.nextInt(16);
+			int l = chunk_Z + random.nextInt(16);
+			int y = world.getTopSolidOrLiquidBlock(k, l);
+			new WorldGenHouse().generate(world, random, k, y, l);
 		}
 	}
 
@@ -106,7 +116,7 @@ public class WorldManager implements IWorldGenerator
 			int posX = chunk_X + random.nextInt(16);
 			int posY = minY + random.nextInt(maxY - minY);
 			int posZ = chunk_Z + random.nextInt(16);
-			(new WorldGenMinable(block, maxVeinSize, meta, Blocks.stone)).generate(world, random, posX, posY, posZ);
+			new WorldGenMinable(block, maxVeinSize, meta, Blocks.stone).generate(world, random, posX, posY, posZ);
 		}
 	}
 

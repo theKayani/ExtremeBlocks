@@ -6,17 +6,18 @@ import main.com.hk.eb.util.BlockCustom;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
+import main.extremeblocks.tileentities.TileEntityDrill;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDrill extends BlockCustom
+public class BlockDrill extends BlockCustom implements ITileEntityProvider
 {
 	public final boolean isHead;
 	private static ArrayList<ItemStack> loot = JavaHelp.newArrayList();
@@ -24,34 +25,51 @@ public class BlockDrill extends BlockCustom
 	public BlockDrill(boolean isHead)
 	{
 		super(Material.iron, "Drill" + (isHead ? " Head" : ""));
-		this.setBlockTextureName(Init.MODID + ":drill" + (isHead ? "_head" : ""));
+		setBlockTextureName(Init.MODID + ":drill" + (isHead ? "_head" : ""));
 		this.isHead = isHead;
 
 		if (isHead)
 		{
-			this.setCreativeTab(Init.tab_mainBlocks);
-			this.setHardness(3.0F);
+			setCreativeTab(Init.tab_mainBlocks);
+			setHardness(3.0F);
 		}
-		else this.setHardness(0.2F);
+		else
+		{
+			setHardness(0.2F);
+		}
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
 	{
-		if (isHead && MPUtil.isServerSide())
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityDrill)
 		{
-			for (int i = 0; i < loot.size(); i++)
-			{
-				if (loot.get(i) != null)
-				{
-					player.inventory.addItemStackToInventory(loot.get(i));
-				}
-			}
-			MPUtil.sendMessage("You have collected " + loot.size() + " blocks!", player);
-			loot.clear();
-			return true;
+			MPUtil.dropItemsAsEntities(world, x, y, z, false, ((TileEntityDrill) te).getStack().toArray(new ItemStack[0]));
 		}
-		return false;
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	@Override
+	public boolean canBlockStay(World world, int x, int y, int z)
+	{
+		return isHead ? true : world.getBlock(x, y - 1, z) instanceof BlockDrill;
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	{
+		if (!canBlockStay(world, x, y, z))
+		{
+			dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+			world.setBlockToAir(x, y, z);
+		}
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(World world, int x, int y, int z)
+	{
+		return canBlockStay(world, x, y, z);
 	}
 
 	@Override
@@ -73,55 +91,6 @@ public class BlockDrill extends BlockCustom
 	}
 
 	@Override
-	public void onBlockAdded(World par1World, int par2, int par3, int par4)
-	{
-		Block block = par1World.getBlock(par2, par3 - 1, par4);
-		if (isHead)
-		{
-			if (block != Blocks.bedrock && !par1World.isAirBlock(par2, par3 - 1, par4))
-			{
-				par1World.setBlock(par2, par3 - 1, par4, Init.drill_pole);
-			}
-			if (block == Init.drill_pole)
-			{
-				par1World.setBlock(par2, par3, par4, Init.drill_pole);
-			}
-		}
-		else
-		{
-			if (block != Blocks.bedrock && !par1World.isAirBlock(par2, par3 - 1, par4))
-			{
-				if (MPUtil.isServerSide())
-				{
-
-					loot.add(new ItemStack(block.getItemDropped(par1World.getBlockMetadata(par2, par3 - 1, par4), par1World.rand, 0)));
-				}
-				par1World.setBlock(par2, par3 - 1, par4, Init.drill_pole);
-			}
-			if (block == Blocks.bedrock || par1World.isAirBlock(par2, par3 - 1, par4))
-			{
-				par1World.setBlock(par2, par3, par4, Init.drill);
-			}
-		}
-	}
-
-	@Override
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block block)
-	{
-		if (isHead)
-		{
-			if (par1World.getBlock(par2, par3 - 1, par4) == Init.drill_pole || par1World.getBlock(par2, par3 - 1, par4) == Init.drill)
-			{
-				par1World.setBlock(par2, par3, par4, Init.drill_pole);
-			}
-			if (par1World.getBlock(par2, par3 - 1, par4) == Blocks.bedrock)
-			{
-				par1World.setBlock(par2, par3, par4, Init.drill);
-			}
-		}
-	}
-
-	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return isHead ? Item.getItemFromBlock(Init.drill) : Init.crushed_stone;
@@ -132,5 +101,11 @@ public class BlockDrill extends BlockCustom
 	public Item getItem(World par1World, int par2, int par3, int par4)
 	{
 		return Item.getItemFromBlock(Init.drill);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int idk)
+	{
+		return isHead ? new TileEntityDrill() : null;
 	}
 }

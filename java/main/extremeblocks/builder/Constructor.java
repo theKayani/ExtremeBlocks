@@ -308,7 +308,7 @@ public class Constructor
 		}
 	}
 
-	private void buildHouse(int stage)
+	public void buildHouse(int stage)
 	{
 		switch (stage)
 		{

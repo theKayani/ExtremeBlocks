@@ -4,18 +4,17 @@ import java.util.Random;
 import main.com.hk.eb.util.BlockCustom;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
+import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
 import main.extremeblocks.tileentities.TileEntityGenerator;
+import main.extremeblocks.tileentities.TileEntityInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -23,7 +22,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockGenerator extends BlockCustom implements ITileEntityProvider
+public class BlockGenerator extends BlockCustom implements ITileEntityProvider, GuiIDs
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon ventIcon;
@@ -35,10 +34,10 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 	public BlockGenerator()
 	{
 		super(Material.iron, "Generator");
-		this.setHardness(2.0F);
-		this.setBlockTextureName("generator");
-		this.setCreativeTab(Init.tab_mainBlocks);
-		this.setTickRandomly(true);
+		setHardness(2.0F);
+		setBlockTextureName("generator");
+		setCreativeTab(Init.tab_mainBlocks);
+		setTickRandomly(true);
 	}
 
 	@Override
@@ -51,10 +50,7 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 		// 3 == -Z
 		// 4 == -X
 		// 5 == +X
-		if (side == 0 || side == 1)
-		{
-			return blockIcon;
-		}
+		if (side == 0 || side == 1) return blockIcon;
 		switch (meta)
 		{
 			case 0:
@@ -145,10 +141,10 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.blockIcon = ir.registerIcon(Init.MODID + ":generator_top");
-		this.ventIcon = ir.registerIcon(Init.MODID + ":generator_vent");
-		this.inputIcon = ir.registerIcon(Init.MODID + ":generator_input");
-		this.frontIcon = ir.registerIcon(Init.MODID + ":generator_front");
+		blockIcon = ir.registerIcon(Init.MODID + ":generator_top");
+		ventIcon = ir.registerIcon(Init.MODID + ":generator_vent");
+		inputIcon = ir.registerIcon(Init.MODID + ":generator_input");
+		frontIcon = ir.registerIcon(Init.MODID + ":generator_front");
 	}
 
 	@Override
@@ -197,7 +193,7 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		super.onBlockAdded(world, x, y, z);
-		this.setupOrientation(world, x, y, z);
+		setupOrientation(world, x, y, z);
 	}
 
 	private void setupOrientation(World world, int x, int y, int z)
@@ -241,7 +237,7 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 	{
 		if (!player.isSneaking())
 		{
-			player.openGui(ExtremeBlocks.instance, 8, world, x, y, z);
+			player.openGui(ExtremeBlocks.instance, TILE_GENERATOR, world, x, y, z);
 			return true;
 		}
 		return false;
@@ -250,34 +246,7 @@ public class BlockGenerator extends BlockCustom implements ITileEntityProvider
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block par5, int par6)
 	{
-		Random rand = new Random();
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (!(tileEntity instanceof IInventory))
-		{
-			return;
-		}
-		IInventory inventory = (IInventory) tileEntity;
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
-		{
-			ItemStack item = inventory.getStackInSlot(i);
-			if (item != null && item.stackSize > 0)
-			{
-				float rx = rand.nextFloat() * 0.8F + 0.1F;
-				float ry = rand.nextFloat() * 0.8F + 0.1F;
-				float rz = rand.nextFloat() * 0.8F + 0.1F;
-				EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, item.copy());
-				if (item.hasTagCompound())
-				{
-					entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-				}
-				float factor = 0.05F;
-				entityItem.motionX = rand.nextGaussian() * factor;
-				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-				entityItem.motionZ = rand.nextGaussian() * factor;
-				world.spawnEntityInWorld(entityItem);
-				item.stackSize = 0;
-			}
-		}
+		TileEntityInventory.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, par5, par6);
 	}
 

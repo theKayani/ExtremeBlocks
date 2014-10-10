@@ -2,7 +2,7 @@ package main.extremeblocks.blocks;
 
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
-import main.extremeblocks.worldgen.WorldGenDriedTree;
+import main.extremeblocks.worldgen.WorldGenHouse;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,9 +28,10 @@ public class BlockDriedSapling extends BlockBush
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float sideX, float sideY, float sideZ)
 	{
-		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.dye)
+		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.arrow)
 		{
-			new WorldGenDriedTree().generate(world, world.rand, x, y, z);
+			// new WorldGenDriedTree().generate(world, world.rand, x, y, z);
+			new WorldGenHouse().generate(world, world.rand, x, y, z);
 		}
 		return true;
 	}

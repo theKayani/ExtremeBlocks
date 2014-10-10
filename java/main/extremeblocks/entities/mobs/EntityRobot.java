@@ -5,6 +5,7 @@ import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiHandler;
+import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.ai.EntityAIHarvestCrops;
@@ -45,7 +46,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityRobot extends EntityCreature implements MobSelectors, IRangedAttackMob
+public class EntityRobot extends EntityCreature implements MobSelectors, IRangedAttackMob, GuiIDs
 {
 	public boolean stayStill, isOff, hasHome;
 	public int[] homePosition = { 0, 0, 0 };
@@ -67,13 +68,13 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	public EntityRobot(World world)
 	{
 		super(world);
-		this.setSize(0.6F, 1.8F);
-		this.getNavigator().setAvoidsWater(true);
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAITempt(this, 1.5D, Items.gold_nugget, false));
-		this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
+		setSize(0.6F, 1.8F);
+		getNavigator().setAvoidsWater(true);
+		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new EntityAITempt(this, 1.5D, Items.gold_nugget, false));
+		tasks.addTask(4, new EntityAIWander(this, 1.0D));
+		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
 		counter = 300;
 
 		aiSwitchWeapons = new EntityAISwitchWeapons(this, 1.0D, 20, 60, 15.0F, Items.iron_sword, Items.bow);
@@ -105,32 +106,35 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50.0D);
+		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
 	}
 
 	@Override
-	public void attackEntityWithRangedAttack(EntityLivingBase target, float par1)
+	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
 	{
-		EntityArrow entityarrow = new EntityArrow(this.worldObj, this, 0.4F);
-		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.posY -= 1.0D;
-		entityarrow.setDamage(par1 * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
+		EntityArrow entityarrow = new EntityArrow(worldObj, this, p_82196_1_, 1.6F, 14 - worldObj.difficultySetting.getDifficultyId() * 4);
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, getHeldItem());
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, getHeldItem());
+		entityarrow.setDamage(p_82196_2_ * 2.0F + rand.nextGaussian() * 0.25D + worldObj.difficultySetting.getDifficultyId() * 0.11F);
+
 		if (i > 0)
 		{
 			entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
 		}
+
 		if (j > 0)
 		{
 			entityarrow.setKnockbackStrength(j);
 		}
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0)
+
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, getHeldItem()) > 0)
 		{
 			entityarrow.setFire(100);
 		}
-		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(entityarrow);
+
+		playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+		worldObj.spawnEntityInWorld(entityarrow);
 	}
 
 	@Override
@@ -149,47 +153,48 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	@Override
 	public void damageArmor(float damage)
 	{
-		this.inv.damageArmor(damage);
+		inv.damageArmor(damage);
 	}
 
 	@Override
 	public int getTotalArmorValue()
 	{
-		return this.inv.getTotalArmorValue();
+		return inv.getTotalArmorValue();
 	}
 
 	@Override
 	public ItemStack getEquipmentInSlot(int slot)
 	{
-		return this.inv.inventory[slot];
+		return inv.inventory[slot];
 	}
 
 	@Override
 	public ItemStack func_130225_q(int p_130225_1_)
 	{
-		return this.inv.inventory[p_130225_1_ + 1];
+		return inv.inventory[p_130225_1_ + 1];
 	}
 
 	@Override
 	public void setCurrentItemOrArmor(int slot, ItemStack item)
 	{
-		this.inv.inventory[slot] = item;
+		inv.inventory[slot] = item;
 	}
 
 	@Override
 	public ItemStack getHeldItem()
 	{
-		return this.inv.getHeldItem();
+		return inv.getHeldItem();
 	}
 
 	@Override
 	public ItemStack[] getLastActiveItems()
 	{
 		ItemStack[] eq = new ItemStack[5];
-		for (int i = 0; i < eq.length; i++)
-		{
-			eq[i] = this.inv.inventory[i];
-		}
+		eq[0] = inv.getHeldItem();
+		eq[1] = inv.inventory[2];
+		eq[2] = inv.inventory[1];
+		eq[3] = inv.inventory[4];
+		eq[4] = inv.inventory[3];
 		return eq;
 	}
 
@@ -200,11 +205,11 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 			endTask();
 			if (isRanging)
 			{
-				this.tasks.addTask(2, this.aiArrowAttack);
+				tasks.addTask(2, aiArrowAttack);
 			}
 			else
 			{
-				this.tasks.addTask(2, this.aiAttackOnCollide);
+				tasks.addTask(2, aiAttackOnCollide);
 			}
 		}
 	}
@@ -245,8 +250,8 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	{
 		if (!player.isSneaking())
 		{
-			GuiHandler.entityID = this.getEntityId();
-			player.openGui(ExtremeBlocks.instance, 5, worldObj, (int) posX, (int) posY, (int) posZ);
+			GuiHandler.entityID = getEntityId();
+			player.openGui(ExtremeBlocks.instance, GUI_ROBOT, worldObj, (int) posX, (int) posY, (int) posZ);
 		}
 		return true;
 	}
@@ -256,19 +261,19 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	{
 		if (looting > 0)
 		{
-			this.dropItem(Init.power_core, 1);
-			this.dropItem(Init.robot_arm, 2);
-			this.dropItem(Init.robot_head, 1);
-			this.dropItem(Init.robot_leg, 2);
-			this.dropItem(Init.robot_torso, 1);
+			dropItem(Init.power_core, 1);
+			dropItem(Init.robot_arm, 2);
+			dropItem(Init.robot_head, 1);
+			dropItem(Init.robot_leg, 2);
+			dropItem(Init.robot_torso, 1);
 		}
 		else
 		{
-			this.dropItem(Init.power_core, getRNG().nextInt(2));
-			this.dropItem(Init.robot_arm, getRNG().nextInt(3));
-			this.dropItem(Init.robot_head, getRNG().nextInt(2));
-			this.dropItem(Init.robot_leg, getRNG().nextInt(3));
-			this.dropItem(Init.robot_torso, getRNG().nextInt(2));
+			dropItem(Init.power_core, getRNG().nextInt(2));
+			dropItem(Init.robot_arm, getRNG().nextInt(3));
+			dropItem(Init.robot_head, getRNG().nextInt(2));
+			dropItem(Init.robot_leg, getRNG().nextInt(3));
+			dropItem(Init.robot_torso, getRNG().nextInt(2));
 		}
 	}
 
@@ -283,10 +288,10 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 				worldObj.spawnEntityInWorld(newVanillaClone());
 				return;
 			}
-			if (this.isWet() && hitCounter++ >= 100)
+			if (isWet() && hitCounter++ >= 100)
 			{
 				hitCounter = 0;
-				this.attackEntityFrom(DamageSource.drown, 1.0F);
+				attackEntityFrom(DamageSource.drown, 1.0F);
 			}
 			if (foodDelay++ > 40)
 			{
@@ -298,13 +303,13 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 			}
 			if (counter++ > 200)
 			{
-				this.syncServerAndClient(false);
+				syncServerAndClient(false);
 				counter = 0;
 			}
 		}
 		if (hasHome && !workingTask())
 		{
-			this.getNavigator().tryMoveToXYZ(homePosition[0], homePosition[1], homePosition[2], 1.0F);
+			getNavigator().tryMoveToXYZ(homePosition[0], homePosition[1], homePosition[2], 1.0F);
 		}
 		super.onLivingUpdate();
 	}
@@ -333,14 +338,14 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	public void readEntityFromNBT(NBTTagCompound nbt)
 	{
 		super.readEntityFromNBT(nbt);
-		this.stayStill = nbt.getBoolean("Stay Still");
-		this.isOff = nbt.getBoolean("Is Off");
-		this.onTask = nbt.getBoolean("On Task");
-		this.type = RobotType.values()[nbt.getInteger("Type")];
-		this.hitCounter = nbt.getInteger("Water Counter");
-		this.foodDelay = nbt.getInteger("Food Delay");
-		this.hasHome = nbt.getBoolean("Has Home");
-		this.homePosition = nbt.getIntArray("Home Position");
+		stayStill = nbt.getBoolean("Stay Still");
+		isOff = nbt.getBoolean("Is Off");
+		onTask = nbt.getBoolean("On Task");
+		type = RobotType.values()[nbt.getInteger("Type")];
+		hitCounter = nbt.getInteger("Water Counter");
+		foodDelay = nbt.getInteger("Food Delay");
+		hasHome = nbt.getBoolean("Has Home");
+		homePosition = nbt.getIntArray("Home Position");
 		inv.readEntityFromNBT(nbt);
 
 		if (onTask)
@@ -357,13 +362,13 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 	public void endTask()
 	{
 		onTask = false;
-		this.targetTasks.removeTask(this.aiHostileMobAttack);
-		this.targetTasks.removeTask(this.aiPeacefulMobAttack);
-		this.tasks.removeTask(this.aiHarvestCrops);
-		this.tasks.removeTask(this.aiRobotMine);
-		this.tasks.removeTask(this.aiArrowAttack);
-		this.tasks.removeTask(this.aiSwitchWeapons);
-		this.tasks.removeTask(this.aiAttackOnCollide);
+		targetTasks.removeTask(aiHostileMobAttack);
+		targetTasks.removeTask(aiPeacefulMobAttack);
+		tasks.removeTask(aiHarvestCrops);
+		tasks.removeTask(aiRobotMine);
+		tasks.removeTask(aiArrowAttack);
+		tasks.removeTask(aiSwitchWeapons);
+		tasks.removeTask(aiAttackOnCollide);
 	}
 
 	public void beginTask(EntityPlayer player, boolean justBegin)
@@ -375,32 +380,32 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 			{
 				case ARCHER:
 				{
-					this.tasks.addTask(2, aiArrowAttack);
-					this.targetTasks.addTask(1, aiHostileMobAttack);
+					tasks.addTask(2, aiArrowAttack);
+					targetTasks.addTask(1, aiHostileMobAttack);
 					break;
 				}
 				case FARMER:
 				{
-					this.tasks.addTask(2, aiHarvestCrops);
+					tasks.addTask(2, aiHarvestCrops);
 					break;
 				}
 				case HUNTER:
 				{
-					this.targetTasks.addTask(1, aiPeacefulMobAttack);
-					this.tasks.addTask(2, aiSwitchWeapons);
+					targetTasks.addTask(1, aiPeacefulMobAttack);
+					tasks.addTask(2, aiSwitchWeapons);
 					break;
 				}
 				case MINER:
 				{
-					this.startMining = true;
-					this.aiRobotMine.top = posY + 3;
-					this.tasks.addTask(2, aiRobotMine);
+					startMining = true;
+					aiRobotMine.top = posY + 3;
+					tasks.addTask(2, aiRobotMine);
 					break;
 				}
 				case WARRIOR:
 				{
-					this.tasks.addTask(2, aiAttackOnCollide);
-					this.targetTasks.addTask(1, aiHostileMobAttack);
+					tasks.addTask(2, aiAttackOnCollide);
+					targetTasks.addTask(1, aiHostileMobAttack);
 					break;
 				}
 				default:
@@ -519,7 +524,7 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 
 		private RobotType(Item... items)
 		{
-			this.name = name().charAt(0) + name().toLowerCase().substring(1);
+			name = name().charAt(0) + name().toLowerCase().substring(1);
 			this.items = items;
 		}
 	}

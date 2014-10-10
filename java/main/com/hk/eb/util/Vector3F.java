@@ -1,11 +1,12 @@
 package main.com.hk.eb.util;
 
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Vector3F implements Cloneable, java.io.Serializable
 {
 	static final long serialVersionUID = 1;
-	private static final Logger logger = Logger.getLogger(Vector3F.class.getName());
+	private static final Logger logger = LogManager.getLogger(Vector3F.class.getSimpleName());
 	public final static Vector3F ZERO = new Vector3F(0, 0, 0);
 	public final static Vector3F NAN = new Vector3F(Float.NaN, Float.NaN, Float.NaN);
 	public final static Vector3F UNIT_X = new Vector3F(1, 0, 0);
@@ -97,9 +98,9 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F set(Vector3F vect)
 	{
-		this.x = vect.x;
-		this.y = vect.y;
-		this.z = vect.z;
+		x = vect.x;
+		y = vect.y;
+		z = vect.z;
 		return this;
 	}
 
@@ -117,7 +118,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
 		return new Vector3F(x + vec.x, y + vec.y, z + vec.z);
@@ -155,7 +156,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
 		x += vec.x;
@@ -234,9 +235,9 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F scaleAdd(float scalar, Vector3F mult, Vector3F add)
 	{
-		this.x = mult.x * scalar + add.x;
-		this.y = mult.y * scalar + add.y;
-		this.z = mult.z * scalar + add.z;
+		x = mult.x * scalar + add.x;
+		y = mult.y * scalar + add.y;
+		z = mult.z * scalar + add.z;
 		return this;
 	}
 
@@ -253,7 +254,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, 0 returned.");
+			logger.warn("Provided vector is null, 0 returned.");
 			return 0;
 		}
 		return x * vec.x + y * vec.y + z * vec.z;
@@ -306,10 +307,13 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F cross(float otherX, float otherY, float otherZ, Vector3F result)
 	{
-		if (result == null) result = new Vector3F();
-		float resX = ((y * otherZ) - (z * otherY));
-		float resY = ((z * otherX) - (x * otherZ));
-		float resZ = ((x * otherY) - (y * otherX));
+		if (result == null)
+		{
+			result = new Vector3F();
+		}
+		float resX = y * otherZ - z * otherY;
+		float resY = z * otherX - x * otherZ;
+		float resZ = x * otherY - y * otherX;
 		result.set(resX, resY, resZ);
 		return result;
 	}
@@ -344,9 +348,9 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F crossLocal(float otherX, float otherY, float otherZ)
 	{
-		float tempx = (y * otherZ) - (z * otherY);
-		float tempy = (z * otherX) - (x * otherZ);
-		z = (x * otherY) - (y * otherX);
+		float tempx = y * otherZ - z * otherY;
+		float tempy = z * otherX - x * otherZ;
+		z = x * otherY - y * otherX;
 		x = tempx;
 		y = tempy;
 		return this;
@@ -361,7 +365,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F project(Vector3F other)
 	{
-		float n = this.dot(other); // A . B
+		float n = dot(other); // A . B
 		float d = other.lengthSquared(); // |B|^2
 		return new Vector3F(other).normalizeLocal().multLocal(n / d);
 	}
@@ -376,7 +380,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F projectLocal(Vector3F other)
 	{
-		float n = this.dot(other); // A . B
+		float n = dot(other); // A . B
 		float d = other.lengthSquared(); // |B|^2
 		return set(other).normalizeLocal().multLocal(n / d);
 	}
@@ -510,7 +514,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
 		x *= vec.x;
@@ -549,7 +553,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
 		return mult(vec, null);
@@ -570,10 +574,13 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
-		if (store == null) store = new Vector3F();
+		if (store == null)
+		{
+			store = new Vector3F();
+		}
 		return store.set(x * vec.x, y * vec.y, z * vec.z);
 	}
 
@@ -693,7 +700,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		if (null == vec)
 		{
-			logger.warning("Provided vector is null, null returned.");
+			logger.warn("Provided vector is null, null returned.");
 			return null;
 		}
 		x -= vec.x;
@@ -872,9 +879,9 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F interpolate(Vector3F finalVec, float changeAmnt)
 	{
-		this.x = (1 - changeAmnt) * this.x + changeAmnt * finalVec.x;
-		this.y = (1 - changeAmnt) * this.y + changeAmnt * finalVec.y;
-		this.z = (1 - changeAmnt) * this.z + changeAmnt * finalVec.z;
+		x = (1 - changeAmnt) * x + changeAmnt * finalVec.x;
+		y = (1 - changeAmnt) * y + changeAmnt * finalVec.y;
+		z = (1 - changeAmnt) * z + changeAmnt * finalVec.z;
 		return this;
 	}
 
@@ -892,9 +899,9 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F interpolate(Vector3F beginVec, Vector3F finalVec, float changeAmnt)
 	{
-		this.x = (1 - changeAmnt) * beginVec.x + changeAmnt * finalVec.x;
-		this.y = (1 - changeAmnt) * beginVec.y + changeAmnt * finalVec.y;
-		this.z = (1 - changeAmnt) * beginVec.z + changeAmnt * finalVec.z;
+		x = (1 - changeAmnt) * beginVec.x + changeAmnt * finalVec.x;
+		y = (1 - changeAmnt) * beginVec.y + changeAmnt * finalVec.y;
+		z = (1 - changeAmnt) * beginVec.z + changeAmnt * finalVec.z;
 		return this;
 	}
 
@@ -955,16 +962,11 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 *            the object to compare for equality
 	 * @return true if they are equal
 	 */
+	@Override
 	public boolean equals(Object o)
 	{
-		if (!(o instanceof Vector3F))
-		{
-			return false;
-		}
-		if (this == o)
-		{
-			return true;
-		}
+		if (!(o instanceof Vector3F)) return false;
+		if (this == o) return true;
 		Vector3F comp = (Vector3F) o;
 		if (Float.compare(x, comp.x) != 0) return false;
 		if (Float.compare(y, comp.y) != 0) return false;
@@ -979,6 +981,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 * 
 	 * @return the hash code value of this vector.
 	 */
+	@Override
 	public int hashCode()
 	{
 		int hash = 37;
@@ -996,6 +999,7 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 * 
 	 * @return the string representation of this vector.
 	 */
+	@Override
 	public String toString()
 	{
 		return "(" + x + ", " + y + ", " + z + ")";

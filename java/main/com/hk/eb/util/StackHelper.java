@@ -5,6 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class StackHelper
 {
@@ -189,6 +193,15 @@ public class StackHelper
 		}
 	}
 
+	public static ItemStack consumeItem(ItemStack stack, int amount)
+	{
+		for (int i = 0; i < amount; i++)
+		{
+			stack = consumeItem(stack);
+		}
+		return stack;
+	}
+
 	public static ItemStack consumeItem(ItemStack stack)
 	{
 		if (stack.stackSize == 1)
@@ -201,5 +214,55 @@ public class StackHelper
 			stack.splitStack(1);
 			return stack;
 		}
+	}
+
+	public static NBTTagCompound saveToNBT(ItemStack[] stacks)
+	{
+		NBTTagCompound compound = new NBTTagCompound();
+		NBTTagList items = new NBTTagList();
+		for (int i = 0; i < stacks.length; ++i)
+		{
+			if (stacks[i] != null)
+			{
+				NBTTagCompound item = new NBTTagCompound();
+				item.setByte("Slot", (byte) i);
+				stacks[i].writeToNBT(item);
+				items.appendTag(item);
+			}
+		}
+		compound.setTag("Items", items);
+		return compound;
+	}
+
+	public static ItemStack[] loadFromNBT(int size, NBTTagCompound compound)
+	{
+		ItemStack[] inventory = new ItemStack[size];
+		NBTTagList items = compound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < items.tagCount(); ++i)
+		{
+			NBTTagCompound item = items.getCompoundTagAt(i);
+			byte slot = item.getByte("Slot");
+			if (slot >= 0 && slot < inventory.length)
+			{
+				inventory[slot] = ItemStack.loadItemStackFromNBT(item);
+			}
+		}
+		return inventory;
+	}
+
+	public static ItemStack[] asItemStacks(Item... items)
+	{
+		if (items.length <= 0) return new ItemStack[0];
+		ItemStack[] stacks = new ItemStack[items.length];
+		for (int i = 0; i < stacks.length; i++)
+		{
+			stacks[i] = new ItemStack(items[i]);
+		}
+		return stacks;
+	}
+
+	public static boolean areStacksSameTypeCrafting(ItemStack stack1, ItemStack stack2)
+	{
+		return stack1 != null && stack2 != null && stack1.getItem() == stack2.getItem() && stack1.stackSize >= stack2.stackSize && (stack1.getItemDamage() == stack2.getItemDamage() || stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack2.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack1.getItem().isDamageable());
 	}
 }

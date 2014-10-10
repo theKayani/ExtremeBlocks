@@ -72,13 +72,12 @@ public class Builder
 		}
 		length /= 2;
 		width /= 2;
-		height /= 2;
 		int i, j, k;
 		for (i = -length; i < length + 1; i++)
 		{
 			for (j = -width; j < width + 1; j++)
 			{
-				for (k = -height; k < height + 1; k++)
+				for (k = 0; k < height + 1; k++)
 				{
 					if (!world.isAirBlock(baseX + x + i, baseY + y + j, baseZ + z + k)) return false;
 				}

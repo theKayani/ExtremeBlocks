@@ -16,6 +16,8 @@ public class Vars
 	public static boolean addEvilIronGolem;
 	public static boolean addLightedBlocks;
 	public static boolean addFakeFloors;
+	public static boolean genHouse;
+	public static boolean checkVersion;
 	public static int copperSR;
 	public static int trinquantiumSR;
 	public static int tinSR;
@@ -40,8 +42,8 @@ public class Vars
 	// Trees
 	public static int numbOfTrees;
 	public static int spawnedTrees;
-	public static final String CG = "general";
-	public static final String SR = "ore spawn rates";
-	public static final String GO = "generate options";
-	public static final String CM = "mob options";
+	public static final String CG = Config.generalConfig;
+	public static final String SR = Config.oresConfig;
+	public static final String GO = Config.worldConfig;
+	public static final String CM = Config.mobConfig;
 }

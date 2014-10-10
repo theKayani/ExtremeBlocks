@@ -26,7 +26,7 @@ public class Rand
 		return rand.nextBoolean();
 	}
 
-	public static boolean isPercent(int percent)
+	public static boolean isPercent(float percent)
 	{
 		if (percent > nextInt(100)) return true;
 		return false;

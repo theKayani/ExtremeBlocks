@@ -6,9 +6,11 @@ import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -19,6 +21,29 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EBEventHandler
 {
+	@SubscribeEvent
+	public void onEntityJoin(EntityJoinWorldEvent event)
+	{
+		if (event.entity instanceof EntityPlayer)
+		{
+			if (VersionChecker.shouldUpdate())
+			{
+				if (Vars.checkVersion)
+				{
+					MPUtil.sendMessage("New EB Version Available: " + VersionChecker.getNewVersion() + ", Log: " + VersionChecker.getMessage(), (EntityPlayer) event.entity);
+				}
+				else
+				{
+					Init.logger.info("Checking Versions was disabled.");
+				}
+			}
+			else
+			{
+				Init.logger.info("No New Version for Extreme Block found! Good Job!");
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onBlockBreak(BreakEvent event)
 	{

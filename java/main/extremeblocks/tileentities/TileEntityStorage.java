@@ -26,27 +26,29 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	{
 		this.block = block;
 		this.storageSlots = storageSlots;
-		this.items = new ItemStack[this.storageSlots];
+		items = new ItemStack[this.storageSlots];
 		this.texturePath = texturePath;
 		this.customName = customName;
-		this.xSize = block.xSize;
-		this.ySize = block.ySize;
+		xSize = block.xSize;
+		ySize = block.ySize;
 	}
 
 	/**
 	 * Returns the number of slots in the inventory.
 	 */
+	@Override
 	public int getSizeInventory()
 	{
-		return this.storageSlots;
+		return storageSlots;
 	}
 
 	/**
 	 * Returns the stack in slot i
 	 */
+	@Override
 	public ItemStack getStackInSlot(int par1)
 	{
-		return this.items[par1];
+		return items[par1];
 	}
 
 	public ItemStack[] getItems()
@@ -58,33 +60,31 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 * Removes from an inventory slot (first arg) up to a specified number
 	 * (second arg) of items and returns them in a new stack.
 	 */
+	@Override
 	public ItemStack decrStackSize(int par1, int par2)
 	{
-		if (this.items[par1] != null)
+		if (items[par1] != null)
 		{
 			ItemStack itemstack;
-			if (this.items[par1].stackSize <= par2)
+			if (items[par1].stackSize <= par2)
 			{
-				itemstack = this.items[par1];
-				this.items[par1] = null;
-				this.markDirty();
+				itemstack = items[par1];
+				items[par1] = null;
+				markDirty();
 				return itemstack;
 			}
 			else
 			{
-				itemstack = this.items[par1].splitStack(par2);
-				if (this.items[par1].stackSize == 0)
+				itemstack = items[par1].splitStack(par2);
+				if (items[par1].stackSize == 0)
 				{
-					this.items[par1] = null;
+					items[par1] = null;
 				}
-				this.markDirty();
+				markDirty();
 				return itemstack;
 			}
 		}
-		else
-		{
-			return null;
-		}
+		else return null;
 	}
 
 	/**
@@ -92,32 +92,31 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 * whatever it returns as an EntityItem - like when you close a workbench
 	 * GUI.
 	 */
+	@Override
 	public ItemStack getStackInSlotOnClosing(int par1)
 	{
-		if (this.items[par1] != null)
+		if (items[par1] != null)
 		{
-			ItemStack itemstack = this.items[par1];
-			this.items[par1] = null;
+			ItemStack itemstack = items[par1];
+			items[par1] = null;
 			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		else return null;
 	}
 
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be
 	 * crafting or armor sections).
 	 */
+	@Override
 	public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
 	{
-		this.items[par1] = par2ItemStack;
-		if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+		items[par1] = par2ItemStack;
+		if (par2ItemStack != null && par2ItemStack.stackSize > getInventoryStackLimit())
 		{
-			par2ItemStack.stackSize = this.getInventoryStackLimit();
+			par2ItemStack.stackSize = getInventoryStackLimit();
 		}
-		this.markDirty();
+		markDirty();
 	}
 
 	/**
@@ -125,11 +124,11 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 */
 	public int addItem(ItemStack par1ItemStack)
 	{
-		for (int i = 0; i < this.items.length; ++i)
+		for (int i = 0; i < items.length; ++i)
 		{
-			if (this.items[i] == null)
+			if (items[i] == null)
 			{
-				this.setInventorySlotContents(i, par1ItemStack);
+				setInventorySlotContents(i, par1ItemStack);
 				return i;
 			}
 		}
@@ -143,63 +142,65 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 */
 	public boolean isInvNameLocalized()
 	{
-		return this.customName != null;
+		return customName != null;
 	}
 
 	/**
 	 * Reads a tile entity from NBT.
 	 */
+	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		this.xSize = nbt.getInteger("X Size");
-		this.ySize = nbt.getInteger("Y Size");
-		this.block = BlockStorage.getByID(nbt.getInteger("Storage Block"));
-		this.storageSlots = nbt.getInteger("Storage Slots");
-		this.texturePath = nbt.getString("Texture Path");
+		xSize = nbt.getInteger("X Size");
+		ySize = nbt.getInteger("Y Size");
+		block = BlockStorage.getByID(nbt.getInteger("Storage Block"));
+		storageSlots = nbt.getInteger("Storage Slots");
+		texturePath = nbt.getString("Texture Path");
 		NBTTagList nbttaglist = (NBTTagList) nbt.getTag("Items");
-		this.items = new ItemStack[this.getSizeInventory()];
+		items = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
-			if (j >= 0 && j < this.items.length)
+			if (j >= 0 && j < items.length)
 			{
-				this.items[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+				items[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
 		if (nbt.hasKey("CustomName"))
 		{
-			this.customName = nbt.getString("CustomName");
+			customName = nbt.getString("CustomName");
 		}
 	}
 
 	/**
 	 * Writes a tile entity to NBT.
 	 */
+	@Override
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setInteger("Storage Block", block.id);
 		par1NBTTagCompound.setInteger("X Size", xSize);
 		par1NBTTagCompound.setInteger("Y Size", ySize);
-		par1NBTTagCompound.setInteger("Storage Slots", this.storageSlots);
-		par1NBTTagCompound.setString("Texture Path", this.texturePath);
+		par1NBTTagCompound.setInteger("Storage Slots", storageSlots);
+		par1NBTTagCompound.setString("Texture Path", texturePath);
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.items.length; ++i)
+		for (int i = 0; i < items.length; ++i)
 		{
-			if (this.items[i] != null)
+			if (items[i] != null)
 			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
-				this.items[i].writeToNBT(nbttagcompound1);
+				items[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
 		par1NBTTagCompound.setTag("Items", nbttaglist);
-		if (this.isInvNameLocalized())
+		if (isInvNameLocalized())
 		{
-			par1NBTTagCompound.setString("CustomName", this.customName);
+			par1NBTTagCompound.setString("CustomName", customName);
 		}
 	}
 
@@ -207,6 +208,7 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 * Returns the maximum stack size for a inventory slot. Seems to always be
 	 * 64, possibly will be extended. *Isn't this more of a set than a get?*
 	 */
+	@Override
 	public int getInventoryStackLimit()
 	{
 		return 64;
@@ -216,15 +218,17 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 * Do not make give this method the name canInteractWith because it clashes
 	 * with Container
 	 */
+	@Override
 	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : par1EntityPlayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
 	}
 
 	/**
 	 * Returns true if automation is allowed to insert the given stack (ignoring
 	 * stack size) into the given slot.
 	 */
+	@Override
 	public boolean isItemValidForSlot(int par1, ItemStack is)
 	{
 		return true;
@@ -233,7 +237,7 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	@Override
 	public String getInventoryName()
 	{
-		return this.customName;
+		return customName;
 	}
 
 	@Override
@@ -259,16 +263,16 @@ public class TileEntityStorage extends TileEntity implements IInventory
 
 	public Slot[] addSlotsToContainer()
 	{
-		return block.addSlotsToContainer(this);// slots.toArray(new Slot[0]);
+		return block.addSlotsToContainer(this);
 	}
 
 	public int getXSize()
 	{
-		return this.xSize;
+		return xSize;
 	}
 
 	public int getYSize()
 	{
-		return this.ySize;
+		return ySize;
 	}
 }

@@ -59,4 +59,14 @@ public class JavaHelp
 		if (objs.length > 0) return objs[Rand.nextInt(objs.length - 1)];
 		return null;
 	}
+
+	public static boolean isVowel(char ch)
+	{
+		return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';
+	}
+
+	public static boolean startsWithVowel(String string)
+	{
+		return string.length() > 0 && isVowel(string.charAt(0));
+	}
 }

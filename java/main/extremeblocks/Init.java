@@ -20,6 +20,8 @@ import main.extremeblocks.blocks.BlockGenerator;
 import main.extremeblocks.blocks.BlockHemp;
 import main.extremeblocks.blocks.BlockHydrant;
 import main.extremeblocks.blocks.BlockLantern;
+import main.extremeblocks.blocks.BlockMedal;
+import main.extremeblocks.blocks.BlockMedal.MedalType;
 import main.extremeblocks.blocks.BlockPlate;
 import main.extremeblocks.blocks.BlockPowderKeg;
 import main.extremeblocks.blocks.BlockProtector;
@@ -65,11 +67,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldType;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static final String VERSION = "6.1";
+	public static final String VERSION = "6.2";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -93,10 +97,6 @@ public class Init
 	public static final Item silver_ingot = new ItemCustom("Silver Ingot", tab_mainItems).setTextureName(MODID + ":silver_ingot");
 	public static final Item trinquantium_ingot = new ItemCustom("Trinquantium Ingot", tab_mainItems).setTextureName(MODID + ":trinquantium_ingot");
 	public static final Item crushed_stone = new ItemCustom("Crushed Stone", tab_mainItems).setTextureName(MODID + ":crushed_stone");
-	public static final Item bronze_medal = new ItemCustom("Bronze Medal", tab_mainItems).setTextureName(MODID + ":bronze_medal");
-	public static final Item silver_medal = new ItemCustom("Silver Medal", tab_mainItems).setTextureName(MODID + ":silver_medal");
-	public static final Item gold_medal = new ItemCustom("Gold Medal", tab_mainItems).setTextureName(MODID + ":gold_medal");
-	public static final Item trinquantium_medal = new ItemCustom("Trinquantium Medal", tab_mainItems).setTextureName(MODID + ":trinquantium_medal");
 	public static final Item copper = new ItemCustom("Copper", tab_mainItems).setTextureName(MODID + ":copper");
 	public static final Item tin = new ItemCustom("Tin", tab_mainItems).setTextureName(MODID + ":tin");
 	public static final Item copper_and_tin_lump = new ItemCustom("Copper and Tin Lump", tab_mainItems).setTextureName(MODID + ":copper_tin_lump");
@@ -160,7 +160,6 @@ public class Init
 	public static BlockStorage barrel;
 	public static BlockStorage cabinet;
 	public static BlockStorage strongbox;
-	public static BlockStorage armor_stand;
 	public static BlockStorage big_crate;
 	public static BlockStorage large_crate;
 	public static BlockStorage small_crate;
@@ -220,6 +219,12 @@ public class Init
 	public static final Block cucumber_crop = new BlockCrop("Cucumber Crop", cucumber_seeds, cucumber);
 	public static final Block arrow_security = new BlockProtector();
 	public static final Block recipe_revert = new BlockRecipeRevert();
+	public static final Block gold_medal = new BlockMedal(MedalType.GOLD);
+	public static final Block bronze_medal = new BlockMedal(MedalType.BRONZE);
+	public static final Block diamond_medal = new BlockMedal(MedalType.DIAMOND);
+	public static final Block silver_medal = new BlockMedal(MedalType.SILVER);
+	public static final Block trinquantium_medal = new BlockMedal(MedalType.TRINQUANTIUM);
+	public static final Block iron_medal = new BlockMedal(MedalType.IRON);
 
 	public Init()
 	{
@@ -245,7 +250,7 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(counter), "X#", 'X', core_chip, '#', Blocks.wooden_button);
 		MPUtil.addRecipe(new ItemStack(counter), "X#", 'X', core_chip, '#', Blocks.stone_button);
 		MPUtil.addRecipe(new ItemStack(console), "XXX", "X#X", "XXB", 'X', plastic, '#', core_chip, 'B', light);
-		MPUtil.addRecipe(new ItemStack(drill), "XXX", "#B#", " # ", 'X', Items.iron_ingot, '#', Items.diamond, 'B', Items.redstone);
+		MPUtil.addRecipe(new ItemStack(drill), "XXX", "#B#", " S ", 'X', Items.iron_ingot, '#', Items.diamond, 'B', Items.redstone, 'S', Blocks.diamond_block);
 		MPUtil.addRecipe(new ItemStack(fake_gravel), "XX", 'X', Blocks.gravel);
 		MPUtil.addRecipe(new ItemStack(fake_sand), "XX", 'X', Blocks.sand);
 		MPUtil.addRecipe(new ItemStack(fire_hydrant), " # ", "#X#", "XBX", '#', Items.iron_ingot, 'X', pipes, 'B', Items.flint);
@@ -274,18 +279,18 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(bronze_medal, 3), " # ", "###", "###", '#', bronze_ingot);
 		MPUtil.addRecipe(new ItemStack(silver_medal, 3), " # ", "###", "###", '#', silver_ingot);
 		MPUtil.addRecipe(new ItemStack(gold_medal, 3), " # ", "###", "###", '#', Items.gold_ingot);
+		MPUtil.addRecipe(new ItemStack(diamond_medal, 3), " # ", "###", "###", '#', Items.diamond);
+		MPUtil.addRecipe(new ItemStack(trinquantium_medal, 3), " # ", "###", "###", '#', trinquantium_ingot);
+		MPUtil.addRecipe(new ItemStack(iron_medal, 3), " # ", "###", "###", '#', Items.iron_ingot);
 		MPUtil.addRecipe(new ItemStack(copper_and_tin_lump, 3), "#X#", "X#X", '#', copper, 'X', tin);
 		MPUtil.addRecipe(new ItemStack(copper_and_tin_lump, 3), "#X#", "X#X", 'X', copper, '#', tin);
-		MPUtil.addRecipe(new ItemStack(trinquantium_medal, 3), " # ", "###", "###", '#', trinquantium_ingot);
 		MPUtil.addRecipe(new ItemStack(weak_cement_wall), "###", "#X#", "###", '#', crushed_stone, 'X', Items.water_bucket);
 		MPUtil.addRecipe(new ItemStack(fuse), "##", '#', Items.gunpowder);
 		MPUtil.addRecipe(new ItemStack(powder_keg), "#X#", "#X#", '#', Items.gunpowder, 'X', fuse);
 		MPUtil.addRecipe(new ItemStack(meteor), "##", "##", '#', meteorite_shards);
-		MPUtil.addRecipe(new ItemStack(strongbox), "II", 'I', Items.iron_ingot);
+		MPUtil.addRecipe(new ItemStack(strongbox), "ICI", 'I', Items.iron_ingot, 'C', crate);
 		MPUtil.addRecipe(new ItemStack(barrel), "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
 		MPUtil.addRecipe(new ItemStack(cabinet), "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
-		MPUtil.addRecipe(new ItemStack(armor_stand), "W", "W", "W", 'W', Blocks.log);
-		MPUtil.addRecipe(new ItemStack(armor_stand), "W", "W", "W", 'W', Blocks.log2);
 		MPUtil.addRecipe(new ItemStack(small_crate), "SS", "SS", 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log);
 		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log2);
@@ -310,6 +315,8 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(furnace_fast_upgrade), "III", "GGG", "DDD", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Items.diamond);
 		MPUtil.addRecipe(new ItemStack(arrow_security), "IDI", "IGI", "IBI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Blocks.dispenser, 'B', Blocks.iron_block);
 		MPUtil.addRecipe(new ItemStack(recipe_revert), "BIB", "ICI", "III", 'I', Items.iron_ingot, 'C', Blocks.crafting_table, 'B', Blocks.iron_block);
+		MPUtil.addRecipe(new ItemStack(molotov), "GFG", 'G', Items.gunpowder, 'F', Items.flint_and_steel);
+		MPUtil.addRecipe(new ItemStack(cooker_off), "ICI", "IPI", "BBB", 'I', Items.iron_ingot, 'C', charger, 'P', core_chip, 'B', Blocks.iron_block);
 
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
@@ -338,39 +345,44 @@ public class Init
 
 	public static void handleConfig()
 	{
-		Configuration cfg = ExtremeBlocks.configFile;
-		String CG = Vars.CG;
-		String SR = Vars.SR;
-		String GO = Vars.GO;
-		String CM = Vars.CM;
-		Vars.addLightedBlocks = cfg.get(CG, "Add Lighted Blocks", false).setRequiresMcRestart(true).getBoolean(false);
-		Vars.addFakeFloors = cfg.get(CG, "Add Fake Floors", false).setRequiresMcRestart(true).getBoolean(false);
-		Vars.xrayBlockWork = cfg.get(CG, "X-Ray Blocks Work", true, "Do X Ray blocks Work? Or is it like Glass?").setRequiresWorldRestart(true).getBoolean(true);
-		Vars.customCraftingTable = cfg.get(CG, "Custom Crafting Table for EB Recipes", true, "Will only the Custom Table be used for EB Recipes? If False, both Crafting tables will be used for them.").setRequiresMcRestart(true).getBoolean(true);
-		Vars.addVanillaRecipes = cfg.get(CG, "Add Vanilla Recipes", true, "The EB Crafting Table also have the vanilla recipes").setRequiresMcRestart(true).getBoolean(true);
-		Vars.counterMessage = cfg.get(CG, "Counter Message", "", "The message that will be displayed on the Counter (Leave blank for your username)").getString();
-		Vars.alterWorld = cfg.get(GO, "Alter World", true, "Will Extreme Blocks generate in your world?").getBoolean(true);
-		Vars.genCastle = cfg.get(GO, "Gen Castle", true, "Generate the Castle in your World?").getBoolean(true);
-		Vars.genDriedTree = cfg.get(GO, "Gen Dried Tree", true, "Generate the Dried Tree in your World?").getBoolean(true);
-		Vars.addMobs = cfg.get(CM, "Add Mobs", true, "Add the EB Mobs to your World?").getBoolean(true);
-		Vars.addCastleSkeleton = cfg.get(CM, "Add Castle Skeleton", true, "Allow the Castle Skeleton to spawn. Note: If is Off, the egg will spawn a Skeleton Instead!").getBoolean(true);
-		Vars.addCastleZombie = cfg.get(CM, "Add Castle Zombie", true, "Allow the Castle Zombie to spawn. Note: If is Off, the egg will spawn a Zombie Instead!").getBoolean(true);
-		Vars.addEvilIronGolem = cfg.get(CM, "Add Evil Iron Golem", true, "Allow the Evil Iron Golem to spawn. Note: If is Off, the egg will spawn an Iron Golem Instead!").getBoolean(true);
-		Vars.addRobot = cfg.get(CM, "Add Robot", true, "Allow the Robot to function. Note: If is Off, the egg will spawn a Villager Instead!").getBoolean(true);
-		Vars.copperSR = cfg.get(SR, "Copper SR", 20, "How Often Copper Ore Spawns, 16-24").getInt(20);
-		Vars.tinSR = cfg.get(SR, "Tin SR", 20, "How Often Tin Ore Spawns, 16-24").getInt(20);
-		Vars.silverSR = cfg.get(SR, "Silver SR", 2, "How Often Silver Ore Spawns, 0-7").getInt(2);
-		Vars.trinquantiumSR = cfg.get(SR, "Trinquantium SR", 1, "How Often Trinquantium Ore Spawns, 0-6").getInt(1);
-		Vars.glesterSR = cfg.get(SR, "Glester SR", 10, "How Often Glester Ore Spawns, 6-14").getInt(10);
-		Vars.delvlishSR = cfg.get(SR, "Delvlish SR", 10, "How Often Delvlish Ore Spawns, 6-14").getInt(10);
-		Vars.meteoriteSR = cfg.get(SR, "Meteorite SR", 5, "How Often The Meteorite Spawns, 1-9").getInt(5);
-		Vars.fluoriteSR = cfg.get(SR, "Fluorite SR", 15, "How Often Fluorite Ore Spawns, 11-19").getInt(15);
-		Vars.compactStoneSR = cfg.get(SR, "Compact Stone SR", 10, "How Often Compact Stone Spawns, 6-14").getInt(10);
-		Vars.onyxSR = cfg.get(SR, "Onyx SR", 10, "How Often Onyx Ore Spawns, 6-14").getInt(10);
-		Vars.boneDirtSR = cfg.get(SR, "Bone Dirt SR", 5, "How Often Bone Dirt Spawns, 1-9").getInt(5);
-		if (cfg.hasChanged())
+		Config cfg = new Config(ExtremeBlocks.configFile);
+		Configuration c = cfg.config;
+		String CG = Config.generalConfig;
+		Vars.checkVersion = c.get(CG, "Check Version", true, "Check to see if the current EB version is outdated").getBoolean();
+		Vars.addLightedBlocks = c.get(CG, "Add Lighted Blocks", false).setRequiresMcRestart(true).getBoolean(false);
+		Vars.addFakeFloors = c.get(CG, "Add Fake Floors", false).setRequiresMcRestart(true).getBoolean(false);
+		Vars.xrayBlockWork = c.get(CG, "X-Ray Blocks Work", true, "Do X Ray blocks Work? Or is it like Glass?").setRequiresWorldRestart(true).getBoolean(true);
+		Vars.customCraftingTable = c.get(CG, "Custom Crafting Table for EB Recipes", true, "Will only the Custom Table be used for EB Recipes? If False, both Crafting tables will be used for them.").setRequiresMcRestart(true).getBoolean(true);
+		Vars.addVanillaRecipes = c.get(CG, "Add Vanilla Recipes", true, "The EB Crafting Table also have the vanilla recipes").setRequiresMcRestart(true).getBoolean(true);
+		Vars.counterMessage = c.get(CG, "Counter Message", "", "The message that will be displayed on the Counter (Leave blank for your username)").getString();
+
+		Vars.alterWorld = cfg.getBool("Alter World", true, "Allow EB to alter your world and generate structures and features");
+		Vars.genHouse = cfg.shouldGen("House");
+		Vars.genCastle = cfg.shouldGen("Castle");
+		Vars.genDriedTree = cfg.shouldGen("Dried Tree");
+
+		Vars.addMobs = cfg.getBool("Allow Mobs", true, "Allow Mobs to work in the game. If this is false, all the EB mobs are disabled.");
+		Vars.addCastleSkeleton = cfg.allowMob("Castle Skeleton", "Skeleton");
+		Vars.addCastleZombie = cfg.allowMob("Castle Zombie", "Zombie");
+		Vars.addEvilIronGolem = cfg.allowMob("Evil Iron Golem", "Iron Golem");
+		Vars.addRobot = cfg.allowMob("Robot", "Villager");
+
+		Vars.copperSR = cfg.getSpawnRate("Copper", 20);
+		Vars.tinSR = cfg.getSpawnRate("Tin", 20);
+		Vars.silverSR = cfg.getSpawnRate("Silver", 2);
+		Vars.trinquantiumSR = cfg.getSpawnRate("Trinquantium", 1);
+		Vars.glesterSR = cfg.getSpawnRate("Glester", 10);
+		Vars.delvlishSR = cfg.getSpawnRate("Delvlish", 10);
+		Vars.meteoriteSR = cfg.getSpawnRate("Meteorite", 5);
+		Vars.fluoriteSR = cfg.getSpawnRate("Fluorite", 15);
+		Vars.compactStoneSR = cfg.getSpawnRate("Compact Stone", 10);
+		Vars.onyxSR = cfg.getSpawnRate("Onyx", 10);
+		Vars.boneDirtSR = cfg.getSpawnRate("Bone Dirt", 5);
+		if (cfg.config.hasChanged())
 		{
-			cfg.save();
+			cfg.config.save();
 		}
 	}
+
+	public static Logger logger = LogManager.getLogger("Extreme Blocks");
 }

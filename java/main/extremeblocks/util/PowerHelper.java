@@ -102,7 +102,7 @@ public class PowerHelper
 		for (int slot : slots)
 		{
 			ItemStack stack = inv.getStackInSlot(slot);
-	
+
 			if (stack != null && stack.getItem() instanceof IBattery)
 			{
 				int input = ((IBattery) stack.getItem()).getMaxHeldPower() - stack.getItemDamage();

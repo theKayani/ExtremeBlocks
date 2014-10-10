@@ -1,31 +1,31 @@
 package main.extremeblocks.tileentities;
 
 import main.com.hk.eb.util.MPUtil;
+import main.extremeblocks.util.IPlayerMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class TileEntityConsole extends TileEntity
+public class TileEntityConsole extends TileEntity implements IPlayerMessage
 {
+	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
 		// Here
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
 		// Here
 	}
 
-	public boolean blockClicked(World world, EntityPlayer player)
+	@Override
+	public boolean onClickedOn(EntityPlayer player)
 	{
-		if (MPUtil.isServerSide())
-		{
-			MPUtil.sendMessage("Does not Work SORRY!", player);
-		}
+		MPUtil.sendMessage("Does not work yet, SORRY!", player);
 		return true;
 	}
 }
