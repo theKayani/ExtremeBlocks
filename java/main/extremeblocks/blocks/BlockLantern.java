@@ -12,32 +12,37 @@ public class BlockLantern extends BlockCustom
 	public BlockLantern()
 	{
 		super(Material.glass, "Lantern");
-		this.setCreativeTab(Init.tab_mainBlocks);
-		this.setBlockTextureName(Init.MODID + ":lantern");
-		this.setLightLevel(0.4F);
-		this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 1.0F, 0.7F);
+		setCreativeTab(Init.tab_mainBlocks);
+		setBlockTextureName(Init.MODID + ":lantern");
+		setLightLevel(0.815F);
+		setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 1.0F, 0.7F);
 	}
 
+	@Override
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
 		return world.isSideSolid(x, y + 1, z, ForgeDirection.SOUTH);
 	}
 
+	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
-		return this.canBlockStay(world, x, y, z);
+		return canBlockStay(world, x, y, z);
 	}
 
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
 		if (!canBlockStay(world, x, y, z))

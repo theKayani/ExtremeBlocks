@@ -1,8 +1,8 @@
 package main.extremeblocks.client.containers;
 
 import main.extremeblocks.items.ItemFurnaceUpgrade;
+import main.extremeblocks.misc.IBattery;
 import main.extremeblocks.tileentities.TileEntityCooker;
-import main.extremeblocks.util.IBattery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

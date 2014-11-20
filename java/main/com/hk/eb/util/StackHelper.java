@@ -1,6 +1,7 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
+import main.extremeblocks.misc.StackInv;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -175,22 +176,11 @@ public class StackHelper
 		return flag1;
 	}
 
-	public static void combineLikeStacks(ItemStack[] stack)
+	public static ItemStack[] combineLikeStacks(ItemStack[] stack)
 	{
-		int i = 0, j = 0;
-		for (i = 0; i < stack.length; i++)
-		{
-			for (j = 0; j < stack.length; j++)
-			{
-				if (i != j)
-				{
-					if (StackHelper.mergeStacks(stack[i], stack[j], true) != 0)
-					{
-						i = j = 0;
-					}
-				}
-			}
-		}
+		StackInv inv = new StackInv(new ItemStack[stack.length]);
+		addToInv(inv, stack);
+		return inv.inventory;
 	}
 
 	public static ItemStack consumeItem(ItemStack stack, int amount)
@@ -264,5 +254,38 @@ public class StackHelper
 	public static boolean areStacksSameTypeCrafting(ItemStack stack1, ItemStack stack2)
 	{
 		return stack1 != null && stack2 != null && stack1.getItem() == stack2.getItem() && stack1.stackSize >= stack2.stackSize && (stack1.getItemDamage() == stack2.getItemDamage() || stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack2.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack1.getItem().isDamageable());
+	}
+
+	public static boolean hasItem(IInventory tile, Item item)
+	{
+		return indexOfItem(tile, item) >= 0;
+	}
+
+	public static boolean consumeItemFrom(IInventory tile, Item item)
+	{
+		if (hasItem(tile, item))
+		{
+			int i = indexOfItem(tile, item);
+			tile.setInventorySlotContents(i, consumeItem(tile.getStackInSlot(i)));
+			return true;
+		}
+		return false;
+	}
+
+	public static void clearInv(IInventory tile)
+	{
+		for (int i = 0; i < tile.getSizeInventory(); i++)
+		{
+			tile.setInventorySlotContents(i, null);
+		}
+	}
+
+	public static int indexOfItem(IInventory tile, Item item)
+	{
+		for (int i = 0; i < tile.getSizeInventory(); i++)
+		{
+			if (tile.getStackInSlot(i) != null && tile.getStackInSlot(i).getItem() == item) return i;
+		}
+		return -1;
 	}
 }

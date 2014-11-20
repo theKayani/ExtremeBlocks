@@ -22,8 +22,8 @@ public class GuiCharger extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2)
 	{
-		this.fontRendererObj.drawString(tile.getInventoryName(), 6, 6, 4210752);
-		this.fontRendererObj.drawString("Power: " + tile.overallPower + " Watts", 6, 21, 4210752);
+		fontRendererObj.drawString(tile.getInventoryName(), 6, 6, 4210752);
+		fontRendererObj.drawString(tile.overallPower + " EJ", 6, 21, 4210752);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
@@ -35,7 +35,6 @@ public class GuiCharger extends GuiContainer
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
-		int i1;
 	}
 
 }

@@ -11,6 +11,7 @@ import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.ai.EntityAIHarvestCrops;
 import main.extremeblocks.entities.mobs.ai.EntityAIRobotMine;
 import main.extremeblocks.entities.mobs.ai.EntityAISwitchWeapons;
+import main.extremeblocks.entities.mobs.ai.RobotInventory;
 import main.extremeblocks.network.packets.PacketSyncRobot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

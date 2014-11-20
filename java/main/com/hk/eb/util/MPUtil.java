@@ -51,6 +51,7 @@ public class MPUtil
 
 	public static void addReversedRecipe(ItemStack item, ItemStack obj)
 	{
+		item = item.copy();
 		item.stackSize = 9;
 		addRecipe(item, "#", '#', obj);
 	}
@@ -66,10 +67,16 @@ public class MPUtil
 		GameRegistry.addSmelting(item, reward, xp);
 	}
 
+	public static void addArmorSetRecipe(Object material, Item... armor)
+	{
+		addRecipe(new ItemStack(armor[0]), "MMM", "M M", 'M', material);
+		addRecipe(new ItemStack(armor[1]), "M M", "MMM", "MMM", 'M', material);
+		addRecipe(new ItemStack(armor[2]), "MMM", "M M", "M M", 'M', material);
+		addRecipe(new ItemStack(armor[3]), "M M", "M M", 'M', material);
+	}
+
 	public static void addToolSetRecipe(Object material, Item... tools)
 	{
-		assert StackHelper.isBlockOrItem(material) : "[ERR]~~~~~~~~~~~~ ERROR CREATING TOOL SET RECIPES: MATERIAL ISN'T BLOCK OR ITEM ~~~~~~~~~~~~~~|";
-		assert tools.length == 5 : "[ERR]~~~~~~~~~~~~ ERROR CREATING TOOL SET RECIPES: NOT ENOUGH TOOLS ~~~~~~~~~~~~~~|";
 		addRecipe(new ItemStack(tools[0]), "MMM", " # ", " # ", 'M', material, '#', Items.stick);
 		addRecipe(new ItemStack(tools[1]), "M", "#", "#", 'M', material, '#', Items.stick);
 		addRecipe(new ItemStack(tools[2]), "MM", "M#", " #", 'M', material, '#', Items.stick);
@@ -91,55 +98,25 @@ public class MPUtil
 	public static TileEntity[] getNeighborTiles(World world, int x, int y, int z)
 	{
 		ArrayList<TileEntity> tiles = JavaHelp.newArrayList();
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0 && world.getTileEntity(x + i, y, z) != null)
-			{
-				tiles.add(world.getTileEntity(x + i, y, z));
-			}
-		}
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0 && world.getTileEntity(x, y + i, z) != null)
-			{
-				tiles.add(world.getTileEntity(x, y + i, z));
-			}
-		}
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0 && world.getTileEntity(x, y, z + i) != null)
-			{
-				tiles.add(world.getTileEntity(x, y, z + i));
-			}
-		}
+		tiles.add(world.getTileEntity(x + 1, y, z));
+		tiles.add(world.getTileEntity(x - 1, y, z));
+		tiles.add(world.getTileEntity(x, y + 1, z));
+		tiles.add(world.getTileEntity(x, y - 1, z));
+		tiles.add(world.getTileEntity(x, y, z + 1));
+		tiles.add(world.getTileEntity(x, y, z - 1));
 		return tiles.toArray(new TileEntity[0]);
 	}
 
 	public static Block[] getNeighborBlocks(World world, int x, int y, int z)
 	{
-		ArrayList<Block> tiles = JavaHelp.newArrayList();
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0)
-			{
-				tiles.add(world.getBlock(x + i, y, z));
-			}
-		}
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0)
-			{
-				tiles.add(world.getBlock(x, y + i, z));
-			}
-		}
-		for (int i = -1; i < 2; i++)
-		{
-			if (i != 0)
-			{
-				tiles.add(world.getBlock(x, y, z + i));
-			}
-		}
-		return tiles.toArray(new Block[0]);
+		ArrayList<Block> blocks = JavaHelp.newArrayList();
+		blocks.add(world.getBlock(x + 1, y, z));
+		blocks.add(world.getBlock(x - 1, y, z));
+		blocks.add(world.getBlock(x, y + 1, z));
+		blocks.add(world.getBlock(x, y - 1, z));
+		blocks.add(world.getBlock(x, y, z + 1));
+		blocks.add(world.getBlock(x, y, z - 1));
+		return blocks.toArray(new Block[0]);
 	}
 
 	public static void dropItemsAsEntities(World world, double x, double y, double z, boolean useClone, ItemStack... stacks)
@@ -176,8 +153,8 @@ public class MPUtil
 
 	public static Item getRandomItem()
 	{
-		int random = Rand.nextInt(RegistryHelper.itemsList.length - 1);
-		if (RegistryHelper.itemsList[random] != null && RegistryHelper.itemsList[random].getCreativeTab() != null) return RegistryHelper.itemsList[random];
+		int random = Rand.nextInt(Item.itemRegistry.getKeys().size());
+		if (Item.itemRegistry.containsId(random) && ((Item) Item.itemRegistry.getObjectById(random)).getCreativeTab() != null) return (Item) Item.itemRegistry.getObjectById(random);
 		else return getRandomItem();
 	}
 

@@ -40,7 +40,7 @@ public class TileEntityRevertingStation extends TileEntityInventory
 			{
 				for (int i = 0; i < recipes.length; i++)
 				{
-					ItemStack st = recipes[i] == null ? null : recipes[i].copy();
+					ItemStack st = recipes[i] == null || recipes[i].getItem().hasContainerItem(recipes[i]) ? null : recipes[i].copy();
 					if (st != null)
 					{
 						st.stackSize = 1;
@@ -117,5 +117,4 @@ public class TileEntityRevertingStation extends TileEntityInventory
 	{
 		return true;
 	}
-
 }

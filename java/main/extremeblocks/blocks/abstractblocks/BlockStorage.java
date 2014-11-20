@@ -1,38 +1,29 @@
 package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.BlockCabinet;
+import main.extremeblocks.misc.BlockType;
+import main.extremeblocks.tileentities.TileEntityInventory;
 import main.extremeblocks.tileentities.TileEntityStorage;
-import main.extremeblocks.util.BlockType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs
 {
-	public static final boolean debug = true;
-	private static int autoID = 0;
 	public int id, storageSlots, ySize, xSize;
 	public String containerName, guiTexturePath, name;
 	public BlockType type;
-	private static HashMap<Integer, BlockStorage> ids = JavaHelp.newHashMap();
-	public static ArrayList<BlockStorage> blocks = JavaHelp.newArrayList();
 
 	public BlockStorage(String name, Material mat, CreativeTabs tab, int storageSlots, String containerName, String guiTexturePath, BlockType type)
 	{
@@ -49,9 +40,6 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 		setXSize(176);
 		setYSize(166);
 		setTickRandomly(true);
-		id = autoID++;
-		ids.put(id, this);
-		blocks.add(this);
 
 		ExtremeBlocks.blocks.add(this);
 	}
@@ -131,8 +119,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are)
 	{
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (tileEntity == null || player.isSneaking()) return false;
+		if (player.isSneaking()) return false;
 		player.openGui(ExtremeBlocks.instance, TILE_STORAGE, world, x, y, z);
 		return true;
 	}
@@ -140,43 +127,14 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block par5, int par6)
 	{
-		dropItems(world, x, y, z);
+		TileEntityInventory.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, par5, par6);
-	}
-
-	private void dropItems(World world, int x, int y, int z)
-	{
-		Random rand = new Random();
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (!(tileEntity instanceof IInventory)) return;
-		IInventory inventory = (IInventory) tileEntity;
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
-		{
-			ItemStack item = inventory.getStackInSlot(i);
-			if (item != null && item.stackSize > 0)
-			{
-				float rx = rand.nextFloat() * 0.8F + 0.1F;
-				float ry = rand.nextFloat() * 0.8F + 0.1F;
-				float rz = rand.nextFloat() * 0.8F + 0.1F;
-				EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, item.copy());
-				if (item.hasTagCompound())
-				{
-					entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-				}
-				float factor = 0.05F;
-				entityItem.motionX = rand.nextGaussian() * factor;
-				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-				entityItem.motionZ = rand.nextGaussian() * factor;
-				world.spawnEntityInWorld(entityItem);
-				item.stackSize = 0;
-			}
-		}
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
-		return new TileEntityStorage(this, storageSlots, guiTexturePath, containerName);
+		return new TileEntityStorage(storageSlots, guiTexturePath, containerName, xSize, ySize);
 	}
 
 	@Override
@@ -200,12 +158,6 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
 		return type.shouldDrop() ? world.getBlock(x, y - 1, z).getMaterial().isSolid() : super.canBlockStay(world, x, y, z);
-	}
-
-	public static BlockStorage getByID(int id)
-	{
-		if (ids.containsKey(id)) return ids.get(id);
-		return null;
 	}
 
 	public static void initBlocks()

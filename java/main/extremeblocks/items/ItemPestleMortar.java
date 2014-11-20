@@ -20,10 +20,10 @@ public class ItemPestleMortar extends ItemCustom
 
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		if (player.inventory.consumeInventoryItem(Item.getItemFromBlock(Init.hemp)))
+		if (player.inventory.consumeInventoryItem(Item.getItemFromBlock(Init.cannabis_plant)))
 		{
 			stack.damageItem(1, player);
-			if (Rand.nextInt(3) == 1)
+			if (Rand.nextInt(3) == 0)
 			{
 				player.inventory.addItemStackToInventory(new ItemStack(Init.hemp_leaves));
 			}
@@ -31,7 +31,7 @@ public class ItemPestleMortar extends ItemCustom
 		else if (player.inventory.consumeInventoryItem(Init.hemp_leaves))
 		{
 			stack.damageItem(1, player);
-			if (Rand.nextInt(5) == 1)
+			if (Rand.nextInt(5) == 0)
 			{
 				player.inventory.addItemStackToInventory(new ItemStack(Init.mellow_weed));
 			}
@@ -39,7 +39,7 @@ public class ItemPestleMortar extends ItemCustom
 		else if (player.inventory.consumeInventoryItem(Init.mellow_weed))
 		{
 			stack.damageItem(1, player);
-			if (Rand.nextInt(10) == 1)
+			if (Rand.nextInt(10) == 0)
 			{
 				player.inventory.addItemStackToInventory(new ItemStack(Init.normal_weed));
 			}

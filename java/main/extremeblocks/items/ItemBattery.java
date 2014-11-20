@@ -3,7 +3,7 @@ package main.extremeblocks.items;
 import java.util.List;
 import main.com.hk.eb.util.ItemCustom;
 import main.extremeblocks.Init;
-import main.extremeblocks.util.IBattery;
+import main.extremeblocks.misc.IBattery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,10 +18,10 @@ public class ItemBattery extends ItemCustom implements IBattery
 	public ItemBattery(int maxHeldPower)
 	{
 		super("Battery", Init.tab_mainItems);
-		this.setHasSubtypes(true);
-		this.setMaxDamage(maxHeldPower);
-		this.setMaxStackSize(1);
-		this.setTextureName(Init.MODID + ":battery");
+		setHasSubtypes(true);
+		setMaxDamage(maxHeldPower);
+		setMaxStackSize(1);
+		setTextureName(Init.MODID + ":battery");
 		this.maxHeldPower = maxHeldPower;
 	}
 
@@ -43,7 +43,8 @@ public class ItemBattery extends ItemCustom implements IBattery
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean lol)
 	{
-		list.add("Power: " + (maxHeldPower - stack.getItemDamage()) + " Watts");
+		list.add(maxHeldPower - stack.getItemDamage() + " EJ Held");
+		list.add("EJ is Extreme Joules");
 	}
 
 	@Override

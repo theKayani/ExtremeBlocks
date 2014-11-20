@@ -22,9 +22,9 @@ public class GuiCooker extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2)
 	{
-		this.fontRendererObj.drawString(tile.getInventoryName(), 6, 6, 4210752);
-		this.fontRendererObj.drawString("Power: " + tile.overallPower + " Watts", 45, 10, 4210752);
-		this.fontRendererObj.drawString("Upgrades: " + tile.upgradeCount, 45, 21, 4210752);
+		fontRendererObj.drawString(tile.getInventoryName(), 6, 6, 4210752);
+		fontRendererObj.drawString(tile.overallPower + " EJ", 45, 10, 4210752);
+		fontRendererObj.drawString("Upgrades: " + tile.upgradeCount, 45, 21, 4210752);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
@@ -37,10 +37,10 @@ public class GuiCooker extends GuiContainer
 		int l = (height - ySize) / 2;
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 
-		if (this.tile.canUsePower())
+		if (tile.canUsePower())
 		{
-			int i1 = this.tile.getCookProgressScaled(24);
-			this.drawTexturedModalRect(k + 64, l + 40, 176, 0, i1 + 1, 16);
+			int i1 = tile.getCookProgressScaled(24);
+			drawTexturedModalRect(k + 64, l + 40, 176, 0, i1 + 1, 16);
 		}
 	}
 }

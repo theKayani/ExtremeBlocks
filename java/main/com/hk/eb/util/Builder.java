@@ -3,9 +3,11 @@ package main.com.hk.eb.util;
 import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
+import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Blocks;
@@ -19,8 +21,8 @@ import net.minecraftforge.common.ChestGenHooks;
 
 public class Builder
 {
-	private final World world;
-	private final int baseX, baseY, baseZ;
+	public final World world;
+	public final int baseX, baseY, baseZ;
 
 	public Builder(World world, int baseX, int baseY, int baseZ)
 	{
@@ -209,6 +211,10 @@ public class Builder
 		{
 			clazz = EntityZombie.class;
 		}
+		if (clazz.equals(EntityEvilIronGolem.class) && !Vars.addEvilIronGolem)
+		{
+			clazz = EntityIronGolem.class;
+		}
 		world.setBlock(baseX + x, baseY + y, baseZ + z, Blocks.mob_spawner);
 		((TileEntityMobSpawner) world.getTileEntity(baseX + x, baseY + y, baseZ + z)).func_145881_a().setEntityName((String) EntityList.classToStringMapping.get(clazz));
 	}
@@ -244,7 +250,16 @@ public class Builder
 
 	public enum ChestType
 	{
-		MINESHAFT_CORRIDOR("mineshaftCorridor"), PYRAMID_DESERT_CHEST("pyramidDesertyChest"), PYRAMID_JUNGLE_CHEST("pyramidJungleChest"), PYRAMID_JUNGLE_DISPENSER("pyramidJungleDispenser"), STRONGHOLD_CORRIDOR("strongholdCorridor"), STRONGHOLD_LIBRARY("strongholdLibrary"), STRONGHOLD_CROSSING("strongholdCrossing"), VILLAGE_BLACKSMITH("villageBlacksmith"), BONUS_CHEST("bonusChest"), DUNGEON_CHEST("dungeonChest");
+		MINESHAFT_CORRIDOR("mineshaftCorridor"),
+		PYRAMID_DESERT_CHEST("pyramidDesertyChest"),
+		PYRAMID_JUNGLE_CHEST("pyramidJungleChest"),
+		PYRAMID_JUNGLE_DISPENSER("pyramidJungleDispenser"),
+		STRONGHOLD_CORRIDOR("strongholdCorridor"),
+		STRONGHOLD_LIBRARY("strongholdLibrary"),
+		STRONGHOLD_CROSSING("strongholdCrossing"),
+		VILLAGE_BLACKSMITH("villageBlacksmith"),
+		BONUS_CHEST("bonusChest"),
+		DUNGEON_CHEST("dungeonChest");
 		private final String type;
 
 		private ChestType(String type)

@@ -7,26 +7,26 @@ import net.minecraft.block.material.Material;
 
 public class BlockXrayBlock extends BlockCustom
 {
-	private final boolean isOn;
+	private final boolean finished;
 
-	public BlockXrayBlock(boolean isOn)
+	public BlockXrayBlock(boolean finished)
 	{
-		super(Material.glass, (isOn ? "F" : "Unf") + "inished Xray Block");
+		super(Material.glass, (finished ? "F" : "Unf") + "inished Xray Block");
 		setHardness(0.6F);
 		setBlockTextureName(Init.MODID + ":xrayblock");
 		setCreativeTab(Init.tab_mainBlocks);
-		this.isOn = isOn;
+		this.finished = finished && !Vars.xrayBlockWork;
 	}
 
 	@Override
 	public boolean renderAsNormalBlock()
 	{
-		return Vars.xrayBlockWork ? !isOn : false;
+		return finished;
 	}
 
 	@Override
 	public boolean isOpaqueCube()
 	{
-		return Vars.xrayBlockWork ? !isOn : false;
+		return finished;
 	}
 }

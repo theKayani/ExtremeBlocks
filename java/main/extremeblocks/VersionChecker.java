@@ -52,7 +52,7 @@ public class VersionChecker
 				}
 			}
 
-			Init.logger.warn("Found new Version for Extreme Blocks. Current: " + Init.VERSION + ", New: " + newVersion);
+			Vars.logger.warn("Found new Version for Extreme Blocks. Current: " + Init.VERSION + ", New: " + newVersion);
 		}
 		catch (IOException e)
 		{

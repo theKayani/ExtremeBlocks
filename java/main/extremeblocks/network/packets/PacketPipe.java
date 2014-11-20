@@ -1,9 +1,9 @@
 package main.extremeblocks.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import main.extremeblocks.misc.PowerMap;
 import main.extremeblocks.network.AbstractPacket;
 import main.extremeblocks.tileentities.TileEntityWire;
-import main.extremeblocks.util.PowerMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 

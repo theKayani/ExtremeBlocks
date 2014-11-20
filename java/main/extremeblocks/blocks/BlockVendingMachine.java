@@ -12,7 +12,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,11 +24,10 @@ public class BlockVendingMachine extends BlockCustom
 	public BlockVendingMachine()
 	{
 		super(Material.iron, "Vending Machine");
-		this.irregular();
-		this.setHardness(3.0F);
-		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.4F, 0.95F);
-		this.setBlockTextureName(Init.MODID + ":vendingmachine");
-		this.setCreativeTab(Init.tab_mainBlocks);
+		setHardness(3.0F);
+		setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.0F, 0.95F);
+		setBlockTextureName(Init.MODID + ":vendingmachine");
+		setCreativeTab(Init.tab_mainBlocks);
 	}
 
 	@Override
@@ -48,34 +46,22 @@ public class BlockVendingMachine extends BlockCustom
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return side == 1 ? this.blockIcon : (side == 0 ? this.blockIcon : (side != meta ? this.blockIcon : this.frontIcon));
-	}
-
-	@Override
-	public void setBlockBoundsForItemRender()
-	{
-		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.0F, 0.95F);
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
-	{
-		this.setBlockBounds(0.05F, 0.0F, 0.05F, 0.95F, 1.4F, 0.95F);
+		return side == 1 ? blockIcon : side == 0 ? blockIcon : side != meta ? blockIcon : frontIcon;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		this.blockIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
-		this.frontIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_front");
+		blockIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_side");
+		frontIcon = p_149651_1_.registerIcon(Init.MODID + ":vendingmachine_front");
 	}
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		super.onBlockAdded(world, x, y, z);
-		this.setupOrientation(world, x, y, z);
+		setupOrientation(world, x, y, z);
 	}
 
 	private void setupOrientation(World world, int x, int y, int z)
@@ -132,11 +118,15 @@ public class BlockVendingMachine extends BlockCustom
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		if (player.inventory.consumeInventoryItem(Items.diamond))
+		if (MPUtil.isClientSide() && player.inventory.consumeInventoryItem(Items.diamond))
 		{
-			return player.inventory.addItemStackToInventory(new ItemStack(MPUtil.getRandomItem(), world.rand.nextInt(20) == 0 ? 2 : 1));
+			ItemStack s = new ItemStack(MPUtil.getRandomVanillaItem());
+			if (!player.inventory.addItemStackToInventory(s))
+			{
+				MPUtil.dropItemAsEntity(world, x + 0.5D, y + 1D, z + 0.5D, true, s);
+			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -148,7 +138,7 @@ public class BlockVendingMachine extends BlockCustom
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
-		return this.canBlockStay(world, x, y, z);
+		return canBlockStay(world, x, y, z);
 	}
 
 	@Override

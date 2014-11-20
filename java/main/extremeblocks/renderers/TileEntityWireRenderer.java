@@ -34,7 +34,7 @@ public class TileEntityWireRenderer extends TileEntitySpecialRenderer
 		Minecraft.getMinecraft().renderEngine.bindTexture(WIRE_LOCATION);
 		GL11.glPushMatrix();
 		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-		this.model.render(te);
+		model.render(te);
 		GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}
@@ -68,7 +68,7 @@ public class TileEntityWireRenderer extends TileEntitySpecialRenderer
 		Minecraft.getMinecraft().renderEngine.bindTexture(WIRE_LOCATION);
 		GL11.glPushMatrix();
 		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-		this.model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}

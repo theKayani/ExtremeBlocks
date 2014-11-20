@@ -10,6 +10,7 @@ import main.extremeblocks.client.containers.ContainerRobot;
 import main.extremeblocks.client.containers.ContainerRobotCommands;
 import main.extremeblocks.client.containers.ContainerRobotInv;
 import main.extremeblocks.client.containers.ContainerStorage;
+import main.extremeblocks.client.containers.ContainerTrash;
 import main.extremeblocks.client.guis.GuiCharger;
 import main.extremeblocks.client.guis.GuiCooker;
 import main.extremeblocks.client.guis.GuiEBTable;
@@ -19,12 +20,14 @@ import main.extremeblocks.client.guis.GuiRobot;
 import main.extremeblocks.client.guis.GuiRobotCommands;
 import main.extremeblocks.client.guis.GuiRobotInv;
 import main.extremeblocks.client.guis.GuiStorage;
+import main.extremeblocks.client.guis.GuiTrash;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.tileentities.TileEntityCharger;
 import main.extremeblocks.tileentities.TileEntityCooker;
 import main.extremeblocks.tileentities.TileEntityGenerator;
 import main.extremeblocks.tileentities.TileEntityRevertingStation;
 import main.extremeblocks.tileentities.TileEntityStorage;
+import main.extremeblocks.tileentities.TileEntityTrash;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -60,6 +63,8 @@ public class GuiHandler implements IGuiHandler, GuiIDs
 				return tileEntity instanceof TileEntityGenerator ? new ContainerGenerator(player.inventory, (TileEntityGenerator) tileEntity) : null;
 			case TILE_REVERTING_STATION:
 				return tileEntity instanceof TileEntityRevertingStation ? new ContainerRevertingStation(player.inventory, (TileEntityRevertingStation) tileEntity) : null;
+			case TILE_ENTITY_TRASH:
+				return tileEntity instanceof TileEntityTrash ? new ContainerTrash(player.inventory, (TileEntityTrash) tileEntity) : null;
 		}
 		return null;
 	}
@@ -89,6 +94,8 @@ public class GuiHandler implements IGuiHandler, GuiIDs
 				return tileEntity instanceof TileEntityGenerator ? new GuiGenerator(player.inventory, (TileEntityGenerator) tileEntity) : null;
 			case TILE_REVERTING_STATION:
 				return tileEntity instanceof TileEntityRevertingStation ? new GuiRevertingStation(player.inventory, (TileEntityRevertingStation) tileEntity) : null;
+			case TILE_ENTITY_TRASH:
+				return tileEntity instanceof TileEntityTrash ? new GuiTrash(player.inventory, (TileEntityTrash) tileEntity) : null;
 		}
 		return null;
 	}

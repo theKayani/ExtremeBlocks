@@ -1,7 +1,6 @@
 package main.extremeblocks.entities.mobs.ai;
 
 import main.extremeblocks.entities.mobs.EntityRobot;
-import main.extremeblocks.entities.mobs.RobotInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.ai.EntityAIBase;

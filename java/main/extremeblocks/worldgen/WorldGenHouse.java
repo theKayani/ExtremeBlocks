@@ -1,25 +1,26 @@
 package main.extremeblocks.worldgen;
 
-import java.util.Random;
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Vars;
 import main.extremeblocks.builder.Constructor;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import main.extremeblocks.worldgen.GenManager.Gen;
 
-public class WorldGenHouse extends WorldGenerator
+@Gen(chance = 1, name = "House")
+public class WorldGenHouse extends Generation
 {
-	public WorldGenHouse()
+	@Override
+	public boolean canGenerateAt(Builder helper)
 	{
+		if (!Vars.genHouse || Rand.nextInt(30) != 0) return false;
+		if (!helper.isAllAir(0, 0, 0, 3, 5, 3)) return false;
+		return true;
 	}
 
 	@Override
-	public boolean generate(World world, Random rand, int x, int y, int z)
+	public boolean generateStructure(Builder helper)
 	{
-		if (!Vars.genHouse || Rand.nextInt(30) != 0) return false;
-		if (!new Builder(world, x, y, z).isAllAir(0, 0, 0, 3, 5, 3)) return false;
-		Constructor c = new Constructor(world, x, y - 1, z);
+		Constructor c = new Constructor(helper.world, helper.baseX, helper.baseY - 1, helper.baseZ);
 		for (int i = 0; i < Constructor.getMaxStages(3) - 1; i++)
 		{
 			c.buildHouse(i);

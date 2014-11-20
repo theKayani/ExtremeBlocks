@@ -26,7 +26,7 @@ public class GuiGenerator extends GuiContainer
 		fontRendererObj.drawString(powerEmitter.getInventoryName(), 6, 6, 4210752);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 
-		fontRendererObj.drawString("Power: " + powerEmitter.getPower() + " Watts", 76, 18, 4210752);
+		fontRendererObj.drawString(powerEmitter.getPower() + " EJ", 76, 18, 4210752);
 	}
 
 	@Override

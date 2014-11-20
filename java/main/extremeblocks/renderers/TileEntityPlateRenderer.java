@@ -1,5 +1,6 @@
 package main.extremeblocks.renderers;
 
+import main.extremeblocks.Init;
 import main.extremeblocks.renderers.models.ModelPlate;
 import main.extremeblocks.tileentities.TileEntityPlate;
 import net.minecraft.client.Minecraft;
@@ -35,21 +36,27 @@ public class TileEntityPlateRenderer extends TileEntitySpecialRenderer
 			}
 		};
 		customRenderItem.setRenderManager(RenderManager.instance);
-		this.model = new ModelPlate();
-		this.textures = new ResourceLocation("textures/blocks/planks_oak.png");
+		model = new ModelPlate();
+		textures = new ResourceLocation(Init.MODID + ":textures/models/wooden_plate.png");
 	}
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale)
 	{
-		if (te != null) renderItems((TileEntityPlate) te, x, y, z, scale);
+		if (te != null)
+		{
+			renderItems((TileEntityPlate) te, x, y, z, scale);
+		}
 
 		render(x, y, z);
 	}
 
 	private void renderItems(TileEntityPlate te, double x, double y, double z, float scale)
 	{
-		if (te.inventory[0] != null && te.inventory[0].getItem() != null) doRenderItem(te.inventory[0], x, y, z);
+		if (te.inventory[0] != null && te.inventory[0].getItem() != null)
+		{
+			doRenderItem(te.inventory[0], x, y, z);
+		}
 	}
 
 	public void doRenderItem(ItemStack itemstack, double x, double y, double z)
@@ -74,7 +81,7 @@ public class TileEntityPlateRenderer extends TileEntitySpecialRenderer
 		Minecraft.getMinecraft().renderEngine.bindTexture(textures);
 		GL11.glPushMatrix();
 		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-		this.model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}

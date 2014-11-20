@@ -4,6 +4,7 @@ import main.com.hk.eb.util.MPUtil;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 public class EntityMolotov extends EntityThrowable
@@ -28,6 +29,7 @@ public class EntityMolotov extends EntityThrowable
 		super(par1World, par2EntityLivingBase);
 	}
 
+	@Override
 	protected void onImpact(MovingObjectPosition mop)
 	{
 		switch (mop.sideHit)
@@ -53,8 +55,15 @@ public class EntityMolotov extends EntityThrowable
 		}
 		if (MPUtil.isServerSide())
 		{
-			this.worldObj.newExplosion(this, mop.blockX, mop.blockY, mop.blockZ, 5.0F, true, false);
-			this.setDead();
+			if (mop.typeOfHit == MovingObjectType.BLOCK)
+			{
+				worldObj.newExplosion(this, posX, posY, posZ, 5.0F, true, false);
+			}
+			if (mop.typeOfHit == MovingObjectType.ENTITY)
+			{
+				worldObj.newExplosion(this, posX, posY, posZ, 5.0F, true, false);
+			}
+			setDead();
 		}
 	}
 }

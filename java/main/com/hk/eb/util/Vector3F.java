@@ -57,6 +57,20 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	}
 
 	/**
+	 * Constructor instantiates a new <code>Vector3f</code> with the 
+	 * single value.
+	 * 
+	 * @param val
+	 *            the x, y, and z value of the vector.
+	 */
+	public Vector3F(float val)
+	{
+		x = val;
+		y = val;
+		z = val;
+	}
+
+	/**
 	 * Constructor instantiates a new <code>Vector3f</code> that is a copy of
 	 * the provided vector
 	 * 

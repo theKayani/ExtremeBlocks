@@ -1,6 +1,6 @@
 package main.extremeblocks.renderers.models;
 
-import main.extremeblocks.util.IConnector;
+import main.extremeblocks.misc.IConnector;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

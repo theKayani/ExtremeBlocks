@@ -10,8 +10,11 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
+import main.extremeblocks.network.packets.PacketAddToPlayer;
+import main.extremeblocks.network.packets.PacketClearInv;
 import main.extremeblocks.network.packets.PacketOpenGui;
 import main.extremeblocks.network.packets.PacketRemoveEntity;
+import main.extremeblocks.network.packets.PacketRemoveFromInv;
 import main.extremeblocks.network.packets.PacketSyncRobot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -92,6 +95,9 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 		registerPacket(PacketOpenGui.class);
 		registerPacket(PacketSyncRobot.class);
 		registerPacket(PacketRemoveEntity.class);
+		registerPacket(PacketClearInv.class);
+		registerPacket(PacketRemoveFromInv.class);
+		registerPacket(PacketAddToPlayer.class);
 	}
 
 	public void postInitialise()

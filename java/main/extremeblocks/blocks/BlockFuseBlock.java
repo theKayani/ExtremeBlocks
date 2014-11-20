@@ -51,7 +51,10 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 	{
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 		{
-			world.setBlock(x, y, z, Blocks.fire);
+			if (MPUtil.isServerSide())
+			{
+				world.setBlock(x, y, z, Blocks.fire);
+			}
 			player.getCurrentEquippedItem().damageItem(1, player);
 			return true;
 		}

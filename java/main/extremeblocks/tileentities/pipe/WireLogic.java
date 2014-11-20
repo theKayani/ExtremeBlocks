@@ -1,10 +1,10 @@
 package main.extremeblocks.tileentities.pipe;
 
 import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.UNKNOWN;
+import main.extremeblocks.misc.PowerHelper;
+import main.extremeblocks.misc.Power.IPowerEmitter;
+import main.extremeblocks.misc.Power.IPowerReceiver;
 import main.extremeblocks.tileentities.TileEntityWire;
-import main.extremeblocks.util.Power.IPowerEmitter;
-import main.extremeblocks.util.Power.IPowerReceiver;
-import main.extremeblocks.util.PowerHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;

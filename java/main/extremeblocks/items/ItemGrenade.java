@@ -13,19 +13,22 @@ public class ItemGrenade extends ItemCustom
 	public ItemGrenade()
 	{
 		super("Grenade", Init.tab_mainItems);
-		this.setTextureName(Init.MODID + ":grenade");
+		setTextureName(Init.MODID + ":grenade");
 	}
 
+	@Override
 	public boolean hasEffect(ItemStack par1ItemStack, int pass)
 	{
 		return true;
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
+		EntityGrenade grenade = new EntityGrenade(par2World, par3EntityPlayer);
 		if (MPUtil.isServerSide())
 		{
-			par2World.spawnEntityInWorld(new EntityGrenade(par2World, par3EntityPlayer));
+			par2World.spawnEntityInWorld(grenade);
 			--par1ItemStack.stackSize;
 		}
 		return par1ItemStack;

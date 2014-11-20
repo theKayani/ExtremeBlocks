@@ -1,5 +1,6 @@
 package main.extremeblocks.tileentities;
 
+import main.com.hk.eb.util.MPUtil;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,6 +10,7 @@ public class TileEntityFuse extends TileEntity
 {
 	public int timer;
 
+	@Override
 	public void updateEntity()
 	{
 		for (int i = -1; i < 2; i++)
@@ -21,7 +23,7 @@ public class TileEntityFuse extends TileEntity
 					if (block == Blocks.fire)
 					{
 						timer++;
-						if (timer >= 10)
+						if (timer >= 10 && MPUtil.isServerSide())
 						{
 							worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.fire);
 						}
@@ -31,12 +33,14 @@ public class TileEntityFuse extends TileEntity
 		}
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
 		timer = nbt.getInteger("Timer");
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);

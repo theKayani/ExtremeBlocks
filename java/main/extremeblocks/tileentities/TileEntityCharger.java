@@ -1,8 +1,8 @@
 package main.extremeblocks.tileentities;
 
-import main.extremeblocks.util.IBattery;
-import main.extremeblocks.util.IConnector;
-import main.extremeblocks.util.Power.IPowerReceiver;
+import main.extremeblocks.misc.IBattery;
+import main.extremeblocks.misc.IConnector;
+import main.extremeblocks.misc.Power.IPowerReceiver;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

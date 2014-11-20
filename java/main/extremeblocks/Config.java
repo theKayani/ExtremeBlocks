@@ -21,9 +21,9 @@ public class Config
 
 	public int getSpawnRate(String ore, int defaultValue)
 	{
-		int min = Math.max(defaultValue - 4, 0);
+		int min = 0;
 		int max = Math.min(defaultValue + 4, 35);
-		return config.getInt(ore + " Ore", oresConfig, defaultValue, min, max, "Adjust spawn rate for the " + ore + " Ore. From " + min + ", to " + max + ".");
+		return config.getInt(ore + " Ore", oresConfig, defaultValue, min, max, "Adjust spawn rate for the " + ore + " Ore. The lower, the rarer. 0: Doesn't Spawn");
 	}
 
 	public boolean allowMob(String mobName, String switchedWith)

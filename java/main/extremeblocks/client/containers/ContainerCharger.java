@@ -1,7 +1,7 @@
 package main.extremeblocks.client.containers;
 
+import main.extremeblocks.misc.IBattery;
 import main.extremeblocks.tileentities.TileEntityCharger;
-import main.extremeblocks.util.IBattery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

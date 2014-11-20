@@ -15,22 +15,20 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	private int storageSlots, xSize, ySize;
 	private ItemStack[] items;
 	private String texturePath;
-	private BlockStorage block;
 	protected String customName;
 
 	public TileEntityStorage()
 	{
 	}
 
-	public TileEntityStorage(BlockStorage block, int storageSlots, String texturePath, String customName)
+	public TileEntityStorage(int storageSlots, String texturePath, String customName, int xSize, int ySize)
 	{
-		this.block = block;
 		this.storageSlots = storageSlots;
 		items = new ItemStack[this.storageSlots];
 		this.texturePath = texturePath;
 		this.customName = customName;
-		xSize = block.xSize;
-		ySize = block.ySize;
+		this.xSize = xSize;
+		this.ySize = ySize;
 	}
 
 	/**
@@ -154,7 +152,6 @@ public class TileEntityStorage extends TileEntity implements IInventory
 		super.readFromNBT(nbt);
 		xSize = nbt.getInteger("X Size");
 		ySize = nbt.getInteger("Y Size");
-		block = BlockStorage.getByID(nbt.getInteger("Storage Block"));
 		storageSlots = nbt.getInteger("Storage Slots");
 		texturePath = nbt.getString("Texture Path");
 		NBTTagList nbttaglist = (NBTTagList) nbt.getTag("Items");
@@ -181,7 +178,6 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		super.writeToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setInteger("Storage Block", block.id);
 		par1NBTTagCompound.setInteger("X Size", xSize);
 		par1NBTTagCompound.setInteger("Y Size", ySize);
 		par1NBTTagCompound.setInteger("Storage Slots", storageSlots);
@@ -263,7 +259,7 @@ public class TileEntityStorage extends TileEntity implements IInventory
 
 	public Slot[] addSlotsToContainer()
 	{
-		return block.addSlotsToContainer(this);
+		return ((BlockStorage) worldObj.getBlock(xCoord, yCoord, zCoord)).addSlotsToContainer(this);
 	}
 
 	public int getXSize()
