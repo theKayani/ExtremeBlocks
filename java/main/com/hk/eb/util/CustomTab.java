@@ -1,7 +1,6 @@
 package main.com.hk.eb.util;
 
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -38,6 +37,7 @@ public class CustomTab extends CreativeTabs
 		return MPUtil.getRandomEBItem();
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public String getTranslatedTabLabel()
 	{

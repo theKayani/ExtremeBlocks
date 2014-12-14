@@ -6,6 +6,11 @@ public class EBCommon
 	{
 	}
 
+	public void openEBGuide()
+	{
+
+	}
+
 	public void registerSounds()
 	{
 	}

@@ -3,13 +3,9 @@ package main.com.hk.eb.util;
 import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
-import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.tileentity.TileEntityChest;
@@ -203,18 +199,6 @@ public class Builder
 	public void setEntitySpawnerAt(Class<? extends Entity> clazz, int x, int y, int z)
 	{
 		if (MPUtil.isClientSide() || !EntityList.classToStringMapping.containsKey(clazz)) return;
-		if (clazz.equals(EntityCastleSkeleton.class) && !Vars.addCastleSkeleton)
-		{
-			clazz = EntitySkeleton.class;
-		}
-		if (clazz.equals(EntityCastleZombie.class) && !Vars.addCastleZombie)
-		{
-			clazz = EntityZombie.class;
-		}
-		if (clazz.equals(EntityEvilIronGolem.class) && !Vars.addEvilIronGolem)
-		{
-			clazz = EntityIronGolem.class;
-		}
 		world.setBlock(baseX + x, baseY + y, baseZ + z, Blocks.mob_spawner);
 		((TileEntityMobSpawner) world.getTileEntity(baseX + x, baseY + y, baseZ + z)).func_145881_a().setEntityName((String) EntityList.classToStringMapping.get(clazz));
 	}

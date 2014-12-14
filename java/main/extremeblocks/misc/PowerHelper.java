@@ -18,11 +18,6 @@ public class PowerHelper
 		return a + b + c == 1 || a + b + c == -1;
 	}
 
-	private static boolean isValid(int a, int b, int c)
-	{
-		return a != 0 && b == 0 && c == 0;
-	}
-
 	public static ForgeDirection getSideAt(World world, TileEntity me, int xCoord, int yCoord, int zCoord)
 	{
 		return getSideAt(world, me.xCoord, me.yCoord, me.zCoord, xCoord, yCoord, zCoord);
@@ -43,10 +38,7 @@ public class PowerHelper
 		int x2 = x1 - x;
 		int y2 = y1 - y;
 		int z2 = z1 - z;
-		if (!isAllValid(x2, y2, z2))
-		{
-			return ForgeDirection.UNKNOWN;
-		}
+		if (!isAllValid(x2, y2, z2)) return ForgeDirection.UNKNOWN;
 		switch (x2)
 		{
 			case -1:

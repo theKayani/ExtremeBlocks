@@ -814,9 +814,6 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	 */
 	public Vector3F normalizeLocal()
 	{
-		// NOTE: this implementation is more optimized
-		// than the old jme normalize as this method
-		// is commonly used.
 		float length = x * x + y * y + z * z;
 		if (length != 1f && length != 0f)
 		{

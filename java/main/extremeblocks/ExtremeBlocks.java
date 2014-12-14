@@ -2,6 +2,7 @@ package main.extremeblocks;
 
 import java.util.ArrayList;
 import java.util.Random;
+import main.com.hk.eb.util.Info;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.blocks.abstractblocks.BlockFakeFloor;
@@ -33,7 +34,6 @@ import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -96,10 +96,18 @@ public class ExtremeBlocks
 		Init.addReplacements();
 		for (Block block : blocks)
 		{
+			if (!(block instanceof Info))
+			{
+				System.err.println(block.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
+			}
 			RegistryHelper.register(block);
 		}
 		for (Item item : items)
 		{
+			if (!(item instanceof Info))
+			{
+				System.err.println(item.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
+			}
 			RegistryHelper.register(item);
 		}
 		Init.addRecipes();
@@ -121,11 +129,6 @@ public class ExtremeBlocks
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		packetPipeline.postInitialise();
-
-		if (event.getSide().isClient())
-		{
-			RenderingRegistry.addNewArmourRendererPrefix("5");
-		}
 
 		ArrayList<Block> allBlocks = JavaHelp.newArrayList();
 		for (int i = 0; i < Item.itemRegistry.getKeys().size(); i++)
@@ -159,12 +162,14 @@ public class ExtremeBlocks
 				}
 			}
 		}
+		new Guide().toString();
 	}
 
 	private void addVillagerTrade()
 	{
 		VillagerRegistry.instance().registerVillageTradeHandler(0, new IVillageTradeHandler()
 		{
+			@SuppressWarnings("unchecked")
 			@Override
 			public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random)
 			{

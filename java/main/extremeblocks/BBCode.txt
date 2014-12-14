@@ -182,195 +182,375 @@ These are the different Fake Sand and Fake Gravel, see it doesn't drop![/spoiler
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/4ceb798356ef2f06f36986ce01015f27b61bed35da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zpscd466a37.png[/IMG]
 [spoiler]
 [color=red]I HIGHLY recommend watching therealtkh's mod spotlight, it is very informative and has everything you need to know![/color]
+[color=red]I also recommend you just use the ingame Extreme Blocks guide. It has all the information and I think it's a bit more manageable. All the information in the guide is also here. Exact same definitions![/color]
+[color=red]P.S. It's alphabetized![/color]
 
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/13230a7631fe8f3a5b34bebcc2b1cc262145f44bda39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zps37beefdd.png[/IMG]
 [spoiler]
-[color=rgb(0, 0, 255)][b]Xray Block:[/color][/b]
-This allows the player to see through multiple blocks to the next wall.
+[color=rgb(0, 0, 255)][b]Altar:[/color][/b]
+When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!
 
-[color=rgb(0, 0, 255)][b]Plaster:[/color][/b] (Not the Plaster Wall)
-This block can't be placed down, but put in a furnace to be strengthened into a Cement Block
-
-[color=rgb(0, 0, 255)][b]Waste:[/color][/b]
-This block burns mobs much like Lava. It's also destroys items that touch it.
-
-[color=rgb(0, 0, 255)][b]Fire Hydrant:[/color][/b]
-If right clicked with a Wrench, it opens and spawns water ontop of it. If not right clicked with a Wrench, it extinguished all fires within a 3-block radius
-
-[color=rgb(0, 0, 255)][b]Lantern:[/color][/b]
-This block could only be placed upside down and emits a bit more light than a redstone torch
-
-[color=rgb(0, 0, 255)][b]Trash Can:[/color][/b]
-This block destroys any block that touches it, It similar to the Cactus but it doesn't hurt you
-
-[color=rgb(0, 0, 255)][b]Vending Machine:[/color][/b]
-When right clicked with a Diamond, it uses diamond and returns a random Item in all of Minecraft!
-
-[color=rgb(0, 0, 255)][b]Dried Sapling:[/color][/b]
-Simple Bush block... Doesn't do anything really...
-
-[color=rgb(0, 0, 255)][b]Drill:[/color][/b]
-When placed down on a block, it drills down block by block all the way down to bedrock or the next air block, it also stores every block it breaks! You can right click it to get every block that it broke!
-
-[color=rgb(0, 0, 255)][b]Powder Keg:[/color][/b]
-When a fire is set next to it, it will blow up, with the same strength of a TNT
-
-[color=rgb(0, 0, 255)][b]EB Crafting Table:[/color][/b]
-When right clicked, it shows a 4x4 crafting grid, all of the EB Recipes work on it and also, works with the Vanilla recipes!
-
-[color=rgb(0, 0, 255)][b]Hemp:[/color][/b]
-This can be grown and when destroyed, it drops some Hemp Leaves.
-
-[color=rgb(0, 0, 255)][b]Plate:[/color][/b]
-Can be right clicked with something in your hand to place it on the plate. When right clicked again, you'll get the Item, you put in the plate, back.
-
-[color=rgb(0, 0, 255)][b]Small/Big/Large/Crate/Barrel/Strongbox/Stand/Cabinet:[/color][/b]
-Can be used as an additional storage space. Other than Chests or etc.
-
-[color=rgb(0, 0, 255)][b]Wire:[/color][/b]
-This is pretty self explanatory! Placed next to a power emitter, it'll receive power from it and send it to where the Power is needed!
-
-[color=rgb(0, 0, 255)][b]Charger:[/color][/b]
-When supplied some power from a wire, it'll charge up any batteries that are in it's slots.
-
-[color=rgb(0, 0, 255)][b]Cooker:[/color][/b]
-This is just like a Furnace, but doesn't use the vanilla fuel! It uses the Power. Place a battery in it's slots or connect it to a wire!
-
-[color=rgb(0, 0, 255)][b]Generator:[/color][/b]
-Pretty self explanatory! When you place some furnace fuel into it's slot, it'll start generating power. ONLY IF IT'S REDSTONE POWERED!
+[color=rgb(0, 0, 255)][b]Archer Robot:[/color][/b]
+Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
 [color=rgb(0, 0, 255)][b]Arrow Tower:[/color][/b]
-When given some power, it'll start dropping arrows on the closest enemies! It'll attack all mobs that are in a 10 block radius of it! It'll take 50 EJ of power when it shoots an arrow. If it doesn't have enough power, it'll stop. If there are more than one enemies in it's range, it'll drop arrows on all of them. Considering it has enough power!
+This block will take in energy and use it to shoot at mobs in a 10 block radius. It will shoot arrows as long as it has atleast 50 EB Joules.
 
-[color=rgb(0, 0, 255)][b]Recipe Reverting Station:[/color][/b]
-Upon right-clicking this block. It'll display a small Gui that's pretty much a flipped Crafting table. But the difference is that you put your item in the big slot and it'll show the recipe on the side.
-Then you could take the exact things you used to get everything back! It works with all kinds of recipes! Even other mods recipes! So if you find something that you don't want in a dungeon, go ahead and put it in the table and salvage some of the stuff back!
+[color=rgb(0, 0, 255)][b]Banana:[/color][/b]
+An edible item that heals 2.
+It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Altar:[/color][/b]
-When placed in a four block tall column, it, explosively, spawns the Demon Spirit! This can also be crafted!
-
-NOTE: Every other Block is just used in crafting or isn't very useful right now.
-[/spoiler]
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/6bf219b5e65c144fc2f3e55d21083a48b8ba1b2bda39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zps3888600c.png[/IMG]
-[spoiler]
-[color=rgb(0, 0, 255)][b]Extractor:[/color][/b]
-This Item is used to collect Sap. When you right click on a log, it will become into a emptied log, and you will gan some sap. This sap can then be used to creat plastic.
-
-[color=rgb(0, 0, 255)][b]Cellphone:[/color][/b]
-This displays:
-- The current time
-- The distance the Player traveled
-- The closest mob, within 100 blocks
-- The Player's Age
-- The Moon Phase
-- The Biome the player is currently in
-- The Player's X, Y, and Z
-- The dimension the player is in, with the Dimension ID
-
-[color=rgb(0, 0, 255)][b]Backpack:[/color][/b]
-This displays the Ender Chest when the player right clicks with it
-
-[color=rgb(0, 0, 255)][b]Counter:[/color][/b]
-This adds one to the count every time you right click with this. Useful for checking how many times you did something, etc.
-
-[color=rgb(0, 0, 255)][b]Notes:[/color][/b] 
-Very useless at the moment...
-
-[color=rgb(0, 0, 255)][b]Fuse:[/color][/b]
-You could place this on a block and light it, this will burn and burn the fuses next to it too. You could train this to a Powder keg to blow it up
-
-[color=rgb(0, 0, 255)][b]Grenade:[/color][/b]
-When right clicked, you will throw a grenade out and it will blow up where it lands
-
-[color=rgb(0, 0, 255)][b]Molotov:[/color][/b]
-Similar to a Grenade but doesn't blow up anything, just set's fire everywhere
-
-[color=rgb(0, 0, 255)][b]Mellow/Weed/Hemp Leaves:[/color][/b]
-Isn't working properly, so won't be functional, even if explained...
-
-[color=rgb(0, 0, 255)][b]Pestle and Mortar:[/color][/b]
-When right clicked with some Weed or Hemp leaves in the inventory, has a chance to turn those into a more powerful version
-
-[color=rgb(0, 0, 255)][b]Orange/Banana/Peach/Grapes:[/color][/b]
-Can be eaten to heal some hunger
-
-[color=rgb(0, 0, 255)][b]Robot:[/color][/b]
-When used on a block, spawns a Robot in that position corresponding to the Robot. Note that the Complete Robot needs to be crafted with some tool to be used
-
-[color=rgb(0, 0, 255)][b]Furnace Upgrade:[/color][/b]
-When placed in the Cooker's Arrow slot, it will work twice as fast and consume the item. Then when placed in the slot again, it will work even faster. SO on and so forth, all the way till it's uprades are to ten!
+[color=rgb(0, 0, 255)][b]Barrel:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 8 slots. 
 
 [color=rgb(0, 0, 255)][b]Battery:[/color][/b]
-This is a portable way to carry around the power that you want to have with you. Kinda like a portable generator. Most of the machines let you use this but one doesn't. The Arrow Tower. That needs RAW POWER!
+Can be used in EB machines as an alternative to wires. To provide EJ. Extreme Joules. Upon creation, it will have zero charge. Be wary of this!
 
-[color=rgb(0, 0, 255)][b]Tomato/Seeds:[/color][/b]
-Another food and crop. The Tomato's saturaturation isn't bad. It's the same as an apple, but you do get quite some from the crop. The seeds are obtained like normal wheat seeds. Punching grass!
+[color=rgb(0, 0, 255)][b]Big Crate:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 27 slots. 
 
-[color=rgb(0, 0, 255)][b]Cucumber/Seeds:[/color][/b]
-Similar to the Tomato's saturation, the Cucumber's saturaturation is the same as an apple. The seeds are also obtained like normal wheat seeds!
+[color=rgb(0, 0, 255)][b]Block of Limestone:[/color][/b]
+A compact way to save space when you have too much limestone. This can also be smelted to create a Marble block.
 
-[color=rgb(0, 0, 255)][b]Sorters:[/color][/b]
-The sorters are exactly what they say they are! They sort the inventory corresponding to their names. I think most of them are pretty self explanatory, but these ones: 
-- Rarity Sorter: This sort's it by the color of it's name. Like the Golden Apples and some enchanted tools, If it's value is higher, it's higher in the inventory!
-- Items Sorter: Sorts by half the inventory in Items, then the bottom half in blocks. Simple!
-- Durability Sorter: If the item is a tool, and it's durability is higher, it'll be higher up in the chest!
-- Tools Sorter (WIP): When used, it will sort the better tools ontop of the chest. Not by durability or kind. If it has a higher harvest level, it'll be higher in the chest!
-Most sorter's are crafted the same way, except the two items ontop on the side, the recipes are posted in the album. Make sure to check it out!
+[color=rgb(0, 0, 255)][b]Bone Dirt:[/color][/b]
+Drops a bone shard upon breaking.
+
+[color=rgb(0, 0, 255)][b]Bone Shard:[/color][/b]
+Can be used in a crafting recipe to create bones
+
+[color=rgb(0, 0, 255)][b]Bronze Block:[/color][/b]
+Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
+
+[color=rgb(0, 0, 255)][b]Bronze Ingot:[/color][/b]
+Can be crafted into multiple tools
+
+[color=rgb(0, 0, 255)][b]Bronze Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Cabinet:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 6 slots. 
+
+[color=rgb(0, 0, 255)][b]Cannabis Plant:[/color][/b]
+Similar to sugar cane, it can be grown and then used for weed.
+
+[color=rgb(0, 0, 255)][b]Cellphone:[/color][/b]
+Very useful tool that shows multiple different chunks of information about you and your world!
+
+[color=rgb(0, 0, 255)][b]Cement Block:[/color][/b]
+Very nice decoration block.
+
+[color=rgb(0, 0, 255)][b]Charger:[/color][/b]
+This block can charge batteries for you. When connected with a wire, it can receive energy an store it in batteries.
+
+[color=rgb(0, 0, 255)][b]Chip:[/color][/b]
+The basis of all the mod's electronics
+
+[color=rgb(0, 0, 255)][b]Compact Stone:[/color][/b]
+Compact way to save stone
+
+[color=rgb(0, 0, 255)][b]Complete Robot:[/color][/b]
+Can be crafed with multiple other tools to create their corresponding robot counterparts!
+
+[color=rgb(0, 0, 255)][b]Computer AI Chip:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Cooker:[/color][/b]
+This block is just like a furnace. But a lot better! It can use EB Joules to cook it's items. You can even upgrade it. By placing a Furnace upgrade in it's upgrade slot, you can speed up the cooking process
+
+[color=rgb(0, 0, 255)][b]Copper:[/color][/b]
+Can be combined with tin to make copper and tin lumps
+
+[color=rgb(0, 0, 255)][b]Copper and Tin Lump:[/color][/b]
+Can be smelted into Bronze Ingots
+
+[color=rgb(0, 0, 255)][b]Copper Ore:[/color][/b]
+An ore for Copper. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Core Chip:[/color][/b]
+A step up from the simple chip. Used for some of the advanced technologies
+
+[color=rgb(0, 0, 255)][b]Counter:[/color][/b]
+Can be right clicked to increase the count. Can't be reversed in any way.
+
+[color=rgb(0, 0, 255)][b]Crate:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 9 slots. 
+
+[color=rgb(0, 0, 255)][b]Crushed Stone:[/color][/b]
+Used in multiple recipes.
+
+[color=rgb(0, 0, 255)][b]Cucumber:[/color][/b]
+An edible item that heals 3.
+It saturates 0.6.
+
+[color=rgb(0, 0, 255)][b]Cucumber Seeds:[/color][/b]
+Can be placed in tilled dirt to start growing it's corresponding plant. Obtained like wheat seeds are.
+
+[color=rgb(0, 0, 255)][b]Delvlish Crystal:[/color][/b]
+Can be crafted into multiple tools
+
+[color=rgb(0, 0, 255)][b]Delvlish Ore:[/color][/b]
+An ore for Delvlish. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Diamond Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Dried Sapling:[/color][/b]
+This sapling can't grow because of it's lack of moisture. In all seriousness, it's pretty useless!
+
+[color=rgb(0, 0, 255)][b]Drill Head:[/color][/b]
+When placed down on the ground, it will drill all the way down to an open block, or to bedrock. Then the contents are stored in it's inventory. To retrieve the items, you have to right click it.
+
+[color=rgb(0, 0, 255)][b]EB Crafting Table:[/color][/b]
+This crafting table replacement can be used just to register all of the Extreme Blocks Mod's recipes. There are some config options that you can play with to maximize enjoyment.
+
+[color=rgb(0, 0, 255)][b]Emptied Log:[/color][/b]
+This block, like logs, can be placed sideways.
+
+[color=rgb(0, 0, 255)][b]Ender Backpack:[/color][/b]
+Simply. A Portable Ender Chest. Quite OP really.
+
+[color=rgb(0, 0, 255)][b]Extractor:[/color][/b]
+Can be used on logs to obtain sap. Leaves the log empty.
+
+[color=rgb(0, 0, 255)][b]Fake Gravel:[/color][/b]
+Simply. Fake gravel, it will not drop if there's no block under it.
+
+[color=rgb(0, 0, 255)][b]Fake Sand:[/color][/b]
+Simply. Fake sand, it will not drop if there's no block under it.
+
+[color=rgb(0, 0, 255)][b]Farmer Robot:[/color][/b]
+Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
+
+[color=rgb(0, 0, 255)][b]Finished Xray Block:[/color][/b]
+Allows you to see through blocks to the next open block.
+
+[color=rgb(0, 0, 255)][b]Fire Hydrant:[/color][/b]
+Upon right clicking with anything, you will extinguish all fires in a 3 block radius. BUT, if you right click it with a wrench, if will spawn a block if water on top of the hydrant!
+
+[color=rgb(0, 0, 255)][b]Fluorite:[/color][/b]
+Can be crafted into multiple tools.
+
+[color=rgb(0, 0, 255)][b]Fluorite Ore:[/color][/b]
+An ore for Fluorite. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Fuse:[/color][/b]
+When placed and lit on fire, will travel through adjacent fuses.
+
+[color=rgb(0, 0, 255)][b]Generator:[/color][/b]
+This generator generates energy on fuels! You can place anything that can be used in a furnace, into the generator's slot and it will create energy and send it to nearby wires.
+
+[color=rgb(0, 0, 255)][b]Glester Ore:[/color][/b]
+An ore for Glester. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Glester Rock:[/color][/b]
+Can be crafted into multiple tools
+
+[color=rgb(0, 0, 255)][b]Gold Coin:[/color][/b]
+This item can be traded with a farmer villager for some valuable trades!
+
+[color=rgb(0, 0, 255)][b]Gold Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Grapes:[/color][/b]
+An edible item that heals 1.
+It saturates 0.6.
+
+[color=rgb(0, 0, 255)][b]Grenade:[/color][/b]
+Can be thrown out. It will also blow up upon impact with something. Also the crafting can be reversed! So, putting this in the Crafting Grid will return the 9 gunpowder back!
+
+[color=rgb(0, 0, 255)][b]Hemp Leaves:[/color][/b]
+Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
+
+[color=rgb(0, 0, 255)][b]Hunter Robot:[/color][/b]
+Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
+
+[color=rgb(0, 0, 255)][b]Iron Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Lantern:[/color][/b]
+Gives off some nice light. It isn't too powerful but it's nice.
+
+[color=rgb(0, 0, 255)][b]Large Crate:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 54 slots. 
+
+[color=rgb(0, 0, 255)][b]Light:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Limestone:[/color][/b]
+Used in a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Limestone Ore:[/color][/b]
+An ore for Limestone. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Marble:[/color][/b]
+Nice decoration block.
+
+[color=rgb(0, 0, 255)][b]Mellow Weed:[/color][/b]
+Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
+
+[color=rgb(0, 0, 255)][b]Meteor:[/color][/b]
+Can be crafted into multiple tools.
+
+[color=rgb(0, 0, 255)][b]Meteorite:[/color][/b]
+An ore for Meteorite. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Meteorite Shards:[/color][/b]
+Obtained by mining meteorites.
+
+[color=rgb(0, 0, 255)][b]Miner Robot:[/color][/b]
+Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
+
+[color=rgb(0, 0, 255)][b]Molotov:[/color][/b]
+Can be thrown out. Upon impact, set fire to nearby blocks and also does cause splash damage to neaby mobs. So stay back when used!
+
+[color=rgb(0, 0, 255)][b]Nuclear Sewage:[/color][/b]
+This block gives off tons of random potion effects when a mob touches it. This includes the player. The effects could be good, or bad.
+
+[color=rgb(0, 0, 255)][b]Onyx:[/color][/b]
+Can be crafted into multiple tools.
+
+[color=rgb(0, 0, 255)][b]Onyx Ore:[/color][/b]
+An ore for Onyx. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Orange:[/color][/b]
+An edible item that heals 4.
+It saturates 0.6.
+
+[color=rgb(0, 0, 255)][b]Peach:[/color][/b]
+An edible item that heals 3.
+It saturates 0.6.
+
+[color=rgb(0, 0, 255)][b]Pestle And Mortar:[/color][/b]
+When right clicked:
+With Cannabis Plant in your inventory, 33% chance to get Hemp Leaves
+With Hemp Leaves in your inventory, 20% chance to get Mellow Weed
+With Mellow Weed in your inventory, 10% chance to give you Weed.
+
+[color=rgb(0, 0, 255)][b]Pipe:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Pipes:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Plaster Block:[/color][/b]
+Very nice decoration block. Needs to be put in a furnace to be hardened!
+
+[color=rgb(0, 0, 255)][b]Plaster Wall:[/color][/b]
+Nice decoration block. May be used for recipes as well.
+
+[color=rgb(0, 0, 255)][b]Plastic:[/color][/b]
+Used for multiple different recipes. A very important element to the mod really!
+
+[color=rgb(0, 0, 255)][b]Powder Keg:[/color][/b]
+This powder keg will blow up when there is a fire next to it. This can be used with the fuse to set traps!
+
+[color=rgb(0, 0, 255)][b]Power Core:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Recipe Reverting Station:[/color][/b]
+This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.
+
+[color=rgb(0, 0, 255)][b]Robot Arm:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Robot Head:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Robot Leg:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Robot Torso:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Sapphire:[/color][/b]
+Can be crafted into multiple tools.
+
+[color=rgb(0, 0, 255)][b]Sapphire Ore:[/color][/b]
+An ore for Sapphire. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Silver Block:[/color][/b]
+Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
+
+[color=rgb(0, 0, 255)][b]Silver Ingot:[/color][/b]
+Can be crafted into multiple tools. Acquired by smelting silver ore
+
+[color=rgb(0, 0, 255)][b]Silver Ore:[/color][/b]
+An ore for Silver. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Silver Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Small Crate:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 4 slots. 
+
+[color=rgb(0, 0, 255)][b]Sorter Component:[/color][/b]
+Used for crafting a multitude of crafting recipes
+
+[color=rgb(0, 0, 255)][b]Spear:[/color][/b]
+Can be thrown where the player is pointing. Same speed as an arrow at full hold-back. Also does the same damage. Can also be picked back up!
+
+[color=rgb(0, 0, 255)][b]Speed Upgrade:[/color][/b]
+Very expensive alternative to saving space and speeding up your Cookers!
 
 [color=rgb(0, 0, 255)][b]Spirit Fragment:[/color][/b]
-Dropped by the Demon Spirit, can be used in very overpowered weapons! But you need two for the sword!
+Obtained by killing the Demon Spirit. Used in some different recipes that are very useful!
 
-[color=rgb(0, 0, 255)][b]Super Tools:[/color][/b]
-The Super tools are very powerful tools that actually can be crafted! Using Bedrock! 
-Doing a million damage, using the shovel will do tons of damage! Also cinsidering, they're extremely efficient!
+[color=rgb(0, 0, 255)][b]Stone Pillar:[/color][/b]
+This block, like logs, can be placed sideways.
 
-NOTE: Every other Item is just used in crafting or isn't very useful right now.
-[/spoiler]
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/b1e2d756688d5152d97cda911204200a6e8632b0da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zpsdfce9217.png[/IMG]
-[spoiler]
-[color=rgb(0, 0, 255)][b]Evil Iron Golem:[/color][/b]
-The Evil Iron Golem is similar to the Iron Golem but it's texture is red and it attacks everything! Even it's own kind!
-It could also be built! The same way that the Iron Golem is but not with Iron Blocks! With the mods Trinquantium Blocks!
+[color=rgb(0, 0, 255)][b]Stone Rod:[/color][/b]
+Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Castle Zombie:[/color][/b]
-This mob spawn in and protects the Castles. These have weapons with a lot of knockback to keep you away from their loot.
+[color=rgb(0, 0, 255)][b]Strongbox:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 3 slots. 
 
-[color=rgb(0, 0, 255)][b]Castle Skeleton:[/color][/b]
-Similar to the Zombie type, this mob spawn in and protects the Castles. These have bows with a lot of knockback and spawn in front of the castle to keep you from getting in.
+[color=rgb(0, 0, 255)][b]The EB Guide:[/color][/b]
+The EB Guide to everything. It has this exact page in it really. I personally suggest using that instead of looking at this.
 
-[color=rgb(0, 0, 255)][b]Demon Spirit:[/color][/b]
-This mob is a Boss! WHOA! This thing will get you really mad! Go ahead, give yourself the most overpowered items, it'll still be difficult! The special attacks of this mad are:
-* Web Spit: The web shot is when he throws two webs right at you, and you get stuck!
-* Wither Shot: Shoots a Wither Skull at you
-* Foe Flinging: It throws you about 4 block up in the air!
-* The Bully: The Powers of the spirit command al the items in your inventory to drop to the ground!
-* Summoner: If it's health is less than 50%, it'll spawn many Pig Zombies that by default are mad at you!
-* Volley Attack: Shoots out 5 arrows right at the attacker! Speak of power!
-Ontop of all that, they look absolutely hellish!
-They also have some protection!
-* They can't get stuck in webs
-* They're fireproof
-* Also, if placed in water, it get's rid of it!
-Upon death, they drop the Spirit Fragment. And TONS of Rotten Flesh!
+[color=rgb(0, 0, 255)][b]Tin:[/color][/b]
+Can be combined with copper to make copper and tin lumps
 
-[color=rgb(0, 0, 255)][b]Robot:[/color][/b]
-This mob can be used to complete multiple different tasks. These tasks include: Farming, Mining, Hunting, and Guarding If spawned with an Egg, it receives a random profession. 
-* If you place some food in the Robot's inventory, when the Robot's health is low, it will consume that food and the hunger it gives, will be added to the Robot's health!
-* Adding armor to the Robot will increase it's defence against attacks. Very useful for the fighting robots!
-* Killing the Entity will simply remove it giving back nothing.
-* If you kill the robot with a sword that has atleast 1 looting, you will get everything, used to craft it, back.
+[color=rgb(0, 0, 255)][b]Tin Ore:[/color][/b]
+An ore for Tin. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[b]Professions and Actions:[/b]
-- Farmer
-    The farmer will break vanilla crops and place seeds there. If you give them a hoe! Remember that the Items get used. It checks a 30x30x30 radius to see if there are any crops around, If there are, it will proceed to them. If successfull in it's travel, it will break the crops and plant seeds there, if it has! It even farms Carrots and also Potatoes!
-- Warrior
-    The Warrior will kill any hostile mobs in it's range. It will walk up to the mobs and kill them. Also collect the loot!
-- Archer
-    The Archer, similar to the warrior, uses the bow and shoots the mobs with arrows.
-- Hunter
-    The Hunter walks around and kills and animals it sees, including cows, pigs, horses, chickens, etc. It also collects the loot. If the animal is far, it will use the bow. If it is close (int 3 blocks radius) it will take out it's sword for combat!
-- Miner
-    The Miner will mine all the way to bedrock and then nerd-pole out of the 1x2 hole it creates and start wandering around!
+[color=rgb(0, 0, 255)][b]Tomato:[/color][/b]
+An edible item that heals 3.
+It saturates 0.6.
+
+[color=rgb(0, 0, 255)][b]Tomato Seeds:[/color][/b]
+Can be placed in tilled dirt to start growing it's corresponding plant. Obtained like wheat seeds are.
+
+[color=rgb(0, 0, 255)][b]Trash Can:[/color][/b]
+This block will allow you to destroy anything that you don't want anymore. If the config option for traditional trash can is enabled. It will destry items like a cactus. But if not, you could right click on it and place items in the Gui. Then power it with redstone and hit that empty button.
+
+[color=rgb(0, 0, 255)][b]Trinquantium Block:[/color][/b]
+Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
+
+[color=rgb(0, 0, 255)][b]Trinquantium Ingot:[/color][/b]
+Can be crafted into multiple tools. Acquired by smelting trinquantium ore
+
+[color=rgb(0, 0, 255)][b]Trinquantium Ore:[/color][/b]
+An ore for Trinquantium. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=rgb(0, 0, 255)][b]Trinquantium Trophy:[/color][/b]
+Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
+
+[color=rgb(0, 0, 255)][b]Vending Machine:[/color][/b]
+This block will allow you to gamble in Minecraft! Right click it with a diamond and it will give you a random item in all of Minecraft back!
+
+[color=rgb(0, 0, 255)][b]Warrior Robot:[/color][/b]
+Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
+
+[color=rgb(0, 0, 255)][b]Weed:[/color][/b]
+Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
+
+[color=rgb(0, 0, 255)][b]Wire:[/color][/b]
+This block can transfer EB Joules through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy emmiters to create energy.
+
+[color=rgb(0, 0, 255)][b]Wooden Plate:[/color][/b]
+You can right click on this to place the item in the plate. You can use this as a kind of Item Frame.
+
+[color=rgb(0, 0, 255)][b]Wrench:[/color][/b]
+Simple multi-purpose tool.
 [/spoiler]
 [/spoiler]
 
@@ -401,6 +581,20 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6bd82992110e09a39eb5bbcb9a3a143895eba286da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps6f2d421b.png[/IMG]
 [spoiler]
 [size=large][color=red][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
+
+~~6.5~~ 1.7.10- [url=]Click Here![/url]
+[spoiler]
+- Added the EB Guide
+- Nerfed the Grenade's Blast Radius
+- Fixed muliple code issues (warnings)
+- Fixed Dupe bug with Recipe Reverting Station
+- Multiple bug fixes
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for this version.[/color]
+
+-Updated the Github!
+[/spoiler]
 
 ~~6.4~~ 1.7.10- [url=http://adf.ly/uO0Nt]Click Here![/url]
 [spoiler]

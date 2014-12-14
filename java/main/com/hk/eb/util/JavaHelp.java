@@ -2,7 +2,7 @@ package main.com.hk.eb.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.apache.commons.lang3.ArrayUtils;
+import com.google.common.collect.Lists;
 
 public class JavaHelp
 {
@@ -10,11 +10,28 @@ public class JavaHelp
 	{
 	}
 
-	public static <T> T[] growArrayByOne(T[] obj)
+	public static <T> boolean areEqual(T[] a1, T[] a2, boolean strict)
+	{
+		int l = Math.min(a1.length, a2.length);
+		for (int i = 0; i < l; i++)
+		{
+			T a = a1[i];
+			T b = a2[i];
+			if (a != null && b != null && a.equals(b))
+			{
+				continue;
+			}
+			return false;
+		}
+		return strict ? a1.length == a2.length : true;
+	}
+
+	public static <T> T[] growArray(T[] obj)
 	{
 		return growArray(obj, 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T> T[] growArray(T[] obj, int amountToGrow)
 	{
 		Object[] tmp = new Object[obj.length + amountToGrow];
@@ -25,17 +42,24 @@ public class JavaHelp
 		return (T[]) tmp;
 	}
 
-	public static void split(Object[] source, Object[] part2)
+	@SuppressWarnings("unchecked")
+	public static <T> T[] copy(T[] array)
 	{
-		Object[] part1 = new Object[part2.length];
-		System.arraycopy(source, 0, part1, 0, part1.length);
-		System.arraycopy(source, part1.length, part2, 0, part2.length);
-		for (Object element : part2)
-		{
-			source = ArrayUtils.remove(source, source.length - 1);
-		}
+		return (T[]) Lists.newArrayList(array).toArray(new Object[0]);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T> T[][] split(T[] source, int by)
+	{
+		Object[][] objs = new Object[by][0];
+		for (int i = 0; i < source.length; i++)
+		{
+			objs[i % by][i] = source[i];
+		}
+		return (T[][]) objs;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static <T> T[] growArrayByAt(T[] obj, int indexToGrowAt, int amountToGrow)
 	{
 		Object[] tmp = new Object[obj.length + amountToGrow];

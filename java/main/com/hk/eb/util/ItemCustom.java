@@ -12,8 +12,10 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCustom extends Item
+public class ItemCustom extends Item implements Info
 {
+	private String info;
+	private boolean showRecipe;
 	private final String name;
 
 	public ItemCustom(String name, CreativeTabs tab)
@@ -22,6 +24,29 @@ public class ItemCustom extends Item
 		setCreativeTab(tab);
 		this.name = name;
 		ExtremeBlocks.items.add(this);
+	}
+
+	public ItemCustom setInfo(String info)
+	{
+		this.info = info;
+		return this;
+	}
+
+	public ItemCustom setShowRecipe()
+	{
+		showRecipe = true;
+		if (info == null || info.isEmpty())
+		{
+			setInfo("Used for crafting a multitude of crafting recipes");
+		}
+		return this;
+	}
+
+	@Override
+	public ItemCustom setTextureName(String name)
+	{
+		super.setTextureName(name);
+		return this;
 	}
 
 	@Override
@@ -66,6 +91,18 @@ public class ItemCustom extends Item
 	public static void registerIIcon(String iiconPath)
 	{
 		iconPaths.add(iiconPath);
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return info;
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(info != null && !info.isEmpty(), showRecipe);
 	}
 
 	private static HashMap<String, IIcon> icons = JavaHelp.newHashMap();

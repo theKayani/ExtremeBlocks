@@ -4,7 +4,6 @@ import main.com.hk.eb.util.MPUtil;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 public class EntityGrenade extends EntityThrowable
@@ -50,14 +49,8 @@ public class EntityGrenade extends EntityThrowable
 		}
 		if (MPUtil.isServerSide())
 		{
-			if (mop.typeOfHit == MovingObjectType.BLOCK)
-			{
-				worldObj.newExplosion(this, posX, posY, posZ, 5.0F, false, true);
-			}
-			if (mop.typeOfHit == MovingObjectType.ENTITY)
-			{
-				worldObj.newExplosion(this, posX, posY, posZ, 5.0F, false, true);
-			}
+			//Explode.createExplosion(this, 20.0F, false, true);
+			worldObj.newExplosion(this, posX, posY, posZ, 2.0F, false, true);
 			setDead();
 		}
 	}

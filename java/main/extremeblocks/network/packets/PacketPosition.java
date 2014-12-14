@@ -1,8 +1,7 @@
 package main.extremeblocks.network.packets;
 
-import main.extremeblocks.network.AbstractPacket;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
+import main.extremeblocks.network.AbstractPacket;
 
 public abstract class PacketPosition extends AbstractPacket
 {

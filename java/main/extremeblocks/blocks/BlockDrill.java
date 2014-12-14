@@ -1,9 +1,7 @@
 package main.extremeblocks.blocks;
 
-import java.util.ArrayList;
 import java.util.Random;
 import main.com.hk.eb.util.BlockCustom;
-import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.tileentities.TileEntityDrill;
@@ -20,7 +18,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockDrill extends BlockCustom implements ITileEntityProvider
 {
 	public final boolean isHead;
-	private static ArrayList<ItemStack> loot = JavaHelp.newArrayList();
 
 	public BlockDrill(boolean isHead)
 	{

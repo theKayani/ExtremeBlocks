@@ -19,20 +19,23 @@ public class GuiCustomizeIslands extends GuiScreen
 		this.melons = melons;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
 	public void initGui()
 	{
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 155, this.height - 28, 150, 20, "Done"));
-		this.buttonList.add(new GuiButton(1, this.width / 2 + 5, this.height - 28, 150, 20, "Cancel"));
-		this.buttonList.add(new GuiButton(10, 15, 25, 25, 20, "+"));
-		this.buttonList.add(new GuiButton(20, 80, 25, 25, 20, "-"));
-		this.buttonList.add(new GuiButton(11, 15, 65, 25, 20, "+"));
-		this.buttonList.add(new GuiButton(21, 80, 65, 25, 20, "-"));
-		this.buttonList.add(new GuiButton(12, 15, 105, 25, 20, "+"));
-		this.buttonList.add(new GuiButton(22, 80, 105, 25, 20, "-"));
-		this.buttonList.add(new GuiButton(13, 15, 145, 25, 20, "+"));
-		this.buttonList.add(new GuiButton(23, 80, 145, 25, 20, "-"));
+		buttonList.add(new GuiButton(0, width / 2 - 155, height - 28, 150, 20, "Done"));
+		buttonList.add(new GuiButton(1, width / 2 + 5, height - 28, 150, 20, "Cancel"));
+		buttonList.add(new GuiButton(10, 15, 25, 25, 20, "+"));
+		buttonList.add(new GuiButton(20, 80, 25, 25, 20, "-"));
+		buttonList.add(new GuiButton(11, 15, 65, 25, 20, "+"));
+		buttonList.add(new GuiButton(21, 80, 65, 25, 20, "-"));
+		buttonList.add(new GuiButton(12, 15, 105, 25, 20, "+"));
+		buttonList.add(new GuiButton(22, 80, 105, 25, 20, "-"));
+		buttonList.add(new GuiButton(13, 15, 145, 25, 20, "+"));
+		buttonList.add(new GuiButton(23, 80, 145, 25, 20, "-"));
 	}
 
+	@Override
 	protected void actionPerformed(GuiButton b)
 	{
 		switch (b.id)
@@ -43,12 +46,12 @@ public class GuiCustomizeIslands extends GuiScreen
 				Vars.numbOfTrees += trees;
 				Vars.numbOfCactus += cactus;
 				Vars.numbOfMelons += melons;
-				this.mc.displayGuiScreen(this.parentGui);
+				mc.displayGuiScreen(parentGui);
 				break;
 			}
 			case 1:
 			{
-				this.mc.displayGuiScreen(this.parentGui);
+				mc.displayGuiScreen(parentGui);
 				break;
 			}
 			case 10:
@@ -94,9 +97,10 @@ public class GuiCustomizeIslands extends GuiScreen
 		}
 	}
 
+	@Override
 	public void drawScreen(int par1, int par2, float par3)
 	{
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		drawString("Number of Trees to Spawn", 85, 15);
 		drawString(Vars.numbOfTrees + trees, 60, 34);
 		drawString("Number of Pumpkins to Spawn", 85, 55);
@@ -110,6 +114,6 @@ public class GuiCustomizeIslands extends GuiScreen
 
 	public void drawString(Object str, int x, int y)
 	{
-		this.drawCenteredString(this.fontRendererObj, String.valueOf(str), x, y, 16777215);
+		drawCenteredString(fontRendererObj, String.valueOf(str), x, y, 16777215);
 	}
 }

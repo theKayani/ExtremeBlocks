@@ -71,7 +71,7 @@ public class TileEntityDrill extends TileEntity implements IPlayerMessage
 			Block block = belowBlock();
 			stack = block.getDrops(worldObj, xCoord, yCoord - 1, zCoord, worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord), 1);
 			worldObj.setBlock(xCoord, yCoord - 1, zCoord, Init.drill);
-			return (ArrayList<ItemStack>) (stack == null ? JavaHelp.newArrayList() : stack);
+			return stack == null ? new ArrayList<ItemStack>() : stack;
 		}
 		return JavaHelp.newArrayList();
 	}

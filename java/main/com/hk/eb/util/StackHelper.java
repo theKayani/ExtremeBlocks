@@ -26,6 +26,29 @@ public class StackHelper
 		return obj instanceof Block || obj instanceof Item;
 	}
 
+	public static boolean isEmpty(ItemStack... stacks)
+	{
+		if (stacks != null)
+		{
+			for (ItemStack stack : stacks)
+			{
+				if (stack != null) return false;
+			}
+		}
+		return true;
+	}
+
+	public static void getRidOfNulls(ItemStack... stacks)
+	{
+		for (int i = 0; i < stacks.length; i++)
+		{
+			if (stacks[i] != null && stacks[i].stackSize <= 0)
+			{
+				stacks[i] = null;
+			}
+		}
+	}
+
 	public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
 	{
 		return ItemStack.areItemStacksEqual(stack1, stack2);
@@ -50,11 +73,6 @@ public class StackHelper
 
 	public static boolean[] addToInv(IInventory inv, ItemStack... itemstacks)
 	{
-		if (itemstacks == null)
-		{
-			new IllegalArgumentException("Itemstacks Cannot be NULL!").printStackTrace();
-			return null;
-		}
 		boolean[] val = new boolean[itemstacks.length];
 		for (int i = 0; i < itemstacks.length; i++)
 		{
@@ -185,6 +203,7 @@ public class StackHelper
 
 	public static ItemStack consumeItem(ItemStack stack, int amount)
 	{
+		if (stack != null && stack.stackSize <= amount) return null;
 		for (int i = 0; i < amount; i++)
 		{
 			stack = consumeItem(stack);
@@ -194,6 +213,7 @@ public class StackHelper
 
 	public static ItemStack consumeItem(ItemStack stack)
 	{
+		if (stack == null || stack.stackSize <= 0) return null;
 		if (stack.stackSize == 1)
 		{
 			if (stack.getItem().hasContainerItem(stack)) return stack.getItem().getContainerItem(stack);
@@ -253,7 +273,7 @@ public class StackHelper
 
 	public static boolean areStacksSameTypeCrafting(ItemStack stack1, ItemStack stack2)
 	{
-		return stack1 != null && stack2 != null && stack1.getItem() == stack2.getItem() && stack1.stackSize >= stack2.stackSize && (stack1.getItemDamage() == stack2.getItemDamage() || stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack2.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack1.getItem().isDamageable());
+		return OreDictionary.itemMatches(stack1, stack2, false);
 	}
 
 	public static boolean hasItem(IInventory tile, Item item)

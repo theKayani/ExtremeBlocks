@@ -30,4 +30,16 @@ public class BlockCement extends BlockCustom implements IStoneOre
 	{
 		return super.canPlaceBlockAt(world, x, y, z) && canBlockStay(world, x, y, z);
 	}
+
+	@Override
+	public String getInfo()
+	{
+		return "Very nice decoration block." + (isCement ? "" : " Needs to be put in a furnace to be hardened!");
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, isCement);
+	}
 }

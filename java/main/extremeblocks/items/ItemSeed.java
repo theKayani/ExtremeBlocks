@@ -1,5 +1,6 @@
 package main.extremeblocks.items;
 
+import main.com.hk.eb.util.Info;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ItemSeed extends ItemSeeds
+public class ItemSeed extends ItemSeeds implements Info
 {
 	public final int crop;
 	public final String name;
@@ -75,4 +76,16 @@ public class ItemSeed extends ItemSeeds
 
 	public static final int TOMATO_CROP = 0;
 	public static final int CUCUMBER_CROP = 1;
+
+	@Override
+	public String getInfo()
+	{
+		return "Can be placed in tilled dirt to start growing it's corresponding plant. Obtained like wheat seeds are.";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, false);
+	}
 }

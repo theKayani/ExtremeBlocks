@@ -1,2 +1,2 @@
-Version: 6.4
-Summary Message: Removed Tons of Bugs!
+Version: 6.5
+Summary Message: Added the EB Guide!

@@ -1,6 +1,7 @@
 package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +26,7 @@ public class BlockHydrant extends BlockCustom
 		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Init.wrench)
 		{
 			Block block = world.getBlock(x, y + 1, z);
-			if (block.isReplaceable(world, x, y + 1, z))
+			if (MPUtil.isServerSide() && block.isReplaceable(world, x, y + 1, z))
 			{
 				world.setBlock(x, y + 1, z, Blocks.flowing_water);
 			}
@@ -36,7 +37,10 @@ public class BlockHydrant extends BlockCustom
 			{
 				for (int k = -3; k < 4; k++)
 				{
-					world.extinguishFire(player, x + i, y + j, z + k, 0);
+					if (MPUtil.isServerSide())
+					{
+						world.extinguishFire(player, x + i, y + j, z + k, 0);
+					}
 				}
 			}
 		}

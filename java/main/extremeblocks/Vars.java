@@ -5,10 +5,12 @@ import org.apache.logging.log4j.Logger;
 
 public class Vars
 {
+	public static boolean guidePausesGame;
 	public static boolean xrayBlockWork;
 	public static boolean customCraftingTable;
 	public static boolean addVanillaRecipes;
 	public static String counterMessage;
+
 	public static boolean alterWorld;
 	public static boolean genCastle;
 	public static boolean genDriedTree;

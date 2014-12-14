@@ -15,6 +15,13 @@ public class GuiExtremeBlocks<E extends IGuiContainer> extends GuiContainer
 	}
 
 	@Override
+	public void updateScreen()
+	{
+		super.updateScreen();
+		tileEntity.updateScreen(this);
+	}
+
+	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		tileEntity.drawGuiContainerForegroundLayer(this, par1, par2);

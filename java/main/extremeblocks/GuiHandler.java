@@ -54,11 +54,11 @@ public class GuiHandler implements IGuiHandler, GuiIDs
 			case BLOCK_EBTABLE:
 				return block instanceof BlockEBTable ? new ContainerEBTable(player.inventory, world, x, y, z) : null;
 			case GUI_ROBOT:
-				return new ContainerRobot(player.inventory, world, x, y, z, (EntityRobot) world.getEntityByID(entityID));
+				return new ContainerRobot((EntityRobot) world.getEntityByID(entityID));
 			case GUI_ROBOT_INV:
-				return new ContainerRobotInv(player.inventory, world, x, y, z, (EntityRobot) world.getEntityByID(entityID));
+				return new ContainerRobotInv(player.inventory, (EntityRobot) world.getEntityByID(entityID));
 			case GUI_ROBOT_COMMANDS:
-				return new ContainerRobotCommands(player.inventory, world, x, y, z, (EntityRobot) world.getEntityByID(entityID));
+				return new ContainerRobotCommands((EntityRobot) world.getEntityByID(entityID));
 			case TILE_GENERATOR:
 				return tileEntity instanceof TileEntityGenerator ? new ContainerGenerator(player.inventory, (TileEntityGenerator) tileEntity) : null;
 			case TILE_REVERTING_STATION:

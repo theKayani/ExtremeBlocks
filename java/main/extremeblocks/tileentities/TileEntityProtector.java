@@ -21,15 +21,16 @@ public class TileEntityProtector extends TileEntity implements IConnector, IPowe
 	public int counter;
 	public float overallPower;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateEntity()
 	{
 		boolean reset = false;
 		counter++;
-		List list = worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(-10D + xCoord, -10D + yCoord, -10D + zCoord, 10D + xCoord, 10D + yCoord, 10D + zCoord));
+		List<EntityLiving> list = worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(-10D + xCoord, -10D + yCoord, -10D + zCoord, 10D + xCoord, 10D + yCoord, 10D + zCoord));
 		for (int i = 0; i < list.size(); i++)
 		{
-			EntityLiving entityLiving = (EntityLiving) list.get(i);
+			EntityLiving entityLiving = list.get(i);
 			if (entityLiving instanceof IMob)
 			{
 				if (canWork() && entityLiving != null && counter > 10)

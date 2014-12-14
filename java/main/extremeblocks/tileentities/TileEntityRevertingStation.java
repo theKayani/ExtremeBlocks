@@ -1,69 +1,52 @@
 package main.extremeblocks.tileentities;
 
+import main.com.hk.eb.util.RecipeUtils;
 import main.com.hk.eb.util.StackHelper;
-import main.extremeblocks.blocks.BlockRecipeRevert;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
 public class TileEntityRevertingStation extends TileEntityInventory
 {
-	public boolean pickedUpFrom, removeStack;
+	public boolean taken;
 
 	public TileEntityRevertingStation()
 	{
+		super("Reverting Station");
 		inventory = new ItemStack[10];
 	}
 
-	public void removeStack()
+	public void slotTakenFrom()
 	{
-		IRecipe rec = BlockRecipeRevert.getRecipeFor(getResult());
-		if (!pickedUpFrom && rec != null)
+		ItemStack rec = getRecipeResult(getResult());
+		if (!taken && rec != null)
 		{
-			pickedUpFrom = true;
-			inventory[0] = StackHelper.consumeItem(getResult(), rec.getRecipeOutput().stackSize);
+			taken = true;
+			inventory[0] = StackHelper.consumeItem(getResult(), rec.stackSize);
 		}
 	}
 
 	@Override
 	public void updateEntity()
 	{
-		boolean reset = false;
-		if (!pickedUpFrom && (getResult() == null || getResult().stackSize <= 0))
+		if (!taken && getResult() == null)
 		{
-			setAllToNull();
+			clearGrid();
 		}
-		else if (!pickedUpFrom)
+		if (!taken)
 		{
-			ItemStack[] recipes = BlockRecipeRevert.getRecipeItemsFor(getResult());
-			if (recipes != null && recipes.length > 0)
-			{
-				for (int i = 0; i < recipes.length; i++)
-				{
-					ItemStack st = recipes[i] == null || recipes[i].getItem().hasContainerItem(recipes[i]) ? null : recipes[i].copy();
-					if (st != null)
-					{
-						st.stackSize = 1;
-					}
-					inventory[i + 1] = st;
-				}
-			}
+			placeRecipeInGrid();
 		}
+
 		for (int i = 1; i < inventory.length; i++)
 		{
-			if (pickedUpFrom && inventory[i] != null)
+			if (taken && inventory[i] != null)
 			{
 				break;
 			}
 			if (i == inventory.length - 1)
 			{
-				reset = true;
+				taken = false;
 			}
-		}
-
-		if (reset)
-		{
-			pickedUpFrom = false;
 		}
 	}
 
@@ -72,44 +55,42 @@ public class TileEntityRevertingStation extends TileEntityInventory
 		return inventory[0];
 	}
 
-	public void setAllToNull()
+	public void clearGrid()
 	{
-		setToNull(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-	}
-
-	public void setToNull(int... ints)
-	{
-		for (int i = 0; i < ints.length; i++)
+		for (int i = 1; i < inventory.length; i++)
 		{
-			if (ints[i] >= 0 && ints[i] < inventory.length)
-			{
-				inventory[ints[i]] = null;
-			}
+			inventory[i] = null;
 		}
 	}
 
-	@Override
-	public String getInventoryName()
+	public ItemStack getRecipeResult(ItemStack item)
 	{
-		return "Recipe Reverting Station";
+		for (IRecipe recipe : RecipeUtils.getVanillaRecipes())
+		{
+			if (item != null && recipe != null && recipe.getRecipeOutput() != null && recipe.getRecipeOutput().getItem().equals(item.getItem())) return recipe.getRecipeOutput().copy();
+		}
+		return null;
 	}
 
-	@Override
-	public boolean hasCustomInventoryName()
+	public boolean canPlaceRecipe()
 	{
-		return false;
+		ItemStack r = getRecipeResult(getResult());
+		return !taken && r != null && getResult() != null && StackHelper.areStacksSameTypeCrafting(r, getResult()) && getResult().stackSize >= r.stackSize;
 	}
 
-	@Override
-	public int getInventoryStackLimit()
+	public void placeRecipeInGrid()
 	{
-		return 64;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entity)
-	{
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : entity.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
+		if (canPlaceRecipe())
+		{
+			ItemStack[] recipe = RecipeUtils.getFirstRecipeForItem(getResult());
+			if (recipe != null && recipe.length > 0)
+			{
+				for (int i = 0; i < recipe.length; i++)
+				{
+					inventory[i + 1] = recipe[i] == null || recipe[i].getItem().hasContainerItem(recipe[i]) ? null : recipe[i].copy();
+				}
+			}
+		}
 	}
 
 	@Override

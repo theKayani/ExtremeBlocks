@@ -1,5 +1,6 @@
 package main.extremeblocks.blocks;
 
+import main.com.hk.eb.util.Info;
 import main.com.hk.eb.util.RegistryHelper.OreDict;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
@@ -10,7 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 
 @OreDict(values = { "sapling", "driedSapling" })
-public class BlockDriedSapling extends BlockBush
+public class BlockDriedSapling extends BlockBush implements Info
 {
 	public BlockDriedSapling()
 	{
@@ -33,5 +34,17 @@ public class BlockDriedSapling extends BlockBush
 	public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z)
 	{
 		return EnumPlantType.Desert;
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "This sapling can't grow because of it's lack of moisture. In all seriousness, it's pretty useless!";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, false);
 	}
 }

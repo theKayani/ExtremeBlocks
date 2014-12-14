@@ -1,12 +1,7 @@
 package main.extremeblocks.blocks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.BlockCustom;
-import main.com.hk.eb.util.JavaHelp;
-import main.com.hk.eb.util.StackHelper;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
@@ -18,15 +13,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BlockRecipeRevert extends BlockCustom implements ITileEntityProvider, GuiIDs
 {
@@ -81,55 +70,5 @@ public class BlockRecipeRevert extends BlockCustom implements ITileEntityProvide
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
 		return new TileEntityRevertingStation();
-	}
-
-	public static IRecipe getRecipeFor(ItemStack stack)
-	{
-		for (IRecipe irecipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList())
-		{
-			if (StackHelper.areStacksSameTypeCrafting(stack, irecipe.getRecipeOutput())) return irecipe;
-		}
-		return null;
-	}
-
-	public static ItemStack[] extractRecipeItems(Object obj)
-	{
-		if (obj instanceof ItemStack) return new ItemStack[] { (ItemStack) obj };
-		if (obj instanceof ItemStack[]) return (ItemStack[]) obj;
-		if (obj instanceof List) return ((List<ItemStack>) obj).toArray(new ItemStack[0]);
-		return null;
-	}
-
-	public static ItemStack[] getRecipeItemsFor(ItemStack stack)
-	{
-		IRecipe recipe = getRecipeFor(stack);
-		if (recipe instanceof ShapedRecipes) return ((ShapedRecipes) recipe).recipeItems;
-		if (recipe instanceof ShapelessRecipes) return (ItemStack[]) ((ShapelessRecipes) recipe).recipeItems.toArray(new ItemStack[0]);
-		if (recipe instanceof ShapelessOreRecipe)
-		{
-			ArrayList<ItemStack> stacks = JavaHelp.newArrayList();
-			Object[] items = ((ShapelessOreRecipe) recipe).getInput().toArray();
-			for (Object item : items)
-			{
-				if (item instanceof List && ((List<?>) item).isEmpty()) return null;
-				stacks.addAll(Arrays.asList(extractRecipeItems(item)));
-			}
-			return stacks.toArray(new ItemStack[0]);
-		}
-		if (recipe instanceof ShapedOreRecipe)
-		{
-			ArrayList<ItemStack> stacks = JavaHelp.newArrayList();
-			Object[] items = ((ShapedOreRecipe) recipe).getInput();
-			for (Object item : items)
-			{
-				if (item instanceof List && ((List<?>) item).isEmpty()) return null;
-				if (extractRecipeItems(item) != null)
-				{
-					stacks.addAll(Arrays.asList(extractRecipeItems(item)));
-				}
-			}
-			return stacks.toArray(new ItemStack[0]);
-		}
-		return null;
 	}
 }

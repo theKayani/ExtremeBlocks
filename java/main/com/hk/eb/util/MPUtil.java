@@ -7,6 +7,10 @@ import main.extremeblocks.crafting.RecipeManager;
 import main.extremeblocks.network.AbstractPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,6 +23,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -30,7 +37,7 @@ public class MPUtil
 	{
 		if (Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
 		{
-			GameRegistry.addRecipe(item, objects);
+			GameRegistry.addRecipe(new ShapedOreRecipe(item, objects));
 		}
 		RecipeManager.add(true, item, objects);
 	}
@@ -39,7 +46,7 @@ public class MPUtil
 	{
 		if (Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
 		{
-			GameRegistry.addShapelessRecipe(item, objects);
+			GameRegistry.addRecipe(new ShapelessOreRecipe(item, objects));
 		}
 		RecipeManager.addShapeless(true, item, objects);
 	}
@@ -179,6 +186,15 @@ public class MPUtil
 		return getRandomVanillaItem();
 	}
 
+	public static ItemStack getEntityEgg(Class<Entity> clazz)
+	{
+		for (int i = 0; i < EntityList.entityEggs.size(); i++)
+		{
+			if (((Class<?>) EntityList.IDtoClassMapping.get(i)).isAssignableFrom(clazz)) return new ItemStack(Items.spawn_egg, 1, i);
+		}
+		return null;
+	}
+
 	public static boolean isServerSide()
 	{
 		return FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER;
@@ -210,29 +226,30 @@ public class MPUtil
 		}
 	}
 
-	public static EntityPlayer[] getServerPlayers()
+	@SuppressWarnings("unchecked")
+	public static EntityPlayerMP[] getServerPlayers()
 	{
-		return (EntityPlayer[]) getServerWorld().playerEntities.toArray(new EntityPlayer[0]);
+		return (EntityPlayerMP[]) getServerWorld().playerEntities.toArray(new EntityPlayerMP[0]);
 	}
 
-	public static EntityPlayer getFirstServerPlayer()
+	public static EntityPlayerMP getFirstServerPlayer()
 	{
 		return getServerPlayers()[0];
 	}
 
-	public static EntityPlayer getClientPlayer()
+	public static EntityClientPlayerMP getClientPlayer()
 	{
 		return Minecraft.getMinecraft().thePlayer;
 	}
 
-	public static World getClientWorld()
+	public static WorldClient getClientWorld()
 	{
 		return Minecraft.getMinecraft().theWorld;
 	}
 
-	public static World getServerWorld()
+	public static WorldServer getServerWorld()
 	{
-		return MinecraftServer.getServer().getEntityWorld();
+		return (WorldServer) MinecraftServer.getServer().getEntityWorld();
 	}
 
 	public static void sendToAll(AbstractPacket message)

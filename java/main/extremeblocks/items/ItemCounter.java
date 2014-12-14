@@ -17,6 +17,8 @@ public class ItemCounter extends ItemCustom
 		super("Counter", Init.tab_mainItems);
 		setTextureName(Init.MODID + ":counter");
 		maxStackSize = 1;
+		setInfo("Can be right clicked to increase the count. Can't be reversed in any way.");
+		setShowRecipe();
 	}
 
 	@Override
@@ -26,6 +28,7 @@ public class ItemCounter extends ItemCustom
 		return true;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{

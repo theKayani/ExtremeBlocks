@@ -3,9 +3,8 @@ package main.extremeblocks.tileentities;
 import main.extremeblocks.blocks.BlockCooker;
 import main.extremeblocks.items.ItemFurnaceUpgrade;
 import main.extremeblocks.misc.IConnector;
-import main.extremeblocks.misc.PowerHelper;
 import main.extremeblocks.misc.Power.IPowerReceiver;
-import net.minecraft.entity.player.EntityPlayer;
+import main.extremeblocks.misc.PowerHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,11 +16,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TileEntityCooker extends TileEntityInventory implements IConnector, IPowerReceiver
 {
 	public int[] powerDelay;
-	public String customName;
 	public int overallPower, cookDelay, additionCounter, upgradeCount = 1;
 
 	public TileEntityCooker()
 	{
+		super("Cooker");
 		inventory = new ItemStack[5];
 		powerDelay = new int[2];
 	}
@@ -124,30 +123,6 @@ public class TileEntityCooker extends TileEntityInventory implements IConnector,
 	}
 
 	@Override
-	public String getInventoryName()
-	{
-		return hasCustomInventoryName() ? customName : "Placer";
-	}
-
-	@Override
-	public boolean hasCustomInventoryName()
-	{
-		return customName != null;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
-	{
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : par1EntityPlayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
-	}
-
-	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
 		return slot != 4;
@@ -168,16 +143,10 @@ public class TileEntityCooker extends TileEntityInventory implements IConnector,
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-
 		overallPower = nbt.getInteger("Overall Power");
 		cookDelay = nbt.getShort("Cook Time");
 		additionCounter = nbt.getShort("Addition Counter");
 		upgradeCount = nbt.getInteger("Upgrade Count");
-
-		if (nbt.hasKey("CustomName", 8))
-		{
-			customName = nbt.getString("CustomName");
-		}
 	}
 
 	@Override
@@ -188,11 +157,6 @@ public class TileEntityCooker extends TileEntityInventory implements IConnector,
 		nbt.setInteger("Overall Power", overallPower);
 		nbt.setShort("Addition Counter", (short) additionCounter);
 		nbt.setInteger("Upgrade Count", upgradeCount);
-
-		if (hasCustomInventoryName())
-		{
-			nbt.setString("Custom Name", customName);
-		}
 	}
 
 	@Override

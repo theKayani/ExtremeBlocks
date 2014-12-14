@@ -2,6 +2,7 @@ package main.extremeblocks.tileentities;
 
 import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,7 +13,13 @@ import net.minecraftforge.common.util.Constants;
 
 public abstract class TileEntityInventory extends TileEntity implements IInventory
 {
+	private final String name;
 	protected ItemStack[] inventory;
+
+	public TileEntityInventory(String name)
+	{
+		this.name = name;
+	}
 
 	@Override
 	public int getSizeInventory()
@@ -106,6 +113,30 @@ public abstract class TileEntityInventory extends TileEntity implements IInvento
 	@Override
 	public void closeInventory()
 	{
+	}
+
+	@Override
+	public String getInventoryName()
+	{
+		return name;
+	}
+
+	@Override
+	public boolean hasCustomInventoryName()
+	{
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return 64;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entity)
+	{
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : entity.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
 	}
 
 	public static void dropItems(World world, int x, int y, int z)

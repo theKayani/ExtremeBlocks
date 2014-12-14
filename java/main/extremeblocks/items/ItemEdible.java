@@ -1,6 +1,7 @@
 package main.extremeblocks.items;
 
 import java.util.ArrayList;
+import main.com.hk.eb.util.Info;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
@@ -14,7 +15,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemEdible extends ItemFood
+public class ItemEdible extends ItemFood implements Info
 {
 	private final String name;
 	private EnumAction action = EnumAction.eat;
@@ -125,5 +126,17 @@ public class ItemEdible extends ItemFood
 			if (p.id == id) return p;
 		}
 		return null;
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "An edible item that heals " + func_150905_g(new ItemStack(this)) + ".\nIt saturates " + func_150906_h(new ItemStack(this)) + "." + (potionIDs.isEmpty() ? "" : "Also has " + (potionIDs.size() == 1 ? "a" : "some") + " potion effect" + (potionIDs.size() == 1 ? "" : "s") + ".");
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, false);
 	}
 }

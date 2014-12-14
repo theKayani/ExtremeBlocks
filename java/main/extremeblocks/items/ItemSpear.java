@@ -14,6 +14,8 @@ public class ItemSpear extends ItemCustom
 	{
 		super("Spear", Init.tab_mainItems);
 		setTextureName(Init.MODID + ":spear");
+		setInfo("Can be thrown where the player is pointing. Same speed as an arrow at full hold-back. Also does the same damage. Can also be picked back up!");
+		setShowRecipe();
 	}
 
 	@Override

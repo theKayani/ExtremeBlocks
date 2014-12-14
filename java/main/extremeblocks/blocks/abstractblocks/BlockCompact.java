@@ -9,8 +9,9 @@ public class BlockCompact extends BlockCustom
 	public BlockCompact(String name)
 	{
 		super(Material.iron, name);
-		this.setHardness(3.0F);
-		this.setBlockTextureName(Init.MODID + ":" + name);
-		this.setCreativeTab(Init.tab_mainBlocks);
+		setHardness(3.0F);
+		setBlockTextureName(Init.MODID + ":" + name);
+		setCreativeTab(Init.tab_mainBlocks);
+		setInfo("Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed");
 	}
 }

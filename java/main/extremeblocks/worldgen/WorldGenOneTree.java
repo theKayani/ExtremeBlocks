@@ -13,6 +13,7 @@ public class WorldGenOneTree extends WorldGenerator
 {
 	public static boolean spawned = false;
 
+	@Override
 	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
 	{
 		int l = par2Random.nextInt(3) + 5 + par2Random.nextInt(7);
@@ -38,8 +39,7 @@ public class WorldGenOneTree extends WorldGenerator
 					{
 						if (i1 >= 0 && i1 < 256)
 						{
-							Block block = par1World.getBlock(j1, i1, k1);
-							if (!this.isReplaceable(par1World, j1, i1, k1))
+							if (!isReplaceable(par1World, j1, i1, k1))
 							{
 								flag = false;
 							}
@@ -51,10 +51,7 @@ public class WorldGenOneTree extends WorldGenerator
 					}
 				}
 			}
-			if (!flag)
-			{
-				return false;
-			}
+			if (!flag) return false;
 			else
 			{
 				Block block2 = par1World.getBlock(par3, par4 - 1, par5);
@@ -78,7 +75,7 @@ public class WorldGenOneTree extends WorldGenerator
 									Block block1 = par1World.getBlock(l2, k2, i2);
 									if (block1.isAir(par1World, l2, k2, i2) || block1.isLeaves(par1World, l2, k2, i2))
 									{
-										this.setBlockAndNotifyAdequately(par1World, l2, k2, i2, Blocks.leaves, 0);
+										setBlockAndNotifyAdequately(par1World, l2, k2, i2, Blocks.leaves, 0);
 									}
 								}
 							}
@@ -89,21 +86,15 @@ public class WorldGenOneTree extends WorldGenerator
 						Block block3 = par1World.getBlock(par3, par4 + k2, par5);
 						if (block3.isAir(par1World, par3, par4 + k2, par5) || block3.isLeaves(par1World, par3, par4 + k2, par5))
 						{
-							this.setBlockAndNotifyAdequately(par1World, par3, par4 + k2, par5, Blocks.log, 0);
+							setBlockAndNotifyAdequately(par1World, par3, par4 + k2, par5, Blocks.log, 0);
 						}
 					}
 					return true;
 				}
-				else
-				{
-					return false;
-				}
+				else return false;
 			}
 		}
-		else
-		{
-			return false;
-		}
+		else return false;
 	}
 
 	protected boolean isReplaceable(World world, int x, int y, int z)

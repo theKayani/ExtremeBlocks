@@ -1,11 +1,9 @@
 package main.extremeblocks;
 
-import java.awt.Color;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
-import main.extremeblocks.tools.ItemArmorOverlay;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,11 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
-import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -27,30 +23,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class EBEventHandler
 {
 	private static boolean sent = false;
-
-	public void onEntityUpdate(LivingUpdateEvent event)
-	{
-		if (MPUtil.isClientSide())
-		{
-			ItemStack[] slots = new ItemStack[4];
-
-			for (int i = 0; i < slots.length; i++)
-			{
-				slots[i] = event.entityLiving.getEquipmentInSlot(i + 1);
-			}
-
-			for (ItemStack stack : slots)
-			{
-				if (stack != null && stack.getItem() instanceof ItemArmorOverlay)
-				{
-					Color c = new Color(((ItemArmorOverlay) stack.getItem()).color);
-					GL11.glPushMatrix();
-					GL11.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
-					GL11.glPopMatrix();
-				}
-			}
-		}
-	}
 
 	@SubscribeEvent
 	public void onEntityJoin(EntityJoinWorldEvent event)
@@ -134,7 +106,6 @@ public class EBEventHandler
 		boolean spawn = false;
 		if (event.action == Action.RIGHT_CLICK_BLOCK)
 		{
-			System.out.println("Coords: " + event.x + ", " + (event.y - 1) + ", " + event.z);
 			if (event.entityPlayer.getHeldItem() != null && Block.getBlockFromItem(event.entityPlayer.getHeldItem().getItem()) == Blocks.pumpkin)
 			{
 				boolean atY = event.world.getBlock(event.x, event.y, event.z) == Init.trinquantium_block && event.world.getBlock(event.x, event.y - 1, event.z) == Init.trinquantium_block;

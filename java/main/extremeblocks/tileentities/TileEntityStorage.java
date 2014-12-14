@@ -175,13 +175,13 @@ public class TileEntityStorage extends TileEntity implements IInventory
 	 * Writes a tile entity to NBT.
 	 */
 	@Override
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+	public void writeToNBT(NBTTagCompound nbt)
 	{
-		super.writeToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setInteger("X Size", xSize);
-		par1NBTTagCompound.setInteger("Y Size", ySize);
-		par1NBTTagCompound.setInteger("Storage Slots", storageSlots);
-		par1NBTTagCompound.setString("Texture Path", texturePath);
+		super.writeToNBT(nbt);
+		nbt.setInteger("X Size", xSize);
+		nbt.setInteger("Y Size", ySize);
+		nbt.setInteger("Storage Slots", storageSlots);
+		nbt.setString("Texture Path", texturePath);
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < items.length; ++i)
 		{
@@ -193,10 +193,10 @@ public class TileEntityStorage extends TileEntity implements IInventory
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
-		par1NBTTagCompound.setTag("Items", nbttaglist);
+		nbt.setTag("Items", nbttaglist);
 		if (isInvNameLocalized())
 		{
-			par1NBTTagCompound.setString("CustomName", customName);
+			nbt.setString("CustomName", customName);
 		}
 	}
 

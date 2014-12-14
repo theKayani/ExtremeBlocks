@@ -23,6 +23,8 @@ public class ItemBattery extends ItemCustom implements IBattery
 		setMaxStackSize(1);
 		setTextureName(Init.MODID + ":battery");
 		this.maxHeldPower = maxHeldPower;
+		setInfo("Can be used in EB machines as an alternative to wires. To provide EJ. Extreme Joules. Upon creation, it will have zero charge. Be wary of this!");
+		setShowRecipe();
 	}
 
 	@Override
@@ -40,6 +42,7 @@ public class ItemBattery extends ItemCustom implements IBattery
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean lol)
 	{
@@ -62,6 +65,7 @@ public class ItemBattery extends ItemCustom implements IBattery
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list)

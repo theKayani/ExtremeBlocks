@@ -26,7 +26,7 @@ public class EBCraftingManager
 {
 	public static final EBCraftingManager INSTANCE = new EBCraftingManager();
 	public static final int WILDCARD_VALUE = Short.MAX_VALUE;
-	private List recipes = JavaHelp.newArrayList();
+	private List<IRecipe> recipes = JavaHelp.newArrayList();
 
 	private EBCraftingManager()
 	{
@@ -60,10 +60,10 @@ public class EBCraftingManager
 			addRecipe(new ItemStack(Items.bow, 1), " #X", "# X", " #X", 'X', Items.string, '#', Items.stick);
 			addRecipe(new ItemStack(Items.arrow, 4), "X", "#", "Y", 'Y', Items.feather, 'X', Items.flint, '#', Items.stick);
 			recipeItems = new Object[][] { { Blocks.gold_block, new ItemStack(Items.gold_ingot, 9) }, { Blocks.iron_block, new ItemStack(Items.iron_ingot, 9) }, { Blocks.diamond_block, new ItemStack(Items.diamond, 9) }, { Blocks.emerald_block, new ItemStack(Items.emerald, 9) }, { Blocks.lapis_block, new ItemStack(Items.dye, 9, 4) }, { Blocks.redstone_block, new ItemStack(Items.redstone, 9) }, { Blocks.coal_block, new ItemStack(Items.coal, 9, 0) }, { Blocks.hay_block, new ItemStack(Items.wheat, 9) } };
-			for (int i = 0; i < recipeItems.length; ++i)
+			for (Object[] recipeItem : recipeItems)
 			{
-				Block block = (Block) recipeItems[i][0];
-				ItemStack itemstack = (ItemStack) recipeItems[i][1];
+				Block block = (Block) recipeItem[0];
+				ItemStack itemstack = (ItemStack) recipeItem[1];
 				addRecipe(new ItemStack(block), "###", "###", "###", '#', itemstack);
 				addRecipe(itemstack, "#", '#', block);
 			}
@@ -144,11 +144,11 @@ public class EBCraftingManager
 			{
 				addRecipe(new ItemStack(Blocks.carpet, 3, i), "##", '#', new ItemStack(Blocks.wool, 1, i));
 			}
-			this.recipes.add(new RecipesArmorDyes());
-			this.recipes.add(new RecipeBookCloning());
-			this.recipes.add(new RecipesMapCloning());
-			this.recipes.add(new RecipesMapExtending());
-			this.recipes.add(new RecipeFireworks());
+			recipes.add(new RecipesArmorDyes());
+			recipes.add(new RecipeBookCloning());
+			recipes.add(new RecipesMapCloning());
+			recipes.add(new RecipesMapExtending());
+			recipes.add(new RecipeFireworks());
 			addRecipe(new ItemStack(Items.paper, 3), "###", '#', Items.reeds);
 			addShapelessRecipe(new ItemStack(Items.book, 1), Items.paper, Items.paper, Items.paper, Items.leather);
 			addShapelessRecipe(new ItemStack(Items.writable_book, 1), Items.book, new ItemStack(Items.dye, 1, 0), Items.feather);
@@ -263,20 +263,16 @@ public class EBCraftingManager
 			addRecipe(new ItemStack(Blocks.daylight_detector), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', Items.quartz, 'W', Blocks.wooden_slab);
 			addRecipe(new ItemStack(Blocks.hopper), "I I", "ICI", " I ", 'I', Items.iron_ingot, 'C', Blocks.chest);
 		}
-		this.recipes.addAll(RecipeManager.PIES);
-		Collections.sort(this.recipes, new Comparator()
+		recipes.addAll(RecipeManager.PIES);
+		Collections.sort(recipes, new Comparator<IRecipe>()
 		{
+			@Override
 			public int compare(IRecipe p_compare_1_, IRecipe p_compare_2_)
 			{
-				return p_compare_1_ instanceof EBShapelessRecipes && p_compare_2_ instanceof EBShapedRecipes ? 1 : (p_compare_2_ instanceof EBShapelessRecipes && p_compare_1_ instanceof EBShapedRecipes ? -1 : (p_compare_2_.getRecipeSize() < p_compare_1_.getRecipeSize() ? -1 : (p_compare_2_.getRecipeSize() > p_compare_1_.getRecipeSize() ? 1 : 0)));
-			}
-
-			public int compare(Object p_compare_1_, Object p_compare_2_)
-			{
-				return this.compare((IRecipe) p_compare_1_, (IRecipe) p_compare_2_);
+				return p_compare_1_ instanceof EBShapelessRecipes && p_compare_2_ instanceof EBShapedRecipes ? 1 : p_compare_2_ instanceof EBShapelessRecipes && p_compare_1_ instanceof EBShapedRecipes ? -1 : p_compare_2_.getRecipeSize() < p_compare_1_.getRecipeSize() ? -1 : p_compare_2_.getRecipeSize() > p_compare_1_.getRecipeSize() ? 1 : 0;
 			}
 		});
-		System.err.println(this.recipes.size() + " recipes added to EB table");
+		System.err.println(recipes.size() + " recipes added to EB table");
 	}
 
 	public EBShapedRecipes addRecipe(ItemStack stack, Object... obs)
@@ -287,10 +283,9 @@ public class EBCraftingManager
 		int k = 0;
 		if (obs[i] instanceof String[])
 		{
-			String[] astring = (String[]) ((String[]) obs[i++]);
-			for (int l = 0; l < astring.length; ++l)
+			String[] astring = (String[]) obs[i++];
+			for (String s1 : astring)
 			{
-				String s1 = astring[l];
 				++k;
 				j = s1.length();
 				s = s + s1;
@@ -306,7 +301,7 @@ public class EBCraftingManager
 				s = s + s2;
 			}
 		}
-		HashMap hashmap;
+		HashMap<Character, Object> hashmap;
 		for (hashmap = JavaHelp.newHashMap(); i < obs.length; i += 2)
 		{
 			Character character = (Character) obs[i];
@@ -339,13 +334,13 @@ public class EBCraftingManager
 			}
 		}
 		EBShapedRecipes shapedrecipes = new EBShapedRecipes(j, k, aitemstack, stack);
-		this.recipes.add(shapedrecipes);
+		recipes.add(shapedrecipes);
 		return shapedrecipes;
 	}
 
 	public void addShapelessRecipe(ItemStack stack, Object... obs)
 	{
-		ArrayList arraylist = JavaHelp.newArrayList();
+		ArrayList<ItemStack> arraylist = JavaHelp.newArrayList();
 		Object[] aobject = obs;
 		int i = obs.length;
 		for (int j = 0; j < i; ++j)
@@ -361,14 +356,11 @@ public class EBCraftingManager
 			}
 			else
 			{
-				if (!(object1 instanceof Block))
-				{
-					throw new RuntimeException("Invalid shapeless recipy!");
-				}
+				if (!(object1 instanceof Block)) throw new RuntimeException("Invalid shapeless recipy!");
 				arraylist.add(new ItemStack((Block) object1));
 			}
 		}
-		this.recipes.add(new EBShapelessRecipes(stack, arraylist));
+		recipes.add(new EBShapelessRecipes(stack, arraylist));
 	}
 
 	public ItemStack findMatchingRecipe(InventoryCrafting p_82787_1_, World p_82787_2_)
@@ -408,13 +400,10 @@ public class EBCraftingManager
 		}
 		else
 		{
-			for (j = 0; j < this.recipes.size(); ++j)
+			for (j = 0; j < recipes.size(); ++j)
 			{
-				IRecipe irecipe = (IRecipe) this.recipes.get(j);
-				if (irecipe.matches(p_82787_1_, p_82787_2_))
-				{
-					return irecipe.getCraftingResult(p_82787_1_);
-				}
+				IRecipe irecipe = recipes.get(j);
+				if (irecipe.matches(p_82787_1_, p_82787_2_)) return irecipe.getCraftingResult(p_82787_1_);
 			}
 			return null;
 		}
@@ -437,8 +426,8 @@ public class EBCraftingManager
 		addReversedRecipe(obj, item);
 	}
 
-	public List getRecipeList()
+	public List<IRecipe> getRecipeList()
 	{
-		return this.recipes;
+		return recipes;
 	}
 }

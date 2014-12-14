@@ -1,15 +1,17 @@
 package main.extremeblocks.tileentities;
 
-import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.*;
+import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.RECEIVED;
+import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.SENT;
+import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.UNKNOWN;
 import java.util.ArrayList;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.misc.IConnector;
 import main.extremeblocks.misc.IPlayerMessage;
-import main.extremeblocks.misc.PowerHelper;
-import main.extremeblocks.misc.PowerMap;
 import main.extremeblocks.misc.Power.IPowerEmitter;
 import main.extremeblocks.misc.Power.IPowerReceiver;
+import main.extremeblocks.misc.PowerHelper;
+import main.extremeblocks.misc.PowerMap;
 import main.extremeblocks.tileentities.pipe.WireLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -71,7 +73,6 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 	@Override
 	public void updateEntity()
 	{
-		TileEntity[] tiles = MPUtil.getNeighborTiles(worldObj, xCoord, yCoord, zCoord);
 		ArrayList<IPowerReceiver> receivers = JavaHelp.newArrayList();
 		boolean remove = false;
 		int rec = 0;
@@ -85,9 +86,9 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 			}
 		}
 
-		for (int i = 0; i < logics.length; i++)
+		for (WireLogic logic2 : logics)
 		{
-			WireLogic logic = logics[i];
+			WireLogic logic = logic2;
 			logic.setModified(false);
 
 			if (logic.isEmitter() && logic.getEmitter().canSendPowerThrough(logic.getSide().getOpposite()))
@@ -110,7 +111,10 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 				if (wire.isSource() || logic.getType() == RECEIVED || wire.sent.get(logic.getSide().getOpposite()))
 				{
 					WireLogic log = WireLogic.getLogicForSide(wire, logic.getSide().getOpposite());
-					if (log != null) log.sendPowerTo();
+					if (log != null)
+					{
+						log.sendPowerTo();
+					}
 					logic.setModified(true);
 				}
 				if (isSource() || logic.getType() == SENT || wire.received.get(logic.getSide().getOpposite()))
@@ -118,7 +122,7 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 					logic.sendPowerTo();
 					logic.setModified(true);
 				}
-				if (logic.getType() == UNKNOWN || (!received.isAllFalse() && wire.received.isAllFalse()))
+				if (logic.getType() == UNKNOWN || !received.isAllFalse() && wire.received.isAllFalse())
 				{
 					logic.sendPowerTo();
 					logic.setModified(true);
@@ -152,12 +156,9 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 	private boolean isSource()
 	{
 		TileEntity[] tiles = MPUtil.getNeighborTiles(worldObj, xCoord, yCoord, zCoord);
-		for (int i = 0; i < tiles.length; i++)
+		for (TileEntity tile : tiles)
 		{
-			if (tiles[i] instanceof IPowerEmitter)
-			{
-				return true;
-			}
+			if (tile instanceof IPowerEmitter) return true;
 		}
 		return false;
 	}
@@ -165,10 +166,7 @@ public class TileEntityWire extends TileEntity implements IConnector, IPlayerMes
 	@Override
 	public boolean equals(Object o)
 	{
-		if (o instanceof TileEntityWire && o.hashCode() == this.hashCode())
-		{
-			return true;
-		}
+		if (o instanceof TileEntityWire && o.hashCode() == hashCode()) return true;
 		return false;
 	}
 

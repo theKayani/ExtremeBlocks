@@ -13,12 +13,10 @@ import org.lwjgl.opengl.GL11;
 public class TileEntityWireRenderer extends TileEntitySpecialRenderer
 {
 	private static final ResourceLocation WIRE_LOCATION = new ResourceLocation(Init.MODID + ":textures/models/wire.png");
-	// private final ModelPipe model;
 	private final ModelWire model;
 
 	public TileEntityWireRenderer()
 	{
-		// model = new ModelPipe();
 		model = new ModelWire();
 	}
 
@@ -43,7 +41,6 @@ public class TileEntityWireRenderer extends TileEntitySpecialRenderer
 	{
 		GL11.glPushMatrix();
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-		long time = te.getWorldObj().getTotalWorldTime();
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);

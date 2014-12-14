@@ -7,8 +7,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.layer.GenLayer;
-import net.minecraft.world.gen.layer.GenLayerAddIsland;
-import net.minecraft.world.gen.layer.GenLayerDeepOcean;
 import net.minecraft.world.gen.layer.GenLayerIsland;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,9 +22,10 @@ public class WorldTypeIslands extends WorldType
 	@SideOnly(Side.CLIENT)
 	public String getTranslateName()
 	{
-		return this.getWorldTypeName();
+		return getWorldTypeName();
 	}
 
+	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions)
 	{
 		return new ChunkStrandedManager(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled());
@@ -38,12 +37,14 @@ public class WorldTypeIslands extends WorldType
 		return true;
 	}
 
+	@Override
 	public void onGUICreateWorldPress()
 	{
 		Vars.playingIslands = true;
 		WorldGenOneTree.spawned = false;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void onCustomizeButton(Minecraft mc, GuiCreateWorld guiCreateWorld)
 	{
@@ -55,7 +56,7 @@ public class WorldTypeIslands extends WorldType
 	@SideOnly(Side.CLIENT)
 	public String func_151359_c()
 	{
-		return this.getTranslateName();
+		return getTranslateName();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package main.extremeblocks.blocks;
 
 import java.util.ArrayList;
 import java.util.Random;
+import main.com.hk.eb.util.Info;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -22,21 +23,21 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCrop extends BlockBush implements IGrowable
+public class BlockCrop extends BlockBush implements IGrowable, Info
 {
 	public final Item seeds, drop;
 	public final IIcon[] cropIcons = new IIcon[8];
 
 	public BlockCrop(String name, Item seeds, Item drop)
 	{
-		this.setBlockName(name);
-		this.setBlockTextureName(Init.MODID + ":" + name.toLowerCase().replaceAll(" ", "_"));
+		setBlockName(name);
+		setBlockTextureName(Init.MODID + ":" + name.toLowerCase().replaceAll(" ", "_"));
 		float f = 0.5F;
-		this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-		this.setCreativeTab((CreativeTabs) null);
-		this.setHardness(0.0F);
-		this.setStepSound(soundTypeGrass);
-		this.disableStats();
+		setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
+		setCreativeTab((CreativeTabs) null);
+		setHardness(0.0F);
+		setStepSound(soundTypeGrass);
+		disableStats();
 		this.seeds = seeds;
 		this.drop = drop;
 		ExtremeBlocks.blocks.add(this);
@@ -58,13 +59,13 @@ public class BlockCrop extends BlockBush implements IGrowable
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
 	{
 		super.onNeighborBlockChange(world, x, y, z, b);
-		this.checkAndDropBlock(world, x, y, z);
+		checkAndDropBlock(world, x, y, z);
 	}
 
 	@Override
 	protected void checkAndDropBlock(World p_149855_1_, int p_149855_2_, int p_149855_3_, int p_149855_4_)
 	{
-		if (!this.canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_))
+		if (!canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_))
 		{
 			this.dropBlockAsItem(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_, p_149855_1_.getBlockMetadata(p_149855_2_, p_149855_3_, p_149855_4_), 0);
 			p_149855_1_.setBlock(p_149855_2_, p_149855_3_, p_149855_4_, getBlockById(0), 0, 2);
@@ -119,14 +120,14 @@ public class BlockCrop extends BlockBush implements IGrowable
 	{
 		for (int i = 0; i < cropIcons.length; i++)
 		{
-			cropIcons[i] = ir.registerIcon(this.getTextureName() + "_" + i);
+			cropIcons[i] = ir.registerIcon(getTextureName() + "_" + i);
 		}
 	}
 
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z)
 	{
-		this.growCrop(world, x, y, z);
+		growCrop(world, x, y, z);
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class BlockCrop extends BlockBush implements IGrowable
 
 			if (l < 7)
 			{
-				float f = this.checkSurrounding(world, x, y, z);
+				float f = checkSurrounding(world, x, y, z);
 
 				if (random.nextInt((int) (25.0F / f) + 1) == 0)
 				{
@@ -160,7 +161,7 @@ public class BlockCrop extends BlockBush implements IGrowable
 			meta = 7;
 		}
 
-		return this.cropIcons[meta];
+		return cropIcons[meta];
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class BlockCrop extends BlockBush implements IGrowable
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune)
 	{
-		return meta == 7 ? this.getCrops() : this.getSeeds();
+		return meta == 7 ? getCrops() : getSeeds();
 	}
 
 	@Override
@@ -203,7 +204,7 @@ public class BlockCrop extends BlockBush implements IGrowable
 			{
 				if (world.rand.nextInt(15) <= metadata)
 				{
-					ret.add(new ItemStack(this.getSeeds(), 1, 0));
+					ret.add(new ItemStack(getSeeds(), 1, 0));
 				}
 			}
 		}
@@ -292,7 +293,15 @@ public class BlockCrop extends BlockBush implements IGrowable
 		return true;
 	}
 
-	// 347-808-9555
-	// $10 large
-	// $4.50 small
+	@Override
+	public String getInfo()
+	{
+		return null;
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(false, false);
+	}
 }

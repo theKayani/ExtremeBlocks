@@ -9,6 +9,8 @@ public class ItemFurnaceUpgrade extends ItemCustom
 	{
 		super(upgrade.name, Init.tab_mainItems);
 		maxStackSize = 1;
+		setInfo("Very expensive alternative to saving space and speeding up your Cookers!");
+		setShowRecipe();
 	}
 
 	public static enum FurnaceUpgrade

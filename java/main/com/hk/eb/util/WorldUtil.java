@@ -67,11 +67,17 @@ public class WorldUtil
 	public static void createLayer(World worldObj, int x, int y, int z, Block block, int length, int width, int meta)
 	{
 		if (MPUtil.isClientSide()) return;
-		if (MathHelp.isOdd(length)) length++;
-		if (MathHelp.isOdd(width)) width++;
+		if (MathHelp.isOdd(length))
+		{
+			length++;
+		}
+		if (MathHelp.isOdd(width))
+		{
+			width++;
+		}
 		length /= 2;
 		width /= 2;
-		int i, j, k;
+		int i, j;
 		for (i = -length; i < length + 1; i++)
 		{
 			for (j = -width; j < width + 1; j++)
@@ -90,7 +96,10 @@ public class WorldUtil
 	{
 		if (MPUtil.isClientSide()) return;
 		checkAndSetBlock(worldObj, x, y, z, block, meta);
-		if (worldObj.getTileEntity(x, y, z) instanceof IInventory) StackHelper.addToInv((IInventory) worldObj.getTileEntity(x, y, z), items);
+		if (worldObj.getTileEntity(x, y, z) instanceof IInventory)
+		{
+			StackHelper.addToInv((IInventory) worldObj.getTileEntity(x, y, z), items);
+		}
 	}
 
 	public static void setBlockWithItemStackInSlot(World worldObj, int x, int y, int z, Block block, ItemStack item, int slot)
@@ -102,7 +111,10 @@ public class WorldUtil
 	{
 		if (MPUtil.isClientSide()) return;
 		checkAndSetBlock(worldObj, x, y, z, block, meta);
-		if (worldObj.getTileEntity(x, y, z) instanceof IInventory) StackHelper.addToInvSlot((IInventory) worldObj.getTileEntity(x, y, z), item, slot);
+		if (worldObj.getTileEntity(x, y, z) instanceof IInventory)
+		{
+			StackHelper.addToInvSlot((IInventory) worldObj.getTileEntity(x, y, z), item, slot);
+		}
 	}
 
 	public static void setBlock(World worldObj, int x, int y, int z, Block block)
@@ -124,7 +136,10 @@ public class WorldUtil
 		boolean isAirAndNotStay = isAir && !canStay && worldObj.isAirBlock(x, y, z);
 		boolean isNotAirAndStay = canStay && !isAir && block.canBlockStay(worldObj, x, y, z);
 		boolean isNotAirAndNotStay = !isAir && !canStay;
-		if (isAirAndStay || isAirAndNotStay || isNotAirAndStay || isNotAirAndNotStay) worldObj.setBlock(x, y, z, block, (randomMetadata ? Rand.getRandomMetadataOf(Item.getItemFromBlock(block)) : meta), 2);
+		if (isAirAndStay || isAirAndNotStay || isNotAirAndStay || isNotAirAndNotStay)
+		{
+			worldObj.setBlock(x, y, z, block, randomMetadata ? Rand.getRandomMetadataOf(Item.getItemFromBlock(block)) : meta, 2);
+		}
 	}
 
 	public static void enableCanStay()

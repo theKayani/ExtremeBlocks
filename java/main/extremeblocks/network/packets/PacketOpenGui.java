@@ -1,7 +1,6 @@
 package main.extremeblocks.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,10 +33,10 @@ public class PacketOpenGui extends AbstractPacket
 	@Override
 	public void decodeInto(ByteBuf buffer)
 	{
-		this.guiID = buffer.readInt();
-		this.x = buffer.readInt();
-		this.y = buffer.readInt();
-		this.z = buffer.readInt();
+		guiID = buffer.readInt();
+		x = buffer.readInt();
+		y = buffer.readInt();
+		z = buffer.readInt();
 	}
 
 	@Override

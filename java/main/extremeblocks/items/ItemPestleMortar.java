@@ -13,11 +13,14 @@ public class ItemPestleMortar extends ItemCustom
 	public ItemPestleMortar()
 	{
 		super("Pestle And Mortar", Init.tab_mainItems);
-		this.setTextureName(Init.MODID + ":pestle_mortar");
-		this.setMaxDamage(60);
-		this.setMaxStackSize(1);
+		setTextureName(Init.MODID + ":pestle_mortar");
+		setMaxDamage(60);
+		setMaxStackSize(1);
+		setShowRecipe();
+		setInfo("When right clicked:\nWith Cannabis Plant in your inventory, 33% chance to get Hemp Leaves\nWith Hemp Leaves in your inventory, 20% chance to get Mellow Weed\nWith Mellow Weed in your inventory, 10% chance to give you Weed.");
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
 		if (player.inventory.consumeInventoryItem(Item.getItemFromBlock(Init.cannabis_plant)))

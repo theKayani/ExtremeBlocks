@@ -19,8 +19,10 @@ public class ItemRobot extends ItemCustom
 	public ItemRobot(RobotType type)
 	{
 		super(type.name + " Robot", Init.tab_mainItems);
-		this.setTextureName(Init.MODID + ":" + "robot_" + type.name().toLowerCase());
+		setTextureName(Init.MODID + ":" + "robot_" + type.name().toLowerCase());
 		this.type = type;
+		setInfo("Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!");
+		setShowRecipe();
 	}
 
 	@Override

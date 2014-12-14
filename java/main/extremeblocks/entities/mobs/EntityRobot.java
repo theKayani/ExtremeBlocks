@@ -50,7 +50,7 @@ import net.minecraft.world.World;
 public class EntityRobot extends EntityCreature implements MobSelectors, IRangedAttackMob, GuiIDs
 {
 	public boolean stayStill, isOff, hasHome;
-	public int[] homePosition = { 0, 0, 0 };
+	public double[] homePosition = { 0, 0, 0 };
 	private int hitCounter;
 	public RobotType type;
 	public RobotInventory inv = new RobotInventory(this);
@@ -331,7 +331,9 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 		nbt.setInteger("Water Count", hitCounter);
 		nbt.setInteger("Food Delay", foodDelay);
 		nbt.setBoolean("Has Home", hasHome);
-		nbt.setIntArray("Home Position", homePosition);
+		nbt.setDouble("Home Position A", homePosition[0]);
+		nbt.setDouble("Home Position B", homePosition[1]);
+		nbt.setDouble("Home Position C", homePosition[2]);
 		inv.writeEntityToNBT(nbt);
 	}
 
@@ -346,7 +348,7 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 		hitCounter = nbt.getInteger("Water Counter");
 		foodDelay = nbt.getInteger("Food Delay");
 		hasHome = nbt.getBoolean("Has Home");
-		homePosition = nbt.getIntArray("Home Position");
+		homePosition = new double[] { nbt.getDouble("Home Position A"), nbt.getDouble("Home Position B"), nbt.getDouble("Home Position C") };
 		inv.readEntityFromNBT(nbt);
 
 		if (onTask)
@@ -519,7 +521,11 @@ public class EntityRobot extends EntityCreature implements MobSelectors, IRanged
 
 	public static enum RobotType
 	{
-		WARRIOR(Items.golden_sword), FARMER(Items.golden_hoe), MINER(Items.golden_pickaxe), HUNTER(Items.compass), ARCHER(Items.bow);
+		WARRIOR(Items.golden_sword),
+		FARMER(Items.golden_hoe),
+		MINER(Items.golden_pickaxe),
+		HUNTER(Items.compass),
+		ARCHER(Items.bow);
 		public final String name;
 		public final Item[] items;
 

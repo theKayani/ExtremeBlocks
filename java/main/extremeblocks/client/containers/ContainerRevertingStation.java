@@ -13,7 +13,7 @@ public class ContainerRevertingStation extends Container
 	public static final int RESULT = 0;
 	public static final int CRAFTING_START = 1;
 	public static final int CRAFTING_END = 9;
-	public static final int INV_START = 9;
+	public static final int INV_START = 10;
 	public static final int INV_END = 37;
 	public static final int HOTBAR_START = 37;
 	public static final int HOTBAR_END = 46;

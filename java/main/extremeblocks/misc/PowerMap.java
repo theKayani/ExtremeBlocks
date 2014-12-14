@@ -5,6 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class PowerMap extends HashMap<ForgeDirection, Boolean>
 {
+	private static final long serialVersionUID = 1L;
 	public final String id;
 
 	public PowerMap(String id)

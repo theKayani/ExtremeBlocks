@@ -13,8 +13,10 @@ public class ItemExtractor extends ItemCustom
 	public ItemExtractor()
 	{
 		super("Extractor", Init.tab_mainItems);
-		this.setMaxDamage(59);
-		this.setTextureName(Init.MODID + ":extractor");
+		setMaxDamage(59);
+		setTextureName(Init.MODID + ":extractor");
+		setInfo("Can be used on logs to obtain sap. Leaves the log empty.");
+		setShowRecipe();
 	}
 
 	@Override

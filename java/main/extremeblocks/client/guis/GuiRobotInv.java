@@ -15,7 +15,7 @@ public class GuiRobotInv extends GuiContainer
 
 	public GuiRobotInv(InventoryPlayer inventoryPlayer, World world, int x, int y, int z, EntityRobot robot)
 	{
-		super(new ContainerRobotInv(inventoryPlayer, world, x, y, z, robot));
+		super(new ContainerRobotInv(inventoryPlayer, robot));
 		this.robot = robot;
 		this.robot.stayStill = true;
 	}
@@ -23,7 +23,7 @@ public class GuiRobotInv extends GuiContainer
 	@Override
 	public void onGuiClosed()
 	{
-		this.robot.stayStill = false;
+		robot.stayStill = false;
 		super.onGuiClosed();
 	}
 
@@ -35,6 +35,5 @@ public class GuiRobotInv extends GuiContainer
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
-		int i1;
 	}
 }

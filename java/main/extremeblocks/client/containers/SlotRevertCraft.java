@@ -19,7 +19,7 @@ public class SlotRevertCraft extends Slot
 	public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
 	{
 		super.onPickupFromSlot(player, stack);
-		inv.removeStack();
+		inv.slotTakenFrom();
 	}
 
 	@Override

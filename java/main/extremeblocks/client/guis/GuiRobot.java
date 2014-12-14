@@ -24,13 +24,14 @@ public class GuiRobot extends GuiContainer implements GuiIDs
 
 	public GuiRobot(InventoryPlayer inv, World world, int x, int y, int z, EntityRobot robot)
 	{
-		super(new ContainerRobot(inv, world, x, y, z, robot));
+		super(new ContainerRobot(robot));
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.robot = robot;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{

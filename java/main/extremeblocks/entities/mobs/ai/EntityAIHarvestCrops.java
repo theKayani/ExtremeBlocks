@@ -23,9 +23,9 @@ public class EntityAIHarvestCrops extends EntityAIBase
 	{
 		this.taskOwner = taskOwner;
 		this.rangeToCheck = rangeToCheck;
-		this.entityInventory = taskOwner.inv;
-		this.world = taskOwner.worldObj;
-		this.setMutexBits(3);
+		entityInventory = taskOwner.inv;
+		world = taskOwner.worldObj;
+		setMutexBits(3);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class EntityAIHarvestCrops extends EntityAIBase
 					x = (int) taskOwner.posX + i;
 					y = (int) taskOwner.posY + j;
 					z = (int) taskOwner.posZ + k;
-					int meta = world.getBlockMetadata(x, y, z);
-					Block block = world.getBlock(x, y, z);
+					//int meta = world.getBlockMetadata(x, y, z);
+					//Block block = world.getBlock(x, y, z);
 					bool = bool || isValidCropToHarvest(x, y, z);
 					if (bool)
 					{
@@ -57,7 +57,7 @@ public class EntityAIHarvestCrops extends EntityAIBase
 		if (bool)
 		{
 			getCloseBlocks((int) taskOwner.posX - 1, (int) taskOwner.posY, (int) taskOwner.posZ - 1);
-			taskOwner.getLookHelper().setLookPosition((int) taskOwner.posX - 1, (int) taskOwner.posY - 2, (int) taskOwner.posZ - 1, 10.0F, this.taskOwner.getVerticalFaceSpeed());
+			taskOwner.getLookHelper().setLookPosition((int) taskOwner.posX - 1, (int) taskOwner.posY - 2, (int) taskOwner.posZ - 1, 10.0F, taskOwner.getVerticalFaceSpeed());
 		}
 		return bool;
 	}
@@ -75,7 +75,10 @@ public class EntityAIHarvestCrops extends EntityAIBase
 			{
 				for (int k = -1; k < 2; k++)
 				{
-					if (isValidCropToHarvest(x + i, y + j, z + k)) harvestBlock(x + i, y + j, z + k);
+					if (isValidCropToHarvest(x + i, y + j, z + k))
+					{
+						harvestBlock(x + i, y + j, z + k);
+					}
 				}
 			}
 		}

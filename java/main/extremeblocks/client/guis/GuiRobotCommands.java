@@ -14,37 +14,30 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiRobotCommands extends GuiContainer
 {
-	private final InventoryPlayer inv;
-	private final World world;
-	private final int x, y, z;
 	private final EntityRobot robot;
 
 	public GuiRobotCommands(InventoryPlayer inv, World world, int x, int y, int z, EntityRobot robot)
 	{
-		super(new ContainerRobotCommands(inv, world, x, y, z, robot));
-		this.inv = inv;
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		super(new ContainerRobotCommands(robot));
 		this.robot = robot;
 	}
 
 	@Override
 	public void onGuiClosed()
 	{
-		this.robot.stayStill = false;
+		robot.stayStill = false;
 		super.onGuiClosed();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
 		super.initGui();
-		this.buttonList.add(new GuiButton(0, width / 2 - 45, 50, 90, 20, "Set This Home"));
-		this.buttonList.add(new GuiButton(1, width / 2 - 45, 80, 90, 20, "Remove Home"));
-		this.buttonList.add(new GuiButton(2, width / 2 - 45, 110, 90, 20, "Stay Still"));
-		this.buttonList.add(new GuiButton(3, width / 2 - 45, 140, 90, 20, "Don't Stay Still"));
+		buttonList.add(new GuiButton(0, width / 2 - 45, 50, 90, 20, "Set This Home"));
+		buttonList.add(new GuiButton(1, width / 2 - 45, 80, 90, 20, "Remove Home"));
+		buttonList.add(new GuiButton(2, width / 2 - 45, 110, 90, 20, "Stay Still"));
+		buttonList.add(new GuiButton(3, width / 2 - 45, 140, 90, 20, "Don't Stay Still"));
 	}
 
 	@Override
@@ -55,13 +48,13 @@ public class GuiRobotCommands extends GuiContainer
 			case 0:
 			{
 				robot.hasHome = true;
-				robot.homePosition = new int[] { x, y, z };
+				robot.homePosition = new double[] { robot.posX, robot.posY, robot.posZ };
 				break;
 			}
 			case 1:
 			{
 				robot.hasHome = false;
-				robot.homePosition = new int[] { 0, 0, 0 };
+				robot.homePosition = new double[] { 0.0D, 0.0D, 0.0D };
 				break;
 			}
 			case 2:

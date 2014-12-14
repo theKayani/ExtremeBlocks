@@ -22,6 +22,7 @@ public class GuiTrash extends GuiContainer
 		te = tileEntity;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{

@@ -3,7 +3,6 @@ package main.extremeblocks.tileentities;
 import main.extremeblocks.misc.IBattery;
 import main.extremeblocks.misc.IConnector;
 import main.extremeblocks.misc.Power.IPowerReceiver;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -12,10 +11,10 @@ public class TileEntityCharger extends TileEntityInventory implements IConnector
 {
 	public float overallPower;
 	public int[] powerDelay;
-	public String customName;
 
 	public TileEntityCharger()
 	{
+		super("Charger");
 		inventory = new ItemStack[3];
 		powerDelay = new int[3];
 	}
@@ -24,41 +23,17 @@ public class TileEntityCharger extends TileEntityInventory implements IConnector
 	public void updateEntity()
 	{
 		if (overallPower <= 0) return;
-		for (int i = 0; i < inventory.length; i++)
+		for (ItemStack element : inventory)
 		{
-			if (inventory[i] != null && inventory[i].getItem() instanceof IBattery)
+			if (element != null && element.getItem() instanceof IBattery)
 			{
-				if (((IBattery) inventory[i].getItem()).receivePower(inventory[i], 1))
+				if (((IBattery) element.getItem()).receivePower(element, 1))
 				{
 					overallPower--;
 					break;
 				}
 			}
 		}
-	}
-
-	@Override
-	public String getInventoryName()
-	{
-		return hasCustomInventoryName() ? customName : "Charger";
-	}
-
-	@Override
-	public boolean hasCustomInventoryName()
-	{
-		return customName != null;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
-	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override

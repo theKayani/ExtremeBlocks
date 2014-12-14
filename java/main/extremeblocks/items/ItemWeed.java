@@ -16,9 +16,9 @@ public class ItemWeed extends ItemEdible
 	public ItemWeed(String name, int state)
 	{
 		super(name, 7);
-		this.setCreativeTab(Init.tab_mainItems);
-		this.setAction(EnumAction.bow);
-		this.setAlwaysEdible();
+		setCreativeTab(Init.tab_mainItems);
+		setAction(EnumAction.bow);
+		setAlwaysEdible();
 		this.state = state;
 	}
 
@@ -46,5 +46,17 @@ public class ItemWeed extends ItemEdible
 					break;
 			}
 		}
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "Can be smoked to cause different (\"pleasurable\") effects. Use with caution! The more powerful the hemp, the more powerful the effects.";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, false);
 	}
 }

@@ -3,6 +3,7 @@ package main.extremeblocks;
 import java.awt.Color;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.blocks.BlockTrophy.TrophyType;
+import main.extremeblocks.client.guis.GuiEBGuide;
 import main.extremeblocks.entities.EntityGrenade;
 import main.extremeblocks.entities.EntityMolotov;
 import main.extremeblocks.entities.EntitySpear;
@@ -35,6 +36,7 @@ import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.tileentities.TileEntityTrash;
 import main.extremeblocks.tileentities.TileEntityTrophy;
 import main.extremeblocks.tileentities.TileEntityWire;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -84,6 +86,11 @@ public class EBClient extends EBCommon
 		RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
 		RenderingRegistry.registerEntityRenderingHandler(EntityDemon.class, new RenderDemon());
 		// ExtremeBlocks <-- command right click it
+	}
+
+	public void openEBGuide()
+	{
+		Minecraft.getMinecraft().displayGuiScreen(new GuiEBGuide());
 	}
 
 	@Override
@@ -144,7 +151,6 @@ public class EBClient extends EBCommon
 	{
 		int i = entityID++;
 		if (EntityList.getStringFromID(i) != null) return nextID();
-		Vars.logger.info("ID: " + i);
 		return i;
 	}
 

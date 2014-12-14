@@ -1,8 +1,10 @@
 package main.extremeblocks.crafting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -12,6 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 public class RecipeManager
 {
 	public static final ArrayList<IRecipe> PIES = JavaHelp.newArrayList();
+	public static final HashMap<ItemStack, List<ItemStack>> recipes = JavaHelp.newHashMap();
 
 	public static EBShapedRecipes add(boolean shouldAdd, ItemStack stack, Object... obs)
 	{
@@ -21,10 +24,9 @@ public class RecipeManager
 		int k = 0;
 		if (obs[i] instanceof String[])
 		{
-			String[] astring = (String[]) ((String[]) obs[i++]);
-			for (int l = 0; l < astring.length; ++l)
+			String[] astring = (String[]) obs[i++];
+			for (String s1 : astring)
 			{
-				String s1 = astring[l];
 				++k;
 				j = s1.length();
 				s = s + s1;
@@ -40,7 +42,7 @@ public class RecipeManager
 				s = s + s2;
 			}
 		}
-		HashMap hashmap;
+		HashMap<Character, ItemStack> hashmap;
 		for (hashmap = JavaHelp.newHashMap(); i < obs.length; i += 2)
 		{
 			Character character = (Character) obs[i];
@@ -65,7 +67,7 @@ public class RecipeManager
 			char c0 = s.charAt(i1);
 			if (hashmap.containsKey(Character.valueOf(c0)))
 			{
-				aitemstack[i1] = ((ItemStack) hashmap.get(Character.valueOf(c0))).copy();
+				aitemstack[i1] = hashmap.get(Character.valueOf(c0)).copy();
 			}
 			else
 			{
@@ -73,13 +75,19 @@ public class RecipeManager
 			}
 		}
 		EBShapedRecipes recipe = new EBShapedRecipes(j, k, aitemstack, stack);
-		if (shouldAdd) PIES.add(recipe);
+		if (shouldAdd)
+		{
+			ArrayList<ItemStack> list = JavaHelp.newArrayList();
+			list.addAll(Arrays.asList(aitemstack));
+			PIES.add(recipe);
+			recipes.put(recipe.getRecipeOutput(), list);
+		}
 		return recipe;
 	}
 
 	public static EBShapelessRecipes addShapeless(boolean shouldAdd, ItemStack stack, Object... obs)
 	{
-		ArrayList arraylist = JavaHelp.newArrayList();
+		ArrayList<ItemStack> arraylist = JavaHelp.newArrayList();
 		Object[] aobject = obs;
 		int i = obs.length;
 		for (int j = 0; j < i; ++j)
@@ -95,15 +103,16 @@ public class RecipeManager
 			}
 			else
 			{
-				if (!(object1 instanceof Block))
-				{
-					throw new RuntimeException("Invalid shapeless recipy!");
-				}
+				if (!(object1 instanceof Block)) throw new RuntimeException("Invalid shapeless recipe!");
 				arraylist.add(new ItemStack((Block) object1));
 			}
 		}
 		EBShapelessRecipes recipe = new EBShapelessRecipes(stack, arraylist);
-		if (shouldAdd) PIES.add(recipe);
+		if (shouldAdd)
+		{
+			PIES.add(recipe);
+			recipes.put(stack.copy(), arraylist);
+		}
 		return recipe;
 	}
 
@@ -114,16 +123,19 @@ public class RecipeManager
 		{
 			val = false;
 		}
-		for (int i = 0; i < obs.length; i++)
+		for (Object ob : obs)
 		{
-			if (obs[i] instanceof String && ((String) obs[i]).length() >= 4) val = false;
+			if (ob instanceof String && ((String) ob).length() >= 4)
+			{
+				val = false;
+			}
 		}
 		if (val == false)
 		{
 			int h = Calendar.getInstance().get(Calendar.HOUR);
 			int m = Calendar.getInstance().get(Calendar.MINUTE);
 			int s = Calendar.getInstance().get(Calendar.SECOND);
-			System.err.println("[" + (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s) + "] [extreme blocks/ERROR] [ExtremeBlocks]: REMOVED '" + RecipeManager.add(false, item, obs).getRecipeOutput().getDisplayName() + "' RECIPE!");
+			System.err.println("[" + (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s) + "] [extreme blocks/ERROR] [ExtremeBlocks]: REMOVED '" + add(false, item, obs).getRecipeOutput().getDisplayName() + "' RECIPE!");
 		}
 		return val;
 	}

@@ -1,6 +1,7 @@
 package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.ArrayList;
+import main.com.hk.eb.util.Info;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiIDs;
@@ -19,7 +20,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs
+public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs, Info
 {
 	public int id, storageSlots, ySize, xSize;
 	public String containerName, guiTexturePath, name;
@@ -158,6 +159,18 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
 		return type.shouldDrop() ? world.getBlock(x, y - 1, z).getMaterial().isSolid() : super.canBlockStay(world, x, y, z);
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has " + storageSlots + " slots. ";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, true);
 	}
 
 	public static void initBlocks()

@@ -33,4 +33,16 @@ public class ItemGrenade extends ItemCustom
 		}
 		return par1ItemStack;
 	}
+
+	@Override
+	public String getInfo()
+	{
+		return "Can be thrown out. It will also blow up upon impact with something. Also the crafting can be reversed! So, putting this in the Crafting Grid will return the 9 gunpowder back!";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, true);
+	}
 }

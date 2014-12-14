@@ -1,5 +1,6 @@
 package main.extremeblocks.blocks.abstractblocks;
 
+import main.com.hk.eb.util.Info;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.BlockRotatedPillar;
@@ -9,26 +10,35 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSided extends BlockRotatedPillar
+public class BlockSided extends BlockRotatedPillar implements Info
 {
+	private boolean showRecipe;
 	private IIcon topIcon;
 
 	public BlockSided(Material mat, String blockName, String textureName)
 	{
 		super(mat);
-		this.setBlockName(blockName);
-		this.setBlockTextureName(Init.MODID + ":" + textureName + "_");
-		this.setCreativeTab(Init.tab_mainBlocks);
+		setBlockName(blockName);
+		setBlockTextureName(Init.MODID + ":" + textureName + "_");
+		setCreativeTab(Init.tab_mainBlocks);
 		ExtremeBlocks.blocks.add(this);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.blockIcon = ir.registerIcon(getTextureName() + "side");
-		this.topIcon = ir.registerIcon(getTextureName() + "top");
+		blockIcon = ir.registerIcon(getTextureName() + "side");
+		topIcon = ir.registerIcon(getTextureName() + "top");
 	}
 
+	public BlockSided setShowRecipe()
+	{
+		showRecipe = true;
+		return this;
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	protected IIcon getTopIcon(int p_150161_1_)
 	{
@@ -39,5 +49,17 @@ public class BlockSided extends BlockRotatedPillar
 	protected IIcon getSideIcon(int var1)
 	{
 		return blockIcon;
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "This block, like logs, can be placed sideways.";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, showRecipe);
 	}
 }

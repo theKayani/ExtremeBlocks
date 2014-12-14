@@ -25,7 +25,7 @@ public class ExtremePlayer implements IExtendedEntityProperties
 	@Override
 	public void loadNBTData(NBTTagCompound compound)
 	{
-		NBTTagCompound properties = (NBTTagCompound) compound.getTag(ExtremePlayer.NAME);
+		//NBTTagCompound properties = (NBTTagCompound) compound.getTag(ExtremePlayer.NAME);
 	}
 
 	@Override

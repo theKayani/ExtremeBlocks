@@ -11,29 +11,28 @@ import net.minecraft.world.World;
 
 public class EBShapelessRecipes implements IRecipe
 {
-	/** Is the ItemStack that you get when craft the recipe. */
 	private final ItemStack recipeOutput;
-	/** Is a List of ItemStack that composes the recipe. */
-	public final List recipeItems;
-	private static final String __OBFID = "CL_00000094";
+	public final List<ItemStack> recipeItems;
 
-	public EBShapelessRecipes(ItemStack p_i1918_1_, List p_i1918_2_)
+	public EBShapelessRecipes(ItemStack p_i1918_1_, List<ItemStack> p_i1918_2_)
 	{
-		this.recipeOutput = p_i1918_1_;
-		this.recipeItems = p_i1918_2_;
+		recipeOutput = p_i1918_1_;
+		recipeItems = p_i1918_2_;
 	}
 
+	@Override
 	public ItemStack getRecipeOutput()
 	{
-		return this.recipeOutput;
+		return recipeOutput;
 	}
 
 	/**
 	 * Used to check if a recipe matches current crafting inventory
 	 */
+	@Override
 	public boolean matches(InventoryCrafting p_77569_1_, World p_77569_2_)
 	{
-		ArrayList arraylist = new ArrayList(this.recipeItems);
+		ArrayList<ItemStack> arraylist = new ArrayList<ItemStack>(recipeItems);
 		for (int i = 0; i < BlockEBTable.CRAFTING_SLOTS; ++i)
 		{
 			for (int j = 0; j < BlockEBTable.CRAFTING_SLOTS; ++j)
@@ -42,10 +41,10 @@ public class EBShapelessRecipes implements IRecipe
 				if (itemstack != null)
 				{
 					boolean flag = false;
-					Iterator iterator = arraylist.iterator();
+					Iterator<ItemStack> iterator = arraylist.iterator();
 					while (iterator.hasNext())
 					{
-						ItemStack itemstack1 = (ItemStack) iterator.next();
+						ItemStack itemstack1 = iterator.next();
 						if (itemstack.getItem() == itemstack1.getItem() && (itemstack1.getItemDamage() == 32767 || itemstack.getItemDamage() == itemstack1.getItemDamage()))
 						{
 							flag = true;
@@ -53,10 +52,7 @@ public class EBShapelessRecipes implements IRecipe
 							break;
 						}
 					}
-					if (!flag)
-					{
-						return false;
-					}
+					if (!flag) return false;
 				}
 			}
 		}
@@ -66,16 +62,18 @@ public class EBShapelessRecipes implements IRecipe
 	/**
 	 * Returns an Item that is the result of this recipe
 	 */
+	@Override
 	public ItemStack getCraftingResult(InventoryCrafting p_77572_1_)
 	{
-		return this.recipeOutput.copy();
+		return recipeOutput.copy();
 	}
 
 	/**
 	 * Returns the size of the recipe area
 	 */
+	@Override
 	public int getRecipeSize()
 	{
-		return this.recipeItems.size();
+		return recipeItems.size();
 	}
 }

@@ -3,6 +3,7 @@ package main.com.hk.eb.util;
 import java.util.Random;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
+import main.extremeblocks.Vars;
 import main.extremeblocks.misc.IPlayerMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,11 +13,10 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCustom extends Block
+public class BlockCustom extends Block implements Info
 {
 	@SideOnly(Side.CLIENT)
 	protected IIcon one;
@@ -33,17 +33,21 @@ public class BlockCustom extends Block
 	private boolean normal = true, different;
 	private Item itemToDrop;
 	private int amountDropped;
+	private String info;
+	private boolean showRecipe;
+	private final String name;
 
 	public BlockCustom(Material mat, String name)
 	{
 		super(mat);
+		this.name = name;
 		setBlockName(name);
 		setBlockTextureName(Init.MODID + ":" + name.replaceAll(" ", "_").toLowerCase());
 		setDrop(this);
 		setDroppedAmount(1);
 		if (this instanceof INamed)
 		{
-			LanguageRegistry.addName(this, ((INamed) this).getName());
+			Vars.logger.error("ERROR, INamed is Deprecated!");
 		}
 		if (mat == Material.iron)
 		{
@@ -108,6 +112,11 @@ public class BlockCustom extends Block
 		return this;
 	}
 
+	public String getName()
+	{
+		return name;
+	}
+
 	public BlockCustom setDrop(Item itemToDrop)
 	{
 		different = true;
@@ -167,5 +176,33 @@ public class BlockCustom extends Block
 	public boolean isOpaqueCube()
 	{
 		return normal;
+	}
+
+	public BlockCustom setInfo(String info)
+	{
+		this.info = info;
+		return this;
+	}
+
+	public BlockCustom setShowRecipe()
+	{
+		showRecipe = true;
+		if (info == null || info.isEmpty())
+		{
+			setInfo("Nice decoration block. May be used for recipes as well.");
+		}
+		return this;
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return info;
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(info != null && !info.isEmpty(), showRecipe);
 	}
 }

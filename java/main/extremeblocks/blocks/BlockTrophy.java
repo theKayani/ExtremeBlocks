@@ -70,6 +70,18 @@ public class BlockTrophy extends BlockCustom implements ITileEntityProvider
 		return new TileEntityTrophy();
 	}
 
+	@Override
+	public String getInfo()
+	{
+		return "Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, true);
+	}
+
 	public static enum TrophyType
 	{
 		GOLD,

@@ -15,9 +15,12 @@ public class ItemCellphone extends ItemCustom
 	public ItemCellphone()
 	{
 		super("Cellphone", Init.tab_mainItems);
-		this.setTextureName(Init.MODID + ":cellphone");
+		setTextureName(Init.MODID + ":cellphone");
+		setInfo("Very useful tool that shows multiple different chunks of information about you and your world!");
+		setShowRecipe();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
