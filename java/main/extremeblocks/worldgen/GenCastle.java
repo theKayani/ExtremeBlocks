@@ -3,7 +3,6 @@ package main.extremeblocks.worldgen;
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.Builder.ChestType;
 import main.com.hk.eb.util.Rand;
-import main.extremeblocks.Vars;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
@@ -18,11 +17,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 @Gen(chance = 1, name = "Castle")
-public class WorldGenCastle extends Generation
+public class GenCastle extends Generation
 {
 	private final boolean netherish;
 
-	public WorldGenCastle()
+	public GenCastle()
 	{
 		netherish = Rand.nextBoolean();
 	}
@@ -69,7 +68,7 @@ public class WorldGenCastle extends Generation
 	@Override
 	public boolean canGenerateAt(Builder helper)
 	{
-		if (!Vars.genCastle || Rand.nextInt(100) != 0) return false;
+		if (Rand.nextInt(100) != 0) return false;
 		for (int i = -4; i < 5; i++)
 		{
 			for (int j = 0; j < 9; j++)

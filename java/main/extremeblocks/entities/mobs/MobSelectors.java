@@ -46,7 +46,7 @@ public interface MobSelectors
 		@Override
 		public boolean isEntityApplicable(Entity entity)
 		{
-			return (!(entity instanceof EntityCastleZombie) && entity instanceof EntityZombie) || (!(entity instanceof EntityCastleSkeleton) && entity instanceof EntitySkeleton);
+			return !(entity instanceof EntityCastleZombie) && entity instanceof EntityZombie || !(entity instanceof EntityCastleSkeleton) && entity instanceof EntitySkeleton;
 		}
 	};
 	public static final IEntitySelector vanillaSkeletonsAndZombiesAndPlayer = new IEntitySelector()
@@ -86,7 +86,7 @@ public interface MobSelectors
 		@Override
 		public boolean isEntityApplicable(Entity entity)
 		{
-			return allPeacefulMobs.isEntityApplicable(entity) && !(entity instanceof EntityPlayer);
+			return allPeacefulMobs.isEntityApplicable(entity) && !onlyPlayer.isEntityApplicable(entity);
 		}
 	};
 	public static final IEntitySelector allPeacefulMobsExceptPlayerAndRobots = new IEntitySelector()
@@ -94,7 +94,7 @@ public interface MobSelectors
 		@Override
 		public boolean isEntityApplicable(Entity entity)
 		{
-			return allPeacefulMobs.isEntityApplicable(entity) && !(entity instanceof EntityPlayer) && !(entity instanceof EntityRobot);
+			return allPeacefulMobsExceptPlayer.isEntityApplicable(entity) && !(entity instanceof EntityRobot);
 		}
 	};
 }

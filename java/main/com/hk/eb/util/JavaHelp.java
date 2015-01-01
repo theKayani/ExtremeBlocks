@@ -91,6 +91,11 @@ public class JavaHelp
 		return null;
 	}
 
+	public static String normalName(String name)
+	{
+		return name.charAt(0) + name.toLowerCase().substring(1);
+	}
+
 	public static boolean isVowel(char ch)
 	{
 		return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';

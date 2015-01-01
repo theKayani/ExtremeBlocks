@@ -1,7 +1,7 @@
 package main.extremeblocks.network;
 
 import io.netty.buffer.ByteBuf;
-import main.com.hk.eb.util.MPUtil;
+import main.extremeblocks.ExtremeBlocks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -30,21 +30,26 @@ public abstract class AbstractPacket
 
 	public void sendToServer()
 	{
-		MPUtil.sendToServer(this);
+		ExtremeBlocks.packetPipeline.sendToServer(this);
+	}
+
+	public void sendToAll()
+	{
+		ExtremeBlocks.packetPipeline.sendToAll(this);
 	}
 
 	public void sendTo(EntityPlayerMP player)
 	{
-		MPUtil.sendTo(this, player);
+		ExtremeBlocks.packetPipeline.sendTo(this, player);
 	}
 
 	public void sendToDimension(int dimID)
 	{
-		MPUtil.sendToDimension(this, dimID);
+		ExtremeBlocks.packetPipeline.sendToDimension(this, dimID);
 	}
 
 	public void sendToAllAround(TargetPoint point)
 	{
-		MPUtil.sendToAllAround(this, point);
+		ExtremeBlocks.packetPipeline.sendToAllAround(this, point);
 	}
 }

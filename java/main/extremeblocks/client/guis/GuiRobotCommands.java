@@ -25,7 +25,6 @@ public class GuiRobotCommands extends GuiContainer
 	@Override
 	public void onGuiClosed()
 	{
-		robot.stayStill = false;
 		super.onGuiClosed();
 	}
 
@@ -34,10 +33,8 @@ public class GuiRobotCommands extends GuiContainer
 	public void initGui()
 	{
 		super.initGui();
-		buttonList.add(new GuiButton(0, width / 2 - 45, 50, 90, 20, "Set This Home"));
-		buttonList.add(new GuiButton(1, width / 2 - 45, 80, 90, 20, "Remove Home"));
-		buttonList.add(new GuiButton(2, width / 2 - 45, 110, 90, 20, "Stay Still"));
-		buttonList.add(new GuiButton(3, width / 2 - 45, 140, 90, 20, "Don't Stay Still"));
+		buttonList.add(new GuiButton(0, width / 2 - 45, 110, 90, 20, "Stay Still"));
+		buttonList.add(new GuiButton(1, width / 2 - 45, 140, 90, 20, "Don't Stay Still"));
 	}
 
 	@Override
@@ -47,30 +44,17 @@ public class GuiRobotCommands extends GuiContainer
 		{
 			case 0:
 			{
-				robot.hasHome = true;
-				robot.homePosition = new double[] { robot.posX, robot.posY, robot.posZ };
+				robot.setStill(true);
 				break;
 			}
 			case 1:
 			{
-				robot.hasHome = false;
-				robot.homePosition = new double[] { 0.0D, 0.0D, 0.0D };
-				break;
-			}
-			case 2:
-			{
-				robot.stayStill = true;
-				break;
-			}
-			case 3:
-			{
-				robot.stayStill = false;
+				robot.setStill(false);
 				Vec3 vec = RandomPositionGenerator.findRandomTarget(robot, 10, 3);
 				robot.getNavigator().tryMoveToXYZ(vec.xCoord, vec.yCoord, vec.zCoord, 1.0F);
 				break;
 			}
 		}
-		robot.syncServerAndClient(false);
 	}
 
 	@Override

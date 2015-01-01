@@ -78,9 +78,12 @@ tile.Altar.name=Altar
 tile.Dried Tree.name=Dried Tree Gen
 tile.Castle.name=Castle Gen
 tile.House.name=House Gen
+tile.Sunken Ship.name=Sunken Ship Gen
+tile.Catacombs.name=Catacombs Gen
 
 entity.Castle Zombie.name=Castle Zombie
 entity.Castle Skeleton.name=Castle Skeleton
 entity.Evil Iron Golem.name=Evil Iron Golem
 entity.extremeblocks.Robot.name=Robot
+entity.Robot.name=Robot
 entity.Demon Spirit.name=Demon Spirit

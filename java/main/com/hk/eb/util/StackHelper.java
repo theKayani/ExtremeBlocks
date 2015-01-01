@@ -1,8 +1,11 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
+import java.util.Map;
 import main.extremeblocks.misc.StackInv;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +16,25 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class StackHelper
 {
+	/**
+	 * Checks for the given Enchantment on the specified stack. Also checks if the level is enough to pass.
+	 * 
+	 * @param stack The stack to check
+	 * @param ench The enchantment to check for
+	 * @param level The level to check for. If this is < 1, it will check just for the enchantment
+	 * @param strict Whether the enchantment should have the exact level,
+	 * no more. If this is off then if the enchantment level is higher then
+	 * the level you're looking for, it will return true.
+	 * @return if the stack has the enchantment with the given level
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean hasEnchantment(ItemStack stack, Enchantment ench, int level, boolean strict)
+	{
+		Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(stack);
+		if (map.containsKey(new Integer(ench.effectId))) return strict ? map.get(new Integer(ench.effectId)) == level : map.get(new Integer(ench.effectId)) >= level;
+		return false;
+	}
+
 	public static int getMaxMetadataOf(Item item)
 	{
 		if (item == null) return 0;

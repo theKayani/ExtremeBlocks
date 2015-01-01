@@ -98,6 +98,6 @@ public class RenderRobot extends RenderBiped
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
-		return ((EntityRobot) entity).isOff ? offTexture : onTexture;
+		return ((EntityRobot) entity).getType() == null || ((EntityRobot) entity).getType().ordinal() % 2 == 0 ? onTexture : offTexture;
 	}
 }

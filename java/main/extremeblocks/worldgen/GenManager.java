@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Vector3I;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import net.minecraft.block.Block;
@@ -20,6 +22,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public class GenManager implements IWorldGenerator
 {
+	private static final ArrayList<Class<? extends Generation>> gens = JavaHelp.newArrayList();
 	private World world;
 	private Random random;
 	private int chunkX;
@@ -28,7 +31,7 @@ public class GenManager implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-		if (!Vars.alterWorld) return;
+		if (!Vars.alterWorld || MPUtil.isClientSide()) return;
 		this.world = world;
 		this.random = random;
 		this.chunkX = chunkX * 16;
@@ -75,7 +78,14 @@ public class GenManager implements IWorldGenerator
 		{
 			try
 			{
-				generateStructure(gens.get(i).newInstance());
+				Class<? extends Generation> gen = gens.get(i);
+				boolean custom = gen.getAnnotation(Gen.class).custom();
+				Generation g = null;
+				if (custom)
+				{
+					g = (Generation) gen.getMethod("instance", World.class, Random.class, int.class).invoke(null, world, random, i);
+				}
+				generateStructure(custom ? g : gen.newInstance());
 			}
 			catch (Exception e)
 			{
@@ -135,20 +145,26 @@ public class GenManager implements IWorldGenerator
 
 	public void generateStructure(Generation gen)
 	{
-		for (int i = 0; i < gen.chanceToSpawn; i++)
+		if (Vars.gens.get(gen.getClass()).booleanValue())
 		{
-			int x = chunkX + random.nextInt(16);
-			int z = chunkZ + random.nextInt(16);
-			int y = world.getTopSolidOrLiquidBlock(x, z);
-			gen.generate(world, random, x, y, z);
+			for (int i = 0; i < gen.chanceToSpawn; i++)
+			{
+				Vector3I v = gen.getSpawnPosition(world, random, chunkX, chunkZ);
+				gen.generate(world, random, v.x, v.y, v.z);
+			}
 		}
 	}
 
 	public static void registerGeneration(Class<? extends Generation> clazz)
 	{
-		if (!clazz.isAnnotationPresent(Gen.class) || !gens.contains(clazz))
+		if (!gens.contains(clazz))
 		{
-			gens.add(clazz);
+			if (clazz.isAnnotationPresent(Gen.class))
+			{
+				gens.add(clazz);
+				Vars.logger.info("Registered Generation: " + clazz.getSimpleName() + ", " + clazz.getAnnotation(Gen.class).name());
+			}
+			else throw new IllegalArgumentException(clazz.getName() + " doesn't have the Gen.class annotation!");
 		}
 	}
 
@@ -163,8 +179,8 @@ public class GenManager implements IWorldGenerator
 	{
 		String name();
 
-		int chance();
-	}
+		int chance() default 0;
 
-	private static final ArrayList<Class<? extends Generation>> gens = JavaHelp.newArrayList();
+		boolean custom() default false;
+	}
 }

@@ -18,10 +18,12 @@ import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.misc.SpawnDetail;
 import main.extremeblocks.network.PacketHandlerEB;
 import main.extremeblocks.tools.ColorToolSet;
+import main.extremeblocks.worldgen.GenCastle;
+import main.extremeblocks.worldgen.GenCatacombs;
+import main.extremeblocks.worldgen.GenDriedTree;
+import main.extremeblocks.worldgen.GenHouse;
 import main.extremeblocks.worldgen.GenManager;
-import main.extremeblocks.worldgen.WorldGenCastle;
-import main.extremeblocks.worldgen.WorldGenDriedTree;
-import main.extremeblocks.worldgen.WorldGenHouse;
+import main.extremeblocks.worldgen.GenSunkenShip;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.passive.EntityVillager;
@@ -67,6 +69,11 @@ public class ExtremeBlocks
 		MinecraftForge.TERRAIN_GEN_BUS.register(new EBEventHandler());
 		FMLCommonHandler.instance().bus().register(new EBEventHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+		GenManager.registerGeneration(GenDriedTree.class);
+		GenManager.registerGeneration(GenCastle.class);
+		GenManager.registerGeneration(GenHouse.class);
+		GenManager.registerGeneration(GenSunkenShip.class);
+		GenManager.registerGeneration(GenCatacombs.class);
 		configFile = new Configuration(event.getSuggestedConfigurationFile());
 		configFile.load();
 		Init.handleConfig();
@@ -76,9 +83,6 @@ public class ExtremeBlocks
 	public void init(FMLInitializationEvent event)
 	{
 		packetPipeline.initialise();
-		GenManager.registerGeneration(WorldGenDriedTree.class);
-		GenManager.registerGeneration(WorldGenCastle.class);
-		GenManager.registerGeneration(WorldGenHouse.class);
 		new Init();
 		new ColorToolSet(Init.trinquantium_ingot, Init.TRINQUANTIUM_T, 0xFF8400);
 		new ColorToolSet(Init.bronze_ingot, Init.BRONZE_T, 0x6E3E0A);

@@ -1,6 +1,7 @@
 package main.com.hk.eb.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,34 @@ import net.minecraft.world.World;
 public class WorldUtil
 {
 	private static boolean isAir, canStay, randomMetadata;
+
+	public static float partiallyDestroyBlock(EntityLivingBase e, Vector3I vec, float blockDamage)
+	{
+		float copy = blockDamage;
+		BlockIndex index = new BlockIndex(e.worldObj, vec);
+		if (index.getHardness() != 0)
+		{
+			blockDamage += index.getBreakSpeed(e.getHeldItem()) / index.getHardness() / 30F;
+
+			if (blockDamage > 1.0F)
+			{
+				e.worldObj.destroyBlockInWorldPartially(e.getEntityId(), vec.x, vec.y, vec.z, -1);
+				blockDamage = 0;
+
+				e.worldObj.playAuxSFXAtEntity(null, 2001, vec.x, vec.y, vec.z, Block.getIdFromBlock(index.getBlock()) + (index.getMetadata() << 12));
+
+				if (e.getHeldItem() != null)
+				{
+					e.getHeldItem().getItem().onBlockDestroyed(e.getHeldItem(), e.worldObj, index.getBlock(), vec.x, vec.y, vec.z, e);
+				}
+			}
+			else
+			{
+				e.worldObj.destroyBlockInWorldPartially(e.getEntityId(), vec.x, vec.y, vec.z, (int) (blockDamage * 10.0F) - 1);
+			}
+		}
+		return blockDamage == copy ? 0.0F : blockDamage;
+	}
 
 	public static void createBox(World worldObj, int x, int y, int z, Block block, int length, int width, int height)
 	{
@@ -34,7 +63,7 @@ public class WorldUtil
 		if (MPUtil.isClientSide()) return;
 		for (int i = 0; i < height + 1; i++)
 		{
-			checkAndSetBlock(worldObj, x, y + i, z, block, meta);
+			setBlock(worldObj, x, y + i, z, block, meta);
 		}
 	}
 
@@ -46,6 +75,7 @@ public class WorldUtil
 	public static void fillWithBlocks(World worldObj, int x, int y, int z, Block block, int radius, int meta)
 	{
 		if (MPUtil.isClientSide()) return;
+		radius *= 2;
 		int i, j, k;
 		for (i = -radius; i < radius + 1; i++)
 		{
@@ -53,7 +83,7 @@ public class WorldUtil
 			{
 				for (k = -radius; k < radius + 1; k++)
 				{
-					checkAndSetBlock(worldObj, x + i, y + j, z + k, block, meta);
+					setBlock(worldObj, x + i, y + j, z + k, block, meta);
 				}
 			}
 		}
@@ -67,22 +97,14 @@ public class WorldUtil
 	public static void createLayer(World worldObj, int x, int y, int z, Block block, int length, int width, int meta)
 	{
 		if (MPUtil.isClientSide()) return;
-		if (MathHelp.isOdd(length))
-		{
-			length++;
-		}
-		if (MathHelp.isOdd(width))
-		{
-			width++;
-		}
+		int i, j;
 		length /= 2;
 		width /= 2;
-		int i, j;
 		for (i = -length; i < length + 1; i++)
 		{
 			for (j = -width; j < width + 1; j++)
 			{
-				checkAndSetBlock(worldObj, x + i, y, z + j, block, meta);
+				setBlock(worldObj, x + i, y, z + j, block, meta);
 			}
 		}
 	}
@@ -95,7 +117,7 @@ public class WorldUtil
 	public static void setBlockWithItemStack(World worldObj, int x, int y, int z, Block block, int meta, ItemStack... items)
 	{
 		if (MPUtil.isClientSide()) return;
-		checkAndSetBlock(worldObj, x, y, z, block, meta);
+		setBlock(worldObj, x, y, z, block, meta);
 		if (worldObj.getTileEntity(x, y, z) instanceof IInventory)
 		{
 			StackHelper.addToInv((IInventory) worldObj.getTileEntity(x, y, z), items);
@@ -110,7 +132,7 @@ public class WorldUtil
 	public static void setBlockWithItemStackInSlot(World worldObj, int x, int y, int z, Block block, int meta, ItemStack item, int slot)
 	{
 		if (MPUtil.isClientSide()) return;
-		checkAndSetBlock(worldObj, x, y, z, block, meta);
+		setBlock(worldObj, x, y, z, block, meta);
 		if (worldObj.getTileEntity(x, y, z) instanceof IInventory)
 		{
 			StackHelper.addToInvSlot((IInventory) worldObj.getTileEntity(x, y, z), item, slot);
@@ -119,17 +141,10 @@ public class WorldUtil
 
 	public static void setBlock(World worldObj, int x, int y, int z, Block block)
 	{
-		if (MPUtil.isClientSide()) return;
-		checkAndSetBlock(worldObj, x, y, z, block, 0);
+		setBlock(worldObj, x, y, z, block, 0);
 	}
 
-	public static void setBlock(World worldObj, int x, int y, int z, Block block, int metadata)
-	{
-		if (MPUtil.isClientSide()) return;
-		checkAndSetBlock(worldObj, x, y, z, block, metadata);
-	}
-
-	public static void checkAndSetBlock(World worldObj, int x, int y, int z, Block block, int meta)
+	public static void setBlock(World worldObj, int x, int y, int z, Block block, int meta)
 	{
 		if (MPUtil.isClientSide()) return;
 		boolean isAirAndStay = isAir && canStay && worldObj.isAirBlock(x, y, z) && block.canBlockStay(worldObj, x, y, z);

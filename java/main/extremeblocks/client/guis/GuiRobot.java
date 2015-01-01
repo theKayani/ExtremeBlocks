@@ -1,6 +1,5 @@
 package main.extremeblocks.client.guis;
 
-import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.StackHelper;
 import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
@@ -9,6 +8,7 @@ import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.network.packets.PacketAddToPlayer;
 import main.extremeblocks.network.packets.PacketOpenGui;
 import main.extremeblocks.network.packets.PacketRemoveEntity;
+import main.extremeblocks.network.packets.PacketStartTask;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -50,33 +50,34 @@ public class GuiRobot extends GuiContainer implements GuiIDs
 		{
 			case 0:
 			{
-				MPUtil.sendToServer(new PacketOpenGui(GUI_ROBOT_INV, x, y, z));
+				new PacketOpenGui(GUI_ROBOT_INV, x, y, z).sendToServer();
 				break;
 			}
 			case 1:
 			{
-				robot.syncServerAndClient(true);
+				new PacketStartTask(robot, true).sendToServer();
+				robot.setOnTask(true);
 				mc.thePlayer.closeScreen();
 				break;
 			}
 			case 2:
 			{
-				robot.endTask();
-				robot.syncServerAndClient(false);
+				new PacketStartTask(robot, false).sendToServer();
+				robot.setOnTask(false);
 				mc.thePlayer.closeScreen();
 				break;
 			}
 			case 3:
 			{
 				ItemStack[] stacks = StackHelper.asItemStacks(Init.robot_torso, Init.robot_leg, Init.robot_leg, Init.robot_arm, Init.robot_arm, Init.robot_head);
-				MPUtil.sendToServer(new PacketAddToPlayer(stacks));
-				MPUtil.sendToServer(new PacketRemoveEntity(robot, true));
+				new PacketAddToPlayer(stacks).sendToServer();
+				new PacketRemoveEntity(robot, true).sendToServer();
 				mc.thePlayer.closeScreen();
 				break;
 			}
 			case 4:
 			{
-				MPUtil.sendToServer(new PacketOpenGui(GUI_ROBOT_COMMANDS, x, y, z));
+				new PacketOpenGui(GUI_ROBOT_COMMANDS, x, y, z).sendToServer();
 				break;
 			}
 		}

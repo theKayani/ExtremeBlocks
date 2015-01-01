@@ -1,9 +1,12 @@
 package main.extremeblocks.tools;
 
+import java.util.List;
 import main.extremeblocks.Init;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,7 +18,7 @@ public class ItemPickaxeOverlay extends ItemPickaxe
 	@SideOnly(Side.CLIENT)
 	private IIcon head;
 	public final int headColor;
-	public final String name;
+	protected String name;
 
 	public ItemPickaxeOverlay(ToolMaterial mat, int color)
 	{
@@ -63,6 +66,15 @@ public class ItemPickaxeOverlay extends ItemPickaxe
 	public IIcon getIconFromDamageForRenderPass(int flag, int flag1)
 	{
 		return flag1 > 0 ? stick : head;
+	}
+
+	@Override
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+	{
+		list.add(EnumChatFormatting.GRAY + "" + (stack.getMaxDamage() - stack.getItemDamage()) + "/" + stack.getMaxDamage() + EnumChatFormatting.RESET);
+
+		super.addInformation(stack, player, list, flag);
 	}
 
 	@Override

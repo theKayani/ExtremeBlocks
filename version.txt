@@ -1,2 +1,2 @@
-Version: 6.5
-Summary Message: Added the EB Guide!
+Version: 6.6
+Summary Message: Tons of new World Generations!

@@ -2,17 +2,16 @@ package main.extremeblocks.worldgen;
 
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.Rand;
-import main.extremeblocks.Vars;
 import main.extremeblocks.builder.Constructor;
 import main.extremeblocks.worldgen.GenManager.Gen;
 
 @Gen(chance = 1, name = "House")
-public class WorldGenHouse extends Generation
+public class GenHouse extends Generation
 {
 	@Override
 	public boolean canGenerateAt(Builder helper)
 	{
-		if (!Vars.genHouse || Rand.nextInt(30) != 0) return false;
+		if (Rand.nextInt(30) != 0) return false;
 		if (!helper.isAllAir(0, 0, 0, 3, 5, 3)) return false;
 		return true;
 	}

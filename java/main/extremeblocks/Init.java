@@ -34,7 +34,7 @@ import main.extremeblocks.blocks.abstractblocks.BlockCompact;
 import main.extremeblocks.blocks.abstractblocks.BlockEBOre;
 import main.extremeblocks.blocks.abstractblocks.BlockSided;
 import main.extremeblocks.blocks.abstractblocks.BlockStorage;
-import main.extremeblocks.entities.mobs.EntityRobot.RobotType;
+import main.extremeblocks.entities.mobs.robot.RobotType;
 import main.extremeblocks.items.ItemBackpack;
 import main.extremeblocks.items.ItemBattery;
 import main.extremeblocks.items.ItemCellphone;
@@ -46,6 +46,7 @@ import main.extremeblocks.items.ItemFurnaceUpgrade;
 import main.extremeblocks.items.ItemFurnaceUpgrade.FurnaceUpgrade;
 import main.extremeblocks.items.ItemFuse;
 import main.extremeblocks.items.ItemGrenade;
+import main.extremeblocks.items.ItemMarker;
 import main.extremeblocks.items.ItemMolotov;
 import main.extremeblocks.items.ItemPestleMortar;
 import main.extremeblocks.items.ItemRobot;
@@ -55,6 +56,8 @@ import main.extremeblocks.items.ItemSpear;
 import main.extremeblocks.items.ItemWeed;
 import main.extremeblocks.misc.SortingSystem;
 import main.extremeblocks.worldgen.GenManager;
+import main.extremeblocks.worldgen.GenManager.Gen;
+import main.extremeblocks.worldgen.Generation;
 import main.extremeblocks.worldgen.WorldTypeIslands;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -71,7 +74,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static final String VERSION = "6.5";
+	public static final String VERSION = "6.6";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -169,6 +172,7 @@ public class Init
 	public static final Item sorter_component = new ItemCustom("Sorter Component", tab_mainItems).setShowRecipe().setTextureName(MODID + ":sorter_component");
 	public static final Item spirit_fragment = new ItemCustom("Spirit Fragment", Init.tab_mainItems).setInfo("Obtained by killing the Demon Spirit. Used in some different recipes that are very useful!").setTextureName(Init.MODID + ":spirit_fragment");
 	public static final Item ebGuide = new ItemEBGuide();
+	public static final Item marker = new ItemMarker();
 
 	public static BlockStorage crate;
 	public static BlockStorage barrel;
@@ -252,8 +256,7 @@ public class Init
 		}
 		for (int i = 0; i < GenManager.getGens().size(); i++)
 		{
-			BlockBuild sorter = new BlockBuild(GenManager.getGens().get(i));
-			RegistryHelper.register(sorter);
+			ExtremeBlocks.blocks.add(new BlockBuild(GenManager.getGens().get(i)));
 		}
 		BlockStorage.initBlocks();
 
@@ -338,6 +341,7 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(nuclear_waste), "III", "IFI", "III", 'I', Items.slime_ball, 'F', spirit_fragment);
 		MPUtil.addRecipe(new ItemStack(spear), "  F", " S ", "S  ", 'F', Items.flint, 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(ebGuide, 2), "SP", "SP", 'P', Items.paper, 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(marker), "RGB", "PIP", "PIP", 'R', new ItemStack(Items.dye, 1, 1), 'G', new ItemStack(Items.dye, 1, 2), 'B', new ItemStack(Items.dye, 1, 4), 'P', plastic, 'I', new ItemStack(Items.dye, 1, 0));
 
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
@@ -380,9 +384,10 @@ public class Init
 		Vars.guidePausesGame = cfg.getBool("Guide Pauses Game", false, "Will using the EB Guide pause the whole game?");
 
 		Vars.alterWorld = cfg.getBool("Alter World", true, "Allow EB to alter your world and generate structures and features");
-		Vars.genHouse = cfg.shouldGen("House");
-		Vars.genCastle = cfg.shouldGen("Castle");
-		Vars.genDriedTree = cfg.shouldGen("Dried Tree");
+		for (Class<? extends Generation> clazz : GenManager.getGens())
+		{
+			Vars.gens.put(clazz, new Boolean(cfg.shouldGen(clazz.getAnnotation(Gen.class).name())));
+		}
 
 		Vars.addMobs = cfg.getBool("Allow Mobs", true, "Allow Mobs to work in the game. If this is false, all the EB mobs are disabled.");
 		Vars.addCastleSkeleton = cfg.allowMob("Castle Skeleton", "Skeleton");

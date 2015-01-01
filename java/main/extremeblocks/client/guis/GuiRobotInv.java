@@ -11,20 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiRobotInv extends GuiContainer
 {
-	private final EntityRobot robot;
-
 	public GuiRobotInv(InventoryPlayer inventoryPlayer, World world, int x, int y, int z, EntityRobot robot)
 	{
 		super(new ContainerRobotInv(inventoryPlayer, robot));
-		this.robot = robot;
-		this.robot.stayStill = true;
-	}
-
-	@Override
-	public void onGuiClosed()
-	{
-		robot.stayStill = false;
-		super.onGuiClosed();
 	}
 
 	@Override

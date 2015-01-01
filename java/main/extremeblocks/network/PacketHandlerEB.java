@@ -15,7 +15,7 @@ import main.extremeblocks.network.packets.PacketClearInv;
 import main.extremeblocks.network.packets.PacketOpenGui;
 import main.extremeblocks.network.packets.PacketRemoveEntity;
 import main.extremeblocks.network.packets.PacketRemoveFromInv;
-import main.extremeblocks.network.packets.PacketSyncRobot;
+import main.extremeblocks.network.packets.PacketStartTask;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -93,11 +93,11 @@ public class PacketHandlerEB extends MessageToMessageCodec<FMLProxyPacket, Abstr
 	public void registerPackets()
 	{
 		registerPacket(PacketOpenGui.class);
-		registerPacket(PacketSyncRobot.class);
 		registerPacket(PacketRemoveEntity.class);
 		registerPacket(PacketClearInv.class);
 		registerPacket(PacketRemoveFromInv.class);
 		registerPacket(PacketAddToPlayer.class);
+		registerPacket(PacketStartTask.class);
 	}
 
 	public void postInitialise()

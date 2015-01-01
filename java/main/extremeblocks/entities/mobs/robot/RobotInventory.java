@@ -1,4 +1,4 @@
-package main.extremeblocks.entities.mobs.ai;
+package main.extremeblocks.entities.mobs.robot;
 
 import main.com.hk.eb.util.StackHelper;
 import main.extremeblocks.entities.mobs.EntityRobot;
@@ -56,9 +56,49 @@ public class RobotInventory implements IInventory
 		}
 	}
 
+	public void addItemStacks(ItemStack... stacks)
+	{
+		for (ItemStack stack : stacks)
+		{
+			addItemStack(stack);
+		}
+	}
+
+	public void putInHand(ItemStack stack, boolean switchOut)
+	{
+		if (switchOut)
+		{
+			if (hasItem(stack.getItem()))
+			{
+				ItemStack current = inventory[0];
+				ItemStack switchStack = inventory[getSlotOfItem(stack.getItem())];
+				inventory[0] = switchStack;
+				inventory[getSlotOfItem(stack.getItem())] = current;
+			}
+		}
+		else
+		{
+			inventory[0] = stack;
+		}
+	}
+
 	public boolean hasItem(Item item)
 	{
 		return getSlotOfItem(item) >= 0;
+	}
+
+	public boolean hasItem(Class<? extends Item> clazz)
+	{
+		return getSlotOfItem(clazz) >= 0;
+	}
+
+	public int getSlotOfItem(Class<? extends Item> clazz)
+	{
+		for (int i = 0; i < inventory.length; ++i)
+		{
+			if (inventory[i] != null && clazz.isAssignableFrom(inventory[i].getItem().getClass())) return i;
+		}
+		return -1;
 	}
 
 	public int getSlotOfItem(Item item)
@@ -68,6 +108,18 @@ public class RobotInventory implements IInventory
 			if (inventory[i] != null && inventory[i].getItem() == item) return i;
 		}
 		return -1;
+	}
+
+	public ItemStack getStackOfItem(Class<? extends Item> clazz)
+	{
+		int i = getSlotOfItem(clazz);
+		return i < 0 ? null : getStackInSlot(i);
+	}
+
+	public ItemStack getStackOfItem(Item item)
+	{
+		int i = getSlotOfItem(item);
+		return i < 0 ? null : getStackInSlot(i);
 	}
 
 	public boolean consumeInventoryItem(Item item)
@@ -88,16 +140,15 @@ public class RobotInventory implements IInventory
 
 	public void eatFood()
 	{
-		for (ItemStack element : inventory)
+		for (ItemStack stack : inventory)
 		{
-			if (element != null && element.getItem() instanceof ItemFood)
+			if (stack != null && stack.getItem() instanceof ItemFood)
 			{
-				float amount = ((ItemFood) element.getItem()).func_150906_h(element);
-				if (consumeInventoryItem(element.getItem()))
+				float amount = ((ItemFood) stack.getItem()).func_150906_h(stack);
+				if (consumeInventoryItem(stack.getItem()))
 				{
 					robot.heal(amount);
 					robot.worldObj.playSoundAtEntity(robot, "random.burp", 0.5F, robot.getRNG().nextFloat() * 0.1F + 0.9F);
-					robot.syncServerAndClient(false);
 				}
 			}
 		}
@@ -185,13 +236,13 @@ public class RobotInventory implements IInventory
 	@Override
 	public void openInventory()
 	{
-		robot.stayStill = true;
+		robot.setStill(true);
 	}
 
 	@Override
 	public void closeInventory()
 	{
-		robot.stayStill = false;
+		robot.setStill(false);
 	}
 
 	@Override
@@ -208,7 +259,7 @@ public class RobotInventory implements IInventory
 			if (inventory[i] != null)
 			{
 				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("Slot", (byte) i);
+				item.setInteger("Slot", i);
 				inventory[i].writeToNBT(item);
 				items.appendTag(item);
 			}
@@ -222,7 +273,7 @@ public class RobotInventory implements IInventory
 		for (int i = 0; i < items.tagCount(); ++i)
 		{
 			NBTTagCompound item = items.getCompoundTagAt(i);
-			byte slot = item.getByte("Slot");
+			int slot = item.getInteger("Slot");
 			if (slot >= 0 && slot < inventory.length)
 			{
 				inventory[slot] = ItemStack.loadItemStackFromNBT(item);

@@ -3,21 +3,20 @@ package main.extremeblocks.worldgen;
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
 import main.extremeblocks.worldgen.GenManager.Gen;
 import net.minecraft.item.Item;
 
 @Gen(chance = 3, name = "Dried Tree")
-public class WorldGenDriedTree extends Generation
+public class GenDriedTree extends Generation
 {
-	public WorldGenDriedTree()
+	public GenDriedTree()
 	{
 	}
 
 	@Override
 	public boolean canGenerateAt(Builder helper)
 	{
-		if (!Vars.genDriedTree || helper.getBiomeAtSpot().temperature < 1.0D) return false;
+		if (helper.getBiomeAtSpot().temperature < 1.0D) return false;
 		for (int i = -4; i < 5; i++)
 		{
 			for (int j = 0; j < 7; j++)

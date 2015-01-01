@@ -53,14 +53,14 @@ public class EBEventHandler
 	{
 		if (event.block == Blocks.double_plant)
 		{
-			if (event.world.rand.nextInt(10) == 0)
+			if (event.world.rand.nextInt(10) == 0 && event.getPlayer() != null && !event.getPlayer().capabilities.isCreativeMode)
 			{
 				MPUtil.dropItemAsEntity(event.world, event.x, event.y, event.z, false, new ItemStack(Rand.nextBoolean() ? Init.cucumber_seeds : Init.tomato_seeds));
 			}
 		}
 		if (event.block == Blocks.leaves)
 		{
-			if (event.world.rand.nextInt(10) == 0)
+			if (event.world.rand.nextInt(10) == 0 && event.getPlayer() != null && !event.getPlayer().capabilities.isCreativeMode)
 			{
 				Item[] stacks = new Item[] { Init.banana, Init.grapes, Init.peach, Init.orange };
 				MPUtil.dropItemAsEntity(event.world, event.x, event.y, event.z, false, new ItemStack(stacks[Rand.nextInt(stacks.length)]));
@@ -75,7 +75,7 @@ public class EBEventHandler
 		if (event.source.getSourceOfDamage() instanceof EntityRobot || isArrow)
 		{
 			EntityRobot robot = (EntityRobot) (isArrow ? ((EntityArrow) event.source.getSourceOfDamage()).shootingEntity : event.source.getSourceOfDamage());
-			if (robot.onTask)
+			if (robot.onTask())
 			{
 				for (EntityItem stack : event.drops)
 				{
@@ -106,6 +106,7 @@ public class EBEventHandler
 		boolean spawn = false;
 		if (event.action == Action.RIGHT_CLICK_BLOCK)
 		{
+			System.out.println("Coords: " + event.x + ", " + event.y + ", " + event.z);
 			if (event.entityPlayer.getHeldItem() != null && Block.getBlockFromItem(event.entityPlayer.getHeldItem().getItem()) == Blocks.pumpkin)
 			{
 				boolean atY = event.world.getBlock(event.x, event.y, event.z) == Init.trinquantium_block && event.world.getBlock(event.x, event.y - 1, event.z) == Init.trinquantium_block;

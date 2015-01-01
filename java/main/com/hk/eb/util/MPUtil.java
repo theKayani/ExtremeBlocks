@@ -1,19 +1,22 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
-import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Vars;
 import main.extremeblocks.crafting.RecipeManager;
-import main.extremeblocks.network.AbstractPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +30,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -100,6 +102,53 @@ public class MPUtil
 			val += obs + 'a';
 		}
 		return val;
+	}
+
+	public static void rangeEntity(EntityLivingBase entity, EntityLivingBase target, float damage, ItemStack stack)
+	{
+		World worldObj = target.worldObj;
+		EntityArrow entityarrow = new EntityArrow(worldObj, entity, target, 1.6F, 14);
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
+		entityarrow.setDamage(damage * 2.0F + worldObj.rand.nextGaussian() * 0.36D);
+
+		if (i > 0)
+		{
+			entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
+		}
+
+		if (j > 0)
+		{
+			entityarrow.setKnockbackStrength(j);
+		}
+
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, stack) > 0)
+		{
+			entityarrow.setFire(100);
+		}
+
+		entity.playSound("random.bow", 1.0F, 1.0F / (worldObj.rand.nextFloat() * 0.4F + 0.8F));
+		worldObj.spawnEntityInWorld(entityarrow);
+	}
+
+	public static void replace(IReplacer replacer, boolean check)
+	{
+		if (replacer instanceof EntityLivingBase)
+		{
+			if (isServerSide() && !check)
+			{
+				EntityLivingBase copy = replacer.getClone();
+				copy.copyLocationAndAnglesFrom((EntityLivingBase) replacer);
+				if (copy instanceof EntityLiving)
+				{
+					((EntityLiving) copy).onSpawnWithEgg(null);
+				}
+				((EntityLivingBase) replacer).worldObj.removeEntity((EntityLivingBase) replacer);
+				((EntityLivingBase) replacer).worldObj.spawnEntityInWorld(copy);
+				return;
+			}
+		}
+		else throw new IllegalArgumentException(replacer.getClass().getName() + " isn't an EntityLivingBase");
 	}
 
 	public static TileEntity[] getNeighborTiles(World world, int x, int y, int z)
@@ -250,30 +299,5 @@ public class MPUtil
 	public static WorldServer getServerWorld()
 	{
 		return (WorldServer) MinecraftServer.getServer().getEntityWorld();
-	}
-
-	public static void sendToAll(AbstractPacket message)
-	{
-		ExtremeBlocks.packetPipeline.sendToAll(message);
-	}
-
-	public static void sendTo(AbstractPacket message, EntityPlayerMP player)
-	{
-		ExtremeBlocks.packetPipeline.sendTo(message, player);
-	}
-
-	public static void sendToAllAround(AbstractPacket message, NetworkRegistry.TargetPoint point)
-	{
-		ExtremeBlocks.packetPipeline.sendToAllAround(message, point);
-	}
-
-	public static void sendToDimension(AbstractPacket message, int dimensionId)
-	{
-		ExtremeBlocks.packetPipeline.sendToDimension(message, dimensionId);
-	}
-
-	public static void sendToServer(AbstractPacket message)
-	{
-		ExtremeBlocks.packetPipeline.sendToServer(message);
 	}
 }

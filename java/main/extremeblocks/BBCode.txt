@@ -1,4 +1,4 @@
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Nov%202014%20-%203/6e10be3c46994c6b3ce9bbc579524297cefb30d76a9edf3873cd2a15bc6a99c6f63a94fd597e3e21da39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zpsb317f869.png[/IMG]
+[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%202/6e10be3c46994c6b3ce9bbc579524297cefb30d738b8a04b77b85695383c84ba0111773e96ae921bda39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zpsadbfa5ef.png[/IMG]
 
 Welcome to Minecraft, but wait, Some of these "things" are otherworldly! I Don't know what it is but I LIKE IT, Oh wait a minute, it's just this AWESOME MOD! Extreme Blocks Mod! This mod, a.k.a. the Extreme Blocks Mod adds in a ton of new stuff! Adds a lot of new ores! They are all pretty different!
 
@@ -578,11 +578,25 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 [color=rgb(153, 153, 153)]5. Enjoy![/color]
 [color=rgb(153, 153, 153)]If you have any issues or Crash Reports, Feel free to post it on the Extreme Blocks [/color][url=https://github.com/Fir3will/ExtremeBlocks/issues]Issue Tracker![/url]
 [url=http://github.com/Fir3will/ExtremeBlocks][size=x-large][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6f1dfa1fc8b6d5fa2fd84615bc39e1814319af53da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps0f9c21b9.png[/IMG][/size][/url]
+[center][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%203/f5ac077bb8cf3002fffc8592bb54a27c2f5bfe04cfa4d454558f7b54953cb7cc71a14bb4d9e8dee8da39a3ee5e6b4b0d3255bfef95601890afd80709b80298fb331fa69a54ac_zpsd06583db.png[/IMG][/center]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6bd82992110e09a39eb5bbcb9a3a143895eba286da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps6f2d421b.png[/IMG]
 [spoiler]
 [size=large][color=red][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
 
-~~6.5~~ 1.7.10- [url=]Click Here![/url]
+~~6.6~~ 1.7.10- [url=]Click Here![/url]
+[spoiler]
+- Added the Catacombs World Generation
+- Added the Sunken Ship World Generation
+- Added the Block Marker
+- Made the Robot's AI a lot more reliable
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
+
+-Updated the Github!
+[/spoiler]
+
+~~6.5~~ 1.7.10- [url=http://adf.ly/vFEhf]Click Here![/url]
 [spoiler]
 - Added the EB Guide
 - Nerfed the Grenade's Blast Radius
@@ -591,7 +605,7 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 - Multiple bug fixes
 
 NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
-[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for this version.[/color]
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
 
 -Updated the Github!
 [/spoiler]

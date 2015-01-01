@@ -2,28 +2,30 @@ package main.extremeblocks.blocks.abstractblocks;
 
 import java.util.Random;
 import main.com.hk.eb.util.Builder;
+import main.com.hk.eb.util.Info;
 import main.extremeblocks.Init;
-import main.extremeblocks.worldgen.Generation;
 import main.extremeblocks.worldgen.GenManager.Gen;
+import main.extremeblocks.worldgen.Generation;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class BlockBuild extends Block
+public class BlockBuild extends Block implements Info
 {
 	private final Class<? extends Generation> clazz;
+	private final String name;
 
 	public BlockBuild(Class<? extends Generation> clazz)
 	{
 		super(Material.rock);
-		setBlockName(clazz.getAnnotation(Gen.class).name());
-		setBlockTextureName(Init.MODID + ":" + clazz.getAnnotation(Gen.class).name().replaceAll(" ", "_").toLowerCase() + "_build");
-		setHardness(1.0F);
+		name = clazz.getAnnotation(Gen.class).name();
+		this.clazz = clazz;
+		setBlockName(name);
+		setBlockTextureName(Init.MODID + ":" + name.replaceAll(" ", "_").toLowerCase() + "_build");
 		setCreativeTab(Init.tab_mainBlocks);
 		setStepSound(soundTypeStone);
-		this.clazz = clazz;
 	}
 
 	@Override
@@ -33,11 +35,7 @@ public class BlockBuild extends Block
 		{
 			clazz.newInstance().generateStructure(new Builder(world, x, y, z));
 		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -48,5 +46,17 @@ public class BlockBuild extends Block
 	public Item getItemDropped(int meta, Random rand, int idk)
 	{
 		return null;
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return "This block is only allowed in creative. When right clicked, it will generate a " + name + " at the position. Not checking whether it could generate there! Useful for checking what's out there!";
+	}
+
+	@Override
+	public Elements getElements()
+	{
+		return new Elements(true, false);
 	}
 }

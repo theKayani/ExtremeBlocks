@@ -4,7 +4,7 @@ import main.com.hk.eb.util.ItemCustom;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.entities.mobs.EntityRobot;
-import main.extremeblocks.entities.mobs.EntityRobot.RobotType;
+import main.extremeblocks.entities.mobs.robot.RobotType;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public class ItemRobot extends ItemCustom
 				y += 0.5D;
 			}
 			EntityRobot robot = new EntityRobot(world);
-			robot.type = type;
+			robot.setType(type);
 			robot.setLocationAndAngles(x + 0.5D, y, z + 0.5D, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
 			world.spawnEntityInWorld(robot);
 			if (stack.hasDisplayName())

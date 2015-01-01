@@ -45,6 +45,7 @@ public class BlockCustom extends Block implements Info
 		setBlockTextureName(Init.MODID + ":" + name.replaceAll(" ", "_").toLowerCase());
 		setDrop(this);
 		setDroppedAmount(1);
+		setHardness(1.0F);
 		if (this instanceof INamed)
 		{
 			Vars.logger.error("ERROR, INamed is Deprecated!");

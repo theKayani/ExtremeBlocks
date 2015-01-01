@@ -1,5 +1,8 @@
 package main.extremeblocks;
 
+import java.util.HashMap;
+import main.com.hk.eb.util.JavaHelp;
+import main.extremeblocks.worldgen.Generation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,9 +15,7 @@ public class Vars
 	public static String counterMessage;
 
 	public static boolean alterWorld;
-	public static boolean genCastle;
-	public static boolean genDriedTree;
-	public static boolean genHouse;
+	public static HashMap<Class<? extends Generation>, Boolean> gens = JavaHelp.newHashMap();
 
 	public static boolean addMobs;
 	public static boolean addCastleSkeleton;
