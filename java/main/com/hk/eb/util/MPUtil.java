@@ -1,6 +1,7 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
+import main.extremeblocks.EBClient;
 import main.extremeblocks.Vars;
 import main.extremeblocks.crafting.RecipeManager;
 import net.minecraft.block.Block;
@@ -131,11 +132,11 @@ public class MPUtil
 		worldObj.spawnEntityInWorld(entityarrow);
 	}
 
-	public static void replace(IReplacer replacer, boolean check)
+	public static void replace(IReplacer replacer)
 	{
 		if (replacer instanceof EntityLivingBase)
 		{
-			if (isServerSide() && !check)
+			if (isServerSide() && EBClient.removeMobs.get(replacer.getClass()).booleanValue())
 			{
 				EntityLivingBase copy = replacer.getClone();
 				copy.copyLocationAndAnglesFrom((EntityLivingBase) replacer);

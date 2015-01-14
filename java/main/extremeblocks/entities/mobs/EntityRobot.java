@@ -7,7 +7,7 @@ import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiHandler;
 import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
+import main.extremeblocks.Vars.Mob;
 import main.extremeblocks.entities.mobs.robot.RobotInventory;
 import main.extremeblocks.entities.mobs.robot.RobotTask;
 import main.extremeblocks.entities.mobs.robot.RobotType;
@@ -34,6 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+@Mob(getName = "Robot", getVanillaName = "Villager")
 public class EntityRobot extends EntityCreature implements IRangedAttackMob, GuiIDs, IReplacer
 {
 	public RobotInventory inv = new RobotInventory(this);
@@ -249,7 +250,7 @@ public class EntityRobot extends EntityCreature implements IRangedAttackMob, Gui
 	@Override
 	public void onLivingUpdate()
 	{
-		MPUtil.replace(this, Vars.addRobot);
+		MPUtil.replace(this);
 		getTask().update();
 		super.onLivingUpdate();
 	}

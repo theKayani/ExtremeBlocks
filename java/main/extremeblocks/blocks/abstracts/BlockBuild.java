@@ -1,4 +1,4 @@
-package main.extremeblocks.blocks.abstractblocks;
+package main.extremeblocks.blocks.abstracts;
 
 import java.util.Random;
 import main.com.hk.eb.util.Builder;

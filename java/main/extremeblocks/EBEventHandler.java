@@ -6,12 +6,14 @@ import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -69,6 +71,18 @@ public class EBEventHandler
 	}
 
 	@SubscribeEvent
+	public void onLivingDeath(LivingDeathEvent event)
+	{
+		if (event.entityLiving instanceof EntityBat)
+		{
+			if (Rand.nextInt(10) == 0)
+			{
+				MPUtil.dropItemAsEntity(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, false, new ItemStack(Init.bat_wing));
+			}
+		}
+	}
+
+	@SubscribeEvent
 	public void onLivingDrops(LivingDropsEvent event)
 	{
 		boolean isArrow = event.source.damageType == "arrow" && ((EntityArrow) event.source.getSourceOfDamage()).shootingEntity instanceof EntityRobot;
@@ -92,10 +106,6 @@ public class EBEventHandler
 		if (event.modID.equals(Init.MODID))
 		{
 			Init.handleConfig();
-		}
-		if (!Vars.addMobs)
-		{
-			Vars.addDemon = Vars.addRobot = Vars.addEvilIronGolem = Vars.addCastleZombie = Vars.addCastleSkeleton = false;
 		}
 	}
 

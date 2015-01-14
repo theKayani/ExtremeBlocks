@@ -29,6 +29,7 @@ public class ItemMarker extends ItemCustom
 		super("Block Marker", Init.tab_mainItems);
 		setTextureName(Init.MODID + ":block_marker");
 		setInfo("Marks a block upon right clicking. Then with that, you could right click again, and it will tell you the distance between them.");
+		setShowRecipe();
 	}
 
 	@Override

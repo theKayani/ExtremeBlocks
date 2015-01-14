@@ -1,9 +1,10 @@
 package main.extremeblocks.entities.mobs;
 
+import main.com.hk.eb.util.IReplacer;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
+import main.extremeblocks.Vars.Mob;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
@@ -33,7 +34,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityDemon extends EntityMob implements IRangedAttackMob
+@Mob(getName = "Demon", getVanillaName = "Blaze")
+public class EntityDemon extends EntityMob implements IRangedAttackMob, IReplacer
 {
 	private boolean sentOutZombies;
 
@@ -70,12 +72,7 @@ public class EntityDemon extends EntityMob implements IRangedAttackMob
 	@Override
 	public void onLivingUpdate()
 	{
-		if (MPUtil.isServerSide() && !Vars.addEvilIronGolem)
-		{
-			worldObj.removeEntity(this);
-			worldObj.spawnEntityInWorld(newVanillaClone());
-			return;
-		}
+		MPUtil.replace(this);
 		if (!onGround && motionY < 0.0D)
 		{
 			motionY *= 0.6D;
@@ -390,12 +387,10 @@ public class EntityDemon extends EntityMob implements IRangedAttackMob
 	{
 	}
 
-	public EntityBlaze newVanillaClone()
+	@Override
+	public EntityBlaze getClone()
 	{
-		EntityBlaze blaze = new EntityBlaze(worldObj);
-		blaze.copyLocationAndAnglesFrom(this);
-		blaze.onSpawnWithEgg(null);
-		return blaze;
+		return new EntityBlaze(worldObj);
 	}
 
 	private static final IEntitySelector attackEntitySelector = new IEntitySelector()

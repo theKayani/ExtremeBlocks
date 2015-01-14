@@ -1,10 +1,11 @@
 package main.extremeblocks.entities.mobs;
 
+import main.com.hk.eb.util.IReplacer;
 import main.com.hk.eb.util.MPUtil;
-import main.extremeblocks.Vars;
+import main.extremeblocks.Vars.Mob;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIFleeSun;
@@ -22,7 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
+@Mob(getName = "Castle Skeleton", getVanillaName = "Skeleton")
+public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors, IReplacer
 {
 	private boolean atCastle = false;
 	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 30, 15.0F);
@@ -87,12 +89,7 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 	@Override
 	public void onLivingUpdate()
 	{
-		if (MPUtil.isServerSide() && !Vars.addCastleSkeleton)
-		{
-			worldObj.removeEntity(this);
-			worldObj.spawnEntityInWorld(newVanillaClone());
-			return;
-		}
+		MPUtil.replace(this);
 		extinguish();
 		super.onLivingUpdate();
 	}
@@ -109,11 +106,9 @@ public class EntityCastleSkeleton extends EntitySkeleton implements MobSelectors
 		return !atCastle;
 	}
 
-	public Entity newVanillaClone()
+	@Override
+	public EntityLivingBase getClone()
 	{
-		EntitySkeleton skele = new EntitySkeleton(worldObj);
-		skele.copyLocationAndAnglesFrom(this);
-		skele.onSpawnWithEgg(null);
-		return skele;
+		return new EntitySkeleton(worldObj);
 	}
 }

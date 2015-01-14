@@ -1,5 +1,9 @@
 package main.extremeblocks;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.worldgen.Generation;
@@ -18,12 +22,7 @@ public class Vars
 	public static HashMap<Class<? extends Generation>, Boolean> gens = JavaHelp.newHashMap();
 
 	public static boolean addMobs;
-	public static boolean addCastleSkeleton;
-	public static boolean addCastleZombie;
-	public static boolean addRobot;
-	public static boolean addEvilIronGolem;
 
-	public static boolean addDemon;
 	public static boolean addLightedBlocks;
 	public static boolean addFakeFloors;
 	public static boolean checkVersion;
@@ -62,8 +61,27 @@ public class Vars
 	public static final String DOUBLE_MAX = "9,218,868,437,227,405,311";
 	public static final String FLOAT_MAX = "5,183,643,170,566,569,984";
 	public static final String INTEGER_MAX = "2,147,483,647";
-	public static final String SHORT_MAX = "32767";
+	public static final String SHORT_MAX = "32,767";
 	public static final String BYTE_MAX = "127";
 
 	public static Logger logger = LogManager.getLogger("EB");
+
+	public static void p(Object... o)
+	{
+		String s = "";
+		for (int i = 0; i < o.length; i++)
+		{
+			s += "{" + o[i] + (i == o.length - 1 ? "}" : "}, ");
+		}
+		System.out.println(s);
+	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
+	public static @interface Mob
+	{
+		String getName();
+
+		String getVanillaName();
+	}
 }

@@ -1,9 +1,10 @@
 package main.extremeblocks.entities.mobs;
 
+import main.com.hk.eb.util.IReplacer;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
+import main.extremeblocks.Vars.Mob;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -31,7 +32,8 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityEvilIronGolem extends EntityMob implements MobSelectors
+@Mob(getName = "Evil Iron Golem", getVanillaName = "Iron Golem")
+public class EntityEvilIronGolem extends EntityMob implements MobSelectors, IReplacer
 {
 	public int attackTimer;
 	private boolean isPlayerCreated;
@@ -68,12 +70,10 @@ public class EntityEvilIronGolem extends EntityMob implements MobSelectors
 		this.isPlayerCreated = isPlayerCreated;
 	}
 
-	public EntityIronGolem newVanillaClone()
+	@Override
+	public EntityIronGolem getClone()
 	{
-		EntityIronGolem golem = new EntityIronGolem(worldObj);
-		golem.copyLocationAndAnglesFrom(this);
-		golem.onSpawnWithEgg(null);
-		return golem;
+		return new EntityIronGolem(worldObj);
 	}
 
 	@Override
@@ -93,12 +93,7 @@ public class EntityEvilIronGolem extends EntityMob implements MobSelectors
 	@Override
 	public void onLivingUpdate()
 	{
-		if (MPUtil.isServerSide() && !Vars.addEvilIronGolem)
-		{
-			worldObj.removeEntity(this);
-			worldObj.spawnEntityInWorld(newVanillaClone());
-			return;
-		}
+		MPUtil.replace(this);
 		super.onLivingUpdate();
 		if (attackTimer > 0)
 		{

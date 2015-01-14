@@ -1,4 +1,4 @@
-package main.extremeblocks.blocks.abstractblocks;
+package main.extremeblocks.blocks.abstracts;
 
 import main.com.hk.eb.util.Info;
 import main.extremeblocks.ExtremeBlocks;

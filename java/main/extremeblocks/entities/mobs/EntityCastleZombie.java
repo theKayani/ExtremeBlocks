@@ -1,10 +1,11 @@
 package main.extremeblocks.entities.mobs;
 
+import main.com.hk.eb.util.IReplacer;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.Rand;
-import main.extremeblocks.Vars;
+import main.extremeblocks.Vars.Mob;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -23,7 +24,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityCastleZombie extends EntityZombie implements MobSelectors
+@Mob(getName = "Zombie", getVanillaName = "Skeleton")
+public class EntityCastleZombie extends EntityZombie implements MobSelectors, IReplacer
 {
 	private boolean atCastle = false;
 
@@ -104,12 +106,7 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 	@Override
 	public void onLivingUpdate()
 	{
-		if (MPUtil.isServerSide() && !Vars.addCastleZombie)
-		{
-			worldObj.removeEntity(this);
-			worldObj.spawnEntityInWorld(newVanillaClone());
-			return;
-		}
+		MPUtil.replace(this);
 		extinguish();
 		super.onLivingUpdate();
 	}
@@ -118,14 +115,6 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 	protected boolean canDespawn()
 	{
 		return !(atCastle || isConverting());
-	}
-
-	public Entity newVanillaClone()
-	{
-		EntityZombie zombie = new EntityZombie(worldObj);
-		zombie.copyLocationAndAnglesFrom(this);
-		zombie.onSpawnWithEgg(null);
-		return zombie;
 	}
 
 	@Override
@@ -138,5 +127,11 @@ public class EntityCastleZombie extends EntityZombie implements MobSelectors
 	protected boolean isValidLightLevel()
 	{
 		return true;
+	}
+
+	@Override
+	public EntityLivingBase getClone()
+	{
+		return new EntityZombie(worldObj);
 	}
 }

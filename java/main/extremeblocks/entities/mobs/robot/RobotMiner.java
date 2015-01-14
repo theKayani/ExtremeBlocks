@@ -7,7 +7,7 @@ import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.StackHelper;
 import main.com.hk.eb.util.Vector3I;
 import main.com.hk.eb.util.WorldUtil;
-import main.extremeblocks.blocks.abstractblocks.BlockEBOre;
+import main.extremeblocks.blocks.abstracts.BlockEBOre;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import net.minecraft.block.BlockOre;
 import net.minecraft.enchantment.EnchantmentHelper;

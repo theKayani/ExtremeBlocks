@@ -1,2 +1,2 @@
-Version: 6.6
-Summary Message: Tons of new World Generations!
+Version: 6.7
+Summary Message: Added the Bloodwing!

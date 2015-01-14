@@ -1,5 +1,7 @@
 package main.com.hk.eb.util;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,6 +56,13 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public Vector3F(Entity e)
+	{
+		x = (float) e.posX;
+		y = (float) e.posY;
+		z = (float) e.posZ;
 	}
 
 	/**
@@ -440,6 +449,11 @@ public final class Vector3F implements Cloneable, java.io.Serializable
 	{
 		float len = length();
 		return 0.99f < len && len < 1.01f;
+	}
+
+	public Vector3I floored()
+	{
+		return new Vector3I(MathHelper.floor_float(x), MathHelper.floor_float(y), MathHelper.floor_float(z));
 	}
 
 	/**

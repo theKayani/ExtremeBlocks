@@ -20,7 +20,7 @@ public class GenSunkenShip extends Generation
 		{
 			for (int j = 0; j < 14; j++)
 			{
-				for (int k = 2; k < -3; k++)
+				for (int k = 3; k < -4; k++)
 				{
 					if (helper.getBlockAt(i, j, k) instanceof BlockLiquid)
 					{
@@ -35,7 +35,7 @@ public class GenSunkenShip extends Generation
 
 	public boolean isRightBiome(BiomeGenBase biome)
 	{
-		return biome.getTempCategory() == TempCategory.COLD;
+		return biome.getTempCategory() == TempCategory.OCEAN;
 	}
 
 	@Override

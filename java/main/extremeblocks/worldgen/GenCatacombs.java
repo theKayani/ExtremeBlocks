@@ -34,15 +34,9 @@ public class GenCatacombs extends Generation
 	@Override
 	public boolean canGenerateAt(Builder helper)
 	{
-		boolean b = helper.isAll(Blocks.stone, 0, 0, 0, 5, 5, 5) && helper.rand.nextInt(300) == 0;
-		if (b)
-		{
-			System.err.println("Generated Catacombs at " + helper.baseX + ", " + helper.baseY + ", " + helper.baseZ);
-		}
-		return b;
+		return helper.isAll(Blocks.stone, 0, 0, 0, 5, 5, 5) && helper.rand.nextInt(300) == 0;
 	}
 
-	//-182, 38, -293
 	@Override
 	public boolean generateStructure(Builder helper)
 	{

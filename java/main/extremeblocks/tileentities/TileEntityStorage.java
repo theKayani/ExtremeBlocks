@@ -1,6 +1,6 @@
 package main.extremeblocks.tileentities;
 
-import main.extremeblocks.blocks.abstractblocks.BlockStorage;
+import main.extremeblocks.blocks.abstracts.BlockStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

@@ -1,4 +1,4 @@
-package main.extremeblocks.blocks.abstractblocks;
+package main.extremeblocks.blocks.abstracts;
 
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;

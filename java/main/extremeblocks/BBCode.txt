@@ -1,7 +1,7 @@
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%202/6e10be3c46994c6b3ce9bbc579524297cefb30d738b8a04b77b85695383c84ba0111773e96ae921bda39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zpsadbfa5ef.png[/IMG]
+[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Jan%202015%20-%202/6e10be3c46994c6b3ce9bbc579524297cefb30d76663c6ad845b9e8d41758471b14a2490b7951c76da39a3ee5e6b4b0d3255bfef95601890afd807093f833c259f37423f748f_zps69e02712.png[/IMG]
 
 Welcome to Minecraft, but wait, Some of these "things" are otherworldly! I Don't know what it is but I LIKE IT, Oh wait a minute, it's just this AWESOME MOD! Extreme Blocks Mod! This mod, a.k.a. the Extreme Blocks Mod adds in a ton of new stuff! Adds a lot of new ores! They are all pretty different!
-
+[center][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%203/f5ac077bb8cf3002fffc8592bb54a27c2f5bfe04cfa4d454558f7b54953cb7cc71a14bb4d9e8dee8da39a3ee5e6b4b0d3255bfef95601890afd80709b80298fb331fa69a54ac_zpsd06583db.png[/IMG][/center]
 [color=red]Note: Everyone has permission to do a Mod review of this Mod! If you actually did a review of this Mod, Send me the link to the video and I will post it in the Reviews section![/color]
 
 [color=green][b]Pro's[/b][/color]
@@ -185,371 +185,404 @@ These are the different Fake Sand and Fake Gravel, see it doesn't drop![/spoiler
 [color=red]I also recommend you just use the ingame Extreme Blocks guide. It has all the information and I think it's a bit more manageable. All the information in the guide is also here. Exact same definitions![/color]
 [color=red]P.S. It's alphabetized![/color]
 
+World Generation Info:
 [spoiler]
-[color=rgb(0, 0, 255)][b]Altar:[/color][/b]
-When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!
+[color=blue][b]Cannabis Plant:[/color][/b]
+This spawns just like Sugarcane.
 
-[color=rgb(0, 0, 255)][b]Archer Robot:[/color][/b]
+[color=blue][b]Castle:[/color][/b]
+The castle spawns in a very large plains area. It needs more than 9 spaces in width. 11 spaces in length and 9 spaces in height to spawn. Then if there is all that space, it's a 1% chance to spawn! So I'd search in the Extreme Hills! Right!?!?
+
+[color=blue][b]Catacombs:[/color][/b]
+The catacombs need less space to spawn but it's a lot more rare. It needs a 5x5x5 area full of stone. That's a hint that it will spawn in the ground! If there's a 5x5x5 are full of stone, there's then a 0.3% chance that it will generate there! Also, it will always be found half way between bedrock and the surface.
+
+[color=blue][b]Dried Tree:[/color][/b]
+The Dried Tree spawns in very hot biomes. This is most abundant int the vanilla desert. It's one large column of Dried Tree Logs.
+
+[color=blue][b]House:[/color][/b]
+The house is an amazing place to get some brick blocks. It's a very nice simple starter house. This needs a 4x5x4 open space to spawn. It's a great starting position!
+
+[color=blue][b]Sunken Ship:[/color][/b]
+The sunken ship spawn only in extremely large and deep bodies of water. To be specific, it needs, 24x14x5 area just filled in with water. Then from that, there's a 1/40 percent chance to spawn there as well!
+
+I didn't give more information about the structures itself because I want you guys to go and explore them and feel free to drop a comment about what you found!
+[/spoiler]
+
+Blocks/Items:
+[spoiler]
+[color=blue][b]Altar:[/color][/b]
+When placed in a four block high column, it will spawn in the Demon Spirit boss and allow you to fight it!
+
+[color=blue][b]Archer Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
-[color=rgb(0, 0, 255)][b]Arrow Tower:[/color][/b]
+[color=blue][b]Arrow Tower:[/color][/b]
 This block will take in energy and use it to shoot at mobs in a 10 block radius. It will shoot arrows as long as it has atleast 50 EB Joules.
 
-[color=rgb(0, 0, 255)][b]Banana:[/color][/b]
+[color=blue][b]Banana:[/color][/b]
 An edible item that heals 2.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Barrel:[/color][/b]
+[color=blue][b]Barrel:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 8 slots. 
 
-[color=rgb(0, 0, 255)][b]Battery:[/color][/b]
+[color=blue][b]Bat Wing:[/color][/b]
+10% chance to drop from a bat. It's used to create the Bloodwing summon!
+
+[color=blue][b]Battery:[/color][/b]
 Can be used in EB machines as an alternative to wires. To provide EJ. Extreme Joules. Upon creation, it will have zero charge. Be wary of this!
 
-[color=rgb(0, 0, 255)][b]Big Crate:[/color][/b]
+[color=blue][b]Big Crate:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 27 slots. 
 
-[color=rgb(0, 0, 255)][b]Block of Limestone:[/color][/b]
+[color=blue][b]Block Marker:[/color][/b]
+Marks a block upon right clicking. Then with that, you could right click again, and it will tell you the distance between them.
+
+[color=blue][b]Block of Limestone:[/color][/b]
 A compact way to save space when you have too much limestone. This can also be smelted to create a Marble block.
 
-[color=rgb(0, 0, 255)][b]Bone Dirt:[/color][/b]
+[color=blue][b]Bone Dirt:[/color][/b]
 Drops a bone shard upon breaking.
 
-[color=rgb(0, 0, 255)][b]Bone Shard:[/color][/b]
+[color=blue][b]Bone Shard:[/color][/b]
 Can be used in a crafting recipe to create bones
 
-[color=rgb(0, 0, 255)][b]Bronze Block:[/color][/b]
+[color=blue][b]Bronze Block:[/color][/b]
 Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
 
-[color=rgb(0, 0, 255)][b]Bronze Ingot:[/color][/b]
+[color=blue][b]Bronze Ingot:[/color][/b]
 Can be crafted into multiple tools
 
-[color=rgb(0, 0, 255)][b]Bronze Trophy:[/color][/b]
+[color=blue][b]Bronze Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Cabinet:[/color][/b]
+[color=blue][b]Cabinet:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 6 slots. 
 
-[color=rgb(0, 0, 255)][b]Cannabis Plant:[/color][/b]
+[color=blue][b]Cannabis Plant:[/color][/b]
 Similar to sugar cane, it can be grown and then used for weed.
 
-[color=rgb(0, 0, 255)][b]Cellphone:[/color][/b]
+[color=blue][b]Cellphone:[/color][/b]
 Very useful tool that shows multiple different chunks of information about you and your world!
 
-[color=rgb(0, 0, 255)][b]Cement Block:[/color][/b]
+[color=blue][b]Cement Block:[/color][/b]
 Very nice decoration block.
 
-[color=rgb(0, 0, 255)][b]Charger:[/color][/b]
+[color=blue][b]Charger:[/color][/b]
 This block can charge batteries for you. When connected with a wire, it can receive energy an store it in batteries.
 
-[color=rgb(0, 0, 255)][b]Chip:[/color][/b]
+[color=blue][b]Chip:[/color][/b]
 The basis of all the mod's electronics
 
-[color=rgb(0, 0, 255)][b]Compact Stone:[/color][/b]
+[color=blue][b]Compact Stone:[/color][/b]
 Compact way to save stone
 
-[color=rgb(0, 0, 255)][b]Complete Robot:[/color][/b]
+[color=blue][b]Complete Robot:[/color][/b]
 Can be crafed with multiple other tools to create their corresponding robot counterparts!
 
-[color=rgb(0, 0, 255)][b]Computer AI Chip:[/color][/b]
+[color=blue][b]Computer AI Chip:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Cooker:[/color][/b]
+[color=blue][b]Cooker:[/color][/b]
 This block is just like a furnace. But a lot better! It can use EB Joules to cook it's items. You can even upgrade it. By placing a Furnace upgrade in it's upgrade slot, you can speed up the cooking process
 
-[color=rgb(0, 0, 255)][b]Copper:[/color][/b]
+[color=blue][b]Copper:[/color][/b]
 Can be combined with tin to make copper and tin lumps
 
-[color=rgb(0, 0, 255)][b]Copper and Tin Lump:[/color][/b]
+[color=blue][b]Copper and Tin Lump:[/color][/b]
 Can be smelted into Bronze Ingots
 
-[color=rgb(0, 0, 255)][b]Copper Ore:[/color][/b]
+[color=blue][b]Copper Ore:[/color][/b]
 An ore for Copper. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Core Chip:[/color][/b]
+[color=blue][b]Core Chip:[/color][/b]
 A step up from the simple chip. Used for some of the advanced technologies
 
-[color=rgb(0, 0, 255)][b]Counter:[/color][/b]
+[color=blue][b]Counter:[/color][/b]
 Can be right clicked to increase the count. Can't be reversed in any way.
 
-[color=rgb(0, 0, 255)][b]Crate:[/color][/b]
+[color=blue][b]Crate:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 9 slots. 
 
-[color=rgb(0, 0, 255)][b]Crushed Stone:[/color][/b]
+[color=blue][b]Crushed Stone:[/color][/b]
 Used in multiple recipes.
 
-[color=rgb(0, 0, 255)][b]Cucumber:[/color][/b]
+[color=blue][b]Cucumber:[/color][/b]
 An edible item that heals 3.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Cucumber Seeds:[/color][/b]
+[color=blue][b]Cucumber Seeds:[/color][/b]
 Can be placed in tilled dirt to start growing it's corresponding plant. Obtained like wheat seeds are.
 
-[color=rgb(0, 0, 255)][b]Delvlish Crystal:[/color][/b]
+[color=blue][b]Delvlish Crystal:[/color][/b]
 Can be crafted into multiple tools
 
-[color=rgb(0, 0, 255)][b]Delvlish Ore:[/color][/b]
+[color=blue][b]Delvlish Ore:[/color][/b]
 An ore for Delvlish. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Diamond Trophy:[/color][/b]
+[color=blue][b]Diamond Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Dried Sapling:[/color][/b]
+[color=blue][b]Dried Sapling:[/color][/b]
 This sapling can't grow because of it's lack of moisture. In all seriousness, it's pretty useless!
 
-[color=rgb(0, 0, 255)][b]Drill Head:[/color][/b]
+[color=blue][b]Drill Head:[/color][/b]
 When placed down on the ground, it will drill all the way down to an open block, or to bedrock. Then the contents are stored in it's inventory. To retrieve the items, you have to right click it.
 
-[color=rgb(0, 0, 255)][b]EB Crafting Table:[/color][/b]
+[color=blue][b]EB Crafting Table:[/color][/b]
 This crafting table replacement can be used just to register all of the Extreme Blocks Mod's recipes. There are some config options that you can play with to maximize enjoyment.
 
-[color=rgb(0, 0, 255)][b]Emptied Log:[/color][/b]
+[color=blue][b]Emptied Log:[/color][/b]
 This block, like logs, can be placed sideways.
 
-[color=rgb(0, 0, 255)][b]Ender Backpack:[/color][/b]
+[color=blue][b]Ender Backpack:[/color][/b]
 Simply. A Portable Ender Chest. Quite OP really.
 
-[color=rgb(0, 0, 255)][b]Extractor:[/color][/b]
+[color=blue][b]Extractor:[/color][/b]
 Can be used on logs to obtain sap. Leaves the log empty.
 
-[color=rgb(0, 0, 255)][b]Fake Gravel:[/color][/b]
+[color=blue][b]Fake Gravel:[/color][/b]
 Simply. Fake gravel, it will not drop if there's no block under it.
 
-[color=rgb(0, 0, 255)][b]Fake Sand:[/color][/b]
+[color=blue][b]Fake Sand:[/color][/b]
 Simply. Fake sand, it will not drop if there's no block under it.
 
-[color=rgb(0, 0, 255)][b]Farmer Robot:[/color][/b]
+[color=blue][b]Farmer Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
-[color=rgb(0, 0, 255)][b]Finished Xray Block:[/color][/b]
+[color=blue][b]Finished Xray Block:[/color][/b]
 Allows you to see through blocks to the next open block.
 
-[color=rgb(0, 0, 255)][b]Fire Hydrant:[/color][/b]
+[color=blue][b]Fire Hydrant:[/color][/b]
 Upon right clicking with anything, you will extinguish all fires in a 3 block radius. BUT, if you right click it with a wrench, if will spawn a block if water on top of the hydrant!
 
-[color=rgb(0, 0, 255)][b]Fluorite:[/color][/b]
+[color=blue][b]Fluorite:[/color][/b]
 Can be crafted into multiple tools.
 
-[color=rgb(0, 0, 255)][b]Fluorite Ore:[/color][/b]
+[color=blue][b]Fluorite Ore:[/color][/b]
 An ore for Fluorite. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Fuse:[/color][/b]
+[color=blue][b]Fuse:[/color][/b]
 When placed and lit on fire, will travel through adjacent fuses.
 
-[color=rgb(0, 0, 255)][b]Generator:[/color][/b]
+[color=blue][b]Generator:[/color][/b]
 This generator generates energy on fuels! You can place anything that can be used in a furnace, into the generator's slot and it will create energy and send it to nearby wires.
 
-[color=rgb(0, 0, 255)][b]Glester Ore:[/color][/b]
+[color=blue][b]Glester Ore:[/color][/b]
 An ore for Glester. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Glester Rock:[/color][/b]
+[color=blue][b]Glester Rock:[/color][/b]
 Can be crafted into multiple tools
 
-[color=rgb(0, 0, 255)][b]Gold Coin:[/color][/b]
+[color=blue][b]Gold Coin:[/color][/b]
 This item can be traded with a farmer villager for some valuable trades!
 
-[color=rgb(0, 0, 255)][b]Gold Trophy:[/color][/b]
+[color=blue][b]Gold Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Grapes:[/color][/b]
+[color=blue][b]Grapes:[/color][/b]
 An edible item that heals 1.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Grenade:[/color][/b]
+[color=blue][b]Grenade:[/color][/b]
 Can be thrown out. It will also blow up upon impact with something. Also the crafting can be reversed! So, putting this in the Crafting Grid will return the 9 gunpowder back!
 
-[color=rgb(0, 0, 255)][b]Hemp Leaves:[/color][/b]
+[color=blue][b]Hemp Leaves:[/color][/b]
 Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
 
-[color=rgb(0, 0, 255)][b]Hunter Robot:[/color][/b]
+[color=blue][b]Hunter Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
-[color=rgb(0, 0, 255)][b]Iron Trophy:[/color][/b]
+[color=blue][b]Iron Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Lantern:[/color][/b]
+[color=blue][b]Lantern:[/color][/b]
 Gives off some nice light. It isn't too powerful but it's nice.
 
-[color=rgb(0, 0, 255)][b]Large Crate:[/color][/b]
+[color=blue][b]Large Crate:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 54 slots. 
 
-[color=rgb(0, 0, 255)][b]Light:[/color][/b]
+[color=blue][b]Light:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Limestone:[/color][/b]
+[color=blue][b]Limestone:[/color][/b]
 Used in a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Limestone Ore:[/color][/b]
+[color=blue][b]Limestone Ore:[/color][/b]
 An ore for Limestone. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Marble:[/color][/b]
+[color=blue][b]Marble:[/color][/b]
 Nice decoration block.
 
-[color=rgb(0, 0, 255)][b]Mellow Weed:[/color][/b]
+[color=blue][b]Mellow Weed:[/color][/b]
 Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
 
-[color=rgb(0, 0, 255)][b]Meteor:[/color][/b]
+[color=blue][b]Meteor:[/color][/b]
 Can be crafted into multiple tools.
 
-[color=rgb(0, 0, 255)][b]Meteorite:[/color][/b]
+[color=blue][b]Meteorite:[/color][/b]
 An ore for Meteorite. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Meteorite Shards:[/color][/b]
+[color=blue][b]Meteorite Shards:[/color][/b]
 Obtained by mining meteorites.
 
-[color=rgb(0, 0, 255)][b]Miner Robot:[/color][/b]
+[color=blue][b]Miner Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
-[color=rgb(0, 0, 255)][b]Molotov:[/color][/b]
+[color=blue][b]Molotov:[/color][/b]
 Can be thrown out. Upon impact, set fire to nearby blocks and also does cause splash damage to neaby mobs. So stay back when used!
 
-[color=rgb(0, 0, 255)][b]Nuclear Sewage:[/color][/b]
+[color=blue][b]Nuclear Sewage:[/color][/b]
 This block gives off tons of random potion effects when a mob touches it. This includes the player. The effects could be good, or bad.
 
-[color=rgb(0, 0, 255)][b]Onyx:[/color][/b]
+[color=blue][b]Onyx:[/color][/b]
 Can be crafted into multiple tools.
 
-[color=rgb(0, 0, 255)][b]Onyx Ore:[/color][/b]
+[color=blue][b]Onyx Ore:[/color][/b]
 An ore for Onyx. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Orange:[/color][/b]
+[color=blue][b]Orange:[/color][/b]
 An edible item that heals 4.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Peach:[/color][/b]
+[color=blue][b]Peach:[/color][/b]
 An edible item that heals 3.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Pestle And Mortar:[/color][/b]
+[color=blue][b]Pestle And Mortar:[/color][/b]
 When right clicked:
 With Cannabis Plant in your inventory, 33% chance to get Hemp Leaves
 With Hemp Leaves in your inventory, 20% chance to get Mellow Weed
 With Mellow Weed in your inventory, 10% chance to give you Weed.
 
-[color=rgb(0, 0, 255)][b]Pipe:[/color][/b]
+[color=blue][b]Pipe:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Pipes:[/color][/b]
+[color=blue][b]Pipes:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Plaster Block:[/color][/b]
+[color=blue][b]Plaster Block:[/color][/b]
 Very nice decoration block. Needs to be put in a furnace to be hardened!
 
-[color=rgb(0, 0, 255)][b]Plaster Wall:[/color][/b]
+[color=blue][b]Plaster Wall:[/color][/b]
 Nice decoration block. May be used for recipes as well.
 
-[color=rgb(0, 0, 255)][b]Plastic:[/color][/b]
+[color=blue][b]Plastic:[/color][/b]
 Used for multiple different recipes. A very important element to the mod really!
 
-[color=rgb(0, 0, 255)][b]Powder Keg:[/color][/b]
+[color=blue][b]Powder Keg:[/color][/b]
 This powder keg will blow up when there is a fire next to it. This can be used with the fuse to set traps!
 
-[color=rgb(0, 0, 255)][b]Power Core:[/color][/b]
+[color=blue][b]Power Core:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Recipe Reverting Station:[/color][/b]
+[color=blue][b]Recipe Reverting Station:[/color][/b]
 This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.
 
-[color=rgb(0, 0, 255)][b]Robot Arm:[/color][/b]
+[color=blue][b]Robot Arm:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Robot Head:[/color][/b]
+[color=blue][b]Robot Head:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Robot Leg:[/color][/b]
+[color=blue][b]Robot Leg:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Robot Torso:[/color][/b]
+[color=blue][b]Robot Torso:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Sapphire:[/color][/b]
+[color=blue][b]Sapphire:[/color][/b]
 Can be crafted into multiple tools.
 
-[color=rgb(0, 0, 255)][b]Sapphire Ore:[/color][/b]
+[color=blue][b]Sapphire Ore:[/color][/b]
 An ore for Sapphire. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Silver Block:[/color][/b]
+[color=blue][b]Silver Block:[/color][/b]
 Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
 
-[color=rgb(0, 0, 255)][b]Silver Ingot:[/color][/b]
+[color=blue][b]Silver Ingot:[/color][/b]
 Can be crafted into multiple tools. Acquired by smelting silver ore
 
-[color=rgb(0, 0, 255)][b]Silver Ore:[/color][/b]
+[color=blue][b]Silver Ore:[/color][/b]
 An ore for Silver. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Silver Trophy:[/color][/b]
+[color=blue][b]Silver Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Small Crate:[/color][/b]
+[color=blue][b]Small Crate:[/color][/b]
 This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 4 slots. 
 
-[color=rgb(0, 0, 255)][b]Sorter Component:[/color][/b]
+[color=blue][b]Sorter Component:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Spear:[/color][/b]
+[color=blue][b]Spear:[/color][/b]
 Can be thrown where the player is pointing. Same speed as an arrow at full hold-back. Also does the same damage. Can also be picked back up!
 
-[color=rgb(0, 0, 255)][b]Speed Upgrade:[/color][/b]
+[color=blue][b]Speed Upgrade:[/color][/b]
 Very expensive alternative to saving space and speeding up your Cookers!
 
-[color=rgb(0, 0, 255)][b]Spirit Fragment:[/color][/b]
+[color=blue][b]Spirit Fragment:[/color][/b]
 Obtained by killing the Demon Spirit. Used in some different recipes that are very useful!
 
-[color=rgb(0, 0, 255)][b]Stone Pillar:[/color][/b]
+[color=blue][b]Stone Pillar:[/color][/b]
 This block, like logs, can be placed sideways.
 
-[color=rgb(0, 0, 255)][b]Stone Rod:[/color][/b]
+[color=blue][b]Stone Rod:[/color][/b]
 Used for crafting a multitude of crafting recipes
 
-[color=rgb(0, 0, 255)][b]Strongbox:[/color][/b]
-This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 3 slots. 
+[color=blue][b]Strongbox:[/color][/b]
+This block is simply a storage block. It has multiple tiers and are an alternative to chests. This block has 3 slots.
 
-[color=rgb(0, 0, 255)][b]The EB Guide:[/color][/b]
+[color=blue][b]Summon Bloodwing:[/color][/b]
+This summons a Bloodwing to fight along your side. It's already tamed as well. It might be expensive because you have to kill the Demon Spirit, but it does tons of damage!
+
+[color=blue][b]The EB Guide:[/color][/b]
 The EB Guide to everything. It has this exact page in it really. I personally suggest using that instead of looking at this.
 
-[color=rgb(0, 0, 255)][b]Tin:[/color][/b]
+[color=blue][b]Tin:[/color][/b]
 Can be combined with copper to make copper and tin lumps
 
-[color=rgb(0, 0, 255)][b]Tin Ore:[/color][/b]
+[color=blue][b]Tin Ore:[/color][/b]
 An ore for Tin. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Tomato:[/color][/b]
+[color=blue][b]Tomato:[/color][/b]
 An edible item that heals 3.
 It saturates 0.6.
 
-[color=rgb(0, 0, 255)][b]Tomato Seeds:[/color][/b]
+[color=blue][b]Tomato Seeds:[/color][/b]
 Can be placed in tilled dirt to start growing it's corresponding plant. Obtained like wheat seeds are.
 
-[color=rgb(0, 0, 255)][b]Trash Can:[/color][/b]
+[color=blue][b]Trash Can:[/color][/b]
 This block will allow you to destroy anything that you don't want anymore. If the config option for traditional trash can is enabled. It will destry items like a cactus. But if not, you could right click on it and place items in the Gui. Then power it with redstone and hit that empty button.
 
-[color=rgb(0, 0, 255)][b]Trinquantium Block:[/color][/b]
+[color=blue][b]Trinquantium Block:[/color][/b]
 Simple storage block. Can be crafted with 9 of the corresponding items. Can also be reversed
 
-[color=rgb(0, 0, 255)][b]Trinquantium Ingot:[/color][/b]
+[color=blue][b]Trinquantium Ingot:[/color][/b]
 Can be crafted into multiple tools. Acquired by smelting trinquantium ore
 
-[color=rgb(0, 0, 255)][b]Trinquantium Ore:[/color][/b]
+[color=blue][b]Trinquantium Ore:[/color][/b]
 An ore for Trinquantium. If you received the actual block, you have to smelt it to get the corresponding ingot.
 
-[color=rgb(0, 0, 255)][b]Trinquantium Trophy:[/color][/b]
+[color=blue][b]Trinquantium Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
 
-[color=rgb(0, 0, 255)][b]Vending Machine:[/color][/b]
+[color=blue][b]Vending Machine:[/color][/b]
 This block will allow you to gamble in Minecraft! Right click it with a diamond and it will give you a random item in all of Minecraft back!
 
-[color=rgb(0, 0, 255)][b]Warrior Robot:[/color][/b]
+[color=blue][b]Warrior Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
 
-[color=rgb(0, 0, 255)][b]Weed:[/color][/b]
+[color=blue][b]Weed:[/color][/b]
 Can be smoked to cause different ("pleasurable") effects. Use with caution! The more powerful the hemp, the more powerful the effects.
 
-[color=rgb(0, 0, 255)][b]Wire:[/color][/b]
+[color=blue][b]Wire:[/color][/b]
 This block can transfer EB Joules through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy emmiters to create energy.
 
-[color=rgb(0, 0, 255)][b]Wooden Plate:[/color][/b]
+[color=blue][b]Wooden Plate:[/color][/b]
 You can right click on this to place the item in the plate. You can use this as a kind of Item Frame.
 
-[color=rgb(0, 0, 255)][b]Wrench:[/color][/b]
+[color=blue][b]Wrench:[/color][/b]
 Simple multi-purpose tool.
 [/spoiler]
 [/spoiler]
@@ -578,12 +611,24 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 [color=rgb(153, 153, 153)]5. Enjoy![/color]
 [color=rgb(153, 153, 153)]If you have any issues or Crash Reports, Feel free to post it on the Extreme Blocks [/color][url=https://github.com/Fir3will/ExtremeBlocks/issues]Issue Tracker![/url]
 [url=http://github.com/Fir3will/ExtremeBlocks][size=x-large][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6f1dfa1fc8b6d5fa2fd84615bc39e1814319af53da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps0f9c21b9.png[/IMG][/size][/url]
-[center][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%203/f5ac077bb8cf3002fffc8592bb54a27c2f5bfe04cfa4d454558f7b54953cb7cc71a14bb4d9e8dee8da39a3ee5e6b4b0d3255bfef95601890afd80709b80298fb331fa69a54ac_zpsd06583db.png[/IMG][/center]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6bd82992110e09a39eb5bbcb9a3a143895eba286da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps6f2d421b.png[/IMG]
 [spoiler]
 [size=large][color=red][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
 
-~~6.6~~ 1.7.10- [url=]Click Here![/url]
+~~6.7~~ 1.7.10- [url=http://adf.ly/wFT8m]Click Here![/url]
+[spoiler]
+- Added the Bloodwing Tamable mob
+- Added the Bat Wing item
+- Added the Summon Bloodwing item
+- Fixed some generation issues for the Sunken Ship.
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
+
+-Updated the Github!
+[/spoiler]
+
+~~6.6~~ 1.7.10- [url=http://adf.ly/vkcx3]Click Here![/url]
 [spoiler]
 - Added the Catacombs World Generation
 - Added the Sunken Ship World Generation

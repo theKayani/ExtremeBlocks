@@ -1,12 +1,16 @@
 package main.extremeblocks;
 
 import java.awt.Color;
+import java.util.Map;
+import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.Rand;
+import main.extremeblocks.Vars.Mob;
 import main.extremeblocks.blocks.BlockTrophy.TrophyType;
 import main.extremeblocks.client.guis.GuiEBGuide;
 import main.extremeblocks.entities.EntityGrenade;
 import main.extremeblocks.entities.EntityMolotov;
 import main.extremeblocks.entities.EntitySpear;
+import main.extremeblocks.entities.mobs.EntityBloodwing;
 import main.extremeblocks.entities.mobs.EntityCastleSkeleton;
 import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityDemon;
@@ -15,6 +19,7 @@ import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.misc.SpawnDetail;
 import main.extremeblocks.renderers.ItemRendererPipe;
 import main.extremeblocks.renderers.ItemRendererTile;
+import main.extremeblocks.renderers.RenderBloodwing;
 import main.extremeblocks.renderers.RenderCastleSkeleton;
 import main.extremeblocks.renderers.RenderCastleZombie;
 import main.extremeblocks.renderers.RenderDemon;
@@ -41,6 +46,7 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -78,6 +84,7 @@ public class EBClient extends EBCommon
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.silver_trophy), new TileEntityTrophyRenderer(TrophyType.SILVER));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(Init.grenade));
+		RenderingRegistry.registerEntityRenderingHandler(EntityBloodwing.class, new RenderBloodwing());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMolotov.class, new RenderSnowball(Init.molotov));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpear.class, new RenderSpear());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCastleZombie.class, new RenderCastleZombie());
@@ -88,6 +95,7 @@ public class EBClient extends EBCommon
 		// ExtremeBlocks <-- command right click it
 	}
 
+	@Override
 	public void openEBGuide()
 	{
 		Minecraft.getMinecraft().displayGuiScreen(new GuiEBGuide());
@@ -108,6 +116,7 @@ public class EBClient extends EBCommon
 		int id = nextID();
 		EntityRegistry.registerGlobalEntityID(entityClass, mobName, id);
 		EntityRegistry.registerModEntity(entityClass, mobName, id, ExtremeBlocks.instance, 80, 3, true);
+		addMob(entityClass);
 	}
 
 	public static void registerEntity(Class<? extends EntityLiving> entityClass, String mobName, EnumCreatureType creature, Color foreground, Color background, SpawnDetail... spawns)
@@ -125,6 +134,7 @@ public class EBClient extends EBCommon
 				}
 			}
 		}
+		addMob(entityClass);
 	}
 
 	public static void registerEntity(Class<? extends EntityLiving> entityClass, String mobName, EnumCreatureType creature, SpawnDetail... spawns)
@@ -154,5 +164,15 @@ public class EBClient extends EBCommon
 		return i;
 	}
 
+	private static void addMob(Class<? extends EntityLivingBase> clazz)
+	{
+		if (clazz.isAnnotationPresent(Mob.class))
+		{
+			removeMobs.put(clazz, new Boolean(false));
+		}
+		else throw new IllegalArgumentException(clazz.getSimpleName() + " does not have the Mob.class annotation");
+	}
+
 	private static int entityID = 1;
+	public static Map<Class<?>, Boolean> removeMobs = JavaHelp.newHashMap();
 }

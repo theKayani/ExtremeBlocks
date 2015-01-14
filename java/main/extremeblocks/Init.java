@@ -5,6 +5,7 @@ import main.com.hk.eb.util.CustomTab;
 import main.com.hk.eb.util.ItemCustom;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.RegistryHelper;
+import main.extremeblocks.Vars.Mob;
 import main.extremeblocks.blocks.BlockAltar;
 import main.extremeblocks.blocks.BlockCement;
 import main.extremeblocks.blocks.BlockCharger;
@@ -29,11 +30,11 @@ import main.extremeblocks.blocks.BlockVendingMachine;
 import main.extremeblocks.blocks.BlockWaste;
 import main.extremeblocks.blocks.BlockWire;
 import main.extremeblocks.blocks.BlockXrayBlock;
-import main.extremeblocks.blocks.abstractblocks.BlockBuild;
-import main.extremeblocks.blocks.abstractblocks.BlockCompact;
-import main.extremeblocks.blocks.abstractblocks.BlockEBOre;
-import main.extremeblocks.blocks.abstractblocks.BlockSided;
-import main.extremeblocks.blocks.abstractblocks.BlockStorage;
+import main.extremeblocks.blocks.abstracts.BlockBuild;
+import main.extremeblocks.blocks.abstracts.BlockCompact;
+import main.extremeblocks.blocks.abstracts.BlockEBOre;
+import main.extremeblocks.blocks.abstracts.BlockSided;
+import main.extremeblocks.blocks.abstracts.BlockStorage;
 import main.extremeblocks.entities.mobs.robot.RobotType;
 import main.extremeblocks.items.ItemBackpack;
 import main.extremeblocks.items.ItemBattery;
@@ -53,6 +54,7 @@ import main.extremeblocks.items.ItemRobot;
 import main.extremeblocks.items.ItemSeed;
 import main.extremeblocks.items.ItemSorter;
 import main.extremeblocks.items.ItemSpear;
+import main.extremeblocks.items.ItemSummonBloodwing;
 import main.extremeblocks.items.ItemWeed;
 import main.extremeblocks.misc.SortingSystem;
 import main.extremeblocks.worldgen.GenManager;
@@ -74,7 +76,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static final String VERSION = "6.6";
+	public static final String VERSION = "6.7";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -171,8 +173,10 @@ public class Init
 	public static final Item cucumber = new ItemEdible("Cucumber", 3).setTextureName(MODID + ":cucumber");
 	public static final Item sorter_component = new ItemCustom("Sorter Component", tab_mainItems).setShowRecipe().setTextureName(MODID + ":sorter_component");
 	public static final Item spirit_fragment = new ItemCustom("Spirit Fragment", Init.tab_mainItems).setInfo("Obtained by killing the Demon Spirit. Used in some different recipes that are very useful!").setTextureName(Init.MODID + ":spirit_fragment");
-	public static final Item ebGuide = new ItemEBGuide();
+	public static final Item eb_guide = new ItemEBGuide();
 	public static final Item marker = new ItemMarker();
+	public static final Item bat_wing = new ItemCustom("Bat Wing", tab_mainItems).setTextureName(MODID + ":bat_wing").setInfo("10% chance to drop from a bat. It's used to create the Bloodwing summon!");
+	public static final Item summon_bloodwing = new ItemSummonBloodwing();
 
 	public static BlockStorage crate;
 	public static BlockStorage barrel;
@@ -259,12 +263,6 @@ public class Init
 			ExtremeBlocks.blocks.add(new BlockBuild(GenManager.getGens().get(i)));
 		}
 		BlockStorage.initBlocks();
-
-		// HIGHLY WANTED FEATURES:
-		//
-		// World Generations and Structures	
-		// More Friendly/Tamable/Interactive Mobs
-		// Fixing current bugs, glitches, and crashes
 	}
 
 	public static void addRecipes()
@@ -340,8 +338,9 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(altar), "IOI", "IGI", "IMI", 'I', Blocks.sandstone, 'O', glester_rock, 'G', Init.delvlish_crystal, 'M', meteorite);
 		MPUtil.addRecipe(new ItemStack(nuclear_waste), "III", "IFI", "III", 'I', Items.slime_ball, 'F', spirit_fragment);
 		MPUtil.addRecipe(new ItemStack(spear), "  F", " S ", "S  ", 'F', Items.flint, 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(ebGuide, 2), "SP", "SP", 'P', Items.paper, 'S', Items.stick);
+		MPUtil.addRecipe(new ItemStack(eb_guide, 2), "SP", "SP", 'P', Items.paper, 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(marker), "RGB", "PIP", "PIP", 'R', new ItemStack(Items.dye, 1, 1), 'G', new ItemStack(Items.dye, 1, 2), 'B', new ItemStack(Items.dye, 1, 4), 'P', plastic, 'I', new ItemStack(Items.dye, 1, 0));
+		MPUtil.addRecipe(new ItemStack(summon_bloodwing), "ECE", "WSW", "ECE", 'E', Items.spider_eye, 'S', spirit_fragment, 'C', Items.egg, 'W', bat_wing);
 
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
@@ -390,11 +389,16 @@ public class Init
 		}
 
 		Vars.addMobs = cfg.getBool("Allow Mobs", true, "Allow Mobs to work in the game. If this is false, all the EB mobs are disabled.");
-		Vars.addCastleSkeleton = cfg.allowMob("Castle Skeleton", "Skeleton");
-		Vars.addCastleZombie = cfg.allowMob("Castle Zombie", "Zombie");
-		Vars.addEvilIronGolem = cfg.allowMob("Evil Iron Golem", "Iron Golem");
-		Vars.addRobot = cfg.allowMob("Robot", "Villager");
-		Vars.addDemon = cfg.allowMob("Demon", "Blaze");
+
+		Class<?>[] classes = EBClient.removeMobs.keySet().toArray(new Class<?>[0]);
+		if (Vars.addMobs)
+		{
+			for (Class<?> classe : classes)
+			{
+				Mob m = classe.getAnnotation(Mob.class);
+				EBClient.removeMobs.put(classe, cfg.allowMob(m.getName(), m.getVanillaName()));
+			}
+		}
 
 		Vars.copperSR = cfg.getSpawnRate("Copper", 20);
 		Vars.tinSR = cfg.getSpawnRate("Tin", 20);

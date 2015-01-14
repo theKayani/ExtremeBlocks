@@ -9,7 +9,7 @@ import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
-import main.extremeblocks.blocks.abstractblocks.BlockStorage;
+import main.extremeblocks.blocks.abstracts.BlockStorage;
 import main.extremeblocks.misc.BlockType;
 import main.extremeblocks.tileentities.TileEntityStorage;
 import net.minecraft.block.Block;
