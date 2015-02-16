@@ -4,6 +4,7 @@ import main.extremeblocks.blocks.BlockEBTable;
 import main.extremeblocks.client.containers.ContainerCharger;
 import main.extremeblocks.client.containers.ContainerCooker;
 import main.extremeblocks.client.containers.ContainerEBTable;
+import main.extremeblocks.client.containers.ContainerEnchantmentExtractor;
 import main.extremeblocks.client.containers.ContainerGenerator;
 import main.extremeblocks.client.containers.ContainerRevertingStation;
 import main.extremeblocks.client.containers.ContainerRobot;
@@ -14,6 +15,7 @@ import main.extremeblocks.client.containers.ContainerTrash;
 import main.extremeblocks.client.guis.GuiCharger;
 import main.extremeblocks.client.guis.GuiCooker;
 import main.extremeblocks.client.guis.GuiEBTable;
+import main.extremeblocks.client.guis.GuiEnchantmentExtractor;
 import main.extremeblocks.client.guis.GuiGenerator;
 import main.extremeblocks.client.guis.GuiRevertingStation;
 import main.extremeblocks.client.guis.GuiRobot;
@@ -24,6 +26,7 @@ import main.extremeblocks.client.guis.GuiTrash;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.tileentities.TileEntityCharger;
 import main.extremeblocks.tileentities.TileEntityCooker;
+import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
 import main.extremeblocks.tileentities.TileEntityGenerator;
 import main.extremeblocks.tileentities.TileEntityRevertingStation;
 import main.extremeblocks.tileentities.TileEntityStorage;
@@ -65,6 +68,8 @@ public class GuiHandler implements IGuiHandler, GuiIDs
 				return tileEntity instanceof TileEntityRevertingStation ? new ContainerRevertingStation(player.inventory, (TileEntityRevertingStation) tileEntity) : null;
 			case TILE_ENTITY_TRASH:
 				return tileEntity instanceof TileEntityTrash ? new ContainerTrash(player.inventory, (TileEntityTrash) tileEntity) : null;
+			case TILE_ENCHANTMENT_EXTRACTOR:
+				return tileEntity instanceof TileEntityEnchantmentExtractor ? new ContainerEnchantmentExtractor(player.inventory, (TileEntityEnchantmentExtractor) tileEntity) : null;
 		}
 		return null;
 	}
@@ -96,6 +101,8 @@ public class GuiHandler implements IGuiHandler, GuiIDs
 				return tileEntity instanceof TileEntityRevertingStation ? new GuiRevertingStation(player.inventory, (TileEntityRevertingStation) tileEntity) : null;
 			case TILE_ENTITY_TRASH:
 				return tileEntity instanceof TileEntityTrash ? new GuiTrash(player.inventory, (TileEntityTrash) tileEntity) : null;
+			case TILE_ENCHANTMENT_EXTRACTOR:
+				return tileEntity instanceof TileEntityEnchantmentExtractor ? new GuiEnchantmentExtractor(player.inventory, (TileEntityEnchantmentExtractor) tileEntity) : null;
 		}
 		return null;
 	}

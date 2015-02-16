@@ -4,7 +4,7 @@ import java.util.Random;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
-import main.extremeblocks.misc.IPlayerMessage;
+import main.extremeblocks.util.IPlayerMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

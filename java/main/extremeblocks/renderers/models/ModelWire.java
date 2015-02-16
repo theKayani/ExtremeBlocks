@@ -1,9 +1,9 @@
 package main.extremeblocks.renderers.models;
 
-import main.extremeblocks.misc.IConnector;
-import main.extremeblocks.misc.PowerHelper;
 import main.extremeblocks.tileentities.TileEntityWire;
 import main.extremeblocks.tileentities.pipe.WireLogic;
+import main.extremeblocks.util.IConnector;
+import main.extremeblocks.util.PowerHelper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

@@ -72,6 +72,9 @@ public abstract class TileEntityInventory extends TileEntity implements IInvento
 	}
 
 	@Override
+	public abstract boolean isItemValidForSlot(int slot, ItemStack stack);
+
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);

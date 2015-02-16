@@ -1,8 +1,8 @@
 package main.com.hk.eb.util;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import main.extremeblocks.misc.StackInv;
+import main.extremeblocks.util.StackInv;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -37,10 +37,7 @@ public class StackHelper
 
 	public static int getMaxMetadataOf(Item item)
 	{
-		if (item == null) return 0;
-		ArrayList<ItemStack> list = JavaHelp.newArrayList();
-		item.getSubItems(item, item.getCreativeTab(), list);
-		return list.size();
+		return item.getMaxDamage();
 	}
 
 	public static boolean isBlockOrItem(Object obj)
@@ -105,7 +102,7 @@ public class StackHelper
 
 	public static boolean addToInv(IInventory inv, ItemStack par1ItemStack)
 	{
-		ArrayList<ItemStack> inventorySlots = JavaHelp.newArrayList();
+		List<ItemStack> inventorySlots = JavaHelp.newArrayList();
 		boolean flag1 = false;
 		int k = 0;
 		ItemStack itemstack1 = null;

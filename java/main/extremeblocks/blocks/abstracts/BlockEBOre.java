@@ -5,6 +5,9 @@ import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockEBOre extends BlockCustom
 {
@@ -15,6 +18,14 @@ public class BlockEBOre extends BlockCustom
 		setStepSound(Block.soundTypeStone);
 		setBlockTextureName(Init.MODID + ":" + name);
 		setCreativeTab(Init.tab_mainBlocks);
+	}
+
+	@Override
+	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_)
+	{
+		Random rand = new Random();
+		if (getItemDropped(p_149690_5_, rand, p_149690_7_) != Item.getItemFromBlock(this)) return MathHelper.getRandomIntegerInRange(rand, 2, 5);
+		return 0;
 	}
 
 	@Override

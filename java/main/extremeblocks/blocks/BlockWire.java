@@ -2,8 +2,8 @@ package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.Init;
-import main.extremeblocks.misc.IConnector;
 import main.extremeblocks.tileentities.TileEntityWire;
+import main.extremeblocks.util.IConnector;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;

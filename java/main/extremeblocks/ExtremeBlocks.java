@@ -2,6 +2,7 @@ package main.extremeblocks;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 import main.com.hk.eb.util.Info;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.RegistryHelper;
@@ -16,9 +17,19 @@ import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityDemon;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
-import main.extremeblocks.misc.SpawnDetail;
 import main.extremeblocks.network.PacketHandlerEB;
+import main.extremeblocks.tileentities.TileEntityCharger;
+import main.extremeblocks.tileentities.TileEntityCooker;
+import main.extremeblocks.tileentities.TileEntityDrill;
+import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
+import main.extremeblocks.tileentities.TileEntityFuse;
+import main.extremeblocks.tileentities.TileEntityGenerator;
+import main.extremeblocks.tileentities.TileEntityProtector;
+import main.extremeblocks.tileentities.TileEntityRevertingStation;
+import main.extremeblocks.tileentities.TileEntityStorage;
+import main.extremeblocks.tileentities.TileEntityTrash;
 import main.extremeblocks.tools.ColorToolSet;
+import main.extremeblocks.util.SpawnDetail;
 import main.extremeblocks.worldgen.GenCastle;
 import main.extremeblocks.worldgen.GenCatacombs;
 import main.extremeblocks.worldgen.GenDriedTree;
@@ -61,6 +72,7 @@ public class ExtremeBlocks
 	public static ArrayList<Block> blocks = JavaHelp.newArrayList();
 	public static ArrayList<Item> items = JavaHelp.newArrayList();
 	public static final PacketHandlerEB packetPipeline = new PacketHandlerEB();
+	public static final UUID ebUUID = new UUID(5881171344827434468L, 6415942623990768627L);
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -116,16 +128,27 @@ public class ExtremeBlocks
 			RegistryHelper.register(item);
 		}
 		Init.addRecipes();
-		EBClient.registerThrowable(EntityGrenade.class, "Grenade");
-		EBClient.registerThrowable(EntityMolotov.class, "Molotov");
-		EBClient.registerThrowable(EntitySpear.class, "Spear");
-		EBClient.registerEntity(EntityRobot.class, "Robot");
-		EBClient.registerEntity(EntityBloodwing.class, "Bloodwing");
-		EBClient.registerEntity(EntityDemon.class, "Demon Spirit", EnumCreatureType.monster);
-		EBClient.registerEntity(EntityCastleZombie.class, "Castle Zombie", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
-		EBClient.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
-		EBClient.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster, SpawnDetail.getForBiomes(10, 1, 1, BiomeGenBase.hell, BiomeGenBase.sky));
+		EBCommon.registerThrowable(EntityGrenade.class, "Grenade");
+		EBCommon.registerThrowable(EntityMolotov.class, "Molotov");
+		EBCommon.registerThrowable(EntitySpear.class, "Spear");
+		EBCommon.registerEntity(EntityRobot.class, "Robot");
+		EBCommon.registerEntity(EntityBloodwing.class, "Bloodwing");
+		EBCommon.registerEntity(EntityDemon.class, "Demon Spirit", EnumCreatureType.monster);
+		EBCommon.registerEntity(EntityCastleZombie.class, "Castle Zombie", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
+		EBCommon.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
+		EBCommon.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster, SpawnDetail.getForBiomes(10, 1, 1, BiomeGenBase.hell, BiomeGenBase.sky));
 		// EBClient <-- command right click it
+
+		GameRegistry.registerTileEntity(TileEntityFuse.class, ebUUID + "Fuse");
+		GameRegistry.registerTileEntity(TileEntityStorage.class, ebUUID + "Storage");
+		GameRegistry.registerTileEntity(TileEntityCharger.class, ebUUID + "Charger");
+		GameRegistry.registerTileEntity(TileEntityCooker.class, ebUUID + "Cooker");
+		GameRegistry.registerTileEntity(TileEntityGenerator.class, ebUUID + "Generator");
+		GameRegistry.registerTileEntity(TileEntityProtector.class, ebUUID + "Protector");
+		GameRegistry.registerTileEntity(TileEntityDrill.class, ebUUID + "Drill");
+		GameRegistry.registerTileEntity(TileEntityRevertingStation.class, ebUUID + "Reverting Station");
+		GameRegistry.registerTileEntity(TileEntityTrash.class, ebUUID + "Trash Can");
+		GameRegistry.registerTileEntity(TileEntityEnchantmentExtractor.class, ebUUID + "Enchantment Extractor");
 		proxy.registerRenderThings();
 		proxy.registerSounds();
 		addVillagerTrade();

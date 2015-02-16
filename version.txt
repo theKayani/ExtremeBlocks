@@ -1,2 +1,2 @@
-Version: 6.7
-Summary Message: Added the Bloodwing!
+Version: 6.9
+Summary Message: Includes Multiplayer Compatibility!

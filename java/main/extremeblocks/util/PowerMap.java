@@ -1,4 +1,4 @@
-package main.extremeblocks.misc;
+package main.extremeblocks.util;
 
 import java.util.HashMap;
 import net.minecraftforge.common.util.ForgeDirection;

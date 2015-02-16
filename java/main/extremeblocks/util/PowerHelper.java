@@ -1,4 +1,4 @@
-package main.extremeblocks.misc;
+package main.extremeblocks.util;
 
 import main.extremeblocks.tileentities.TileEntityWire;
 import main.extremeblocks.tileentities.pipe.WireLogic;

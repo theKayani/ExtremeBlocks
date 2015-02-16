@@ -80,6 +80,7 @@ tile.Castle.name=Castle Gen
 tile.House.name=House Gen
 tile.Sunken Ship.name=Sunken Ship Gen
 tile.Catacombs.name=Catacombs Gen
+tile.Enchantment Extractor.name=Enchantment Extractor
 
 entity.Castle Zombie.name=Castle Zombie
 entity.Castle Skeleton.name=Castle Skeleton

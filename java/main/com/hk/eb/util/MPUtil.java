@@ -1,7 +1,7 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
-import main.extremeblocks.EBClient;
+import main.extremeblocks.EBCommon;
 import main.extremeblocks.Vars;
 import main.extremeblocks.crafting.RecipeManager;
 import net.minecraft.block.Block;
@@ -36,6 +36,16 @@ import cpw.mods.fml.relauncher.Side;
 
 public class MPUtil
 {
+	public static void addRecipe(Item item, Object... objects)
+	{
+		addRecipe(new ItemStack(item), objects);
+	}
+
+	public static void addRecipe(Block block, Object... objects)
+	{
+		addRecipe(new ItemStack(block), objects);
+	}
+
 	public static void addRecipe(ItemStack item, Object... objects)
 	{
 		if (Vars.customCraftingTable && RecipeManager.canFitOnVanillaTable(item, objects))
@@ -136,7 +146,7 @@ public class MPUtil
 	{
 		if (replacer instanceof EntityLivingBase)
 		{
-			if (isServerSide() && EBClient.removeMobs.get(replacer.getClass()).booleanValue())
+			if (isServerSide() && EBCommon.removeMobs.get(replacer.getClass()).booleanValue())
 			{
 				EntityLivingBase copy = replacer.getClone();
 				copy.copyLocationAndAnglesFrom((EntityLivingBase) replacer);
@@ -150,6 +160,18 @@ public class MPUtil
 			}
 		}
 		else throw new IllegalArgumentException(replacer.getClass().getName() + " isn't an EntityLivingBase");
+	}
+
+	public static BlockIndex[] getNeighbors(World world, int x, int y, int z)
+	{
+		BlockIndex[] xs = new BlockIndex[6];
+		xs[0] = new BlockIndex(world, x + 1, y, z);
+		xs[1] = new BlockIndex(world, x - 1, y, z);
+		xs[2] = new BlockIndex(world, x, y + 1, z);
+		xs[3] = new BlockIndex(world, x, y - 1, z);
+		xs[4] = new BlockIndex(world, x, y, z + 1);
+		xs[5] = new BlockIndex(world, x, y, z - 1);
+		return xs;
 	}
 
 	public static TileEntity[] getNeighborTiles(World world, int x, int y, int z)

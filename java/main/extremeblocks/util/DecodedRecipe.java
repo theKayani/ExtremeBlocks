@@ -1,4 +1,4 @@
-package main.extremeblocks.misc;
+package main.extremeblocks.util;
 
 import main.com.hk.eb.util.RecipeUtils;
 import net.minecraft.item.ItemStack;

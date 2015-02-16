@@ -108,7 +108,8 @@ public class Rand
 	public static int getRandomMetadataOf(Item item)
 	{
 		if (item == null) return 0;
-		return nextInt(StackHelper.getMaxMetadataOf(item));
+		int i = StackHelper.getMaxMetadataOf(item);
+		return nextInt(i <= 0 ? 1 : i);
 	}
 
 	@Override

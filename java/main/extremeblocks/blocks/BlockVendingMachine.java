@@ -2,6 +2,7 @@ package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.BlockCustom;
 import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Rand;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -9,6 +10,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -118,21 +120,12 @@ public class BlockVendingMachine extends BlockCustom
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
 	{
-		if (MPUtil.isClientSide() && player.inventory.consumeInventoryItem(Items.diamond))
+		if (MPUtil.isServerSide() && player.inventory.consumeInventoryItem(Items.diamond))
 		{
-			ItemStack s = new ItemStack(MPUtil.getRandomVanillaItem());
-			if (!player.inventory.addItemStackToInventory(s))
-			{
-				MPUtil.dropItemAsEntity(world, x + 0.5D, y + 1D, z + 0.5D, true, s);
-			}
+			Item item = MPUtil.getRandomVanillaItem();
+			MPUtil.dropItemAsEntity(world, x + 0.5D, y + 1D, z + 0.5D, false, new ItemStack(item, 1, Rand.getRandomMetadataOf(item)));
 		}
 		return true;
-	}
-
-	@Override
-	public boolean canBlockStay(World world, int x, int y, int z)
-	{
-		return world.isAirBlock(x, y + 1, z);
 	}
 
 	@Override
@@ -146,7 +139,7 @@ public class BlockVendingMachine extends BlockCustom
 	{
 		if (!canBlockStay(world, x, y, z))
 		{
-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+			this.dropBlockAsItem(world, x, y, z, 0, 0);
 			world.setBlockToAir(x, y, z);
 		}
 	}

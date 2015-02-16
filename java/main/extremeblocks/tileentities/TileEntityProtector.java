@@ -2,9 +2,9 @@ package main.extremeblocks.tileentities;
 
 import java.util.List;
 import main.com.hk.eb.util.MPUtil;
-import main.extremeblocks.misc.IConnector;
-import main.extremeblocks.misc.IPlayerMessage;
-import main.extremeblocks.misc.Power.IPowerReceiver;
+import main.extremeblocks.util.IConnector;
+import main.extremeblocks.util.IPlayerMessage;
+import main.extremeblocks.util.Power.IPowerReceiver;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;

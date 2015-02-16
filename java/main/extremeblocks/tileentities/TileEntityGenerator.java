@@ -1,9 +1,9 @@
 package main.extremeblocks.tileentities;
 
 import main.com.hk.eb.util.StackHelper;
-import main.extremeblocks.misc.IConnector;
-import main.extremeblocks.misc.Power.IPowerEmitter;
-import main.extremeblocks.misc.PowerHelper;
+import main.extremeblocks.util.IConnector;
+import main.extremeblocks.util.PowerHelper;
+import main.extremeblocks.util.Power.IPowerEmitter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;

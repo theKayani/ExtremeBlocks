@@ -1,4 +1,4 @@
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Jan%202015%20-%202/6e10be3c46994c6b3ce9bbc579524297cefb30d76663c6ad845b9e8d41758471b14a2490b7951c76da39a3ee5e6b4b0d3255bfef95601890afd807093f833c259f37423f748f_zps69e02712.png[/IMG]
+[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Feb%202015%20-%203/6e10be3c46994c6b3ce9bbc579524297cefb30d75f837dd861336222942e8a0dcbcc0e264ff57659da39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zps09efb4ca.png[/IMG]
 
 Welcome to Minecraft, but wait, Some of these "things" are otherworldly! I Don't know what it is but I LIKE IT, Oh wait a minute, it's just this AWESOME MOD! Extreme Blocks Mod! This mod, a.k.a. the Extreme Blocks Mod adds in a ton of new stuff! Adds a lot of new ores! They are all pretty different!
 [center][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%203/f5ac077bb8cf3002fffc8592bb54a27c2f5bfe04cfa4d454558f7b54953cb7cc71a14bb4d9e8dee8da39a3ee5e6b4b0d3255bfef95601890afd80709b80298fb331fa69a54ac_zpsd06583db.png[/IMG][/center]
@@ -335,6 +335,9 @@ This crafting table replacement can be used just to register all of the Extreme 
 [color=blue][b]Emptied Log:[/color][/b]
 This block, like logs, can be placed sideways.
 
+[color=blue][b]Enchantment Extractor:[/color][/b]
+This block can place enchantments from the item you put in it's left-most slot, onto a book you put in it's right-most slot. Then that enchanted book will be placed in the top slot once the block is powered by redstone! But know this. It will automatically take the enchantment off and put it on a book! It doen't have any warning signs! This might be very dangerous if used freely!
+
 [color=blue][b]Ender Backpack:[/color][/b]
 Simply. A Portable Ender Chest. Quite OP really.
 
@@ -614,6 +617,34 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6bd82992110e09a39eb5bbcb9a3a143895eba286da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps6f2d421b.png[/IMG]
 [spoiler]
 [size=large][color=red][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
+
+~~6.9~~ 1.7.10- [url=http://www.mediafire.com/download/80z1utk5n8npuhj]Click Here![/url]
+[spoiler]
+- Fixed mod compatibility with multiple Redstone Flux mods
+- Added multiplayer compatibility
+- Fixed some crashes on multiplayer
+- Minor bug fixes
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
+NOTE 3: I have stopped using adf.ly as I'm not doing this for money and I want it to be more convenient for all of you!
+
+-Updated the Github!
+[/spoiler]
+
+~~6.8~~ 1.7.10- [url=http://www.mediafire.com/download/tz9b6udh5drw3ml/something.jar]Click Here![/url]
+[spoiler]
+- Added a generic Config Gui Screen
+- Added the Enchantment Extractor
+- Changed the Altar recipe
+- Fixed the Vending Machine
+- Ores that don't drop a block will now also drop experience
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
+
+-Updated the Github!
+[/spoiler]
 
 ~~6.7~~ 1.7.10- [url=http://adf.ly/wFT8m]Click Here![/url]
 [spoiler]
@@ -947,5 +978,5 @@ Or Even This:
 
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/fcd9edf7490bfa41dede583deebb184e5424fea0da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps4200c68a.png[/IMG]
 [spoiler=License]
-[font=Verdana, Geneva, Tahoma, sans-serif][color=rgb(40, 40, 40)]This mod (Henceforth "Extreme Blocks Mod" of "Extreme Blocks") Is in no way to be redistributed without consent through Email, Message, Text, Call, etc. (Review this with the Owner) This Mod is to not be decompiled. If you need the Decompiled code, please go to the Extreme Blocks GitHub. Using any URL shorteners or any other service from where you are able to profit from this mod are strictly forbidden. Any violation to this terms of use or Licence will result in major penalty from the Mod Creator and from outside sources. Proceed with Caution, but Have Fun![/color][/font][/spoiler]
+[font=Verdana, Geneva, Tahoma, sans-serif][color=rgb(40, 40, 40)]This mod (Henceforth "Extreme Blocks Mod" of "Extreme Blocks") Is in no way to be redistributed without consent through Email, Message, Text, Call, etc. (Review this with the Owner) This Mod is to not be decompiled. If you need the Decompiled code, please go to the Extreme Blocks GitHub. Using any URL shorteners or any other service from where you are able to profit from this mod are strictly forbidden. Any violation to this terms of use or license will result in major penalty from the Mod Creator and from outside sources. Proceed with Caution, but Have Fun![/color][/font][/spoiler]
 [/center]

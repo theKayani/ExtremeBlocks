@@ -3,7 +3,7 @@ package main.extremeblocks.items;
 import java.util.List;
 import main.com.hk.eb.util.ItemCustom;
 import main.extremeblocks.Init;
-import main.extremeblocks.misc.IBattery;
+import main.extremeblocks.util.IBattery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

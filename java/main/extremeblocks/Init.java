@@ -14,6 +14,7 @@ import main.extremeblocks.blocks.BlockCrop;
 import main.extremeblocks.blocks.BlockDriedSapling;
 import main.extremeblocks.blocks.BlockDrill;
 import main.extremeblocks.blocks.BlockEBTable;
+import main.extremeblocks.blocks.BlockEnchantmentExtractor;
 import main.extremeblocks.blocks.BlockFuseBlock;
 import main.extremeblocks.blocks.BlockGenerator;
 import main.extremeblocks.blocks.BlockHemp;
@@ -56,7 +57,7 @@ import main.extremeblocks.items.ItemSorter;
 import main.extremeblocks.items.ItemSpear;
 import main.extremeblocks.items.ItemSummonBloodwing;
 import main.extremeblocks.items.ItemWeed;
-import main.extremeblocks.misc.SortingSystem;
+import main.extremeblocks.util.SortingSystem;
 import main.extremeblocks.worldgen.GenManager;
 import main.extremeblocks.worldgen.GenManager.Gen;
 import main.extremeblocks.worldgen.Generation;
@@ -76,7 +77,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static final String VERSION = "6.7";
+	public static final String VERSION = "6.9";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -241,6 +242,7 @@ public class Init
 	public static final Block trinquantium_trophy = new BlockTrophy(TrophyType.TRINQUANTIUM);
 	public static final Block iron_trophy = new BlockTrophy(TrophyType.IRON);
 	public static final Block altar = new BlockAltar().setShowRecipe().setInfo("When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!");
+	public static final Block enchantment_extractor = new BlockEnchantmentExtractor();
 
 	public Init()
 	{
@@ -267,29 +269,29 @@ public class Init
 
 	public static void addRecipes()
 	{
-		MPUtil.addRecipe(new ItemStack(counter), "X#", 'X', core_chip, '#', Blocks.wooden_button);
-		MPUtil.addRecipe(new ItemStack(counter), "X#", 'X', core_chip, '#', Blocks.stone_button);
-		MPUtil.addRecipe(new ItemStack(drill), "XXX", "#B#", " S ", 'X', Items.iron_ingot, '#', Items.diamond, 'B', Items.redstone, 'S', Blocks.diamond_block);
-		MPUtil.addRecipe(new ItemStack(fake_gravel), "XX", 'X', Blocks.gravel);
-		MPUtil.addRecipe(new ItemStack(fake_sand), "XX", 'X', Blocks.sand);
-		MPUtil.addRecipe(new ItemStack(fire_hydrant), " # ", "#X#", "XBX", '#', Items.iron_ingot, 'X', pipes, 'B', Items.flint);
-		MPUtil.addRecipe(new ItemStack(vending_machine), "##B", "#X#", "###", '#', Items.iron_ingot, 'X', core_chip, 'B', light);
-		MPUtil.addRecipe(new ItemStack(trash), "##", "##", '#', Items.iron_ingot);
-		MPUtil.addRecipe(new ItemStack(limestone_ore), "##", "##", '#', limestone);
-		MPUtil.addRecipe(new ItemStack(light), "###", "#X#", "###", '#', Items.redstone, 'X', chip);
-		MPUtil.addRecipe(new ItemStack(core_chip), "###", '#', chip);
-		MPUtil.addRecipe(new ItemStack(stone_pillar), "##", "##", "##", '#', Blocks.stone);
-		MPUtil.addRecipe(new ItemStack(lantern), "#", "#", '#', Blocks.glass);
+		MPUtil.addRecipe(counter, "X#", 'X', core_chip, '#', Blocks.wooden_button);
+		MPUtil.addRecipe(counter, "X#", 'X', core_chip, '#', Blocks.stone_button);
+		MPUtil.addRecipe(drill, "XXX", "#B#", " S ", 'X', Items.iron_ingot, '#', Items.diamond, 'B', Items.redstone, 'S', Blocks.diamond_block);
+		MPUtil.addRecipe(fake_gravel, "XX", 'X', Blocks.gravel);
+		MPUtil.addRecipe(fake_sand, "XX", 'X', Blocks.sand);
+		MPUtil.addRecipe(fire_hydrant, " # ", "#X#", "XBX", '#', Items.iron_ingot, 'X', pipes, 'B', Items.flint);
+		MPUtil.addRecipe(vending_machine, "##B", "#X#", "###", '#', Items.iron_ingot, 'X', core_chip, 'B', light);
+		MPUtil.addRecipe(trash, "##", "##", '#', Items.iron_ingot);
+		MPUtil.addRecipe(limestone_ore, "##", "##", '#', limestone);
+		MPUtil.addRecipe(light, "###", "#X#", "###", '#', Items.redstone, 'X', chip);
+		MPUtil.addRecipe(core_chip, "###", '#', chip);
+		MPUtil.addRecipe(stone_pillar, "##", "##", "##", '#', Blocks.stone);
+		MPUtil.addRecipe(lantern, "#", "#", '#', Blocks.glass);
 		MPUtil.addRecipe(new ItemStack(Blocks.planks, 2), "#", '#', emptied_log);
-		MPUtil.addRecipe(new ItemStack(backpack), "###", "#X#", "###", '#', Items.leather, 'X', Blocks.ender_chest);
-		MPUtil.addRecipe(new ItemStack(pipes), "##", "##", '#', pipe);
-		MPUtil.addRecipe(new ItemStack(wrench), "# #", "###", " # ", '#', Items.iron_ingot);
-		MPUtil.addRecipe(new ItemStack(pipe), "###", '#', Items.iron_ingot);
-		MPUtil.addRecipe(new ItemStack(Items.bone), "##", "##", '#', bone_shard);
+		MPUtil.addRecipe(backpack, "###", "#X#", "###", '#', Items.leather, 'X', Blocks.ender_chest);
+		MPUtil.addRecipe(pipes, "##", "##", '#', pipe);
+		MPUtil.addRecipe(wrench, "# #", "###", " # ", '#', Items.iron_ingot);
+		MPUtil.addRecipe(pipe, "###", '#', Items.iron_ingot);
+		MPUtil.addRecipe(Items.bone, "##", "##", '#', bone_shard);
 		MPUtil.addRecipe(new ItemStack(plastic, 2), "##", "##", '#', sap);
-		MPUtil.addRecipe(new ItemStack(chip), "##", "##", '#', Items.redstone);
-		MPUtil.addRecipe(new ItemStack(cellphone), "##X", "#B#", "###", '#', plastic, 'X', Items.redstone, 'B', chip);
-		MPUtil.addRecipe(new ItemStack(extractor), "#X#", '#', Blocks.stone, 'X', Blocks.lever);
+		MPUtil.addRecipe(chip, "##", "##", '#', Items.redstone);
+		MPUtil.addRecipe(cellphone, "##X", "#B#", "###", '#', plastic, 'X', Items.redstone, 'B', chip);
+		MPUtil.addRecipe(extractor, "#X#", '#', Blocks.stone, 'X', Blocks.lever);
 		MPUtil.addRecipe(new ItemStack(crushed_stone, 5), "#", "#", '#', Blocks.stone);
 		MPUtil.addRecipe(new ItemStack(xray_block_un, 2), "XBX", "B#B", "XBX", '#', spirit_fragment, 'B', Items.diamond, 'X', trinquantium_ingot);
 		MPUtil.addRecipe(new ItemStack(xray_block), "XBX", "B#B", "XBX", '#', xray_block_un, 'B', delvlish_crystal, 'X', glester_rock);
@@ -302,45 +304,46 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(iron_trophy, 3), " # ", "###", "###", '#', Items.iron_ingot);
 		MPUtil.addRecipe(new ItemStack(copper_and_tin_lump, 3), "#X#", "X#X", '#', copper, 'X', tin);
 		MPUtil.addRecipe(new ItemStack(copper_and_tin_lump, 3), "#X#", "X#X", 'X', copper, '#', tin);
-		MPUtil.addRecipe(new ItemStack(weak_cement_wall), "###", "#X#", "###", '#', crushed_stone, 'X', Items.water_bucket);
+		MPUtil.addRecipe(weak_cement_wall, "###", "#X#", "###", '#', crushed_stone, 'X', Items.water_bucket);
 		MPUtil.addRecipe(new ItemStack(fuse, 2), "##", '#', Items.gunpowder);
-		MPUtil.addRecipe(new ItemStack(powder_keg), "#X#", '#', Items.gunpowder, 'X', fuse);
-		MPUtil.addRecipe(new ItemStack(meteor), "##", "##", '#', meteorite_shards);
-		MPUtil.addRecipe(new ItemStack(strongbox), "ICI", 'I', Items.iron_ingot, 'C', crate);
-		MPUtil.addRecipe(new ItemStack(barrel), "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
-		MPUtil.addRecipe(new ItemStack(cabinet), "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
-		MPUtil.addRecipe(new ItemStack(small_crate), "SS", "SS", 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log);
-		MPUtil.addRecipe(new ItemStack(big_crate), "WW", "WW", 'W', Blocks.log2);
-		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log);
-		MPUtil.addRecipe(new ItemStack(crate), "WW", 'W', Blocks.log2);
-		MPUtil.addRecipe(new ItemStack(large_crate), "WW", "WW", 'W', crate);
-		MPUtil.addRecipe(new ItemStack(stone_stick), "SS", "SS", "SS", 'S', crushed_stone);
-		MPUtil.addRecipe(new ItemStack(pestle_mortar), "  R", "RSR", " S ", 'S', crushed_stone, 'R', stone_stick);
-		MPUtil.addRecipe(new ItemStack(power_core), "RCR", "CDC", "RCR", 'R', chip, 'C', core_chip, 'D', Items.diamond);
-		MPUtil.addRecipe(new ItemStack(computer_ai), " D ", "GCG", " C ", 'G', Items.gold_nugget, 'C', core_chip, 'D', Items.diamond);
-		MPUtil.addRecipe(new ItemStack(robot_head), "III", "ICI", "RIR", 'I', Items.iron_ingot, 'C', computer_ai, 'R', Items.redstone);
-		MPUtil.addRecipe(new ItemStack(robot_arm), "II", "II", "RR", 'I', Items.iron_ingot, 'R', Items.redstone);
-		MPUtil.addRecipe(new ItemStack(robot_leg), "III", "ICI", "G G", 'I', Items.iron_ingot, 'C', core_chip, 'G', Items.gold_ingot);
-		MPUtil.addRecipe(new ItemStack(robot_torso), "RIR", "IPI", "III", 'I', Items.iron_ingot, 'R', Items.redstone, 'P', power_core);
-		MPUtil.addRecipe(new ItemStack(robot), " H ", "ATA", "L L", 'H', robot_head, 'A', robot_arm, 'T', robot_torso, 'L', robot_leg);
-		MPUtil.addRecipe(new ItemStack(plate), "S S", "PPP", 'P', Blocks.planks, 'S', Items.stick);
+		MPUtil.addRecipe(powder_keg, "#X#", '#', Items.gunpowder, 'X', fuse);
+		MPUtil.addRecipe(meteor, "##", "##", '#', meteorite_shards);
+		MPUtil.addRecipe(strongbox, "ICI", 'I', Items.iron_ingot, 'C', crate);
+		MPUtil.addRecipe(barrel, "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
+		MPUtil.addRecipe(cabinet, "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
+		MPUtil.addRecipe(small_crate, "SS", "SS", 'S', Items.stick);
+		MPUtil.addRecipe(big_crate, "WW", "WW", 'W', Blocks.log);
+		MPUtil.addRecipe(big_crate, "WW", "WW", 'W', Blocks.log2);
+		MPUtil.addRecipe(crate, "WW", 'W', Blocks.log);
+		MPUtil.addRecipe(crate, "WW", 'W', Blocks.log2);
+		MPUtil.addRecipe(large_crate, "WW", "WW", 'W', crate);
+		MPUtil.addRecipe(stone_stick, "SS", "SS", "SS", 'S', crushed_stone);
+		MPUtil.addRecipe(pestle_mortar, "  R", "RSR", " S ", 'S', crushed_stone, 'R', stone_stick);
+		MPUtil.addRecipe(power_core, "RCR", "CDC", "RCR", 'R', chip, 'C', core_chip, 'D', Items.diamond);
+		MPUtil.addRecipe(computer_ai, " D ", "GCG", " C ", 'G', Items.gold_nugget, 'C', core_chip, 'D', Items.diamond);
+		MPUtil.addRecipe(robot_head, "III", "ICI", "RIR", 'I', Items.iron_ingot, 'C', computer_ai, 'R', Items.redstone);
+		MPUtil.addRecipe(robot_arm, "II", "II", "RR", 'I', Items.iron_ingot, 'R', Items.redstone);
+		MPUtil.addRecipe(robot_leg, "III", "ICI", "G G", 'I', Items.iron_ingot, 'C', core_chip, 'G', Items.gold_ingot);
+		MPUtil.addRecipe(robot_torso, "RIR", "IPI", "III", 'I', Items.iron_ingot, 'R', Items.redstone, 'P', power_core);
+		MPUtil.addRecipe(robot, " H ", "ATA", "L L", 'H', robot_head, 'A', robot_arm, 'T', robot_torso, 'L', robot_leg);
+		MPUtil.addRecipe(plate, "S S", "PPP", 'P', Blocks.planks, 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(battery, 1, battery.getMaxDamage()), " T ", "TRT", "CCC", 'T', tin, 'R', Items.redstone, 'C', copper);
 		MPUtil.addRecipe(new ItemStack(wire, 10), "GPG", 'G', Blocks.glass_pane, 'P', pipe);
-		MPUtil.addRecipe(new ItemStack(generator), "IGI", "IBI", "ICI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()), 'C', core_chip);
-		MPUtil.addRecipe(new ItemStack(charger), "IBI", "IBI", 'I', Items.iron_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()));
-		MPUtil.addRecipe(new ItemStack(sorter_component), "S S", " I ", "S S", 'I', Items.iron_ingot, 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(furnace_fast_upgrade), "III", "GGG", "DDD", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Items.diamond);
-		MPUtil.addRecipe(new ItemStack(arrow_security), "IDI", "IGI", "IBI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Blocks.dispenser, 'B', Blocks.iron_block);
-		MPUtil.addRecipe(new ItemStack(recipe_revert), "BIB", "ICI", "III", 'I', Items.diamond, 'C', Blocks.crafting_table, 'B', Blocks.diamond_block);
-		MPUtil.addRecipe(new ItemStack(molotov), "GFG", 'G', Items.gunpowder, 'F', Items.flint_and_steel);
-		MPUtil.addRecipe(new ItemStack(cooker_off), "ICI", "IPI", "BBB", 'I', Items.iron_ingot, 'C', charger, 'P', core_chip, 'B', Blocks.iron_block);
-		MPUtil.addRecipe(new ItemStack(altar), "IOI", "IGI", "IMI", 'I', Blocks.sandstone, 'O', glester_rock, 'G', Init.delvlish_crystal, 'M', meteorite);
-		MPUtil.addRecipe(new ItemStack(nuclear_waste), "III", "IFI", "III", 'I', Items.slime_ball, 'F', spirit_fragment);
-		MPUtil.addRecipe(new ItemStack(spear), "  F", " S ", "S  ", 'F', Items.flint, 'S', Items.stick);
+		MPUtil.addRecipe(generator, "IGI", "IBI", "ICI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()), 'C', core_chip);
+		MPUtil.addRecipe(charger, "IBI", "IBI", 'I', Items.iron_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()));
+		MPUtil.addRecipe(sorter_component, "S S", " I ", "S S", 'I', Items.iron_ingot, 'S', Items.stick);
+		MPUtil.addRecipe(furnace_fast_upgrade, "III", "GGG", "DDD", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Items.diamond);
+		MPUtil.addRecipe(arrow_security, "IDI", "IGI", "IBI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Blocks.dispenser, 'B', Blocks.iron_block);
+		MPUtil.addRecipe(recipe_revert, "BIB", "ICI", "III", 'I', Items.diamond, 'C', Blocks.crafting_table, 'B', Blocks.diamond_block);
+		MPUtil.addRecipe(molotov, "GFG", 'G', Items.gunpowder, 'F', Items.flint_and_steel);
+		MPUtil.addRecipe(cooker_off, "ICI", "IPI", "BBB", 'I', Items.iron_ingot, 'C', charger, 'P', core_chip, 'B', Blocks.iron_block);
+		MPUtil.addRecipe(altar, "IOI", "IGI", "IMI", 'I', Blocks.sandstone, 'O', glester_rock, 'G', Init.delvlish_crystal, 'M', Init.meteor);
+		MPUtil.addRecipe(nuclear_waste, "III", "IFI", "III", 'I', Items.slime_ball, 'F', spirit_fragment);
+		MPUtil.addRecipe(spear, "  F", " S ", "S  ", 'F', Items.flint, 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(eb_guide, 2), "SP", "SP", 'P', Items.paper, 'S', Items.stick);
-		MPUtil.addRecipe(new ItemStack(marker), "RGB", "PIP", "PIP", 'R', new ItemStack(Items.dye, 1, 1), 'G', new ItemStack(Items.dye, 1, 2), 'B', new ItemStack(Items.dye, 1, 4), 'P', plastic, 'I', new ItemStack(Items.dye, 1, 0));
-		MPUtil.addRecipe(new ItemStack(summon_bloodwing), "ECE", "WSW", "ECE", 'E', Items.spider_eye, 'S', spirit_fragment, 'C', Items.egg, 'W', bat_wing);
+		MPUtil.addRecipe(marker, "RGB", "PIP", "PIP", 'R', new ItemStack(Items.dye, 1, 1), 'G', new ItemStack(Items.dye, 1, 2), 'B', new ItemStack(Items.dye, 1, 4), 'P', plastic, 'I', new ItemStack(Items.dye, 1, 0));
+		MPUtil.addRecipe(summon_bloodwing, "ECE", "WSW", "ECE", 'E', Items.spider_eye, 'S', spirit_fragment, 'C', Items.egg, 'W', bat_wing);
+		MPUtil.addRecipe(enchantment_extractor, "BOB", "OSO", "BOB", 'B', bronze_block, 'O', Items.book, 'S', spirit_fragment);
 
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
@@ -356,14 +359,14 @@ public class Init
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(compact_stone), new ItemStack(Blocks.stone));
 		MPUtil.addCompactAndReversedRecipe(new ItemStack(grenade), new ItemStack(Items.gunpowder));
 
-		MPUtil.addRecipe(new ItemStack(eb_table), "C", 'C', Blocks.crafting_table);
-		MPUtil.addRecipe(new ItemStack(Blocks.crafting_table), "E", 'E', eb_table);
+		MPUtil.addShapelessRecipe(new ItemStack(eb_table), Blocks.crafting_table);
+		MPUtil.addShapelessRecipe(new ItemStack(Blocks.crafting_table), eb_table);
 
-		MPUtil.addSmeltingRecipe(new ItemStack(trinquantium_ore), new ItemStack(trinquantium_ingot), 4.0F);
-		MPUtil.addSmeltingRecipe(new ItemStack(silver_ore), new ItemStack(silver_ingot), 2.0F);
-		MPUtil.addSmeltingRecipe(new ItemStack(copper_and_tin_lump), new ItemStack(bronze_ingot), 3.0F);
-		MPUtil.addSmeltingRecipe(new ItemStack(weak_cement_wall), new ItemStack(cement_wall), 3.0F);
-		MPUtil.addSmeltingRecipe(new ItemStack(limestone_block), new ItemStack(marble), 3.0F);
+		MPUtil.addSmeltingRecipe(new ItemStack(trinquantium_ore), new ItemStack(trinquantium_ingot), 1.0F);
+		MPUtil.addSmeltingRecipe(new ItemStack(silver_ore), new ItemStack(silver_ingot), 0.5F);
+		MPUtil.addSmeltingRecipe(new ItemStack(copper_and_tin_lump), new ItemStack(bronze_ingot), 0.75F);
+		MPUtil.addSmeltingRecipe(new ItemStack(weak_cement_wall), new ItemStack(cement_wall), 0.75F);
+		MPUtil.addSmeltingRecipe(new ItemStack(limestone_block), new ItemStack(marble), 0.75F);
 
 	}
 
@@ -390,13 +393,13 @@ public class Init
 
 		Vars.addMobs = cfg.getBool("Allow Mobs", true, "Allow Mobs to work in the game. If this is false, all the EB mobs are disabled.");
 
-		Class<?>[] classes = EBClient.removeMobs.keySet().toArray(new Class<?>[0]);
+		Class<?>[] classes = EBCommon.removeMobs.keySet().toArray(new Class<?>[0]);
 		if (Vars.addMobs)
 		{
 			for (Class<?> classe : classes)
 			{
 				Mob m = classe.getAnnotation(Mob.class);
-				EBClient.removeMobs.put(classe, cfg.allowMob(m.getName(), m.getVanillaName()));
+				EBCommon.removeMobs.put(classe, cfg.allowMob(m.getName(), m.getVanillaName()));
 			}
 		}
 

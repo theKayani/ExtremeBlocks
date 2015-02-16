@@ -3,7 +3,7 @@ package main.extremeblocks.items;
 import java.util.ArrayList;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.Init;
-import main.extremeblocks.misc.SortingSystem;
+import main.extremeblocks.util.SortingSystem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;

@@ -2,9 +2,9 @@ package main.extremeblocks.tileentities;
 
 import main.extremeblocks.blocks.BlockCooker;
 import main.extremeblocks.items.ItemFurnaceUpgrade;
-import main.extremeblocks.misc.IConnector;
-import main.extremeblocks.misc.Power.IPowerReceiver;
-import main.extremeblocks.misc.PowerHelper;
+import main.extremeblocks.util.IConnector;
+import main.extremeblocks.util.PowerHelper;
+import main.extremeblocks.util.Power.IPowerReceiver;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;

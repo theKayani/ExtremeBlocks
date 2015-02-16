@@ -1,25 +1,23 @@
 package main.extremeblocks.client.containers;
 
-import main.extremeblocks.tileentities.TileEntityCharger;
-import main.extremeblocks.util.IBattery;
+import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerCharger extends Container
+public class ContainerEnchantmentExtractor extends Container
 {
-	public final TileEntityCharger tile;
+	private final TileEntityEnchantmentExtractor tile;
 
-	public ContainerCharger(InventoryPlayer inv, TileEntityCharger tile)
+	public ContainerEnchantmentExtractor(InventoryPlayer inv, TileEntityEnchantmentExtractor tile)
 	{
 		this.tile = tile;
-
-		for (int i = 0; i < 3; ++i)
-		{
-			addSlotToContainer(new Slot(tile, i, 62 + i * 18, 36));
-		}
+		addSlotToContainer(new Slot(tile, 0, 31, 36));
+		addSlotToContainer(new Slot(tile, 1, 81, 16));
+		addSlotToContainer(new Slot(tile, 2, 129, 36));
 
 		for (int i = 0; i < 3; ++i)
 		{
@@ -50,33 +48,36 @@ public class ContainerCharger extends Container
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (par2 < 4)
+			if (par2 >= 3)
 			{
-				if (!this.mergeItemStack(itemstack1, 4, 39, true))
+				if (itemstack1.getItem() == Items.book)
 				{
-					return null;
+					if (!mergeItemStack(itemstack1, 2, 3, false)) return null;
+				}
+				else if (itemstack1.isItemEnchanted())
+				{
+					if (!mergeItemStack(itemstack1, 0, 1, false)) return null;
+				}
+				else if (par2 >= 30)
+				{
+					if (!mergeItemStack(itemstack1, 3, 30, false)) return null;
+				}
+				else if (par2 < 30)
+				{
+					if (!mergeItemStack(itemstack1, 30, 39, true)) return null;
 				}
 			}
-			else if (itemstack.getItem() instanceof IBattery)
-			{
-				if (!this.mergeItemStack(itemstack1, 0, 4, false))
-				{
-					return null;
-				}
-			}
+			else if (!mergeItemStack(itemstack1, 3, inventorySlots.size(), true)) return null;
 
 			if (itemstack1.stackSize == 0)
 			{
-				slot.putStack((ItemStack) null);
+				slot.putStack(null);
 			}
 			else
 			{
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize == itemstack.stackSize)
-			{
-				return null;
-			}
+			if (itemstack1.stackSize == itemstack.stackSize) return null;
 			slot.onPickupFromSlot(player, itemstack1);
 		}
 		return itemstack;

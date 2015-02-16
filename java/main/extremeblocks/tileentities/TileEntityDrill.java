@@ -7,7 +7,7 @@ import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.StackHelper;
 import main.extremeblocks.Init;
 import main.extremeblocks.blocks.BlockDrill;
-import main.extremeblocks.misc.IPlayerMessage;
+import main.extremeblocks.util.IPlayerMessage;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

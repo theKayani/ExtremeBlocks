@@ -1,4 +1,4 @@
-package main.extremeblocks.misc;
+package main.extremeblocks.util;
 
 import java.util.ArrayList;
 import main.com.hk.eb.util.JavaHelp;

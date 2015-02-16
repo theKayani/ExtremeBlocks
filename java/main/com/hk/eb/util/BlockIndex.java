@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -30,12 +31,7 @@ public class BlockIndex
 
 	public BlockIndex(World world, Vector3I vec)
 	{
-		this.world = world;
-		this.vec = vec;
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
-		set();
+		this(world, vec.x, vec.y, vec.z);
 	}
 
 	private void set()
@@ -70,6 +66,11 @@ public class BlockIndex
 		return getDrops(0);
 	}
 
+	public TileEntity getTileEntity()
+	{
+		return world.getTileEntity(x, y, z);
+	}
+
 	public float getBreakSpeed(ItemStack stack)
 	{
 		float f = stack == null ? 1.0F : stack.getItem().getDigSpeed(stack, block, metadata);
@@ -101,23 +102,6 @@ public class BlockIndex
 	public boolean isAirBlock()
 	{
 		return block == Blocks.air;
-	}
-
-	public static BlockIndex setToAir(BlockIndex in)
-	{
-		in.world.setBlockToAir(in.x, in.y, in.z);
-		return null;
-	}
-
-	public static BlockIndex setTo(BlockIndex in, Block block)
-	{
-		return setTo(in, block, 0);
-	}
-
-	public static BlockIndex setTo(BlockIndex in, Block block, int metadata)
-	{
-		in.world.setBlock(in.x, in.y, in.z, block, metadata, 0);
-		return new BlockIndex(in.world, in.x, in.y, in.z);
 	}
 
 	@Override
