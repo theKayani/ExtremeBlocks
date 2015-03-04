@@ -1,6 +1,5 @@
 package main.extremeblocks.util;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class Explode extends Explosion
 	public float explosionZ;
 	public Entity exploder;
 	public float explosionSize;
-	public ArrayList<ChunkPosition> affectedBlockPositions = JavaHelp.newArrayList();
+	public List<ChunkPosition> affectedBlockPositions = JavaHelp.newArrayList();
 	private Map<EntityPlayer, Vector3F> affectedPlayers = JavaHelp.newHashMap();
 
 	public Explode(Entity entity, float strength)

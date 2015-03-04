@@ -7,17 +7,15 @@ import main.extremeblocks.Init;
 import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
 import main.extremeblocks.tileentities.TileEntityInventory;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockEnchantmentExtractor extends BlockCustom implements ITileEntityProvider, GuiIDs
+public class BlockEnchantmentExtractor extends BlockCustom implements GuiIDs
 {
 	public BlockEnchantmentExtractor()
 	{
@@ -27,6 +25,7 @@ public class BlockEnchantmentExtractor extends BlockCustom implements ITileEntit
 		setHardness(3.0F);
 		setBlockTextureName(Init.MODID + ":enchantment_extractor_side");
 		setCreativeTab(Init.tab_mainBlocks);
+		teClass = TileEntityEnchantmentExtractor.class;
 	}
 
 	@Override
@@ -45,12 +44,6 @@ public class BlockEnchantmentExtractor extends BlockCustom implements ITileEntit
 	{
 		TileEntityInventory.dropItems(world, x, y, z);
 		super.breakBlock(world, x, y, z, block, meta);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int eye)
-	{
-		return new TileEntityEnchantmentExtractor();
 	}
 
 	@Override

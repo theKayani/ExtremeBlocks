@@ -1,6 +1,6 @@
 package main.extremeblocks.items;
 
-import java.util.ArrayList;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.Init;
 import main.extremeblocks.util.SortingSystem;
@@ -32,14 +32,14 @@ public class ItemSorter extends Item
 		if (te instanceof IInventory)
 		{
 			IInventory tile = (IInventory) te;
-			ArrayList<ItemStack> inv = JavaHelp.newArrayList();
+			List<ItemStack> inv = JavaHelp.newArrayList();
 			addToList(tile, inv);
 			sorter.handleInv(tile, inv.toArray(new ItemStack[0]));
 		}
 		return true;
 	}
 
-	public boolean addToList(IInventory inv, ArrayList<ItemStack> list)
+	public boolean addToList(IInventory inv, List<ItemStack> list)
 	{
 		if (inv != null)
 		{

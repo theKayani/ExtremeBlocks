@@ -4,7 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.HashMap;
+import java.util.Map;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.worldgen.Generation;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +19,7 @@ public class Vars
 	public static String counterMessage;
 
 	public static boolean alterWorld;
-	public static HashMap<Class<? extends Generation>, Boolean> gens = JavaHelp.newHashMap();
+	public static Map<Class<? extends Generation>, Boolean> gens = JavaHelp.newHashMap();
 
 	public static boolean addMobs;
 

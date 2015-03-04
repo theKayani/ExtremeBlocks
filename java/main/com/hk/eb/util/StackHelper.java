@@ -7,11 +7,15 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class StackHelper
@@ -70,6 +74,8 @@ public class StackHelper
 
 	public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
 	{
+		if (stack1 == stack2) return true;
+		if (stack1 == null || !stack1.isStackable() || !stack2.isStackable()) return false;
 		return ItemStack.areItemStacksEqual(stack1, stack2);
 	}
 
@@ -326,5 +332,185 @@ public class StackHelper
 			if (tile.getStackInSlot(i) != null && tile.getStackInSlot(i).getItem() == item) return i;
 		}
 		return -1;
+	}
+
+	/*
+	 * TESTING STUFF!
+	 */
+
+	public static int doInsertItemInv(IInventory inv, ItemStack item, ForgeDirection inventorySide)
+	{
+		ISidedInventory sidedInv = inv instanceof ISidedInventory ? (ISidedInventory) inv : null;
+		ISlotIterator slots;
+
+		if (sidedInv != null)
+		{
+			if (inventorySide == null)
+			{
+				inventorySide = ForgeDirection.UNKNOWN;
+			}
+			slots = new SidedSlotter(sidedInv.getAccessibleSlotsFromSide(inventorySide.ordinal()));
+		}
+		else
+		{
+			slots = new InvSlotter(inv.getSizeInventory());
+		}
+
+		int numInserted = 0;
+		int numToInsert = item.stackSize;
+
+		// PASS1: Try to add to an existing stack
+		while (numToInsert > 0 && slots.hasNext())
+		{
+			int slot = slots.nextSlot();
+			if (sidedInv == null || sidedInv.canInsertItem(slot, item, inventorySide.ordinal()))
+			{
+				ItemStack contents = inv.getStackInSlot(slot);
+				if (contents != null && StackHelper.canStacksMerge(contents, item))
+				{
+					int freeSpace = Math.min(inv.getInventoryStackLimit(), contents.getMaxStackSize()) - contents.stackSize; // some inventories like using itemstacks with invalid stack sizes
+					if (freeSpace > 0)
+					{
+						int noToInsert = Math.min(numToInsert, freeSpace);
+						ItemStack toInsert = item.copy();
+						toInsert.stackSize = contents.stackSize + noToInsert;
+						// isItemValidForSlot() may check the stacksize, so give it the number the stack would have in the end.
+						// If it does something funny, like "only even numbers", we are screwed.
+						if (sidedInv != null || inv.isItemValidForSlot(slot, toInsert))
+						{
+							numInserted += noToInsert;
+							numToInsert -= noToInsert;
+							inv.setInventorySlotContents(slot, toInsert);
+						}
+					}
+				}
+			}
+		}
+
+		slots.reset();
+		// PASS2: Try to insert into an empty slot
+		while (numToInsert > 0 && slots.hasNext())
+		{
+			int slot = slots.nextSlot();
+			if (sidedInv == null || sidedInv.canInsertItem(slot, item, inventorySide.ordinal()))
+			{
+				ItemStack contents = inv.getStackInSlot(slot);
+				if (contents == null)
+				{
+					ItemStack toInsert = item.copy();
+					toInsert.stackSize = MathHelp.min(numToInsert, inv.getInventoryStackLimit(), toInsert.getMaxStackSize()); // some inventories like using itemstacks with invalid stack sizes
+					if (sidedInv != null || inv.isItemValidForSlot(slot, toInsert))
+					{
+						numInserted += toInsert.stackSize;
+						numToInsert -= toInsert.stackSize;
+						inv.setInventorySlotContents(slot, toInsert);
+					}
+				}
+			}
+		}
+
+		if (numInserted > 0)
+		{
+			inv.markDirty();
+		}
+		return numInserted;
+
+	}
+
+	public static IInventory getInventory(IInventory inv)
+	{
+		if (inv instanceof TileEntityChest)
+		{
+			TileEntityChest chest = (TileEntityChest) inv;
+			TileEntityChest neighbour = null;
+			if (chest.adjacentChestXNeg != null)
+			{
+				neighbour = chest.adjacentChestXNeg;
+			}
+			else if (chest.adjacentChestXPos != null)
+			{
+				neighbour = chest.adjacentChestXPos;
+			}
+			else if (chest.adjacentChestZNeg != null)
+			{
+				neighbour = chest.adjacentChestZNeg;
+			}
+			else if (chest.adjacentChestZPos != null)
+			{
+				neighbour = chest.adjacentChestZPos;
+			}
+			if (neighbour != null) return new InventoryLargeChest("container.chestDouble", inv, neighbour);
+			return inv;
+		}
+		return inv;
+	}
+
+	private static class InvSlotter implements ISlotIterator
+	{
+		final private int size;
+		private int current;
+
+		InvSlotter(int size)
+		{
+			this.size = size;
+			current = 0;
+		}
+
+		@Override
+		public int nextSlot()
+		{
+			return current++;
+		}
+
+		@Override
+		public void reset()
+		{
+			current = 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return current < size;
+		}
+	}
+
+	private static class SidedSlotter implements ISlotIterator
+	{
+		final private int[] slots;
+		private int current;
+
+		SidedSlotter(int[] slots)
+		{
+			this.slots = slots;
+			current = 0;
+		}
+
+		@Override
+		public int nextSlot()
+		{
+			return slots[current++];
+		}
+
+		@Override
+		public void reset()
+		{
+			current = 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return slots != null && current < slots.length;
+		}
+	}
+
+	private interface ISlotIterator
+	{
+		int nextSlot();
+
+		boolean hasNext();
+
+		void reset();
 	}
 }

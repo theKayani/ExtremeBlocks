@@ -2,7 +2,7 @@ package main.extremeblocks.blocks.abstracts;
 
 import java.util.Random;
 import main.com.hk.eb.util.Builder;
-import main.com.hk.eb.util.Info;
+import main.com.hk.eb.util.IInfo;
 import main.extremeblocks.Init;
 import main.extremeblocks.worldgen.GenManager.Gen;
 import main.extremeblocks.worldgen.Generation;
@@ -12,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class BlockBuild extends Block implements Info
+public class BlockBuild extends Block implements IInfo
 {
 	private final Class<? extends Generation> clazz;
 	private final String name;

@@ -3,39 +3,28 @@ package main.com.hk.eb.util;
 import java.util.Random;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
-import main.extremeblocks.Vars;
-import main.extremeblocks.util.IPlayerMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockCustom extends Block implements Info
+public class BlockCustom extends Block implements IInfo, IInitialization
 {
-	@SideOnly(Side.CLIENT)
-	protected IIcon one;
-	@SideOnly(Side.CLIENT)
-	protected IIcon two;
-	@SideOnly(Side.CLIENT)
-	protected IIcon three;
-	@SideOnly(Side.CLIENT)
-	protected IIcon four;
-	@SideOnly(Side.CLIENT)
-	protected IIcon five;
-	@SideOnly(Side.CLIENT)
-	protected IIcon six;
 	private boolean normal = true, different;
 	private Item itemToDrop;
 	private int amountDropped;
 	private String info;
 	private boolean showRecipe;
 	private final String name;
+	protected Class<? extends TileEntity> teClass;
 
 	public BlockCustom(Material mat, String name)
 	{
@@ -46,10 +35,6 @@ public class BlockCustom extends Block implements Info
 		setDrop(this);
 		setDroppedAmount(1);
 		setHardness(1.0F);
-		if (this instanceof INamed)
-		{
-			Vars.logger.error("ERROR, INamed is Deprecated!");
-		}
 		if (mat == Material.iron)
 		{
 			setStepSound(soundTypeMetal);
@@ -92,19 +77,6 @@ public class BlockCustom extends Block implements Info
 		}
 		ExtremeBlocks.blocks.add(this);
 		different = false;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister ir)
-	{
-		super.registerBlockIcons(ir);
-		one = ir.registerIcon(Init.MODID + ":one");
-		two = ir.registerIcon(Init.MODID + ":two");
-		three = ir.registerIcon(Init.MODID + ":three");
-		four = ir.registerIcon(Init.MODID + ":four");
-		five = ir.registerIcon(Init.MODID + ":five");
-		six = ir.registerIcon(Init.MODID + ":six");
 	}
 
 	public BlockCustom setBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
@@ -155,16 +127,93 @@ public class BlockCustom extends Block implements Info
 		return this;
 	}
 
+	public Class<? extends TileEntity> getTileClass()
+	{
+		return teClass;
+	}
+
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		TileEntity te = world.getTileEntity(x, y, z);
-		boolean clicked = false;
-		if (te != null && te instanceof IPlayerMessage)
+		if (te instanceof TileEntityEB)
 		{
-			clicked = ((IPlayerMessage) te).onClickedOn(player);
+			((TileEntityEB) te).onBlockAdded();
 		}
-		return clicked;
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB)
+		{
+			((TileEntityEB) te).onEntityCollidedWithBlock(entity);
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB)
+		{
+			((TileEntityEB) te).breakBlock(block, meta);
+		}
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB) return ((TileEntityEB) te).getLightValue();
+		return super.getLightValue(world, x, y, z);
+	}
+
+	@Override
+	public int getLightOpacity(IBlockAccess world, int x, int y, int z)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB) return ((TileEntityEB) te).getLightOpacity();
+		return super.getLightOpacity(world, x, y, z);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB)
+		{
+			((TileEntityEB) te).onBlockPlacedBy(entity, stack);
+		}
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB)
+		{
+			((TileEntityEB) te).onNeighborBlockChange(block);
+		}
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float sideX, float sideY, float sideZ)
+	{
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityEB)
+		{
+			ItemStack stack = player.getHeldItem();
+			if (stack != null && stack.getItem() == Init.wrench && ((TileEntityEB) te).canWrench())
+			{
+				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+				world.setBlockToAir(x, y, z);
+			}
+			return ((TileEntityEB) te).onBlockActivated(player, ForgeDirection.getOrientation(side), new Vector3F(sideX, sideY, sideZ));
+		}
+		return false;
 	}
 
 	@Override
@@ -205,5 +254,21 @@ public class BlockCustom extends Block implements Info
 	public Elements getElements()
 	{
 		return new Elements(info != null && !info.isEmpty(), showRecipe);
+	}
+
+	@Override
+	public void init()
+	{
+		GameRegistry.registerBlock(this, getClass().getSimpleName() + "|" + getLocalizedName());
+		if (teClass != null)
+		{
+			GameRegistry.registerTileEntity(teClass, teClass.getName());
+		}
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 }

@@ -11,6 +11,12 @@ public class TileEntityTrash extends TileEntityInventory
 	}
 
 	@Override
+	public boolean update()
+	{
+		return false;
+	}
+
+	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
 	{
 		return true;

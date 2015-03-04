@@ -116,7 +116,7 @@ public class EBEventHandler
 		boolean spawn = false;
 		if (event.action == Action.RIGHT_CLICK_BLOCK)
 		{
-			System.out.println("Coords: " + event.x + ", " + event.y + ", " + event.z);
+			//System.out.println("Coords: " + event.x + ", " + event.y + ", " + event.z);
 			if (event.entityPlayer.getHeldItem() != null && Block.getBlockFromItem(event.entityPlayer.getHeldItem().getItem()) == Blocks.pumpkin)
 			{
 				boolean atY = event.world.getBlock(event.x, event.y, event.z) == Init.trinquantium_block && event.world.getBlock(event.x, event.y - 1, event.z) == Init.trinquantium_block;

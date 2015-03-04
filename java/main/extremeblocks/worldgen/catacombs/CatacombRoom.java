@@ -1,7 +1,7 @@
 package main.extremeblocks.worldgen.catacombs;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.Builder.ChestType;
 import main.com.hk.eb.util.JavaHelp;
@@ -488,7 +488,7 @@ public class CatacombRoom
 
 	public static String randomRoom()
 	{
-		ArrayList<Rooms> rooms = JavaHelp.newArrayList();
+		List<Rooms> rooms = JavaHelp.newArrayList();
 		for (Rooms room : Rooms.values())
 		{
 			for (int j = 0; j < room.ordinal() + 1; j++)

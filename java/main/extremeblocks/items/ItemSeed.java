@@ -1,6 +1,6 @@
 package main.extremeblocks.items;
 
-import main.com.hk.eb.util.Info;
+import main.com.hk.eb.util.IInfo;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ItemSeed extends ItemSeeds implements Info
+public class ItemSeed extends ItemSeeds implements IInfo
 {
 	public final int crop;
 	public final String name;

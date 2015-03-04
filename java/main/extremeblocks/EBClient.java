@@ -11,7 +11,7 @@ import main.extremeblocks.entities.mobs.EntityCastleZombie;
 import main.extremeblocks.entities.mobs.EntityDemon;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
-import main.extremeblocks.renderers.ItemRendererPipe;
+import main.extremeblocks.renderers.ItemRendererWire;
 import main.extremeblocks.renderers.ItemRendererTile;
 import main.extremeblocks.renderers.RenderBloodwing;
 import main.extremeblocks.renderers.RenderCastleSkeleton;
@@ -43,7 +43,7 @@ public class EBClient extends EBCommon
 		ClientRegistry.registerTileEntity(TileEntityTrophy.class, "Trophy", new TileEntityTrophyRenderer(null));
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.plate), new ItemRendererTile());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.wire), new ItemRendererPipe());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.wire), new ItemRendererWire());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.gold_trophy), new TileEntityTrophyRenderer(TrophyType.GOLD));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.iron_trophy), new TileEntityTrophyRenderer(TrophyType.IRON));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Init.diamond_trophy), new TileEntityTrophyRenderer(TrophyType.DIAMOND));

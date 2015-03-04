@@ -1,9 +1,9 @@
 package main.extremeblocks;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import main.com.hk.eb.util.Info;
+import java.util.List;
+import main.com.hk.eb.util.IInfo;
 import main.com.hk.eb.util.JavaHelp;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -17,7 +17,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Guide
 {
-	public final static ArrayList<Info> infos;
+	public final static List<IInfo> infos;
 	public final static int size;
 
 	public static void writeBook(String title, String author, String[] lines, Object... recipe)
@@ -58,7 +58,7 @@ public class Guide
 	private static int setup()
 	{
 		int s = 0;
-		ArrayList<Object> objs = JavaHelp.newArrayList();
+		List<Object> objs = JavaHelp.newArrayList();
 		objs.addAll(ExtremeBlocks.items);
 		objs.addAll(ExtremeBlocks.blocks);
 		Collections.sort(objs, new Comparator<Object>()
@@ -76,9 +76,9 @@ public class Guide
 		for (int i = 0; i < objs.size(); i++)
 		{
 			Object obj = objs.get(i);
-			if (obj instanceof Info && ((Info) obj).getElements().isUnique)
+			if (obj instanceof IInfo && ((IInfo) obj).getElements().isUnique)
 			{
-				infos.add((Info) obj);
+				infos.add((IInfo) obj);
 				s++;
 			}
 		}

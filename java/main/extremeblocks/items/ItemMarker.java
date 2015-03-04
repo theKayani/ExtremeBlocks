@@ -3,7 +3,6 @@ package main.extremeblocks.items;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import main.com.hk.eb.util.FileHelper;
@@ -65,7 +64,7 @@ public class ItemMarker extends ItemCustom
 	public void writeTo(World world, Vector3I pre, Vector3I pos)
 	{
 		if (MPUtil.isClientSide()) return;
-		ArrayList<String> list = JavaHelp.newArrayList();
+		List<String> list = JavaHelp.newArrayList();
 		int a = Math.min(pre.x, pos.x);
 		int b = Math.min(pre.y, pos.y);
 		int c = Math.min(pre.z, pos.z);

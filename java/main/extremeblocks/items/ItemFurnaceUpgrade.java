@@ -8,7 +8,7 @@ public class ItemFurnaceUpgrade extends ItemCustom
 	public ItemFurnaceUpgrade(FurnaceUpgrade upgrade, int stage)
 	{
 		super(upgrade.name, Init.tab_mainItems);
-		maxStackSize = 1;
+		maxStackSize = 16;
 		setInfo("Very expensive alternative to saving space and speeding up your Cookers!");
 		setShowRecipe();
 	}

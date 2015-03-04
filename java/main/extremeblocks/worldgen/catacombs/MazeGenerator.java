@@ -1,8 +1,8 @@
 package main.extremeblocks.worldgen.catacombs;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 
@@ -10,7 +10,7 @@ public class MazeGenerator
 {
 	private final int x;
 	private final int y;
-	private final ArrayList<String> map;
+	private final List<String> map;
 	private final StringMap strMap;
 	private final int[][] maze;
 	private final Random rand;

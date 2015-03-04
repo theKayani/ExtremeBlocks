@@ -1,7 +1,7 @@
 package main.com.hk.eb.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import main.extremeblocks.ExtremeBlocks;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCustom extends Item implements Info
+public class ItemCustom extends Item implements IInfo
 {
 	private String info;
 	private boolean showRecipe;
@@ -105,6 +105,6 @@ public class ItemCustom extends Item implements Info
 		return new Elements(info != null && !info.isEmpty(), showRecipe);
 	}
 
-	private static HashMap<String, IIcon> icons = JavaHelp.newHashMap();
-	private static ArrayList<String> iconPaths = JavaHelp.newArrayList();
+	private static Map<String, IIcon> icons = JavaHelp.newHashMap();
+	private static List<String> iconPaths = JavaHelp.newArrayList();
 }

@@ -1,6 +1,7 @@
 package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.entities.mobs.EntityDemon;
 import net.minecraft.block.Block;
@@ -41,7 +42,10 @@ public class BlockAltar extends BlockCustom
 			world.createExplosion(null, x, y - 2, z, 2.0F, false);
 			EntityDemon demon = new EntityDemon(world);
 			demon.setPosition(x + 0.5D, y, z + 0.5D);
-			world.spawnEntityInWorld(demon);
+			if (MPUtil.isServerSide())
+			{
+				world.spawnEntityInWorld(demon);
+			}
 		}
 	}
 

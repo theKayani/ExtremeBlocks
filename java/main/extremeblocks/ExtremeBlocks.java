@@ -1,9 +1,11 @@
 package main.extremeblocks;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import main.com.hk.eb.util.Info;
+import main.com.hk.eb.util.BlockCustom;
+import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.blocks.abstracts.BlockFakeFloor;
@@ -18,15 +20,8 @@ import main.extremeblocks.entities.mobs.EntityDemon;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.network.PacketHandlerEB;
-import main.extremeblocks.tileentities.TileEntityCharger;
-import main.extremeblocks.tileentities.TileEntityCooker;
-import main.extremeblocks.tileentities.TileEntityDrill;
 import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
-import main.extremeblocks.tileentities.TileEntityFuse;
-import main.extremeblocks.tileentities.TileEntityGenerator;
-import main.extremeblocks.tileentities.TileEntityProtector;
 import main.extremeblocks.tileentities.TileEntityRevertingStation;
-import main.extremeblocks.tileentities.TileEntityStorage;
 import main.extremeblocks.tileentities.TileEntityTrash;
 import main.extremeblocks.tools.ColorToolSet;
 import main.extremeblocks.util.SpawnDetail;
@@ -54,6 +49,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -69,8 +65,8 @@ public class ExtremeBlocks
 	@Instance(Init.MODID)
 	public static ExtremeBlocks instance;
 	public static Configuration configFile;
-	public static ArrayList<Block> blocks = JavaHelp.newArrayList();
-	public static ArrayList<Item> items = JavaHelp.newArrayList();
+	public static List<Block> blocks = JavaHelp.newArrayList();
+	public static List<Item> items = JavaHelp.newArrayList();
 	public static final PacketHandlerEB packetPipeline = new PacketHandlerEB();
 	public static final UUID ebUUID = new UUID(5881171344827434468L, 6415942623990768627L);
 
@@ -113,21 +109,34 @@ public class ExtremeBlocks
 		Init.addReplacements();
 		for (Block block : blocks)
 		{
-			if (!(block instanceof Info))
+			if (!(block instanceof IInfo))
 			{
 				System.err.println(block.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
 			}
-			RegistryHelper.register(block);
+			if (block instanceof IInitialization)
+			{
+				//BlockCustom
+				((IInitialization) block).init();
+			}
+			else if (block instanceof BlockCustom)
+			{
+				RegistryHelper.register(block);
+				if (((BlockCustom) block).getTileClass() != null)
+				{
+					GameRegistry.registerTileEntity(((BlockCustom) block).getTileClass(), ((BlockCustom) block).getTileClass().getName());
+				}
+			}
 		}
 		for (Item item : items)
 		{
-			if (!(item instanceof Info))
+			if (!(item instanceof IInfo))
 			{
 				System.err.println(item.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
 			}
 			RegistryHelper.register(item);
 		}
 		Init.addRecipes();
+		FMLInterModComms.sendMessage("Waila", "register", "main.extremeblocks.WailaIntegration.addWailaStuff");
 		EBCommon.registerThrowable(EntityGrenade.class, "Grenade");
 		EBCommon.registerThrowable(EntityMolotov.class, "Molotov");
 		EBCommon.registerThrowable(EntitySpear.class, "Spear");
@@ -139,13 +148,9 @@ public class ExtremeBlocks
 		EBCommon.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster, SpawnDetail.getForBiomes(10, 1, 1, BiomeGenBase.hell, BiomeGenBase.sky));
 		// EBClient <-- command right click it
 
-		GameRegistry.registerTileEntity(TileEntityFuse.class, ebUUID + "Fuse");
-		GameRegistry.registerTileEntity(TileEntityStorage.class, ebUUID + "Storage");
-		GameRegistry.registerTileEntity(TileEntityCharger.class, ebUUID + "Charger");
-		GameRegistry.registerTileEntity(TileEntityCooker.class, ebUUID + "Cooker");
-		GameRegistry.registerTileEntity(TileEntityGenerator.class, ebUUID + "Generator");
-		GameRegistry.registerTileEntity(TileEntityProtector.class, ebUUID + "Protector");
-		GameRegistry.registerTileEntity(TileEntityDrill.class, ebUUID + "Drill");
+		//GameRegistry.registerTileEntity(TileEntityFuse.class, ebUUID + "Fuse");
+		//GameRegistry.registerTileEntity(TileEntityStorage.class, ebUUID + "Storage");
+		//GameRegistry.registerTileEntity(TileEntityDrill.class, ebUUID + "Drill");
 		GameRegistry.registerTileEntity(TileEntityRevertingStation.class, ebUUID + "Reverting Station");
 		GameRegistry.registerTileEntity(TileEntityTrash.class, ebUUID + "Trash Can");
 		GameRegistry.registerTileEntity(TileEntityEnchantmentExtractor.class, ebUUID + "Enchantment Extractor");
@@ -159,7 +164,7 @@ public class ExtremeBlocks
 	{
 		packetPipeline.postInitialise();
 
-		ArrayList<Block> allBlocks = JavaHelp.newArrayList();
+		List<Block> allBlocks = JavaHelp.newArrayList();
 		for (int i = 0; i < Item.itemRegistry.getKeys().size(); i++)
 		{
 			Block block = Block.getBlockById(i);
@@ -191,7 +196,14 @@ public class ExtremeBlocks
 				}
 			}
 		}
-		new Guide().toString();
+		for (Block block : blocks)
+		{
+			if (block instanceof IInitialization)
+			{
+				((IInitialization) block).postInit();
+			}
+		}
+		new Guide();
 	}
 
 	private void addVillagerTrade()

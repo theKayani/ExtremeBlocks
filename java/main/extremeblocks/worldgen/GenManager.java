@@ -4,7 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -22,7 +21,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public class GenManager implements IWorldGenerator
 {
-	private static final ArrayList<Class<? extends Generation>> gens = JavaHelp.newArrayList();
+	private static final List<Class<? extends Generation>> gens = JavaHelp.newArrayList();
 	private World world;
 	private Random random;
 	private int chunkX;

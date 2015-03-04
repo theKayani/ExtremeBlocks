@@ -1,6 +1,6 @@
 package main.extremeblocks.util;
 
-import java.util.ArrayList;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -21,7 +21,7 @@ public class SpawnDetail
 
 	public static SpawnDetail[] getForBiomes(int chanceToSpawn, int minAmountToSpawn, int maxAmountToSpawn, BiomeGenBase... biomes)
 	{
-		ArrayList<SpawnDetail> spawns = JavaHelp.newArrayList();
+		List<SpawnDetail> spawns = JavaHelp.newArrayList();
 
 		for (BiomeGenBase biome : biomes)
 		{

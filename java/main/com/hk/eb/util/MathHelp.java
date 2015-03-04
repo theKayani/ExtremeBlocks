@@ -4,21 +4,27 @@ public class MathHelp
 {
 	public static int clamp(int number, int min, int max)
 	{
-		if (number > max) return max;
-		if (number < min) return min;
-		else return number;
+		return number < min ? min : number > max ? max : number;
 	}
 
 	public static int max(int number, int max)
 	{
-		if (number > max) return max;
-		else return number;
+		return number > max ? number : max;
 	}
 
 	public static int min(int number, int min)
 	{
-		if (number < min) return min;
-		else return number;
+		return number < min ? number : min;
+	}
+
+	public static int min(int a, int b, int c)
+	{
+		return min(c, min(a, b));
+	}
+
+	public static int max(int a, int b, int c)
+	{
+		return max(c, max(a, b));
 	}
 
 	public static boolean isOdd(int number)

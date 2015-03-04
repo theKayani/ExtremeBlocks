@@ -6,31 +6,30 @@ import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.Init;
 import main.extremeblocks.tileentities.TileEntityFuse;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
+public class BlockFuseBlock extends BlockCustom
 {
 	public BlockFuseBlock()
 	{
 		super(Material.circuits, "Fuse Block");
 		setBlockTextureName(Init.MODID + ":fuse");
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15F, 1.0F);
+		teClass = TileEntityFuse.class;
 	}
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
-		return world.getBlock(x, y - 1, z).getMaterial().isOpaque();
+		return world.getBlock(x, y - 1, z).isOpaqueCube();
 	}
 
 	@Override
@@ -91,11 +90,5 @@ public class BlockFuseBlock extends BlockCustom implements ITileEntityProvider
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
 		return null;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
-		return new TileEntityFuse();
 	}
 }

@@ -1,7 +1,7 @@
 package main.extremeblocks.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,13 +34,13 @@ public class PacketAddToPlayer extends AbstractPacket
 	@Override
 	public void decodeInto(ByteBuf buffer)
 	{
-		ArrayList<ItemStack> staks = JavaHelp.newArrayList();
+		List<ItemStack> stackz = JavaHelp.newArrayList();
 		int size = buffer.readInt();
 		for (int i = 0; i < size; i++)
 		{
-			staks.add(ByteBufUtils.readItemStack(buffer));
+			stackz.add(ByteBufUtils.readItemStack(buffer));
 		}
-		stacks = staks.toArray(new ItemStack[0]);
+		stacks = stackz.toArray(new ItemStack[0]);
 	}
 
 	@Override

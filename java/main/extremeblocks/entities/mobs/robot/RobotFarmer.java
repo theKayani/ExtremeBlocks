@@ -1,6 +1,6 @@
 package main.extremeblocks.entities.mobs.robot;
 
-import java.util.HashMap;
+import java.util.Map;
 import main.com.hk.eb.util.BlockIndex;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 
 public class RobotFarmer extends RobotTask
 {
-	private static final HashMap<Block, Item> cropAndSeeds;
+	private static final Map<Block, Item> cropAndSeeds;
 
 	public RobotFarmer(EntityRobot robot)
 	{

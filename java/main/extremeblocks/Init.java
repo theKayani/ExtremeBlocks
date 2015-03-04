@@ -8,21 +8,17 @@ import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.Vars.Mob;
 import main.extremeblocks.blocks.BlockAltar;
 import main.extremeblocks.blocks.BlockCement;
-import main.extremeblocks.blocks.BlockCharger;
-import main.extremeblocks.blocks.BlockCooker;
 import main.extremeblocks.blocks.BlockCrop;
 import main.extremeblocks.blocks.BlockDriedSapling;
 import main.extremeblocks.blocks.BlockDrill;
 import main.extremeblocks.blocks.BlockEBTable;
 import main.extremeblocks.blocks.BlockEnchantmentExtractor;
 import main.extremeblocks.blocks.BlockFuseBlock;
-import main.extremeblocks.blocks.BlockGenerator;
 import main.extremeblocks.blocks.BlockHemp;
 import main.extremeblocks.blocks.BlockHydrant;
 import main.extremeblocks.blocks.BlockLantern;
 import main.extremeblocks.blocks.BlockPlate;
 import main.extremeblocks.blocks.BlockPowderKeg;
-import main.extremeblocks.blocks.BlockProtector;
 import main.extremeblocks.blocks.BlockRecipeRevert;
 import main.extremeblocks.blocks.BlockTrash;
 import main.extremeblocks.blocks.BlockTrophy;
@@ -36,6 +32,8 @@ import main.extremeblocks.blocks.abstracts.BlockCompact;
 import main.extremeblocks.blocks.abstracts.BlockEBOre;
 import main.extremeblocks.blocks.abstracts.BlockSided;
 import main.extremeblocks.blocks.abstracts.BlockStorage;
+import main.extremeblocks.blocks.energy.BlockBaseProtector;
+import main.extremeblocks.blocks.energy.BlockFuelGenerator;
 import main.extremeblocks.entities.mobs.robot.RobotType;
 import main.extremeblocks.items.ItemBackpack;
 import main.extremeblocks.items.ItemBattery;
@@ -166,7 +164,7 @@ public class Init
 	public static final Item robot_archer = new ItemRobot(RobotType.ARCHER);
 	public static final Item robot_hunter = new ItemRobot(RobotType.HUNTER);
 	public static final Item robot_miner = new ItemRobot(RobotType.MINER);
-	public static final Item battery = new ItemBattery(2000);
+	public static final Item battery = new ItemBattery(100000, 256, 256);
 	public static final Item furnace_fast_upgrade = new ItemFurnaceUpgrade(FurnaceUpgrade.SPEED, 1).setTextureName(MODID + ":furnace_upgrade");
 	public static final Item tomato_seeds = new ItemSeed("Tomato Seeds", ItemSeed.TOMATO_CROP);
 	public static final Item tomato = new ItemEdible("Tomato", 3).setTextureName(MODID + ":tomato");
@@ -226,14 +224,9 @@ public class Init
 	public static final Block eb_table = new BlockEBTable().setShowRecipe().setInfo("This crafting table replacement can be used just to register all of the Extreme Blocks Mod's recipes. There are some config options that you can play with to maximize enjoyment.");
 	public static final Block cannabis_plant = new BlockHemp().setInfo("Similar to sugar cane, it can be grown and then used for weed.");
 	public static final Block plate = new BlockPlate().setShowRecipe().setInfo("You can right click on this to place the item in the plate. You can use this as a kind of Item Frame.");
-	public static final Block wire = new BlockWire().setShowRecipe().setInfo("This block can transfer EB Joules through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy emmiters to create energy.");
-	public static final Block charger = new BlockCharger().setShowRecipe().setInfo("This block can charge batteries for you. When connected with a wire, it can receive energy an store it in batteries.");
-	public static final Block cooker_off = new BlockCooker(false).setShowRecipe().setInfo("This block is just like a furnace. But a lot better! It can use EB Joules to cook it's items. You can even upgrade it. By placing a Furnace upgrade in it's upgrade slot, you can speed up the cooking process");
-	public static final Block cooker_on = new BlockCooker(true);
-	public static final Block generator = new BlockGenerator().setShowRecipe().setInfo("This generator generates energy on fuels! You can place anything that can be used in a furnace, into the generator's slot and it will create energy and send it to nearby wires.");
+	public static final Block wire = new BlockWire().setShowRecipe().setInfo("This block can transfer Redstone Flux through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy providers to create energy.");
 	public static final Block tomato_crop = new BlockCrop("Tomato Crop", tomato_seeds, tomato);
 	public static final Block cucumber_crop = new BlockCrop("Cucumber Crop", cucumber_seeds, cucumber);
-	public static final Block arrow_security = new BlockProtector().setInfo("This block will take in energy and use it to shoot at mobs in a 10 block radius. It will shoot arrows as long as it has atleast 50 EB Joules.").setShowRecipe();
 	public static final Block recipe_revert = new BlockRecipeRevert().setShowRecipe().setInfo("This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.");
 	public static final Block gold_trophy = new BlockTrophy(TrophyType.GOLD);
 	public static final Block bronze_trophy = new BlockTrophy(TrophyType.BRONZE);
@@ -243,6 +236,10 @@ public class Init
 	public static final Block iron_trophy = new BlockTrophy(TrophyType.IRON);
 	public static final Block altar = new BlockAltar().setShowRecipe().setInfo("When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!");
 	public static final Block enchantment_extractor = new BlockEnchantmentExtractor();
+	public static final Block fuel_generator = new BlockFuelGenerator();
+	public static final Block base_protector = new BlockBaseProtector();
+
+	//public static final Block flux_cooker = new BlockBaseProtector();
 
 	public Init()
 	{
@@ -329,14 +326,10 @@ public class Init
 		MPUtil.addRecipe(plate, "S S", "PPP", 'P', Blocks.planks, 'S', Items.stick);
 		MPUtil.addRecipe(new ItemStack(battery, 1, battery.getMaxDamage()), " T ", "TRT", "CCC", 'T', tin, 'R', Items.redstone, 'C', copper);
 		MPUtil.addRecipe(new ItemStack(wire, 10), "GPG", 'G', Blocks.glass_pane, 'P', pipe);
-		MPUtil.addRecipe(generator, "IGI", "IBI", "ICI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()), 'C', core_chip);
-		MPUtil.addRecipe(charger, "IBI", "IBI", 'I', Items.iron_ingot, 'B', new ItemStack(battery, 1, battery.getMaxDamage()));
 		MPUtil.addRecipe(sorter_component, "S S", " I ", "S S", 'I', Items.iron_ingot, 'S', Items.stick);
 		MPUtil.addRecipe(furnace_fast_upgrade, "III", "GGG", "DDD", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Items.diamond);
-		MPUtil.addRecipe(arrow_security, "IDI", "IGI", "IBI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'D', Blocks.dispenser, 'B', Blocks.iron_block);
 		MPUtil.addRecipe(recipe_revert, "BIB", "ICI", "III", 'I', Items.diamond, 'C', Blocks.crafting_table, 'B', Blocks.diamond_block);
 		MPUtil.addRecipe(molotov, "GFG", 'G', Items.gunpowder, 'F', Items.flint_and_steel);
-		MPUtil.addRecipe(cooker_off, "ICI", "IPI", "BBB", 'I', Items.iron_ingot, 'C', charger, 'P', core_chip, 'B', Blocks.iron_block);
 		MPUtil.addRecipe(altar, "IOI", "IGI", "IMI", 'I', Blocks.sandstone, 'O', glester_rock, 'G', Init.delvlish_crystal, 'M', Init.meteor);
 		MPUtil.addRecipe(nuclear_waste, "III", "IFI", "III", 'I', Items.slime_ball, 'F', spirit_fragment);
 		MPUtil.addRecipe(spear, "  F", " S ", "S  ", 'F', Items.flint, 'S', Items.stick);

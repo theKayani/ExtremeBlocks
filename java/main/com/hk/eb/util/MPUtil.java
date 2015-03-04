@@ -1,6 +1,5 @@
 package main.com.hk.eb.util;
 
-import java.util.ArrayList;
 import main.extremeblocks.EBCommon;
 import main.extremeblocks.Vars;
 import main.extremeblocks.crafting.RecipeManager;
@@ -23,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
@@ -33,6 +31,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MPUtil
 {
@@ -162,42 +161,6 @@ public class MPUtil
 		else throw new IllegalArgumentException(replacer.getClass().getName() + " isn't an EntityLivingBase");
 	}
 
-	public static BlockIndex[] getNeighbors(World world, int x, int y, int z)
-	{
-		BlockIndex[] xs = new BlockIndex[6];
-		xs[0] = new BlockIndex(world, x + 1, y, z);
-		xs[1] = new BlockIndex(world, x - 1, y, z);
-		xs[2] = new BlockIndex(world, x, y + 1, z);
-		xs[3] = new BlockIndex(world, x, y - 1, z);
-		xs[4] = new BlockIndex(world, x, y, z + 1);
-		xs[5] = new BlockIndex(world, x, y, z - 1);
-		return xs;
-	}
-
-	public static TileEntity[] getNeighborTiles(World world, int x, int y, int z)
-	{
-		ArrayList<TileEntity> tiles = JavaHelp.newArrayList();
-		tiles.add(world.getTileEntity(x + 1, y, z));
-		tiles.add(world.getTileEntity(x - 1, y, z));
-		tiles.add(world.getTileEntity(x, y + 1, z));
-		tiles.add(world.getTileEntity(x, y - 1, z));
-		tiles.add(world.getTileEntity(x, y, z + 1));
-		tiles.add(world.getTileEntity(x, y, z - 1));
-		return tiles.toArray(new TileEntity[0]);
-	}
-
-	public static Block[] getNeighborBlocks(World world, int x, int y, int z)
-	{
-		ArrayList<Block> blocks = JavaHelp.newArrayList();
-		blocks.add(world.getBlock(x + 1, y, z));
-		blocks.add(world.getBlock(x - 1, y, z));
-		blocks.add(world.getBlock(x, y + 1, z));
-		blocks.add(world.getBlock(x, y - 1, z));
-		blocks.add(world.getBlock(x, y, z + 1));
-		blocks.add(world.getBlock(x, y, z - 1));
-		return blocks.toArray(new Block[0]);
-	}
-
 	public static void dropItemsAsEntities(World world, double x, double y, double z, boolean useClone, ItemStack... stacks)
 	{
 		if (stacks == null || stacks.length <= 0) return;
@@ -209,7 +172,7 @@ public class MPUtil
 
 	public static void dropItemAsEntity(World world, double x, double y, double z, boolean useClone, ItemStack stack)
 	{
-		if (stack == null) return;
+		if (stack == null || stack.stackSize <= 0) return;
 		ItemStack item = useClone ? stack.copy() : stack;
 		if (MPUtil.isServerSide() && item != null && item.stackSize > 0)
 		{
@@ -309,11 +272,13 @@ public class MPUtil
 		return getServerPlayers()[0];
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static EntityClientPlayerMP getClientPlayer()
 	{
 		return Minecraft.getMinecraft().thePlayer;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static WorldClient getClientWorld()
 	{
 		return Minecraft.getMinecraft().theWorld;

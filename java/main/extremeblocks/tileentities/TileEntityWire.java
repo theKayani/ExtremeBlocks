@@ -1,204 +1,154 @@
 package main.extremeblocks.tileentities;
 
-import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.RECEIVED;
-import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.SENT;
-import static main.extremeblocks.tileentities.pipe.WireLogic.TransferType.UNKNOWN;
-import java.util.ArrayList;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
-import main.com.hk.eb.util.MPUtil;
-import main.extremeblocks.tileentities.pipe.WireLogic;
-import main.extremeblocks.util.IConnector;
-import main.extremeblocks.util.IPlayerMessage;
-import main.extremeblocks.util.PowerHelper;
-import main.extremeblocks.util.PowerMap;
-import main.extremeblocks.util.Power.IPowerEmitter;
-import main.extremeblocks.util.Power.IPowerReceiver;
-import net.minecraft.entity.player.EntityPlayer;
+import main.com.hk.eb.util.Vector3I;
+import main.com.hk.eb.util.WorldUtil;
+import main.extremeblocks.tileentities.energy.PowerHelper;
+import main.extremeblocks.tileentities.energy.WireList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyConnection;
+import cofh.api.energy.IEnergyHandler;
 
-public class TileEntityWire extends TileEntity implements IConnector, IPlayerMessage
+public class TileEntityWire extends TileEntity implements IEnergyHandler
 {
-	public static final int DIR_LENGTH = ForgeDirection.VALID_DIRECTIONS.length;
-	public int id;
-	public float overallPower;
-	public static int ID;
-	public boolean isIllegal, isValid, render;
-	public int counter;
-	public PowerMap received;
-	public PowerMap sent;
-	public WireLogic[] logics;
-
-	public TileEntityWire()
-	{
-		id = ID++;
-		received = new PowerMap("Received");
-		sent = new PowerMap("Sent");
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		isIllegal = tag.getBoolean("Is Illegal");
-		overallPower = tag.getFloat("Overall Power");
-
-		logics = new WireLogic[DIR_LENGTH];
-		for (int i = 0; i < DIR_LENGTH; i++)
-		{
-			logics[i] = new WireLogic(this, ForgeDirection.VALID_DIRECTIONS[i]);
-		}
-
-		for (int i = 0; i < DIR_LENGTH; i++)
-		{
-			logics[i].readFromNBT(tag);
-		}
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		tag.setBoolean("Is Illegal", isIllegal);
-		tag.setFloat("Overall Power", overallPower);
-
-		for (int i = 0; i < DIR_LENGTH; i++)
-		{
-			logics[i].writeToNBT(tag);
-		}
-	}
+	public WireList map;
+	protected EnergyStorage storage = new EnergyStorage(32000);
 
 	@Override
 	public void updateEntity()
 	{
-		ArrayList<IPowerReceiver> receivers = JavaHelp.newArrayList();
-		boolean remove = false;
-		int rec = 0;
-
-		if (logics == null)
+		if (map == null)
 		{
-			logics = new WireLogic[DIR_LENGTH];
-			for (int i = 0; i < DIR_LENGTH; i++)
+			updateNeighbors();
+		}
+		map.sendEnergy();
+	}
+
+	public void updateNeighbors()
+	{
+		List<TileEntityWire> pipes = JavaHelp.newArrayList();
+		for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS)
+		{
+			TileEntity t = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+			if (t instanceof TileEntityWire)
 			{
-				logics[i] = new WireLogic(this, ForgeDirection.VALID_DIRECTIONS[i]);
+				((TileEntityWire) t).getPipeNeighbors(pipes);
 			}
 		}
-
-		for (WireLogic logic2 : logics)
+		int power = map == null ? 0 : map.power;
+		map = new WireList(worldObj);
+		map.power = power;
+		for (TileEntityWire p : pipes)
 		{
-			WireLogic logic = logic2;
-			logic.setModified(false);
-
-			if (logic.isEmitter() && logic.getEmitter().canSendPowerThrough(logic.getSide().getOpposite()))
-			{
-				IPowerEmitter te = logic.getEmitter();
-				float pw = te.getPower();
-				if (pw + overallPower < PowerHelper.MAX_WIRE_POWER)
-				{
-					overallPower += pw;
-					logic.setType(RECEIVED);
-					received.put(logic.getSide(), true);
-					te.takenPowerFrom(pw);
-				}
-				logic.setModified(true);
-			}
-			else if (logic.isWire())
-			{
-				TileEntityWire wire = logic.getWire();
-
-				if (wire.isSource() || logic.getType() == RECEIVED || wire.sent.get(logic.getSide().getOpposite()))
-				{
-					WireLogic log = WireLogic.getLogicForSide(wire, logic.getSide().getOpposite());
-					if (log != null)
-					{
-						log.sendPowerTo();
-					}
-					logic.setModified(true);
-				}
-				if (isSource() || logic.getType() == SENT || wire.received.get(logic.getSide().getOpposite()))
-				{
-					logic.sendPowerTo();
-					logic.setModified(true);
-				}
-				if (logic.getType() == UNKNOWN || !received.isAllFalse() && wire.received.isAllFalse())
-				{
-					logic.sendPowerTo();
-					logic.setModified(true);
-				}
-			}
-			else if (logic.isReceiver())
-			{
-				logic.setType(SENT);
-				receivers.add(logic.getReceiver());
-				rec++;
-				logic.setModified(true);
-			}
-			if (!logic.isModified())
-			{
-				logic.setType(UNKNOWN);
-				sent.put(logic.getSide(), false);
-				received.put(logic.getSide(), false);
-			}
-		}
-		for (int i = 0; rec > 0 && i < receivers.size(); i++)
-		{
-			receivers.get(i).receivePower(PowerHelper.getSideAt(worldObj, this, (TileEntity) receivers.get(i)), overallPower / rec);
-			remove = true;
-		}
-		if (remove)
-		{
-			overallPower = 0;
+			p.map = map;
+			map.add(p);
 		}
 	}
 
-	private boolean isSource()
+	public List<TileEntityWire> getPipeNeighbors(List<TileEntityWire> pipes)
 	{
-		TileEntity[] tiles = MPUtil.getNeighborTiles(worldObj, xCoord, yCoord, zCoord);
-		for (TileEntity tile : tiles)
+		TileEntity[] tiles = WorldUtil.getNeighborTiles(worldObj, new Vector3I(this));
+		for (TileEntity e : tiles)
 		{
-			if (tile instanceof IPowerEmitter) return true;
+			if (e instanceof TileEntityWire)
+			{
+				if (!pipes.contains(e))
+				{
+					pipes.add((TileEntityWire) e);
+					((TileEntityWire) e).getPipeNeighbors(pipes);
+				}
+			}
 		}
-		return false;
+		return pipes;
+	}
+
+	public int removeAllEnergy()
+	{
+		int i = 0;
+		while (getEnergyStored(null) > 0)
+		{
+			i += extractEnergy(null, storage.getMaxExtract(), false);
+		}
+		return i;
+	}
+
+	public void setMapIfNull()
+	{
+		if (map == null)
+		{
+			updateNeighbors();
+		}
+	}
+
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from)
+	{
+		return true;
+	}
+
+	public boolean canConnectTo(int x, int y, int z)
+	{
+		TileEntity tile = WorldUtil.getTile(worldObj, x, y, z);
+		return tile instanceof IEnergyConnection && ((IEnergyConnection) tile).canConnectEnergy(PowerHelper.getSideAt(worldObj, tile, this));
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate)
+	{
+		return storage.receiveEnergy(maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate)
+	{
+		return storage.extractEnergy(maxExtract, simulate);
+	}
+
+	@Override
+	public int getEnergyStored(ForgeDirection from)
+	{
+		return storage.getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(ForgeDirection from)
+	{
+		return storage.getMaxEnergyStored();
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+		super.readFromNBT(nbt);
+		storage.readFromNBT(nbt);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+		super.writeToNBT(nbt);
+		storage.writeToNBT(nbt);
 	}
 
 	@Override
 	public boolean equals(Object o)
 	{
-		if (o instanceof TileEntityWire && o.hashCode() == hashCode()) return true;
-		return false;
+		return o instanceof TileEntityWire ? new Vector3I(this).equals(new Vector3I((TileEntityWire) o)) : false;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return id;
-	}
-
-	public void breakBlock()
-	{
-
-	}
-
-	public void onBlockAdded()
-	{
-
+		return new Vector3I(this).hashCode();
 	}
 
 	@Override
-	public boolean onClickedOn(EntityPlayer player)
+	public String toString()
 	{
-		if (MPUtil.isServerSide())
-		{
-			System.out.println("Overall Power: " + overallPower);
-		}
-		return false;
-	}
-
-	@Override
-	public boolean canConnect(World world, int x, int y, int z)
-	{
-		return true;
+		return new Vector3I(this).toString();
 	}
 }

@@ -1,9 +1,13 @@
 package main.extremeblocks.tileentities;
 
+import java.util.List;
 import java.util.Random;
+import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.TileEntityEB;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -11,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public abstract class TileEntityInventory extends TileEntity implements IInventory
+public abstract class TileEntityInventory extends TileEntityEB implements IInventory
 {
 	private final String name;
 	protected ItemStack[] inventory;
@@ -75,9 +79,8 @@ public abstract class TileEntityInventory extends TileEntity implements IInvento
 	public abstract boolean isItemValidForSlot(int slot, ItemStack stack);
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFrom(NBTTagCompound compound)
 	{
-		super.readFromNBT(compound);
 		NBTTagList items = compound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		for (int i = 0; i < items.tagCount(); ++i)
 		{
@@ -91,9 +94,8 @@ public abstract class TileEntityInventory extends TileEntity implements IInvento
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound compound)
+	public void writeTo(NBTTagCompound compound)
 	{
-		super.writeToNBT(compound);
 		NBTTagList items = new NBTTagList();
 		for (int i = 0; i < inventory.length; ++i)
 		{
@@ -140,6 +142,11 @@ public abstract class TileEntityInventory extends TileEntity implements IInvento
 	public boolean isUseableByPlayer(EntityPlayer entity)
 	{
 		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : entity.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
+	}
+
+	public List<Slot> getSlots()
+	{
+		return JavaHelp.newArrayList();
 	}
 
 	public static void dropItems(World world, int x, int y, int z)

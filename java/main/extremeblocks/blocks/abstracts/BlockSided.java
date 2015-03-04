@@ -1,6 +1,6 @@
 package main.extremeblocks.blocks.abstracts;
 
-import main.com.hk.eb.util.Info;
+import main.com.hk.eb.util.IInfo;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.BlockRotatedPillar;
@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSided extends BlockRotatedPillar implements Info
+public class BlockSided extends BlockRotatedPillar implements IInfo
 {
 	private boolean showRecipe;
 	private IIcon topIcon;

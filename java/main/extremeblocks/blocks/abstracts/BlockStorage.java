@@ -1,8 +1,10 @@
 package main.extremeblocks.blocks.abstracts;
 
-import java.util.ArrayList;
-import main.com.hk.eb.util.Info;
+import java.util.List;
+import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
 import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
@@ -19,8 +21,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs, Info
+public abstract class BlockStorage extends BlockContainer implements ITileEntityProvider, GuiIDs, IInfo, IInitialization
 {
 	public int id, storageSlots, ySize, xSize;
 	public String containerName, guiTexturePath, name;
@@ -173,6 +176,19 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 		return new Elements(true, true);
 	}
 
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+		GameRegistry.registerTileEntity(TileEntityStorage.class, TileEntityStorage.class.getName());
+	}
+
+	@Override
+	public void postInit()
+	{
+
+	}
+
 	public static void initBlocks()
 	{
 		if (!registered)
@@ -183,7 +199,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int i = 0; i < 3; ++i)
 					{
 						for (int j = 0; j < 3; ++j)
@@ -211,7 +227,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int i = 0; i < 4; ++i)
 					{
 						for (int j = 0; j < 2; ++j)
@@ -239,7 +255,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int i = 0; i < 3; ++i)
 					{
 						slots.add(new Slot(te, i, 62 + i * 18, 36));
@@ -252,7 +268,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int j = 0; j < 3; ++j)
 					{
 						for (int k = 0; k < 9; ++k)
@@ -268,7 +284,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int j = 0; j < 6; ++j)
 					{
 						for (int k = 0; k < 9; ++k)
@@ -284,7 +300,7 @@ public abstract class BlockStorage extends BlockContainer implements ITileEntity
 				@Override
 				public Slot[] addSlotsToContainer(TileEntityStorage te)
 				{
-					ArrayList<Slot> slots = JavaHelp.newArrayList();
+					List<Slot> slots = JavaHelp.newArrayList();
 					for (int j = 0; j < 2; ++j)
 					{
 						for (int k = 0; k < 2; ++k)

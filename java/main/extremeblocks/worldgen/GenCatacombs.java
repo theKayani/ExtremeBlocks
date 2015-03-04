@@ -1,6 +1,6 @@
 package main.extremeblocks.worldgen;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.Builder;
 import main.com.hk.eb.util.JavaHelp;
@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class GenCatacombs extends Generation
 {
 	private int size;
-	private final ArrayList<Vector3I> positions = JavaHelp.newArrayList();
+	private final List<Vector3I> positions = JavaHelp.newArrayList();
 	private CatacombTurn turn;
 	private CatacombHallway hall;
 	private CatacombRoom room;

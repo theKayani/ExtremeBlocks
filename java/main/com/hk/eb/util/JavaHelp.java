@@ -2,6 +2,8 @@ package main.com.hk.eb.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.google.common.collect.Lists;
 
 public class JavaHelp
@@ -75,12 +77,12 @@ public class JavaHelp
 		return growArrayByAt(obj, indexToGrowAt, 1);
 	}
 
-	public static <T> ArrayList<T> newArrayList()
+	public static <T> List<T> newArrayList()
 	{
 		return new ArrayList<T>();
 	}
 
-	public static <T, V> HashMap<T, V> newHashMap()
+	public static <T, V> Map<T, V> newHashMap()
 	{
 		return new HashMap<T, V>();
 	}

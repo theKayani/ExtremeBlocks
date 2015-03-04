@@ -2,6 +2,7 @@ package main.extremeblocks.tileentities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.com.hk.eb.util.StackHelper;
@@ -17,9 +18,9 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityDrill extends TileEntity implements IPlayerMessage
 {
 	private int counter;
-	private final ArrayList<ItemStack> stack;
+	private final List<ItemStack> stack;
 
-	public ArrayList<ItemStack> getStack()
+	public List<ItemStack> getStack()
 	{
 		return stack;
 	}
@@ -63,7 +64,7 @@ public class TileEntityDrill extends TileEntity implements IPlayerMessage
 		}
 	}
 
-	public ArrayList<ItemStack> drillBelow()
+	public List<ItemStack> drillBelow()
 	{
 		if (canDrillBelow())
 		{

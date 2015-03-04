@@ -1,6 +1,5 @@
 package main.extremeblocks.entities.mobs.robot;
 
-import java.util.ArrayList;
 import java.util.List;
 import main.com.hk.eb.util.BlockIndex;
 import main.com.hk.eb.util.JavaHelp;
@@ -150,7 +149,7 @@ public class RobotMiner extends RobotTask
 
 	public List<BlockIndex> getNeighbors()
 	{
-		ArrayList<BlockIndex> neighbors = JavaHelp.newArrayList();
+		List<BlockIndex> neighbors = JavaHelp.newArrayList();
 		for (int i = -1; i < 2; i++)
 		{
 			for (int j = -1; j < 2; j++)

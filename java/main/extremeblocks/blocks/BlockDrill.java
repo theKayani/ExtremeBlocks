@@ -34,6 +34,7 @@ public class BlockDrill extends BlockCustom implements ITileEntityProvider
 		{
 			setHardness(0.2F);
 		}
+		teClass = TileEntityDrill.class;
 	}
 
 	@Override
@@ -103,6 +104,6 @@ public class BlockDrill extends BlockCustom implements ITileEntityProvider
 	@Override
 	public TileEntity createNewTileEntity(World world, int idk)
 	{
-		return isHead ? new TileEntityDrill() : null;
+		return isHead ? super.createTileEntity(world, idk) : null;
 	}
 }

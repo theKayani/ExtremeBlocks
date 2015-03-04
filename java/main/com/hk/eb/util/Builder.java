@@ -129,7 +129,7 @@ public class Builder
 
 	public void makeColum(Block block, int x, int y, int z, int height, int meta)
 	{
-		WorldUtil.makeColum(world, baseX + offset.x + x, baseY + offset.y + y, baseZ + offset.z + z, block, height, meta);
+		WorldUtil.makeColumn(world, baseX + offset.x + x, baseY + offset.y + y, baseZ + offset.z + z, block, height, meta);
 	}
 
 	public void fillWithBlocks(Block block, int x, int y, int z, int radius, int meta)

@@ -26,15 +26,15 @@ public class TileEntityRevertingStation extends TileEntityInventory
 	}
 
 	@Override
-	public void updateEntity()
+	public boolean update()
 	{
-		if (!taken && getResult() == null)
-		{
-			clearGrid();
-		}
 		if (!taken)
 		{
 			placeRecipeInGrid();
+			if (getResult() == null)
+			{
+				clearGrid();
+			}
 		}
 
 		for (int i = 1; i < inventory.length; i++)
@@ -48,6 +48,7 @@ public class TileEntityRevertingStation extends TileEntityInventory
 				taken = false;
 			}
 		}
+		return false;
 	}
 
 	public ItemStack getResult()
@@ -96,6 +97,6 @@ public class TileEntityRevertingStation extends TileEntityInventory
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
-		return true;
+		return slot == 0 ? true : false;
 	}
 }

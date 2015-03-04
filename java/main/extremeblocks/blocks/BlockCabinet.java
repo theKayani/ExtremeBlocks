@@ -4,7 +4,7 @@ import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.NORTH;
 import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
@@ -73,7 +73,7 @@ public class BlockCabinet extends BlockStorage
 	@Override
 	public Slot[] addSlotsToContainer(TileEntityStorage te)
 	{
-		ArrayList<Slot> slots = JavaHelp.newArrayList();
+		List<Slot> slots = JavaHelp.newArrayList();
 		for (int i = 0; i < 6; ++i)
 		{
 			slots.add(new Slot(te, i, 34 + i * 18, 32));

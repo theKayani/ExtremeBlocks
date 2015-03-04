@@ -1,10 +1,9 @@
 package main.extremeblocks.crafting;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import main.com.hk.eb.util.JavaHelp;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -13,8 +12,8 @@ import net.minecraft.item.crafting.IRecipe;
 
 public class RecipeManager
 {
-	public static final ArrayList<IRecipe> PIES = JavaHelp.newArrayList();
-	public static final HashMap<ItemStack, List<ItemStack>> recipes = JavaHelp.newHashMap();
+	public static final List<IRecipe> PIES = JavaHelp.newArrayList();
+	public static final Map<ItemStack, List<ItemStack>> recipes = JavaHelp.newHashMap();
 
 	public static EBShapedRecipes add(boolean shouldAdd, ItemStack stack, Object... obs)
 	{
@@ -42,7 +41,7 @@ public class RecipeManager
 				s = s + s2;
 			}
 		}
-		HashMap<Character, ItemStack> hashmap;
+		Map<Character, ItemStack> hashmap;
 		for (hashmap = JavaHelp.newHashMap(); i < obs.length; i += 2)
 		{
 			Character character = (Character) obs[i];
@@ -77,7 +76,7 @@ public class RecipeManager
 		EBShapedRecipes recipe = new EBShapedRecipes(j, k, aitemstack, stack);
 		if (shouldAdd)
 		{
-			ArrayList<ItemStack> list = JavaHelp.newArrayList();
+			List<ItemStack> list = JavaHelp.newArrayList();
 			list.addAll(Arrays.asList(aitemstack));
 			PIES.add(recipe);
 			recipes.put(recipe.getRecipeOutput(), list);
@@ -87,7 +86,7 @@ public class RecipeManager
 
 	public static EBShapelessRecipes addShapeless(boolean shouldAdd, ItemStack stack, Object... obs)
 	{
-		ArrayList<ItemStack> arraylist = JavaHelp.newArrayList();
+		List<ItemStack> arraylist = JavaHelp.newArrayList();
 		Object[] aobject = obs;
 		int i = obs.length;
 		for (int j = 0; j < i; ++j)

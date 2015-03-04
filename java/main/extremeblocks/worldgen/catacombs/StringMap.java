@@ -1,6 +1,6 @@
 package main.extremeblocks.worldgen.catacombs;
 
-import java.util.ArrayList;
+import java.util.List;
 import main.com.hk.eb.util.JavaHelp;
 
 public class StringMap
@@ -45,7 +45,7 @@ public class StringMap
 
 	public String[] getMap()
 	{
-		ArrayList<String> strings = JavaHelp.newArrayList();
+		List<String> strings = JavaHelp.newArrayList();
 		for (String[] c : chars)
 		{
 			String s = "";

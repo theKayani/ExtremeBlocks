@@ -1,7 +1,7 @@
 package main.extremeblocks.items;
 
-import java.util.ArrayList;
-import main.com.hk.eb.util.Info;
+import java.util.List;
+import main.com.hk.eb.util.IInfo;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
 import main.extremeblocks.ExtremeBlocks;
@@ -15,12 +15,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemEdible extends ItemFood implements Info
+public class ItemEdible extends ItemFood implements IInfo
 {
 	private final String name;
 	private EnumAction action = EnumAction.eat;
 	private int maxUseDuration = 32;
-	private final ArrayList<Integer> potionIDs, potionDurations, potionAmplifiers;
+	private final List<Integer> potionIDs, potionDurations, potionAmplifiers;
 
 	public ItemEdible(String name)
 	{

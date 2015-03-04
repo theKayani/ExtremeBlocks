@@ -1,12 +1,11 @@
 package main.extremeblocks.client.guis;
 
-import main.com.hk.eb.util.Info;
+import main.com.hk.eb.util.IInfo;
 import main.com.hk.eb.util.RecipeUtils;
 import main.extremeblocks.Guide;
 import main.extremeblocks.Init;
 import main.extremeblocks.Vars;
 import main.extremeblocks.util.DecodedRecipe;
-import main.extremeblocks.util.IBattery;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,7 +110,7 @@ public class GuiEBGuide extends GuiScreen
 		else
 		{
 			page--;
-			Info o = Guide.infos.get(page);
+			IInfo o = Guide.infos.get(page);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			mc.getTextureManager().bindTexture(o.getElements().showRecipe ? guideRecipeTexture : guideTexture);
 			drawTexturedModalRect(zeroX, 2, 0, 0, imageWidth, imageHeight);
@@ -125,7 +125,7 @@ public class GuiEBGuide extends GuiScreen
 		}
 	}
 
-	public String getStringFor(int page, Info o)
+	public String getStringFor(int page, IInfo o)
 	{
 		String name = "";
 		if (o instanceof Block)
@@ -223,9 +223,9 @@ public class GuiEBGuide extends GuiScreen
 
 	public ItemStack setDifferences(ItemStack stack)
 	{
-		if (stack.getItem() instanceof IBattery)
+		if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
 		{
-			stack.setItemDamage(((IBattery) stack.getItem()).getMaxHeldPower());
+			stack.setItemDamage(((IEnergyContainerItem) stack.getItem()).getMaxEnergyStored(stack));
 		}
 		return stack;
 	}

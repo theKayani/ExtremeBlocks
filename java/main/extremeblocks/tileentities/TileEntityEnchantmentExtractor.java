@@ -17,7 +17,7 @@ public class TileEntityEnchantmentExtractor extends TileEntityInventory
 	}
 
 	@Override
-	public void updateEntity()
+	public boolean update()
 	{
 		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) && hasBook() && hasValidTool() && canProcess())
 		{
@@ -28,8 +28,9 @@ public class TileEntityEnchantmentExtractor extends TileEntityInventory
 			Map<Integer, Integer> restE = getAllButFirstEnchantment(tool);
 			setEnchantment(firstE, inventory[1]);
 			setEnchantment(restE, tool);
-			StackHelper.consumeItem(book);
+			inventory[0] = StackHelper.consumeItem(book);
 		}
+		return false;
 	}
 
 	public boolean hasBook()

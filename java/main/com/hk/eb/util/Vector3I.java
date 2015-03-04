@@ -1,6 +1,7 @@
 package main.com.hk.eb.util;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,7 +57,7 @@ public final class Vector3I implements Cloneable, java.io.Serializable
 	}
 
 	/**
-	 * Constructor instantiates a new <code>Vector3I</code> with the entities 
+	 * Constructor instantiates a new <code>Vector3I</code> with the entity's 
 	 * position.
 	 * 
 	 * @param entity
@@ -70,17 +71,31 @@ public final class Vector3I implements Cloneable, java.io.Serializable
 	}
 
 	/**
+	 * Constructor instantiates a new <code>Vector3I</code> with the tile's 
+	 * position.
+	 * 
+	 * @param tile
+	 *            the tile to copy the vector's values from.
+	 */
+	public Vector3I(TileEntity tile)
+	{
+		x = tile.xCoord;
+		y = tile.yCoord;
+		z = tile.zCoord;
+	}
+
+	/**
 	 * Constructor instantiates a new <code>Vector3I</code> with the 
 	 * single value.
 	 * 
-	 * @param val
+	 * @param value
 	 *            the x, y, and z value of the vector.
 	 */
-	public Vector3I(int val)
+	public Vector3I(int value)
 	{
-		x = val;
-		y = val;
-		z = val;
+		x = value;
+		y = value;
+		z = value;
 	}
 
 	/**
@@ -882,6 +897,29 @@ public final class Vector3I implements Cloneable, java.io.Serializable
 	}
 
 	/**
+	 * Set's all the vector's values to positive values
+	 * 
+	 * @return the same vector with all absolute values
+	 */
+	public Vector3I absLocal()
+	{
+		x = Math.abs(x);
+		y = Math.abs(y);
+		z = Math.abs(z);
+		return this;
+	}
+
+	/**
+	 * Copy's this vector's values and then absolutes them
+	 * 
+	 * @return a new vector with all positive cloned values
+	 */
+	public Vector3I abs()
+	{
+		return new Vector3I(Math.abs(x), Math.abs(y), Math.abs(z));
+	}
+
+	/**
 	 * <code>zero</code> resets this vector's data to zero internally.
 	 */
 	public Vector3I zero()
@@ -997,12 +1035,7 @@ public final class Vector3I implements Cloneable, java.io.Serializable
 	@Override
 	public boolean equals(Object o)
 	{
-		if (o instanceof Vector3I)
-		{
-			Vector3I c = (Vector3I) o;
-			return c.x == x && c.y == y && c.z == z;
-		}
-		return false;
+		return o instanceof Vector3I ? ((Vector3I) o).x == x && ((Vector3I) o).y == y && ((Vector3I) o).z == z : false;
 	}
 
 	/**
@@ -1113,18 +1146,5 @@ public final class Vector3I implements Cloneable, java.io.Serializable
 				return;
 		}
 		throw new IllegalArgumentException("index must be either 0, 1 or 2");
-	}
-
-	public Vector3I absLocal()
-	{
-		x = Math.abs(x);
-		y = Math.abs(y);
-		z = Math.abs(z);
-		return this;
-	}
-
-	public Vector3I abs()
-	{
-		return new Vector3I(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 }

@@ -10,7 +10,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.HashMap;
+import java.util.Map;
 import main.extremeblocks.registry.Interfaces.ICobblestoneOre;
 import main.extremeblocks.registry.Interfaces.ILeavesOre;
 import main.extremeblocks.registry.Interfaces.ILogOre;
@@ -23,7 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RegistryHelper
 {
-	private static final HashMap<String, String> replacements = JavaHelp.newHashMap();
+	private static final Map<String, String> replacements = JavaHelp.newHashMap();
 
 	public static void addReplacement(String name, String replacement)
 	{

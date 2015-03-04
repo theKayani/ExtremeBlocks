@@ -2,6 +2,7 @@ package main.extremeblocks;
 
 public interface GuiIDs
 {
+	// GuiHandler
 	public static final int TILE_STORAGE = 1;
 	public static final int TILE_CHARGER = 2;
 	public static final int TILE_COOKER = 3;
@@ -13,5 +14,5 @@ public interface GuiIDs
 	public static final int TILE_REVERTING_STATION = 9;
 	public static final int TILE_ENTITY_TRASH = 10;
 	public static final int TILE_ENCHANTMENT_EXTRACTOR = 11;
-	// GuiHandler
+	public static final int TILE_PROTECTOR = 0;
 }

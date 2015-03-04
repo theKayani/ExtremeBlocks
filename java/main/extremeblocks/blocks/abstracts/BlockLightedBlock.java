@@ -1,6 +1,6 @@
 package main.extremeblocks.blocks.abstracts;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
@@ -118,6 +118,6 @@ public class BlockLightedBlock extends Block
 		return Item.getItemFromBlock(isLighted ? this : opposite);
 	}
 
-	private static ArrayList<BlockLightedBlock> lightedBlocks = JavaHelp.newArrayList();
-	private static ArrayList<BlockLightedBlock> offBlocks = JavaHelp.newArrayList();
+	private static List<BlockLightedBlock> lightedBlocks = JavaHelp.newArrayList();
+	private static List<BlockLightedBlock> offBlocks = JavaHelp.newArrayList();
 }

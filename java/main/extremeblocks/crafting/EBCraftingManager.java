@@ -1,10 +1,9 @@
 package main.extremeblocks.crafting;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import main.com.hk.eb.util.JavaHelp;
 import main.extremeblocks.Vars;
 import net.minecraft.block.Block;
@@ -301,7 +300,7 @@ public class EBCraftingManager
 				s = s + s2;
 			}
 		}
-		HashMap<Character, Object> hashmap;
+		Map<Character, Object> hashmap;
 		for (hashmap = JavaHelp.newHashMap(); i < obs.length; i += 2)
 		{
 			Character character = (Character) obs[i];
@@ -340,7 +339,7 @@ public class EBCraftingManager
 
 	public void addShapelessRecipe(ItemStack stack, Object... obs)
 	{
-		ArrayList<ItemStack> arraylist = JavaHelp.newArrayList();
+		List<ItemStack> arraylist = JavaHelp.newArrayList();
 		Object[] aobject = obs;
 		int i = obs.length;
 		for (int j = 0; j < i; ++j)
