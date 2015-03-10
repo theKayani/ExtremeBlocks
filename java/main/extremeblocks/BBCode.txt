@@ -1,4 +1,4 @@
-[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Feb%202015%20-%203/6e10be3c46994c6b3ce9bbc579524297cefb30d75f837dd861336222942e8a0dcbcc0e264ff57659da39a3ee5e6b4b0d3255bfef95601890afd80709229eb2d5e25ede536779_zps09efb4ca.png[/IMG]
+[IMG]http://i1279.photobucket.com/albums/y523/textcraft/Mar%202015%20-%202/6e10be3c46994c6b3ce9bbc579524297cefb30d776745a93b2bfde99a588a427a5a3aed4fe42295cda39a3ee5e6b4b0d3255bfef95601890afd80709707c35b0c42ffb5205d6_zps1b886195.png[/IMG]
 
 Welcome to Minecraft, but wait, Some of these "things" are otherworldly! I Don't know what it is but I LIKE IT, Oh wait a minute, it's just this AWESOME MOD! Extreme Blocks Mod! This mod, a.k.a. the Extreme Blocks Mod adds in a ton of new stuff! Adds a lot of new ores! They are all pretty different!
 [center][IMG]http://i1279.photobucket.com/albums/y523/textcraft/Dec%202014%20-%203/f5ac077bb8cf3002fffc8592bb54a27c2f5bfe04cfa4d454558f7b54953cb7cc71a14bb4d9e8dee8da39a3ee5e6b4b0d3255bfef95601890afd80709b80298fb331fa69a54ac_zpsd06583db.png[/IMG][/center]
@@ -182,7 +182,7 @@ These are the different Fake Sand and Fake Gravel, see it doesn't drop![/spoiler
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Sep%202014%20-%201/4ceb798356ef2f06f36986ce01015f27b61bed35da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709d1130d71d380fcb7796f_zpscd466a37.png[/IMG]
 [spoiler]
 [color=red]I HIGHLY recommend watching therealtkh's mod spotlight, it is very informative and has everything you need to know![/color]
-[color=red]I also recommend you just use the ingame Extreme Blocks guide. It has all the information and I think it's a bit more manageable. All the information in the guide is also here. Exact same definitions![/color]
+[color=red]I also recommend you just install the NEI mod as there is integration between the two mods that allows all information to be displayed when you look at an items recipe or usage![/color]
 [color=red]P.S. It's alphabetized![/color]
 
 World Generation Info:
@@ -228,6 +228,9 @@ This block is simply a storage block. It has multiple tiers and are an alternati
 
 [color=blue][b]Bat Wing:[/color][/b]
 10% chance to drop from a bat. It's used to create the Bloodwing summon!
+
+[color=blue][b]Base Protector:[/color][/b]
+This block is the Base Protector. Similarily to previous versions, it protects mobs in a 10x10x10 radius of the block. It will drop arrows onto enemies consuming 2048 RF per arrow dropped. There are many modifiers you can have on the machine as well!
 
 [color=blue][b]Battery:[/color][/b]
 Can be used in EB machines as an alternative to wires. To provide EJ. Extreme Joules. Upon creation, it will have zero charge. Be wary of this!
@@ -344,6 +347,9 @@ Simply. A Portable Ender Chest. Quite OP really.
 [color=blue][b]Extractor:[/color][/b]
 Can be used on logs to obtain sap. Leaves the log empty.
 
+[color=blue][b]Extreme Blocks Identifier:[/color][/b]
+This block is used to identify things in the Extreme Blocks Mod. It could be an alternative to the guide as it's easier to find things!
+
 [color=blue][b]Fake Gravel:[/color][/b]
 Simply. Fake gravel, it will not drop if there's no block under it.
 
@@ -364,6 +370,12 @@ Can be crafted into multiple tools.
 
 [color=blue][b]Fluorite Ore:[/color][/b]
 An ore for Fluorite. If you received the actual block, you have to smelt it to get the corresponding ingot.
+
+[color=blue][b]Flux Cooker:[/color][/b]
+This block is the Flux Cooker. This block is similar to a furnace but instead of using a fuel, it uses Redstone Flux. It uses 1024 RF per item smelted. It can also be upgraded to work faster using the Furnace Upgrades!
+
+[color=blue][b]Fuel Generator:[/color][/b]
+The Fuel generator is the most basic RF generator. The upside to using this might be that it has multiple slots, so you get more for your money! In the Gui, if the red light is not on, you need to power the block with redstone!
 
 [color=blue][b]Fuse:[/color][/b]
 When placed and lit on fire, will travel through adjacent fuses.
@@ -395,6 +407,9 @@ Can be smoked to cause different ("pleasurable") effects. Use with caution! The 
 
 [color=blue][b]Hunter Robot:[/color][/b]
 Can be placed on the ground and be commanded to perform it's task. Of course given it's correct tool!
+
+[color=blue][b]Integrated Circuit:[/color][/b]
+A step up from the core chip. Used for the expert mechanisms
 
 [color=blue][b]Iron Trophy:[/color][/b]
 Really nice Trophy block. This aesthetic block can be used to show off your really nice creations. Also can be used to show off how many diamonds you have!
@@ -481,6 +496,9 @@ Used for crafting a multitude of crafting recipes
 
 [color=blue][b]Recipe Reverting Station:[/color][/b]
 This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.
+
+[color=blue][b]Redstone Flux Infuser:[/color][/b]
+This block charges any item that could collect Redstone Flux. This includes the batteries
 
 [color=blue][b]Robot Arm:[/color][/b]
 Used for crafting a multitude of crafting recipes
@@ -617,6 +635,24 @@ Forums Page: [url=http://www.minecraftforum.net/members/tkh]tkh[/url]
 [IMG]http://i1279.photobucket.com/albums/y523/textcraft/Aug%202014%20-%204/6bd82992110e09a39eb5bbcb9a3a143895eba286da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709e70d6f1c27e7e53ed5da_zps6f2d421b.png[/IMG]
 [spoiler]
 [size=large][color=red][i]-For the Whole list of Downloads, Go to the MediaFire Folder [/i][/color][/size][url=https://www.mediafire.com/folder/av02b8yd4ens3/ExtremeBlocks][size=large][i]Here![/i][/size][/url]
+
+~~7.0~~ 1.7.10- [url=http://www.mediafire.com/download/5tuchleehin649x/something.jar]Click Here![/url]
+[spoiler]
+- Added WAILA compatibility for some blocks
+- Added NEI compatibility to provide some extra information
+- Removed EB Joules, replaced with Redstone Flux
+- Completely reworked the block registration
+- Changed multiple textures
+- Added the Extreme Blocks Identifier
+- Removed small crate, crate, big crate, large crate, barrel, strongbox, and the cabinet blocks
+- Fixed the Block Markers calculations
+- Fixed TONS of bugs
+
+NOTE 1: This mod does not work on 1.7.2! Only 1.7.10!
+[color=red]NOTE 2: Check out the TKHs Mod Review, it's very informative for the 1.7.10 versions.[/color]
+
+-Updated the Github!
+[/spoiler]
 
 ~~6.9~~ 1.7.10- [url=http://www.mediafire.com/download/80z1utk5n8npuhj]Click Here![/url]
 [spoiler]

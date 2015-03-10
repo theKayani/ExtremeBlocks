@@ -127,8 +127,8 @@ public abstract class BlockMachine extends BlockGui
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public abstract GuiEB getGui(InventoryPlayer inventory, TileEntity tile);
+	public abstract GuiEB getGui(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile);
 
 	@Override
-	public abstract ContainerEB getContainer(InventoryPlayer inventory, TileEntity tile);
+	public abstract ContainerEB getContainer(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile);
 }

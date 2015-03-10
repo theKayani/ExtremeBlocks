@@ -23,18 +23,10 @@ public class BlockDrill extends BlockCustom implements ITileEntityProvider
 	{
 		super(Material.iron, "Drill" + (isHead ? " Head" : ""));
 		setBlockTextureName(Init.MODID + ":drill" + (isHead ? "_head" : ""));
+		setCreativeTab(isHead ? Init.tab_mainBlocks : null);
+		setHardness(isHead ? 3.0F : 0.2F);
+		tileClass = isHead ? TileEntityDrill.class : null;
 		this.isHead = isHead;
-
-		if (isHead)
-		{
-			setCreativeTab(Init.tab_mainBlocks);
-			setHardness(3.0F);
-		}
-		else
-		{
-			setHardness(0.2F);
-		}
-		teClass = TileEntityDrill.class;
 	}
 
 	@Override
@@ -104,6 +96,6 @@ public class BlockDrill extends BlockCustom implements ITileEntityProvider
 	@Override
 	public TileEntity createNewTileEntity(World world, int idk)
 	{
-		return isHead ? super.createTileEntity(world, idk) : null;
+		return isHead ? new TileEntityDrill() : null;
 	}
 }

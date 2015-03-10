@@ -16,11 +16,12 @@ import cofh.api.energy.IEnergyReceiver;
 
 public abstract class TileEntityMachine extends TileEntitySidedInventory implements IEnergyReceiver, IEnergyHolder, IWailaInfo
 {
-	public EnergyStorage storage = new EnergyStorage(120000, 1024, 1024);
+	public EnergyStorage storage;
 
 	public TileEntityMachine(String name)
 	{
 		super(name);
+		storage = new EnergyStorage(getMaxEnergyStored(), getMaxReceive(), getMaxExtract());
 	}
 
 	public abstract int[] getBatterySlots();
@@ -88,7 +89,7 @@ public abstract class TileEntityMachine extends TileEntitySidedInventory impleme
 	@Override
 	public int getMaxEnergyStored()
 	{
-		return storage.getMaxEnergyStored();
+		return 120000;
 	}
 
 	@Override
@@ -100,13 +101,13 @@ public abstract class TileEntityMachine extends TileEntitySidedInventory impleme
 	@Override
 	public int getMaxExtract()
 	{
-		return storage.getMaxExtract();
+		return 1024;
 	}
 
 	@Override
 	public int getMaxReceive()
 	{
-		return storage.getMaxReceive();
+		return 1024;
 	}
 
 	@Override

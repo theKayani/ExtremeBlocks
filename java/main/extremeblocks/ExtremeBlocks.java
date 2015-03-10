@@ -1,12 +1,13 @@
 package main.extremeblocks;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import main.com.hk.eb.util.BlockCustom;
 import main.com.hk.eb.util.IInfo;
 import main.com.hk.eb.util.IInitialization;
 import main.com.hk.eb.util.JavaHelp;
+import main.com.hk.eb.util.JavaHelp.StringExtractor;
 import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.blocks.abstracts.BlockFakeFloor;
 import main.extremeblocks.blocks.abstracts.BlockLightedBlock;
@@ -20,9 +21,6 @@ import main.extremeblocks.entities.mobs.EntityDemon;
 import main.extremeblocks.entities.mobs.EntityEvilIronGolem;
 import main.extremeblocks.entities.mobs.EntityRobot;
 import main.extremeblocks.network.PacketHandlerEB;
-import main.extremeblocks.tileentities.TileEntityEnchantmentExtractor;
-import main.extremeblocks.tileentities.TileEntityRevertingStation;
-import main.extremeblocks.tileentities.TileEntityTrash;
 import main.extremeblocks.tools.ColorToolSet;
 import main.extremeblocks.util.SpawnDetail;
 import main.extremeblocks.worldgen.GenCastle;
@@ -38,6 +36,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -105,35 +104,43 @@ public class ExtremeBlocks
 		new ColorToolSet(Init.fluorite, Init.FLUORITE_T, 0x1BABAB);
 		new ColorToolSet(Init.spirit_fragment, Init.SPIRIT_T, 0x732A2A);
 		new ColorToolSet(Blocks.bedrock, Init.SUPER_T, 0x3F3F3F);
+		ColorToolSet.registerItems();
 		GameRegistry.registerWorldGenerator(new GenManager(), 1);
 		Init.addReplacements();
+		Collections.sort(blocks, JavaHelp.stringComparator(new StringExtractor<Block>()
+		{
+			@Override
+			public String toString(Block o)
+			{
+				return o == null ? null : o.getLocalizedName();
+			}
+		}));
+		Collections.sort(items, JavaHelp.stringComparator(new StringExtractor<Item>()
+		{
+			@Override
+			public String toString(Item o)
+			{
+				return o == null ? null : StatCollector.translateToLocal(o.getUnlocalizedName());
+			}
+		}));
 		for (Block block : blocks)
 		{
-			if (!(block instanceof IInfo))
-			{
-				System.err.println(block.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
-			}
-			if (block instanceof IInitialization)
-			{
-				//BlockCustom
-				((IInitialization) block).init();
-			}
-			else if (block instanceof BlockCustom)
-			{
-				RegistryHelper.register(block);
-				if (((BlockCustom) block).getTileClass() != null)
-				{
-					GameRegistry.registerTileEntity(((BlockCustom) block).getTileClass(), ((BlockCustom) block).getTileClass().getName());
-				}
-			}
+			((IInfo) block).getInfo();
+			IInitialization initializer = (IInitialization) block;
+			initializer.init();
 		}
+		/*
+		 * A GREAT IDEA FOR YOU TO DO IS TO HAVE AN INTERFACE
+		 * THAT CAN BE IMPLEMENTED BY ANY CLASS! THIS INCLUDES
+		 * BLOCKS, ITEMS, ENTITIES, TILEENTITIES AND MAYBE MORE.
+		 * ALL THEY HAVE TO DO IS ADD THEIR INSTANCE TO A LIST
+		 * OF THESE INSTANCES AND THEY WILL ALL BE INITIALIZED,
+		 * POST-INITIALIZED AND MAYBE EVEN BE ABLE TO HANDLE EVENTS!
+		 */
 		for (Item item : items)
 		{
-			if (!(item instanceof IInfo))
-			{
-				System.err.println(item.getClass().getSimpleName() + " DOESN'T IMPLEMENT INFO!");
-			}
-			RegistryHelper.register(item);
+			((IInfo) item).getInfo();
+			((IInitialization) item).init();
 		}
 		Init.addRecipes();
 		FMLInterModComms.sendMessage("Waila", "register", "main.extremeblocks.WailaIntegration.addWailaStuff");
@@ -147,13 +154,6 @@ public class ExtremeBlocks
 		EBCommon.registerEntity(EntityCastleSkeleton.class, "Castle Skeleton", EnumCreatureType.monster, SpawnDetail.getForAllBiomes(10, 2, 5));
 		EBCommon.registerEntity(EntityEvilIronGolem.class, "Evil Iron Golem", EnumCreatureType.monster, SpawnDetail.getForBiomes(10, 1, 1, BiomeGenBase.hell, BiomeGenBase.sky));
 		// EBClient <-- command right click it
-
-		//GameRegistry.registerTileEntity(TileEntityFuse.class, ebUUID + "Fuse");
-		//GameRegistry.registerTileEntity(TileEntityStorage.class, ebUUID + "Storage");
-		//GameRegistry.registerTileEntity(TileEntityDrill.class, ebUUID + "Drill");
-		GameRegistry.registerTileEntity(TileEntityRevertingStation.class, ebUUID + "Reverting Station");
-		GameRegistry.registerTileEntity(TileEntityTrash.class, ebUUID + "Trash Can");
-		GameRegistry.registerTileEntity(TileEntityEnchantmentExtractor.class, ebUUID + "Enchantment Extractor");
 		proxy.registerRenderThings();
 		proxy.registerSounds();
 		addVillagerTrade();
@@ -198,10 +198,7 @@ public class ExtremeBlocks
 		}
 		for (Block block : blocks)
 		{
-			if (block instanceof IInitialization)
-			{
-				((IInitialization) block).postInit();
-			}
+			((IInitialization) block).postInit();
 		}
 		new Guide();
 	}

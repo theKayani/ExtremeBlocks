@@ -30,7 +30,7 @@ public class CustomTab extends CreativeTabs
 			case 3:
 				return Init.fuse;
 			case 4:
-				return Item.getItemFromBlock(Blocks.planks);
+				return Item.getItemFromBlock(Blocks.stone);
 			case 5:
 				return Item.getItemFromBlock(Blocks.planks);
 		}

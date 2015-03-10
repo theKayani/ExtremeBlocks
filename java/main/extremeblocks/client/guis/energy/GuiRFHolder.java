@@ -49,7 +49,7 @@ public abstract class GuiRFHolder extends GuiInventory
 			@Override
 			public void addText(List<String> list)
 			{
-				String s = tile.getWorldObj().isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord) ? EnumChatFormatting.GREEN + "X" + EnumChatFormatting.RESET : EnumChatFormatting.RED + " " + EnumChatFormatting.RESET;
+				String s = tile.getWorldObj().isBlockIndirectlyGettingPowered(tile.xCoord, tile.yCoord, tile.zCoord) ? EnumChatFormatting.GREEN + "Y" + EnumChatFormatting.RESET : EnumChatFormatting.RED + "N" + EnumChatFormatting.RESET;
 				list.add("[" + s + "] Redstone Powered");
 			}
 		};
@@ -57,7 +57,7 @@ public abstract class GuiRFHolder extends GuiInventory
 		addOverlay(tooltip);
 	}
 
-	protected void renderPowerAt()
+	protected void renderPowerBar()
 	{
 		if (holder.getEnergyStored() <= 0) return;
 		int k = (width - xSize) / 2;
@@ -66,7 +66,7 @@ public abstract class GuiRFHolder extends GuiInventory
 		drawTexturedModalRect(k + powerX, l + powerY + 67 - i1, powerU, powerV, 10, i1 + 1);
 	}
 
-	protected void renderRedstoneIndicatorAt()
+	protected void renderRedstoneIndicator()
 	{
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;

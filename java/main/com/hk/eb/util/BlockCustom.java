@@ -4,6 +4,7 @@ import java.util.Random;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockCustom extends Block implements IInfo, IInitialization
+public class BlockCustom extends Block implements IInfo, IInitialization, ITileEntityProvider
 {
 	private boolean normal = true, different;
 	private Item itemToDrop;
@@ -24,7 +25,7 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 	private String info;
 	private boolean showRecipe;
 	private final String name;
-	protected Class<? extends TileEntity> teClass;
+	protected Class<? extends TileEntity> tileClass;
 
 	public BlockCustom(Material mat, String name)
 	{
@@ -129,7 +130,27 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 
 	public Class<? extends TileEntity> getTileClass()
 	{
-		return teClass;
+		return tileClass;
+	}
+
+	public boolean hasTile()
+	{
+		return tileClass != null;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int stuff)
+	{
+		if (!hasTile()) return null;
+		try
+		{
+			return tileClass.newInstance();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -182,10 +203,15 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
 	{
-		TileEntity te = world.getTileEntity(x, y, z);
-		if (te instanceof TileEntityEB)
+		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if (tile instanceof TileEntityEB)
 		{
-			((TileEntityEB) te).onBlockPlacedBy(entity, stack);
+			if (stack.stackTagCompound != null && stack.stackTagCompound.getBoolean("Is Placed") && ((TileEntityEB) tile).canWrench())
+			{
+				((TileEntityEB) tile).readFrom(stack.stackTagCompound);
+			}
+			((TileEntityEB) tile).onBlockPlacedBy(entity, stack);
 		}
 	}
 
@@ -208,8 +234,9 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 			ItemStack stack = player.getHeldItem();
 			if (stack != null && stack.getItem() == Init.wrench && ((TileEntityEB) te).canWrench())
 			{
-				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+				dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 				world.setBlockToAir(x, y, z);
+				return true;
 			}
 			return ((TileEntityEB) te).onBlockActivated(player, ForgeDirection.getOrientation(side), new Vector3F(sideX, sideY, sideZ));
 		}
@@ -234,7 +261,7 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 		return this;
 	}
 
-	public BlockCustom setShowRecipe()
+	public BlockCustom showRecipe()
 	{
 		showRecipe = true;
 		if (info == null || info.isEmpty())
@@ -247,7 +274,7 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 	@Override
 	public String getInfo()
 	{
-		return info;
+		return info == null ? "" : info;
 	}
 
 	@Override
@@ -260,9 +287,9 @@ public class BlockCustom extends Block implements IInfo, IInitialization
 	public void init()
 	{
 		GameRegistry.registerBlock(this, getClass().getSimpleName() + "|" + getLocalizedName());
-		if (teClass != null)
+		if (tileClass != null)
 		{
-			GameRegistry.registerTileEntity(teClass, teClass.getName());
+			GameRegistry.registerTileEntity(tileClass, tileClass.getName());
 		}
 	}
 

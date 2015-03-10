@@ -14,7 +14,7 @@ public class ItemEBGuide extends ItemCustom
 		super("The EB Guide", Init.tab_mainItems);
 		setTextureName(Init.MODID + ":eb_guide");
 		setShowRecipe();
-		setInfo("The EB Guide to everything. You're reading it...");
+		setInfo("The EB Guide to everything. It includes definitions for every item added by this mod!");
 	}
 
 	@Override

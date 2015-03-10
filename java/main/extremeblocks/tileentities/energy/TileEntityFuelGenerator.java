@@ -114,7 +114,7 @@ public class TileEntityFuelGenerator extends TileEntityGenerator
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
-		return slot >= 0 && slot < 10 ? canSmelt(stack) : super.isItemValidForSlot(slot, stack);
+		return slot >= 0 && slot < 10 ? canSmelt(stack) : stack.getItem() instanceof IEnergyContainerItem;
 	}
 
 	@Override

@@ -17,8 +17,7 @@ public class WailaIntegration implements IWailaDataProvider
 {
 	public static void addWailaStuff(IWailaRegistrar reg)
 	{
-		WailaIntegration integration = new WailaIntegration();
-		reg.registerBodyProvider(integration, Block.class);
+		reg.registerBodyProvider(new WailaIntegration(), Block.class);
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class WailaIntegration implements IWailaDataProvider
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		IWailaInfo info = (IWailaInfo) (accessor.getBlock() instanceof IWailaInfo ? accessor.getBlock() : accessor.getTileEntity() instanceof IWailaInfo ? accessor.getTileEntity() : null);
+		IWailaInfo info = (IWailaInfo) (accessor.getTileEntity() instanceof IWailaInfo ? accessor.getTileEntity() : accessor.getBlock() instanceof IWailaInfo ? accessor.getBlock() : null);
 		if (info != null && info.shouldAddTip())
 		{
 			info.getTips(currenttip);

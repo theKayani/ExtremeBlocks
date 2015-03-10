@@ -1,6 +1,8 @@
 package main.extremeblocks.blocks;
 
 import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
+import main.com.hk.eb.util.RegistryHelper;
 import main.com.hk.eb.util.RegistryHelper.OreDict;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
@@ -11,7 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 
 @OreDict(values = { "sapling", "driedSapling" })
-public class BlockDriedSapling extends BlockBush implements IInfo
+public class BlockDriedSapling extends BlockBush implements IInfo, IInitialization
 {
 	public BlockDriedSapling()
 	{
@@ -46,5 +48,17 @@ public class BlockDriedSapling extends BlockBush implements IInfo
 	public Elements getElements()
 	{
 		return new Elements(true, false);
+	}
+
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 }

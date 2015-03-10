@@ -1,6 +1,8 @@
 package main.extremeblocks.items;
 
 import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
+import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -11,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ItemSeed extends ItemSeeds implements IInfo
+public class ItemSeed extends ItemSeeds implements IInfo, IInitialization
 {
 	public final int crop;
 	public final String name;
@@ -87,5 +89,17 @@ public class ItemSeed extends ItemSeeds implements IInfo
 	public Elements getElements()
 	{
 		return new Elements(true, false);
+	}
+
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 }

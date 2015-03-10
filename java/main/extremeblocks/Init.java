@@ -11,8 +11,10 @@ import main.extremeblocks.blocks.BlockCement;
 import main.extremeblocks.blocks.BlockCrop;
 import main.extremeblocks.blocks.BlockDriedSapling;
 import main.extremeblocks.blocks.BlockDrill;
+import main.extremeblocks.blocks.BlockEBIdentifier;
 import main.extremeblocks.blocks.BlockEBTable;
 import main.extremeblocks.blocks.BlockEnchantmentExtractor;
+import main.extremeblocks.blocks.BlockFluxCooker;
 import main.extremeblocks.blocks.BlockFuseBlock;
 import main.extremeblocks.blocks.BlockHemp;
 import main.extremeblocks.blocks.BlockHydrant;
@@ -31,9 +33,10 @@ import main.extremeblocks.blocks.abstracts.BlockBuild;
 import main.extremeblocks.blocks.abstracts.BlockCompact;
 import main.extremeblocks.blocks.abstracts.BlockEBOre;
 import main.extremeblocks.blocks.abstracts.BlockSided;
-import main.extremeblocks.blocks.abstracts.BlockStorage;
+import main.extremeblocks.blocks.abstracts.BlockSideways;
 import main.extremeblocks.blocks.energy.BlockBaseProtector;
 import main.extremeblocks.blocks.energy.BlockFuelGenerator;
+import main.extremeblocks.blocks.energy.BlockRFInfuser;
 import main.extremeblocks.entities.mobs.robot.RobotType;
 import main.extremeblocks.items.ItemBackpack;
 import main.extremeblocks.items.ItemBattery;
@@ -55,6 +58,7 @@ import main.extremeblocks.items.ItemSorter;
 import main.extremeblocks.items.ItemSpear;
 import main.extremeblocks.items.ItemSummonBloodwing;
 import main.extremeblocks.items.ItemWeed;
+import main.extremeblocks.util.Dyes;
 import main.extremeblocks.util.SortingSystem;
 import main.extremeblocks.worldgen.GenManager;
 import main.extremeblocks.worldgen.GenManager.Gen;
@@ -75,7 +79,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class Init
 {
 	public static final String MODID = "extremeblocks";
-	public static final String VERSION = "6.9";
+	public static final String VERSION = "7.0";
 	public static CreativeTabs tab_mainBlocks = new CustomTab("Main Blocks");
 	public static CreativeTabs tab_mainItems = new CustomTab("Main Items");
 	public static CreativeTabs tab_tools = new CustomTab("Tools");
@@ -95,19 +99,6 @@ public class Init
 	public static ToolMaterial DIAMOND_T = EnumHelper.addToolMaterial("Emerald", 4, 4096, 12.0F, 6.0F, 15);
 	public static ToolMaterial SPIRIT_T = EnumHelper.addToolMaterial("Sprit", 4, 1999, 13.0F, 7.0F, 25);
 	public static ToolMaterial SUPER_T = EnumHelper.addToolMaterial("Super", 1000000 - 4, 1000000 - 4, 1000000 - 4, 1000000 - 4, 1000000 - 4);
-
-	//public static ArmorMaterial TRINQUANTIUM_A = EnumHelper.addArmorMaterial("Trinquantium", 2368, new int[] {}, 15);
-	//public static ArmorMaterial BRONZE_A = EnumHelper.addToolMaterial("Bronze", 2, 328, 5.0F, 2.0F, 12);
-	//public static ArmorMaterial SILVER_A = EnumHelper.addToolMaterial("Silver", 0, 13, 6.0F, 3.0F, 7);
-	//public static ArmorMaterial GLESTER_A = EnumHelper.addToolMaterial("Glester", 0, 71, 9.0F, 0.0F, 9);
-	//public static ArmorMaterial DELVLISH_A = EnumHelper.addToolMaterial("Delvlish", 0, 71, 0.0F, 3.0F, 4);
-	//public static ArmorMaterial METEORITE_A = EnumHelper.addToolMaterial("Meteorite", 3, 2306, 6.0F, 3.0F, 4);
-	//public static ArmorMaterial SAPPHIRE_A = EnumHelper.addToolMaterial("Sapphire", 3, 1909, 7.0F, 5.0F, 14);
-	//public static ArmorMaterial ONYX_A = EnumHelper.addToolMaterial("Onyx", 2, 514, 4.0F, 3.0F, 17);
-	//public static ArmorMaterial FLUORITE_A = EnumHelper.addToolMaterial("Fluorite", 2, 392, 5.0F, 2.0F, 7);
-	//public static ArmorMaterial DIAMOND_A = EnumHelper.addToolMaterial("Emerald", 4, 4096, 12.0F, 6.0F, 15);
-	//public static ArmorMaterial SPIRIT_A = EnumHelper.addToolMaterial("Sprit", 4, 1999, 13.0F, 7.0F, 25);
-	//public static ArmorMaterial SUPER_A = EnumHelper.addToolMaterial("Super", 1000000 - 4, 1000000 - 4, 1000000 - 4, 1000000 - 4, 1000000 - 4);
 
 	public static final Item extreme_blocks = new ItemCustom("EB", null).setTextureName(MODID + ":EB");
 	public static final Item gold_coin = new ItemCustom("Gold Coin", tab_mainItems).setInfo("This item can be traded with a farmer villager for some valuable trades!").setShowRecipe().setTextureName(MODID + ":gold_coin");
@@ -133,6 +124,7 @@ public class Init
 	public static final Item light = new ItemCustom("Light", tab_mainItems).setShowRecipe().setTextureName(MODID + ":light");
 	public static final Item limestone = new ItemCustom("Limestone", tab_mainItems).setInfo("Used in a multitude of crafting recipes").setTextureName(MODID + ":limestone");
 	public static final Item core_chip = new ItemCustom("Core Chip", tab_mainItems).setShowRecipe().setInfo("A step up from the simple chip. Used for some of the advanced technologies").setTextureName(MODID + ":core_chip");
+	public static final Item integrated_circuit = new ItemCustom("Integrated Circuit", tab_mainItems).setShowRecipe().setInfo("A step up from the core chip. Used for the expert mechanisms").setTextureName(MODID + ":integrated_circuit");
 	public static final Item counter = new ItemCounter();
 	public static final Item meteorite_shards = new ItemCustom("Meteorite Shards", tab_mainItems).setInfo("Obtained by mining meteorites.").setTextureName(MODID + ":meteorite_shards");
 	public static final Item meteor = new ItemCustom("Meteor", tab_mainItems).setShowRecipe().setInfo("Can be crafted into multiple tools.").setTextureName(MODID + ":meteorite");
@@ -177,69 +169,64 @@ public class Init
 	public static final Item bat_wing = new ItemCustom("Bat Wing", tab_mainItems).setTextureName(MODID + ":bat_wing").setInfo("10% chance to drop from a bat. It's used to create the Bloodwing summon!");
 	public static final Item summon_bloodwing = new ItemSummonBloodwing();
 
-	public static BlockStorage crate;
-	public static BlockStorage barrel;
-	public static BlockStorage cabinet;
-	public static BlockStorage strongbox;
-	public static BlockStorage big_crate;
-	public static BlockStorage large_crate;
-	public static BlockStorage small_crate;
 	public static final Block glester_ore = new BlockEBOre("Glester Ore").setDrop(glester_rock);
 	public static final Block silver_ore = new BlockEBOre("Silver Ore");
 	public static final Block trinquantium_ore = new BlockEBOre("Trinquantium Ore");
 	public static final Block copper_ore = new BlockEBOre("Copper Ore").setDrop(copper);
 	public static final Block tin_ore = new BlockEBOre("Tin Ore").setDrop(tin);
 	public static final Block delvlish_ore = new BlockEBOre("Delvlish Ore").setDrop(delvlish_crystal);
-	public static final Block compact_stone = new BlockCustom(Material.rock, "Compact Stone").setInfo("Compact way to save stone").setShowRecipe().setHardness(3.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":Compact Stone");
+	public static final Block compact_stone = new BlockCustom(Material.rock, "Compact Stone").setInfo("Compact way to save stone").showRecipe().setHardness(3.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":Compact Stone");
 	public static final Block silver_block = new BlockCompact("Silver Block");
 	public static final Block bronze_block = new BlockCompact("Bronze Block");
 	public static final Block trinquantium_block = new BlockCompact("Trinquantium Block");
-	public static final Block xray_block = new BlockXrayBlock(true).setInfo("Allows you to see through blocks to the next open block.").setShowRecipe();
+	public static final Block xray_block = new BlockXrayBlock(true).setInfo("Allows you to see through blocks to the next open block.").showRecipe();
 	public static final Block xray_block_un = new BlockXrayBlock(false).setInfo("");
 	public static final Block cement_wall = new BlockCement(true);
-	public static final Block plaster_wall = new BlockCustom(Material.rock, "Plaster Wall").setShowRecipe().setHardness(1.0F).setBlockTextureName(MODID + ":plasterwall").setCreativeTab(tab_mainBlocks);
+	public static final Block plaster_wall = new BlockCustom(Material.rock, "Plaster Wall").showRecipe().setHardness(1.0F).setBlockTextureName(MODID + ":plasterwall").setCreativeTab(tab_mainBlocks);
 	public static final Block weak_cement_wall = new BlockCement(false);
-	public static final Block emptied_log = new BlockSided(Material.wood, "Emptied Log", "emptiedlog").setHardness(2.0F);
+	public static final Block emptied_log = new BlockSideways(Material.wood, "Emptied Log", "emptiedlog").setHardness(2.0F);
 	public static final Block bone_dirt = new BlockCustom(Material.ground, "Bone Dirt").setInfo("Drops a bone shard upon breaking.").setDrop(bone_shard).setBlockTextureName(MODID + ":bone_dirt").setCreativeTab(tab_mainBlocks).setHardness(0.6F);
-	public static final Block nuclear_waste = new BlockWaste().setShowRecipe().setInfo("This block gives off tons of random potion effects when a mob touches it. This includes the player. The effects could be good, or bad.");
-	public static final Block fire_hydrant = new BlockHydrant().setInfo("Upon right clicking with anything, you will extinguish all fires in a 3 block radius. BUT, if you right click it with a wrench, if will spawn a block if water on top of the hydrant!").setShowRecipe();
-	public static final Block lantern = new BlockLantern().setShowRecipe().setInfo("Gives off some nice light. It isn't too powerful but it's nice.").setHardness(0.3F);
-	public static final Block stone_pillar = new BlockSided(Material.rock, "Stone Pillar", "stonepillar").setShowRecipe().setHardness(1.5F);
-	public static final Block trash = new BlockTrash().setShowRecipe().setInfo("This block will allow you to destroy anything that you don't want anymore. If the config option for traditional trash can is enabled. It will destry items like a cactus. But if not, you could right click on it and place items in the Gui. Then power it with redstone and hit that empty button.").setHardness(3.0F);
-	public static final Block vending_machine = new BlockVendingMachine().setShowRecipe().setInfo("This block will allow you to gamble in Minecraft! Right click it with a diamond and it will give you a random item in all of Minecraft back!");
+	public static final Block nuclear_waste = new BlockWaste().showRecipe().setInfo("This block gives off tons of random potion effects when a mob touches it. This includes the player. The effects could be good, or bad.");
+	public static final Block fire_hydrant = new BlockHydrant().setInfo("Upon right clicking with anything, you will extinguish all fires in a 3 block radius. BUT, if you right click it with a wrench, if will spawn a block if water on top of the hydrant!").showRecipe();
+	public static final Block lantern = new BlockLantern().showRecipe().setInfo("Gives off some nice light. It isn't too powerful but it's nice.").setHardness(0.3F);
+	public static final Block stone_pillar = new BlockSideways(Material.rock, "Stone Pillar", "stonepillar").showRecipe().setHardness(1.5F);
+	public static final Block trash = new BlockTrash().showRecipe().setInfo("This block will allow you to destroy anything that you don't want anymore. If the config option for traditional trash can is enabled. It will destry items like a cactus. But if not, you could right click on it and place items in the Gui. Then power it with redstone and hit that empty button.").setHardness(3.0F);
+	public static final Block vending_machine = new BlockVendingMachine().showRecipe().setInfo("This block will allow you to gamble in Minecraft! Right click it with a diamond and it will give you a random item in all of Minecraft back!");
 	public static final Block dried_sapling = new BlockDriedSapling();
-	public static final Block limestone_block = new BlockCustom(Material.rock, "Block of Limestone").setShowRecipe().setInfo("A compact way to save space when you have too much limestone. This can also be smelted to create a Marble block.").setHardness(1.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":limestoneblock");
+	public static final Block limestone_block = new BlockCustom(Material.rock, "Block of Limestone").showRecipe().setInfo("A compact way to save space when you have too much limestone. This can also be smelted to create a Marble block.").setHardness(1.0F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":limestoneblock");
 	public static final Block marble = new BlockCustom(Material.glass, "Marble").setInfo("Nice decoration block.").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName(MODID + ":marbleblock");
 	public static final Block limestone_ore = new BlockEBOre("Limestone Ore").setDrop(limestone);
-	public static final Block fake_sand = new BlockCustom(Material.sand, "Fake Sand").setShowRecipe().setInfo("Simply. Fake sand, it will not drop if there's no block under it.").setHardness(0.5F).setCreativeTab(tab_mainBlocks).setBlockTextureName("sand");
-	public static final Block fake_gravel = new BlockCustom(Material.ground, "Fake Gravel").setShowRecipe().setInfo("Simply. Fake gravel, it will not drop if there's no block under it.").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName("gravel");
-	public static final Block drill = new BlockDrill(true).setShowRecipe().setInfo("When placed down on the ground, it will drill all the way down to an open block, or to bedrock. Then the contents are stored in it's inventory. To retrieve the items, you have to right click it.");
+	public static final Block fake_sand = new BlockCustom(Material.sand, "Fake Sand").showRecipe().setInfo("Simply. Fake sand, it will not drop if there's no block under it.").setHardness(0.5F).setCreativeTab(tab_mainBlocks).setBlockTextureName("sand");
+	public static final Block fake_gravel = new BlockCustom(Material.ground, "Fake Gravel").showRecipe().setInfo("Simply. Fake gravel, it will not drop if there's no block under it.").setHardness(0.6F).setCreativeTab(tab_mainBlocks).setBlockTextureName("gravel");
+	public static final Block drill = new BlockDrill(true).showRecipe().setInfo("When placed down on the ground, it will drill all the way down to an open block, or to bedrock. Then the contents are stored in it's inventory. To retrieve the items, you have to right click it.");
 	public static final Block drill_pole = new BlockDrill(false);
 	public static final Block onyx_ore = new BlockEBOre("Onyx Ore").setDrop(onyx);
 	public static final Block meteorite = new BlockEBOre("Meteorite").setDrop(meteorite_shards);
 	public static final Block fluorite_ore = new BlockEBOre("Fluorite Ore").setDrop(fluorite);
 	public static final Block sapphire_ore = new BlockEBOre("Sapphire Ore").setDrop(sapphire);
 	public static final Block fuse_block = new BlockFuseBlock();
-	public static final Block powder_keg = new BlockPowderKeg().setShowRecipe().setInfo("This powder keg will blow up when there is a fire next to it. This can be used with the fuse to set traps!");
-	public static final Block eb_table = new BlockEBTable().setShowRecipe().setInfo("This crafting table replacement can be used just to register all of the Extreme Blocks Mod's recipes. There are some config options that you can play with to maximize enjoyment.");
+	public static final Block powder_keg = new BlockPowderKeg().showRecipe().setInfo("This powder keg will blow up when there is a fire next to it. This can be used with the fuse to set traps!");
+	public static final Block eb_table = new BlockEBTable().showRecipe().setInfo("This crafting table replacement can be used just to register all of the Extreme Blocks Mod's recipes. There are some config options that you can play with to maximize enjoyment.");
 	public static final Block cannabis_plant = new BlockHemp().setInfo("Similar to sugar cane, it can be grown and then used for weed.");
-	public static final Block plate = new BlockPlate().setShowRecipe().setInfo("You can right click on this to place the item in the plate. You can use this as a kind of Item Frame.");
-	public static final Block wire = new BlockWire().setShowRecipe().setInfo("This block can transfer Redstone Flux through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy providers to create energy.");
+	public static final Block plate = new BlockPlate().showRecipe().setInfo("You can right click on this to place the item in the plate. You can use this as a kind of Item Frame.");
+	public static final Block wire = new BlockWire().showRecipe().setInfo("This block can transfer Redstone Flux through other wire blocks placed next to it. You can connect this to energy receivers to use energy and also energy providers to create energy.");
 	public static final Block tomato_crop = new BlockCrop("Tomato Crop", tomato_seeds, tomato);
 	public static final Block cucumber_crop = new BlockCrop("Cucumber Crop", cucumber_seeds, cucumber);
-	public static final Block recipe_revert = new BlockRecipeRevert().setShowRecipe().setInfo("This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.");
+	public static final Block recipe_revert = new BlockRecipeRevert().showRecipe().setInfo("This very overpowered block will allow you to revert any recipe you want. Just place it into the slot and it will show you the recipe to make it and also, give you back all the items.");
 	public static final Block gold_trophy = new BlockTrophy(TrophyType.GOLD);
 	public static final Block bronze_trophy = new BlockTrophy(TrophyType.BRONZE);
 	public static final Block diamond_trophy = new BlockTrophy(TrophyType.DIAMOND);
 	public static final Block silver_trophy = new BlockTrophy(TrophyType.SILVER);
 	public static final Block trinquantium_trophy = new BlockTrophy(TrophyType.TRINQUANTIUM);
 	public static final Block iron_trophy = new BlockTrophy(TrophyType.IRON);
-	public static final Block altar = new BlockAltar().setShowRecipe().setInfo("When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!");
+	public static final Block altar = new BlockAltar().showRecipe().setInfo("When placed in a four block high colum, it will spawn in the Demon Spirit boss and allow you to fight it!");
+	public static final Block apparatus_casing = new BlockSided(Material.iron, "Apparatus Casing").setTexture("apparatus_casing_top", 0, 1).setTexture("apparatus_casing_side", 2, 3, 4, 5).showRecipe().setInfo("The block that every machine will need as a basis.").setHardness(1.0F);
 	public static final Block enchantment_extractor = new BlockEnchantmentExtractor();
 	public static final Block fuel_generator = new BlockFuelGenerator();
 	public static final Block base_protector = new BlockBaseProtector();
-
-	//public static final Block flux_cooker = new BlockBaseProtector();
+	public static final Block eb_identifier = new BlockEBIdentifier();
+	public static final Block flux_cooker = new BlockFluxCooker();
+	public static final Block rf_infuser = new BlockRFInfuser();
 
 	public Init()
 	{
@@ -261,13 +248,13 @@ public class Init
 		{
 			ExtremeBlocks.blocks.add(new BlockBuild(GenManager.getGens().get(i)));
 		}
-		BlockStorage.initBlocks();
 	}
 
 	public static void addRecipes()
 	{
-		MPUtil.addRecipe(counter, "X#", 'X', core_chip, '#', Blocks.wooden_button);
-		MPUtil.addRecipe(counter, "X#", 'X', core_chip, '#', Blocks.stone_button);
+		MPUtil.addRecipe(new ItemStack(counter, 2), "X#", 'X', core_chip, '#', Blocks.wooden_button);
+		MPUtil.addRecipe(new ItemStack(counter, 2), "X#", 'X', core_chip, '#', Blocks.stone_button);
+		MPUtil.addRecipe(counter, "X", 'X', counter);
 		MPUtil.addRecipe(drill, "XXX", "#B#", " S ", 'X', Items.iron_ingot, '#', Items.diamond, 'B', Items.redstone, 'S', Blocks.diamond_block);
 		MPUtil.addRecipe(fake_gravel, "XX", 'X', Blocks.gravel);
 		MPUtil.addRecipe(fake_sand, "XX", 'X', Blocks.sand);
@@ -277,6 +264,7 @@ public class Init
 		MPUtil.addRecipe(limestone_ore, "##", "##", '#', limestone);
 		MPUtil.addRecipe(light, "###", "#X#", "###", '#', Items.redstone, 'X', chip);
 		MPUtil.addRecipe(core_chip, "###", '#', chip);
+		MPUtil.addRecipe(integrated_circuit, "###", '#', core_chip);
 		MPUtil.addRecipe(stone_pillar, "##", "##", "##", '#', Blocks.stone);
 		MPUtil.addRecipe(lantern, "#", "#", '#', Blocks.glass);
 		MPUtil.addRecipe(new ItemStack(Blocks.planks, 2), "#", '#', emptied_log);
@@ -291,7 +279,7 @@ public class Init
 		MPUtil.addRecipe(extractor, "#X#", '#', Blocks.stone, 'X', Blocks.lever);
 		MPUtil.addRecipe(new ItemStack(crushed_stone, 5), "#", "#", '#', Blocks.stone);
 		MPUtil.addRecipe(new ItemStack(xray_block_un, 2), "XBX", "B#B", "XBX", '#', spirit_fragment, 'B', Items.diamond, 'X', trinquantium_ingot);
-		MPUtil.addRecipe(new ItemStack(xray_block), "XBX", "B#B", "XBX", '#', xray_block_un, 'B', delvlish_crystal, 'X', glester_rock);
+		MPUtil.addRecipe(xray_block, "XBX", "B#B", "XBX", '#', xray_block_un, 'B', delvlish_crystal, 'X', glester_rock);
 		MPUtil.addRecipe(new ItemStack(gold_coin, 3), " # ", "###", " # ", '#', Items.gold_nugget);
 		MPUtil.addRecipe(new ItemStack(bronze_trophy, 3), " # ", "###", "###", '#', bronze_ingot);
 		MPUtil.addRecipe(new ItemStack(silver_trophy, 3), " # ", "###", "###", '#', silver_ingot);
@@ -305,15 +293,6 @@ public class Init
 		MPUtil.addRecipe(new ItemStack(fuse, 2), "##", '#', Items.gunpowder);
 		MPUtil.addRecipe(powder_keg, "#X#", '#', Items.gunpowder, 'X', fuse);
 		MPUtil.addRecipe(meteor, "##", "##", '#', meteorite_shards);
-		MPUtil.addRecipe(strongbox, "ICI", 'I', Items.iron_ingot, 'C', crate);
-		MPUtil.addRecipe(barrel, "P", "I", "P", 'I', Items.iron_ingot, 'P', Blocks.planks);
-		MPUtil.addRecipe(cabinet, "PGP", 'P', Blocks.planks, 'G', Blocks.glass_pane);
-		MPUtil.addRecipe(small_crate, "SS", "SS", 'S', Items.stick);
-		MPUtil.addRecipe(big_crate, "WW", "WW", 'W', Blocks.log);
-		MPUtil.addRecipe(big_crate, "WW", "WW", 'W', Blocks.log2);
-		MPUtil.addRecipe(crate, "WW", 'W', Blocks.log);
-		MPUtil.addRecipe(crate, "WW", 'W', Blocks.log2);
-		MPUtil.addRecipe(large_crate, "WW", "WW", 'W', crate);
 		MPUtil.addRecipe(stone_stick, "SS", "SS", "SS", 'S', crushed_stone);
 		MPUtil.addRecipe(pestle_mortar, "  R", "RSR", " S ", 'S', crushed_stone, 'R', stone_stick);
 		MPUtil.addRecipe(power_core, "RCR", "CDC", "RCR", 'R', chip, 'C', core_chip, 'D', Items.diamond);
@@ -337,6 +316,12 @@ public class Init
 		MPUtil.addRecipe(marker, "RGB", "PIP", "PIP", 'R', new ItemStack(Items.dye, 1, 1), 'G', new ItemStack(Items.dye, 1, 2), 'B', new ItemStack(Items.dye, 1, 4), 'P', plastic, 'I', new ItemStack(Items.dye, 1, 0));
 		MPUtil.addRecipe(summon_bloodwing, "ECE", "WSW", "ECE", 'E', Items.spider_eye, 'S', spirit_fragment, 'C', Items.egg, 'W', bat_wing);
 		MPUtil.addRecipe(enchantment_extractor, "BOB", "OSO", "BOB", 'B', bronze_block, 'O', Items.book, 'S', spirit_fragment);
+		MPUtil.addRecipe(apparatus_casing, "ICI", "R R", "III", 'I', Items.iron_ingot, 'C', chip, 'R', Items.redstone);
+		MPUtil.addRecipe(eb_identifier, "ICI", "RBR", "III", 'I', Items.iron_ingot, 'C', chip, 'R', Items.redstone, 'B', Dyes.BLUE.toStack());
+		MPUtil.addRecipe(base_protector, "PPP", "PBP", "CRC", 'P', Items.gold_ingot, 'B', apparatus_casing, 'C', chip, 'R', core_chip);
+		MPUtil.addRecipe(fuel_generator, "RDR", "PBP", "III", 'P', Dyes.BLUE.toStack(), 'B', apparatus_casing, 'D', Items.diamond, 'R', core_chip, 'I', Items.iron_ingot);
+		MPUtil.addRecipe(flux_cooker, "GGG", "RBR", "GIG", 'B', apparatus_casing, 'R', core_chip, 'G', Items.gold_ingot, 'I', integrated_circuit);
+		MPUtil.addRecipe(rf_infuser, "DDD", "BAB", "III", 'A', apparatus_casing, 'D', Items.diamond, 'B', core_chip, 'I', Items.iron_ingot);
 
 		MPUtil.addShapelessRecipe(new ItemStack(robot_warrior), robot, Items.golden_sword);
 		MPUtil.addShapelessRecipe(new ItemStack(robot_farmer), robot, Items.golden_hoe);
@@ -381,7 +366,7 @@ public class Init
 		Vars.alterWorld = cfg.getBool("Alter World", true, "Allow EB to alter your world and generate structures and features");
 		for (Class<? extends Generation> clazz : GenManager.getGens())
 		{
-			Vars.gens.put(clazz, new Boolean(cfg.shouldGen(clazz.getAnnotation(Gen.class).name())));
+			Vars.gens.put(clazz, cfg.shouldGen(clazz.getAnnotation(Gen.class).name()));
 		}
 
 		Vars.addMobs = cfg.getBool("Allow Mobs", true, "Allow Mobs to work in the game. If this is false, all the EB mobs are disabled.");
@@ -389,10 +374,10 @@ public class Init
 		Class<?>[] classes = EBCommon.removeMobs.keySet().toArray(new Class<?>[0]);
 		if (Vars.addMobs)
 		{
-			for (Class<?> classe : classes)
+			for (Class<?> clazz : classes)
 			{
-				Mob m = classe.getAnnotation(Mob.class);
-				EBCommon.removeMobs.put(classe, cfg.allowMob(m.getName(), m.getVanillaName()));
+				Mob m = clazz.getAnnotation(Mob.class);
+				EBCommon.removeMobs.put(clazz, cfg.allowMob(m.getName(), m.getVanillaName()));
 			}
 		}
 

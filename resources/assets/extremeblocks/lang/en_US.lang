@@ -83,6 +83,11 @@ tile.Catacombs.name=Catacombs Gen
 tile.Enchantment Extractor.name=Enchantment Extractor
 tile.Wire.name=Wire
 tile.Fuel Generator.name=Fuel Generator
+tile.Base Protector.name=Base Protector
+tile.Apparatus Casing.name=Apparatus Casing
+tile.Extreme Blocks Identifier.name=Extreme Blocks Identifier
+tile.Flux Cooker.name=Flux Cooker
+tile.Redstone Flux Infuser.name=Redstone Flux Infuser
 
 entity.Castle Zombie.name=Castle Zombie
 entity.Castle Skeleton.name=Castle Skeleton

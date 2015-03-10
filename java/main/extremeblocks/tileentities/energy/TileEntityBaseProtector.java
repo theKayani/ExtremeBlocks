@@ -81,8 +81,8 @@ public class TileEntityBaseProtector extends TileEntityMachine
 	@Override
 	public List<Slot> getSlots()
 	{
-		List<Slot> s = new Slots(this, 17, 21, 5, 1).getSlots();
-		s.addAll(new Slots(this, 117, 9, 2, 2).setStartID(5).getSlots());
+		List<Slot> s = new Slots(this, 17, 21, 5, 1);
+		s.addAll(new Slots(this, 117, 9, 2, 2).setStartID(5));
 		return s;
 	}
 

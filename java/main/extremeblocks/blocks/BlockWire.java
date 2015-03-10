@@ -2,12 +2,12 @@ package main.extremeblocks.blocks;
 
 import java.util.List;
 import main.com.hk.eb.util.BlockCustom;
+import main.extremeblocks.Init;
 import main.extremeblocks.tileentities.TileEntityWire;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -21,7 +21,7 @@ public class BlockWire extends BlockCustom implements ITileEntityProvider
 	public BlockWire()
 	{
 		super(Material.wood, "Wire");
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(Init.tab_mainBlocks);
 		setHardness(0.3F);
 		float f = 0.3F;
 		setBlockBounds(0.5F - f, 0.5F - f, 0.5F - f, 0.5F + f, 0.5F + f, 0.5F + f);

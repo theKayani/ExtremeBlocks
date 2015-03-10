@@ -20,6 +20,7 @@ public class Slots extends ArrayList<Slot>
 		this.height = height;
 		apartX = apartY = 18;
 		startID = 0;
+		getSlots();
 	}
 
 	public final Slots setStartID(int startID)
@@ -53,7 +54,7 @@ public class Slots extends ArrayList<Slot>
 		return getSlots();
 	}
 
-	public Slots getSlots()
+	private Slots getSlots()
 	{
 		clear();
 		for (int i = 0; i < height; i++)

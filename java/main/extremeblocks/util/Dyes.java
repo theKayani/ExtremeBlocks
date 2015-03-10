@@ -36,6 +36,6 @@ public enum Dyes
 
 	public ItemStack toStack()
 	{
-		return new ItemStack(Items.dye, 1, ordinal());
+		return toStack(1);
 	}
 }

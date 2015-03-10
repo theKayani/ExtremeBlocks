@@ -1,20 +1,25 @@
 package main.extremeblocks.blocks;
 
-import main.com.hk.eb.util.BlockCustom;
-import main.extremeblocks.ExtremeBlocks;
-import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
+import main.extremeblocks.blocks.abstracts.BlockGui;
+import main.extremeblocks.client.containers.ContainerEBTable;
+import main.extremeblocks.client.guis.GuiEBTable;
+import main.extremeblocks.tileentities.TileEntityInventory;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockEBTable extends BlockCustom implements GuiIDs
+public class BlockEBTable extends BlockGui
 {
+	public static final int CRAFTING_SLOTS = 4;
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
@@ -22,7 +27,7 @@ public class BlockEBTable extends BlockCustom implements GuiIDs
 
 	public BlockEBTable()
 	{
-		super(Material.wood, "EB Crafting Table");
+		super("EB Crafting Table", Material.wood);
 		setHardness(2.5F);
 		setCreativeTab(Init.tab_mainBlocks);
 		setBlockTextureName(Init.MODID + ":crafting_table");
@@ -45,15 +50,27 @@ public class BlockEBTable extends BlockCustom implements GuiIDs
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	public boolean hasTile()
 	{
-		if (!player.isSneaking())
-		{
-			player.openGui(ExtremeBlocks.instance, BLOCK_EBTABLE, world, x, y, z);
-			return true;
-		}
 		return false;
 	}
 
-	public static final int CRAFTING_SLOTS = 4;
+	@Override
+	public Class<? extends TileEntityInventory> getTileClass()
+	{
+		return null;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public GuiContainer getGui(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
+	{
+		return new GuiEBTable(inventory, world, x, y, z);
+	}
+
+	@Override
+	public Container getContainer(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
+	{
+		return new ContainerEBTable(inventory, world, x, y, z);
+	}
 }

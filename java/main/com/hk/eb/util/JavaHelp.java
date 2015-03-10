@@ -1,6 +1,7 @@
 package main.com.hk.eb.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,21 @@ public class JavaHelp
 		s = s.endsWith(", ") ? s.substring(0, s.lastIndexOf(", ")) : s;
 		s += ")";
 		return s;
+	}
+
+	public static <E> Comparator<E> stringComparator(final StringExtractor<E> extractor)
+	{
+		return new Comparator<E>()
+		{
+			@Override
+			public int compare(E o1, E o2)
+			{
+				String a = extractor.toString(o1);
+				String b = extractor.toString(o2);
+				return a == b ? 0 : a == null ? -1 : a.compareTo(b);
+			}
+
+		};
 	}
 
 	public static interface StringExtractor<T>

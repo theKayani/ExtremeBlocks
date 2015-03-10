@@ -6,20 +6,19 @@ import main.com.hk.eb.util.IWailaInfo;
 import main.com.hk.eb.util.MathHelp;
 import main.extremeblocks.tileentities.TileEntitySidedInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyProvider;
 
 public abstract class TileEntityGenerator extends TileEntitySidedInventory implements IEnergyProvider, IEnergyHolder, IWailaInfo
 {
-	public EnergyStorage storage = new EnergyStorage(120000, 1024, 1024);
+	public EnergyStorage storage;
 
 	public TileEntityGenerator(String name)
 	{
 		super(name);
+		storage = new EnergyStorage(getMaxEnergyStored(), getMaxReceive(), getMaxExtract());
 	}
 
 	public abstract int[] getBatterySlots();
@@ -35,17 +34,6 @@ public abstract class TileEntityGenerator extends TileEntitySidedInventory imple
 	public void calculatePowerFromInventory()
 	{
 		PowerHelper.calculatePowerFromInventory(this, storage, getBatterySlots());
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack)
-	{
-		boolean isBattery = stack != null && stack.getItem() instanceof IEnergyContainerItem;
-		for (int i = 0; i < getBatterySlots().length; i++)
-		{
-			if (getBatterySlots()[i] == i && isBattery) return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -92,7 +80,7 @@ public abstract class TileEntityGenerator extends TileEntitySidedInventory imple
 	@Override
 	public int getMaxEnergyStored()
 	{
-		return storage.getMaxEnergyStored();
+		return 120000;
 	}
 
 	@Override
@@ -104,13 +92,13 @@ public abstract class TileEntityGenerator extends TileEntitySidedInventory imple
 	@Override
 	public int getMaxExtract()
 	{
-		return storage.getMaxExtract();
+		return 1024;
 	}
 
 	@Override
 	public int getMaxReceive()
 	{
-		return storage.getMaxReceive();
+		return 1024;
 	}
 
 	@Override

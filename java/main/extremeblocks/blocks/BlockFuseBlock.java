@@ -23,7 +23,7 @@ public class BlockFuseBlock extends BlockCustom
 		super(Material.circuits, "Fuse Block");
 		setBlockTextureName(Init.MODID + ":fuse");
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15F, 1.0F);
-		teClass = TileEntityFuse.class;
+		tileClass = TileEntityFuse.class;
 	}
 
 	@Override

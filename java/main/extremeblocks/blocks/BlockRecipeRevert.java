@@ -1,25 +1,30 @@
 package main.extremeblocks.blocks;
 
-import main.com.hk.eb.util.BlockCustom;
 import main.com.hk.eb.util.MPUtil;
-import main.extremeblocks.ExtremeBlocks;
-import main.extremeblocks.GuiIDs;
 import main.extremeblocks.Init;
+import main.extremeblocks.blocks.abstracts.BlockGui;
+import main.extremeblocks.client.containers.ContainerRevertingStation;
+import main.extremeblocks.client.guis.GuiRevertingStation;
+import main.extremeblocks.tileentities.TileEntityInventory;
 import main.extremeblocks.tileentities.TileEntityRevertingStation;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockRecipeRevert extends BlockCustom implements GuiIDs
+public class BlockRecipeRevert extends BlockGui
 {
 	public BlockRecipeRevert()
 	{
-		super(Material.wood, "Recipe Reverting Station");
+		super("Recipe Reverting Station", Material.wood);
 		setCreativeTab(Init.tab_mainBlocks);
 		setBlockTextureName(Init.MODID + ":recipe_reverter");
-		teClass = TileEntityRevertingStation.class;
 	}
 
 	@Override
@@ -30,13 +35,21 @@ public class BlockRecipeRevert extends BlockCustom implements GuiIDs
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float sideX, float sideY, float sideZ)
+	public Class<? extends TileEntityInventory> getTileClass()
 	{
-		if (!player.isSneaking())
-		{
-			player.openGui(ExtremeBlocks.instance, TILE_REVERTING_STATION, world, x, y, z);
-			return true;
-		}
-		return false;
+		return TileEntityRevertingStation.class;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public GuiContainer getGui(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
+	{
+		return new GuiRevertingStation(inventory, (TileEntityRevertingStation) tile);
+	}
+
+	@Override
+	public Container getContainer(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
+	{
+		return new ContainerRevertingStation(inventory, (TileEntityRevertingStation) tile);
 	}
 }

@@ -51,10 +51,10 @@ public class GuiFuelGenerator extends GuiRFHolder
 				drawTexturedModalRect((i >= 5 ? (i - 5) * 20 : i * 20) + k + 11, (i >= 5 ? 37 : 0) + l + 53 - i1, 176, 12 - i1, 14, i1 + 1);
 			}
 		}
-		renderPowerAt();
+		renderPowerBar();
 		if (tile.isRedstonePowered())
 		{
-			renderRedstoneIndicatorAt();
+			renderRedstoneIndicator();
 		}
 	}
 }

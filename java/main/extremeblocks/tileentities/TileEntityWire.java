@@ -9,23 +9,17 @@ import main.extremeblocks.tileentities.energy.WireList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 
 public class TileEntityWire extends TileEntity implements IEnergyHandler
 {
 	public WireList map;
-	protected EnergyStorage storage = new EnergyStorage(32000);
 
 	@Override
 	public void updateEntity()
 	{
-		if (map == null)
-		{
-			updateNeighbors();
-		}
-		map.sendEnergy();
+		getMap().sendEnergy();
 	}
 
 	public void updateNeighbors()
@@ -39,9 +33,9 @@ public class TileEntityWire extends TileEntity implements IEnergyHandler
 				((TileEntityWire) t).getPipeNeighbors(pipes);
 			}
 		}
-		int power = map == null ? 0 : map.power;
+		int power = map == null ? 0 : map.getEnergyStored();
 		map = new WireList(worldObj);
-		map.power = power;
+		map.storage.modifyEnergyStored(power);
 		for (TileEntityWire p : pipes)
 		{
 			p.map = map;
@@ -66,24 +60,6 @@ public class TileEntityWire extends TileEntity implements IEnergyHandler
 		return pipes;
 	}
 
-	public int removeAllEnergy()
-	{
-		int i = 0;
-		while (getEnergyStored(null) > 0)
-		{
-			i += extractEnergy(null, storage.getMaxExtract(), false);
-		}
-		return i;
-	}
-
-	public void setMapIfNull()
-	{
-		if (map == null)
-		{
-			updateNeighbors();
-		}
-	}
-
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from)
 	{
@@ -99,39 +75,48 @@ public class TileEntityWire extends TileEntity implements IEnergyHandler
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate)
 	{
-		return storage.receiveEnergy(maxReceive, simulate);
+		return getMap().storage.receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate)
 	{
-		return storage.extractEnergy(maxExtract, simulate);
+		return getMap().storage.extractEnergy(maxExtract, simulate);
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from)
 	{
-		return storage.getEnergyStored();
+		return getMap().getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from)
 	{
-		return storage.getMaxEnergyStored();
+		return getMap().getMaxEnergyStored();
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		storage.readFromNBT(nbt);
+		getMap().storage.readFromNBT(nbt);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-		storage.writeToNBT(nbt);
+		getMap().storage.writeToNBT(nbt);
+	}
+
+	private WireList getMap()
+	{
+		if (map == null)
+		{
+			updateNeighbors();
+		}
+		return map;
 	}
 
 	@Override

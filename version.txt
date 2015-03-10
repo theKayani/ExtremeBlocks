@@ -1,2 +1,2 @@
-Version: 6.9
-Summary Message: Includes Multiplayer Compatibility!
+Version: 7.0
+Summary Message: NEI, WAILA, and Redstone Flux compatibility!

@@ -10,13 +10,14 @@ import main.extremeblocks.tileentities.TileEntityWire;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 
 public class WireList extends ArrayList<TileEntityWire>
 {
 	public final List<WirePath> paths;
-	public int power;
+	public final EnergyStorage storage = new EnergyStorage(1000000000, 1024);
 	public final World world;
 
 	public WireList(World world)
@@ -28,22 +29,13 @@ public class WireList extends ArrayList<TileEntityWire>
 	@Override
 	public boolean add(TileEntityWire p)
 	{
-		if (contains(p)) return false;
-		else return super.add(p);
+		return contains(p) ? false : super.add(p);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends TileEntityWire> coll)
 	{
-		boolean done = true;
-		for (TileEntityWire p : coll)
-		{
-			if (!contains(p))
-			{
-				done = done && add(p);
-			}
-		}
-		return done;
+		return containsAll(coll) ? false : super.addAll(coll);
 	}
 
 	@Override
@@ -63,11 +55,10 @@ public class WireList extends ArrayList<TileEntityWire>
 
 	public void sendEnergy()
 	{
-		updateConnections();
 		List<IEnergyReceiver> red = getReceivers();
 		for (int i = 0; i < red.size(); i++)
 		{
-			int shouldTake = power / red.size();
+			int shouldTake = getEnergyStored() / red.size();
 			IEnergyReceiver r = red.get(i);
 			TileEntity rec = (TileEntity) r;
 			TileEntity[] tiles = WorldUtil.getNeighborTiles(world, new Vector3I(rec));
@@ -76,13 +67,11 @@ public class WireList extends ArrayList<TileEntityWire>
 				if (e != null)
 				{
 					ForgeDirection a = PowerHelper.getSideAt(world, rec, e);
-					if (power > 0 && e instanceof TileEntityWire && contains(e) && r.canConnectEnergy(a))
+					if (getEnergyStored() > 0 && e instanceof TileEntityWire && contains(e) && r.canConnectEnergy(a))
 					{
-						if (shouldTake > 1024)
-						{
-							shouldTake = 1024;
-						}
-						power -= r.receiveEnergy(a, shouldTake, false);
+						int taken = r.receiveEnergy(a, shouldTake, true);
+						taken = extractEnergy(taken, false);
+						r.receiveEnergy(a, taken, false);
 					}
 				}
 			}
@@ -108,14 +97,6 @@ public class WireList extends ArrayList<TileEntityWire>
 			}
 		}
 		return path;
-	}
-
-	public void updateConnections()
-	{
-		for (TileEntityWire p : this)
-		{
-			power += p.removeAllEnergy();
-		}
 	}
 
 	public List<TileEntity> getNeighborMachines()
@@ -152,21 +133,24 @@ public class WireList extends ArrayList<TileEntityWire>
 		return rec;
 	}
 
-	public List<IEnergyProvider> getProviders()
+	public int receiveEnergy(int maxReceive, boolean simulate)
 	{
-		List<IEnergyProvider> pros = JavaHelp.newArrayList();
-		for (TileEntityWire p : this)
-		{
-			TileEntity[] tiles = WorldUtil.getNeighborTiles(world, new Vector3I(p));
-			for (TileEntity t : tiles)
-			{
-				if (t instanceof IEnergyProvider && !(t instanceof TileEntityWire) && !pros.contains(t))
-				{
-					pros.add((IEnergyProvider) t);
-				}
-			}
-		}
-		return pros;
+		return storage.receiveEnergy(maxReceive, simulate);
+	}
+
+	public int extractEnergy(int maxExtract, boolean simulate)
+	{
+		return storage.extractEnergy(maxExtract, simulate);
+	}
+
+	public int getEnergyStored()
+	{
+		return storage.getEnergyStored();
+	}
+
+	public int getMaxEnergyStored()
+	{
+		return storage.getMaxEnergyStored();
 	}
 
 	@Override

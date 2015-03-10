@@ -2,8 +2,10 @@ package main.extremeblocks.items;
 
 import java.util.List;
 import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,7 +17,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemEdible extends ItemFood implements IInfo
+public class ItemEdible extends ItemFood implements IInfo, IInitialization
 {
 	private final String name;
 	private EnumAction action = EnumAction.eat;
@@ -138,5 +140,17 @@ public class ItemEdible extends ItemFood implements IInfo
 	public Elements getElements()
 	{
 		return new Elements(true, false);
+	}
+
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 }

@@ -1,65 +1,52 @@
 package main.extremeblocks.blocks.abstracts;
 
-import main.com.hk.eb.util.IInfo;
-import main.extremeblocks.ExtremeBlocks;
+import main.com.hk.eb.util.BlockCustom;
 import main.extremeblocks.Init;
-import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSided extends BlockRotatedPillar implements IInfo
+public class BlockSided extends BlockCustom
 {
-	private boolean showRecipe;
-	private IIcon topIcon;
-
-	public BlockSided(Material mat, String blockName, String textureName)
-	{
-		super(mat);
-		setBlockName(blockName);
-		setBlockTextureName(Init.MODID + ":" + textureName + "_");
-		setCreativeTab(Init.tab_mainBlocks);
-		ExtremeBlocks.blocks.add(this);
-	}
-
-	@Override
+	private final String[] textures = new String[6];
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister ir)
+	private final IIcon[] textureIcons = new IIcon[6];
+
+	public BlockSided(Material mat, String name)
 	{
-		blockIcon = ir.registerIcon(getTextureName() + "side");
-		topIcon = ir.registerIcon(getTextureName() + "top");
+		super(mat, name);
+		setCreativeTab(Init.tab_mainBlocks);
 	}
 
-	public BlockSided setShowRecipe()
+	public BlockSided setTexture(String textureName, int... sides)
 	{
-		showRecipe = true;
+		for (int side : sides)
+		{
+			if (side >= 0 && side < 6)
+			{
+				textures[side] = textureName;
+			}
+			else throw new IllegalArgumentException(side + " must be between 0 and 6");
+		}
 		return this;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	protected IIcon getTopIcon(int p_150161_1_)
+	public IIcon getIcon(int side, int meta)
 	{
-		return topIcon;
+		return textureIcons[side];
 	}
 
 	@Override
-	protected IIcon getSideIcon(int var1)
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg)
 	{
-		return blockIcon;
-	}
-
-	@Override
-	public String getInfo()
-	{
-		return "This block, like logs, can be placed sideways.";
-	}
-
-	@Override
-	public Elements getElements()
-	{
-		return new Elements(true, showRecipe);
+		for (int i = 0; i < 6; i++)
+		{
+			textureIcons[i] = reg.registerIcon(textures[i] == null ? "stone" : Init.MODID + ":" + textures[i]);
+		}
 	}
 }

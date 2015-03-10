@@ -14,6 +14,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBaseProtector extends BlockMachine
 {
@@ -22,6 +25,7 @@ public class BlockBaseProtector extends BlockMachine
 		super("Base Protector");
 		setHardness(1.5F);
 		setInfo("This block is the Base Protector. Similarily to previous versions, it protects mobs in a 10x10x10 radius of the block. It will drop arrows onto enemies consuming 2048 RF per arrow dropped. There are many modifiers you can have on the machine as well!");
+		showRecipe();
 	}
 
 	@Override
@@ -33,29 +37,30 @@ public class BlockBaseProtector extends BlockMachine
 	@Override
 	public String getTopTexture()
 	{
-		return "";
+		return "base_protector_top";
 	}
 
 	@Override
 	public String getFrontTexture()
 	{
-		return "";
+		return "base_protector_side";
 	}
 
 	@Override
 	public String getSideTexture()
 	{
-		return "";
+		return "base_protector_side";
 	}
 
 	@Override
-	public GuiEB getGui(InventoryPlayer inventory, TileEntity tile)
+	@SideOnly(Side.CLIENT)
+	public GuiEB getGui(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
 	{
 		return new GuiBaseProtector(inventory, (TileEntityBaseProtector) tile);
 	}
 
 	@Override
-	public ContainerEB getContainer(InventoryPlayer inventory, TileEntity tile)
+	public ContainerEB getContainer(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile)
 	{
 		return new ContainerBaseProtector(inventory, (TileEntityInventory) tile);
 	}

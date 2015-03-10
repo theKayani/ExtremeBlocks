@@ -149,6 +149,16 @@ public abstract class TileEntityInventory extends TileEntityEB implements IInven
 		return JavaHelp.newArrayList();
 	}
 
+	public int[] getSlotsBetween(int start, int end)
+	{
+		int[] slots = new int[end - start];
+		for (int i = start; i < end; i++)
+		{
+			slots[i] = i - start;
+		}
+		return slots;
+	}
+
 	public static void dropItems(World world, int x, int y, int z)
 	{
 		Random rand = new Random();

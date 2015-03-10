@@ -9,6 +9,7 @@ import main.com.hk.eb.util.FileHelper;
 import main.com.hk.eb.util.ItemCustom;
 import main.com.hk.eb.util.JavaHelp;
 import main.com.hk.eb.util.MPUtil;
+import main.com.hk.eb.util.Vector3F;
 import main.com.hk.eb.util.Vector3I;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -40,21 +41,21 @@ public class ItemMarker extends ItemCustom
 		}
 		if (!stack.stackTagCompound.getBoolean("Set"))
 		{
-			stack.stackTagCompound.setInteger("Vec X", x);
-			stack.stackTagCompound.setInteger("Vec Y", y);
-			stack.stackTagCompound.setInteger("Vec Z", z);
+			stack.stackTagCompound.setFloat("Vec X", x);
+			stack.stackTagCompound.setFloat("Vec Y", y);
+			stack.stackTagCompound.setFloat("Vec Z", z);
 			stack.stackTagCompound.setBoolean("Set", true);
 			MPUtil.sendMessage("Set At: " + x + ", " + y + ", " + z, player);
 		}
 		else
 		{
-			int a = stack.stackTagCompound.getInteger("Vec X");
-			int b = stack.stackTagCompound.getInteger("Vec Y");
-			int c = stack.stackTagCompound.getInteger("Vec Z");
+			float a = stack.stackTagCompound.getFloat("Vec X");
+			float b = stack.stackTagCompound.getFloat("Vec Y");
+			float c = stack.stackTagCompound.getFloat("Vec Z");
 			stack.stackTagCompound.setBoolean("Set", false);
-			Vector3I pre = new Vector3I(a, b, c);
-			Vector3I pos = new Vector3I(x, y, z);
-			int i = pos.distance(pre);
+			Vector3F pre = new Vector3F(a, b, c);
+			Vector3F pos = new Vector3F(x, y, z);
+			float i = pos.distance(pre);
 			MPUtil.sendMessage("Distance: " + i, player);
 			//writeTo(world, pre, pos);
 		}
@@ -146,12 +147,12 @@ public class ItemMarker extends ItemCustom
 		}
 		if (stack.stackTagCompound.getBoolean("Set"))
 		{
-			int x = stack.stackTagCompound.getInteger("Vec x");
-			int y = stack.stackTagCompound.getInteger("Vec y");
-			int z = stack.stackTagCompound.getInteger("Vec z");
-			Vector3I dest = new Vector3I(x, y, z);
-			Vector3I pos = new Vector3I(player);
-			int i = pos.distance(dest);
+			float x = stack.stackTagCompound.getFloat("Vec x");
+			float y = stack.stackTagCompound.getFloat("Vec y");
+			float z = stack.stackTagCompound.getFloat("Vec z");
+			Vector3F dest = new Vector3F(x, y, z);
+			Vector3F pos = new Vector3F(player);
+			float i = pos.distance(dest);
 			list.add("Orgin: " + dest);
 			list.add("Current Distance: " + i);
 		}

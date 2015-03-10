@@ -45,6 +45,7 @@ public class ItemBattery extends ItemCustom implements IEnergyContainerItem
 	public void getSubItems(Item item, CreativeTabs tab, List list)
 	{
 		ItemStack a = new ItemStack(this);
+		a.setItemDamage(a.getMaxDamage());
 		list.add(a);
 		ItemStack b = new ItemStack(this);
 		b.stackTagCompound = new NBTTagCompound();

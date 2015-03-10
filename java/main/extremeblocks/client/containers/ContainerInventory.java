@@ -48,6 +48,11 @@ public abstract class ContainerInventory extends ContainerEB
 
 			if (stuff != null)
 			{
+				if (s >= stuff.start && s < stuff.end)
+				{
+					System.out.println("This might be causing doubling!");
+					System.out.println(s + ", " + stuff.start + ", " + stuff.end + ", " + stuff.reverse);
+				}
 				if (!mergeItemStack(itemstack1, stuff.start, stuff.end, stuff.reverse)) return null;
 			}
 
@@ -69,6 +74,11 @@ public abstract class ContainerInventory extends ContainerEB
 	{
 		public int start, end;
 		public boolean reverse;
+
+		public TransferResult(int slot)
+		{
+			this(slot, slot + 1);
+		}
 
 		public TransferResult(int start, int end)
 		{

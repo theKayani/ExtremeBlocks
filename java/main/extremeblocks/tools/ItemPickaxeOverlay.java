@@ -72,7 +72,7 @@ public class ItemPickaxeOverlay extends ItemPickaxe
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		list.add(EnumChatFormatting.GRAY + "" + (stack.getMaxDamage() - stack.getItemDamage()) + "/" + stack.getMaxDamage() + EnumChatFormatting.RESET);
+		list.add(EnumChatFormatting.GRAY + "" + (stack.getMaxDamage() - stack.getItemDamage()) + "/" + stack.getMaxDamage() + " Durability" + EnumChatFormatting.RESET);
 
 		super.addInformation(stack, player, list, flag);
 	}

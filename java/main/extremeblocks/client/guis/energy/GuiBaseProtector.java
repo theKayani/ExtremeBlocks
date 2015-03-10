@@ -37,6 +37,6 @@ public class GuiBaseProtector extends GuiRFHolder
 	protected void drawGuiContainerBackgroundLayer(float eye, int dont, int know)
 	{
 		super.drawGuiContainerBackgroundLayer(eye, dont, know);
-		renderPowerAt();
+		renderPowerBar();
 	}
 }

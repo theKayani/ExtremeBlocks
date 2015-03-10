@@ -19,11 +19,16 @@ public abstract class BlockGui extends BlockCustom implements ITileEntityProvide
 {
 	public BlockGui(String name)
 	{
-		super(Material.iron, name);
+		this(name, Material.iron);
+	}
+
+	public BlockGui(String name, Material material)
+	{
+		super(material, name);
 		setHardness(5.0F);
 		setCreativeTab(Init.tab_mainBlocks);
 		setHarvestLevel("pickaxe", 0);
-		teClass = getTileClass();
+		tileClass = getTileClass();
 	}
 
 	@Override
@@ -38,24 +43,11 @@ public abstract class BlockGui extends BlockCustom implements ITileEntityProvide
 		return false;
 	}
 
+	@Override
 	public abstract Class<? extends TileEntityInventory> getTileClass();
 
 	@SideOnly(Side.CLIENT)
-	public abstract GuiContainer getGui(InventoryPlayer inventory, TileEntity tile);
+	public abstract GuiContainer getGui(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile);
 
-	public abstract Container getContainer(InventoryPlayer inventory, TileEntity tile);
-
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
-		try
-		{
-			return getTileClass().newInstance();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
+	public abstract Container getContainer(InventoryPlayer inventory, World world, int x, int y, int z, TileEntity tile);
 }

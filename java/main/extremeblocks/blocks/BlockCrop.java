@@ -3,6 +3,8 @@ package main.extremeblocks.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 import main.com.hk.eb.util.IInfo;
+import main.com.hk.eb.util.IInitialization;
+import main.com.hk.eb.util.RegistryHelper;
 import main.extremeblocks.ExtremeBlocks;
 import main.extremeblocks.Init;
 import net.minecraft.block.Block;
@@ -23,7 +25,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCrop extends BlockBush implements IGrowable, IInfo
+public class BlockCrop extends BlockBush implements IGrowable, IInfo, IInitialization
 {
 	public final Item seeds, drop;
 	public final IIcon[] cropIcons = new IIcon[8];
@@ -303,5 +305,17 @@ public class BlockCrop extends BlockBush implements IGrowable, IInfo
 	public Elements getElements()
 	{
 		return new Elements(false, false);
+	}
+
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+	}
+
+	@Override
+	public void postInit()
+	{
+
 	}
 }

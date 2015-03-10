@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCustom extends Item implements IInfo
+public class ItemCustom extends Item implements IInfo, IInitialization
 {
 	private String info;
 	private boolean showRecipe;
@@ -96,7 +96,7 @@ public class ItemCustom extends Item implements IInfo
 	@Override
 	public String getInfo()
 	{
-		return info;
+		return info == null ? "" : info;
 	}
 
 	@Override
@@ -107,4 +107,16 @@ public class ItemCustom extends Item implements IInfo
 
 	private static Map<String, IIcon> icons = JavaHelp.newHashMap();
 	private static List<String> iconPaths = JavaHelp.newArrayList();
+
+	@Override
+	public void init()
+	{
+		RegistryHelper.register(this);
+	}
+
+	@Override
+	public void postInit()
+	{
+
+	}
 }
